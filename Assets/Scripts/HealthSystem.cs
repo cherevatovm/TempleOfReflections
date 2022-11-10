@@ -9,8 +9,10 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Canvas deathScreenCanvas;
     [SerializeField] float restartDelay = 2f;
-    public float currentHealth;
-    public float maxHealth;
+    public float currentHP;
+    public float maxHP;
+    public float currentMP;
+    public float maxMP;
 
     void Start()
     {
@@ -19,16 +21,24 @@ public class HealthSystem : MonoBehaviour
 
     void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        deathScreenCanvas.gameObject.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);        
     }
 
-    public bool IsAlive() => currentHealth > 0;
+    public bool IsAlive() => currentHP > 0;
 
+    public bool DoesHaveMP() => currentMP > 0;
+    
     public void Death()
     {
         Debug.Log("Game over");
         rb.bodyType = RigidbodyType2D.Static;
         deathScreenCanvas.gameObject.SetActive(true);
         Invoke(nameof(Restart), restartDelay);
+    }
+
+    public void OutOfMP()
+    {
+        throw new System.NotImplementedException();
     }
 }

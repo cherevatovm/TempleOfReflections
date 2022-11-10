@@ -18,9 +18,9 @@ public class HealthController : MonoBehaviour
 
     void ChangeCurrentHealth()
     {
-        healthSystem.currentHealth += healthImpact;
-        if (healthSystem.currentHealth > healthSystem.maxHealth)
-            healthSystem.currentHealth = healthSystem.maxHealth;
+        healthSystem.currentHP += healthImpact;
+        if (healthSystem.currentHP > healthSystem.maxHP)
+            healthSystem.currentHP = healthSystem.maxHP;
         if (!healthSystem.IsAlive())
             healthSystem.Death();
     }
