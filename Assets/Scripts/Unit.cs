@@ -11,7 +11,8 @@ public class Unit : MonoBehaviour
     [SerializeField] float restartDelay = 1.5f;
     
     public string unitName;    
-    public int attackStrength;
+    public int meleeAttackStrength;
+    public int mentalAttackStrength;
     public float armorModifier = 1;
     public int currentHP;
     public int maxHP;
@@ -25,8 +26,11 @@ public class Unit : MonoBehaviour
     public bool[] weaknesses;
     public bool[] resistances;
     public bool[] nulls;
+    public float[] damageTypeAffinities;
 
     public void TakeDamage(int damage) => currentHP -= damage;
+
+    public void ReduceCurrentMP(int MPcost) => currentMP -= MPcost;
 
     public bool IsDead() => currentHP <= 0;
 

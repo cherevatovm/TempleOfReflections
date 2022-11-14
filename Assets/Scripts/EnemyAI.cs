@@ -13,8 +13,8 @@ public class EnemyAI : MonoBehaviour
 
     public void CombatAI()
     {
-        int totalDamage = combatSystem.CalcAffinityDamage(0, combatSystem.enemyUnit, combatSystem.playerUnit);
+        int totalDamage = combatSystem.CalcAffinityDamage(0, false, combatSystem.enemyUnit, combatSystem.playerUnit);
         combatSystem.playerUnit.TakeDamage(totalDamage);
-        combatSystem.combatDialogue.text = "Враг наносит " + totalDamage + " урона";
+        combatSystem.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " физического урона";
     }
 }

@@ -165,7 +165,8 @@ MonoBehaviour:
   unitCanvas: {fileID: 0}
   restartDelay: 1.5
   unitName: PlayerCombat
-  attackStrength: 10
+  meleeAttackStrength: 0
+  mentalAttackStrength: 10
   armorModifier: 1
   currentHP: 100
   maxHP: 100
@@ -177,3 +178,7 @@ MonoBehaviour:
   weaknesses: 000000
   resistances: 000000
   nulls: 000000
+  damageTypeAffinities:
+  - 0
+  - 1.2
+  - 0
