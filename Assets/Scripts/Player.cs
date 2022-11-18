@@ -9,11 +9,12 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rigidBody;
     Vector2 movement;
+    public static Player instance;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        instance = this;
     }
 
     // Update is called once per frame
