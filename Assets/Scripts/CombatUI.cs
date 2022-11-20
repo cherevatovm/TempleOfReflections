@@ -11,6 +11,9 @@ public class CombatUI : MonoBehaviour
     public GameObject[] buttonPrefabs;
     List<Button> mentalSkillButtonList = new List<Button>();
 
+    public Unit atackingUnit;
+    public Unit defendingUnit;
+
     public void SetMentalSkillButtons()
     {
         for (int i = 0; i < buttonPrefabs.Length; i++)
@@ -21,12 +24,19 @@ public class CombatUI : MonoBehaviour
                 case "Psiona Button(Clone)":
                     mentalSkillButtonList[i].onClick.AddListener(delegate { GameObject.Find("Combat System").GetComponent<CombatSystem>().OnPsionaButton(); });
                     break;
+                case "Electro Button(Clone)":
+                    mentalSkillButtonList[i].onClick.AddListener(delegate { GameObject.Find("Combat System").GetComponent<CombatSystem>().OnElectroButton(); });
+                    break;
+                case "Fire Button(Clone)":
+                    mentalSkillButtonList[i].onClick.AddListener(delegate { GameObject.Find("Combat System").GetComponent<CombatSystem>().OnFireButton(); });
+                    break;
             }
         }
     }
 
     public void HideOrShowMentalSkillButtons()
     {
+        SetMentalSkillButtons();
         if (mentalSkillButtonList[0].gameObject.activeSelf)
             foreach (var button in mentalSkillButtonList)
                 button.gameObject.SetActive(false);

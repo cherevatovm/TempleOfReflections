@@ -175,10 +175,13 @@ MonoBehaviour:
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
-  weaknesses: 000000
-  resistances: 000000
-  nulls: 000000
+  weaknesses: 00000000
+  resistances: 00000000
+  nulls: 00000000
   damageTypeAffinities:
   - 0
   - 1.2
   - 0
+  - 0
+  effectTurnsCount: 0
+  cb: {fileID: 0}

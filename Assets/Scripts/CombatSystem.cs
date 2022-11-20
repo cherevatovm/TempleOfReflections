@@ -73,7 +73,7 @@ public class CombatSystem : MonoBehaviour
 
     //-----------------------------(Действия игрока)-------------------------------------------------
 
-    IEnumerator PlayerTurn()
+    public IEnumerator PlayerTurn()
     {
         if (playerUnit.armorModifier != initArmorModifier)
             playerUnit.armorModifier = initArmorModifier;
@@ -159,9 +159,67 @@ public class CombatSystem : MonoBehaviour
             StartCoroutine(EnemyTurn());
     }
 
-//-----------------------------(Действия врага)-------------------------------------------------
+    IEnumerator PlayerElectroSkill()
+    {
+        int totalDamage = CalcAffinityDamage(2, true, playerUnit, enemyUnit);
+        enemyUnit.TakeDamage(totalDamage);
+        playerUnit.ReduceCurrentMP(mentalSkillsMPCost[1]);
+        combatState = CombatState.ENEMY_TURN;
+        yield return new WaitForSeconds(1f);
+        //enemyHUD.ChangeHP(enemyUnit.currentHP);
+        combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " электрического урона";
+        yield return new WaitForSeconds(1f);
+        if (enemyUnit.IsDead())
+        {
+            combatState = CombatState.WON;
+            combatUI.combatDialogue.text = "Игрок одержал победу!";
+            Invoke(nameof(FinishBattle), 2);
+        }
+        else if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
+        {
+            combatState = CombatState.PLAYER_TURN;
+            enemyUnit.knockedTurnsCount++;
+            yield return new WaitForSeconds(1f);
+            combatUI.combatDialogue.text = "Враг сбит с ног. Игроку предоставляется еще один ход!";
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(PlayerTurn());
+        }
+        else
+            StartCoroutine(EnemyTurn());
+    }
 
-    IEnumerator EnemyTurn()
+    IEnumerator PlayerFireSkill()
+    {
+        int totalDamage = CalcAffinityDamage(3, true, playerUnit, enemyUnit);
+        enemyUnit.TakeDamage(totalDamage);
+        playerUnit.ReduceCurrentMP(mentalSkillsMPCost[2]);
+        combatState = CombatState.ENEMY_TURN;
+        yield return new WaitForSeconds(1f);
+        //enemyHUD.ChangeHP(enemyUnit.currentHP);
+        combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " огненного урона";
+        yield return new WaitForSeconds(1f);
+        if (enemyUnit.IsDead())
+        {
+            combatState = CombatState.WON;
+            combatUI.combatDialogue.text = "Игрок одержал победу!";
+            Invoke(nameof(FinishBattle), 2);
+        }
+        else if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
+        {
+            combatState = CombatState.PLAYER_TURN;
+            enemyUnit.knockedTurnsCount++;
+            yield return new WaitForSeconds(1f);
+            combatUI.combatDialogue.text = "Враг сбит с ног. Игроку предоставляется еще один ход!";
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(PlayerTurn());
+        }
+        else
+            StartCoroutine(EnemyTurn());
+    }
+
+    //-----------------------------(Действия врага)-------------------------------------------------
+
+    public IEnumerator EnemyTurn()
     {
         if (enemyUnit.knockedDownTimeout > 0)
             enemyUnit.knockedDownTimeout--;
@@ -244,7 +302,37 @@ public class CombatSystem : MonoBehaviour
         }
     }
 
-//------------------------------------------------------------------------------------------------
+    public void OnElectroButton()
+    {
+        if (playerUnit.currentMP >= mentalSkillsMPCost[1])
+        {
+            combatUI.combatDialogue.text = "Игрок использует электро навык";
+            combatUI.HideOrShowMentalSkillButtons();
+            StartCoroutine(PlayerElectroSkill());
+        }
+        else
+        {
+            combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
+            combatUI.HideOrShowMentalSkillButtons();
+        }
+    }
+
+    public void OnFireButton()
+    {
+        if (playerUnit.currentMP >= mentalSkillsMPCost[1])
+        {
+            combatUI.combatDialogue.text = "Игрок использует Фира навык";
+            combatUI.HideOrShowMentalSkillButtons();
+            StartCoroutine(PlayerFireSkill());
+        }
+        else
+        {
+            combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
+            combatUI.HideOrShowMentalSkillButtons();
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------
 
     void FinishBattle()
     {

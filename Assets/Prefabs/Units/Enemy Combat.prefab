@@ -151,7 +151,8 @@ MonoBehaviour:
   unitCanvas: {fileID: 0}
   restartDelay: 1.5
   unitName: Enemy
-  attackStrength: 10
+  meleeAttackStrength: 0
+  mentalAttackStrength: 0
   armorModifier: 1
   currentHP: 50
   maxHP: 50
@@ -160,9 +161,16 @@ MonoBehaviour:
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
-  weaknesses: 010000
-  resistances: 000000
-  nulls: 000000
+  weaknesses: 01000000
+  resistances: 00000000
+  nulls: 00000000
+  damageTypeAffinities:
+  - 0
+  - 0
+  - 0
+  - 0
+  effectTurnsCount: 0
+  cb: {fileID: 0}
 --- !u!114 &-3658967559688643319
 MonoBehaviour:
   m_ObjectHideFlags: 0
