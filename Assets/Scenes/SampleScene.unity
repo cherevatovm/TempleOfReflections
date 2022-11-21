@@ -257,12 +257,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &78720509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,12 +399,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &96946761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,12 +609,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &250220640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,13 +786,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 335139699}
-  - component: {fileID: 335139698}
   - component: {fileID: 335139697}
   - component: {fileID: 335139696}
   - component: {fileID: 335139695}
   - component: {fileID: 335139694}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: sova
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -862,10 +861,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78eeb3c7ca56d564684faa9b7127c73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  description: 
-  ispar: 0
-  InObj: 0
+  itemName: sova
+  itemDescription: 
+  isParasite: 1
 --- !u!61 &335139696
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -900,21 +898,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335139693}
   m_CullTransparentMesh: 1
---- !u!114 &335139698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335139693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5995e657d08ad5049bf76d5c7eb62802, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: sova
-  description: "\u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u0430"
-  isparasite: 0
 --- !u!224 &335139699
 RectTransform:
   m_ObjectHideFlags: 0
@@ -923,7 +906,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335139693}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 95.33032}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5125, y: 0.42249995, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -932,7 +915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.38, y: 1.84}
+  m_AnchoredPosition: {x: -5.46, y: 0.94}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &337831805
@@ -1424,10 +1407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c762264f06700894783a8d2e5cd5d35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ParentSlotforSubject: {fileID: 1711265211}
-  ParentSlotforParasite: {fileID: 1893385275}
-  inventorySlotsforSubject: []
-  inventorySlotsforParasite: []
+  parentSlotForItems: {fileID: 1711265211}
+  parentSlotForParasites: {fileID: 1893385275}
 --- !u!1 &489776936
 GameObject:
   m_ObjectHideFlags: 0
@@ -2126,12 +2107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &736055490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2299,13 +2280,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 825643867}
-  - component: {fileID: 825643866}
   - component: {fileID: 825643865}
   - component: {fileID: 825643863}
   - component: {fileID: 825643862}
   - component: {fileID: 825643868}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: nesova
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2323,10 +2303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78eeb3c7ca56d564684faa9b7127c73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  description: 
-  ispar: 0
-  InObj: 0
+  itemName: nesova
+  itemDescription: 
+  isParasite: 0
 --- !u!61 &825643863
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2361,21 +2340,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825643861}
   m_CullTransparentMesh: 1
---- !u!114 &825643866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825643861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5995e657d08ad5049bf76d5c7eb62802, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: nesova
-  description: "\u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u0430"
-  isparasite: 0
 --- !u!224 &825643867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2654,12 +2618,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &976187101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2751,13 +2715,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1006215411}
-  - component: {fileID: 1006215410}
   - component: {fileID: 1006215409}
   - component: {fileID: 1006215408}
   - component: {fileID: 1006215407}
   - component: {fileID: 1006215406}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: sova
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2827,10 +2790,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78eeb3c7ca56d564684faa9b7127c73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  description: 
-  ispar: 0
-  InObj: 0
+  itemName: sova
+  itemDescription: 
+  isParasite: 1
 --- !u!61 &1006215408
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2865,21 +2827,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1006215405}
   m_CullTransparentMesh: 1
---- !u!114 &1006215410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1006215405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5995e657d08ad5049bf76d5c7eb62802, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: sova
-  description: "\u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u0430"
-  isparasite: 0
 --- !u!224 &1006215411
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2897,7 +2844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.74, y: 3.42}
+  m_AnchoredPosition: {x: -5.56, y: 2.52}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1069006262
@@ -3338,12 +3285,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &1183560293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3480,12 +3427,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &1306330912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3605,7 +3552,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3306134, y: 0.09374802}
   m_AnchorMax: {x: 0.66238743, y: 0.28800002}
-  m_AnchoredPosition: {x: 0, y: -1}
+  m_AnchoredPosition: {x: 0, y: -0.9999924}
   m_SizeDelta: {x: 1.4899902, y: -0.22000027}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1335189889
@@ -3744,12 +3691,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &1376269785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4270,12 +4217,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &1510522974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4492,12 +4439,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &1551830048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4669,13 +4616,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666586024}
-  - component: {fileID: 1666586023}
   - component: {fileID: 1666586022}
   - component: {fileID: 1666586021}
   - component: {fileID: 1666586020}
   - component: {fileID: 1666586019}
   m_Layer: 0
-  m_Name: GameObject (3)
+  m_Name: branch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4745,10 +4691,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78eeb3c7ca56d564684faa9b7127c73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  description: 
-  ispar: 0
-  InObj: 0
+  itemName: branch
+  itemDescription: 
+  isParasite: 0
 --- !u!61 &1666586021
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4783,21 +4728,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1666586018}
   m_CullTransparentMesh: 1
---- !u!114 &1666586023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1666586018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5995e657d08ad5049bf76d5c7eb62802, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: parasite
-  description: "\u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u0430"
-  isparasite: 1
 --- !u!224 &1666586024
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5028,12 +4958,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &1703321131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6142,12 +6072,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &1887732392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6393,12 +6323,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &1904801423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6535,12 +6465,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &1945677129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6757,12 +6687,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &1975722706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7139,12 +7069,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1024d82323243514ca2edb58ac8cec0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 0}
-  Name: 
-  Description: 
-  button: {fileID: 0}
-  Text: {fileID: 0}
-  count: 0
+  previewImage: {fileID: 0}
+  slotItemName: 
+  slotItemDescription: 
+  stackCountText: {fileID: 0}
+  stackCount: 0
+  isEmpty: 1
 --- !u!114 &2016760516
 MonoBehaviour:
   m_ObjectHideFlags: 0

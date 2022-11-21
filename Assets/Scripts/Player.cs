@@ -11,13 +11,11 @@ public class Player : MonoBehaviour
     Vector2 movement;
     public static Player instance;
 
-    // Start is called before the first frame update
     void Start()
     {
         instance = this;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && !shiftKeyWasPressed)

@@ -1,86 +1,110 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public Transform ParentSlotforSubject;
-    public Transform ParentSlotforParasite;
+    [SerializeField] Transform parentSlotForItems;
+    [SerializeField] Transform parentSlotForParasites;
+    
+    List<InventorySlot> inventorySlotsForItems = new();
+    List<InventorySlot> inventorySlotsForParasites = new();
+    
     public static Inventory instance;
-    public List<InventorySlots> inventorySlotsforSubject = new List<InventorySlots>();
-    public List<InventorySlots> inventorySlotsforParasite = new List<InventorySlots>();
-    bool IsOpened;
+    bool isOpened;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         instance = this;
-        for (int i = 0; i < 8; i++)
-        {
-            inventorySlotsforSubject.Add(ParentSlotforSubject.GetChild(i).GetComponent<InventorySlots>());
-            inventorySlotsforParasite.Add(ParentSlotforParasite.GetChild(i).GetComponent<InventorySlots>());
-
-        }
+        for (int i = 0; i < parentSlotForItems.childCount; i++)
+            inventorySlotsForItems.Add(parentSlotForItems.GetChild(i).GetComponent<InventorySlot>());
+        for (int i = 0; i < parentSlotForParasites.childCount;i++)
+            inventorySlotsForParasites.Add(parentSlotForParasites.GetChild(i).GetComponent<InventorySlot>());
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (IsOpened)
-            {
+            if (isOpened)
                 instance.Close();
-            }
             else
-            {
                 instance.Open();
-            }
-        }
     }
 
-    public void Open()
+    void Open()
     {
         gameObject.transform.localScale = Vector3.one;
-        IsOpened = true;
+        isOpened = true;
     }
 
-    public void Close()
+    void Close()
     {
         gameObject.transform.localScale = Vector3.zero;
         ItemInfo.instance.Close();
-        IsOpened = false;
+        isOpened = false;
     }
 
-    public void PutInEmptySlot(Sprite sprite, string name, bool ispar, string description, GameObject obj)
+    bool IsFull(bool isParasite)
     {
-        for (int i = 0; i < 8; i++)
+        if (isParasite)
         {
-            if (name == inventorySlotsforSubject[i].Name || name == inventorySlotsforParasite[i].Name)
+            for (int i = inventorySlotsForParasites.Count - 1; i > -1; i--)
+                if (inventorySlotsForParasites[i].isEmpty)
+                    return false;
+        }
+        else
+        {
+            for (int i = inventorySlotsForItems.Count - 1; i > -1; i--)
+                if (inventorySlotsForItems[i].isEmpty)
+                    return false;
+        }
+        return true;
+    }
+
+    public void PutInInventory(PickableItem item, GameObject obj)
+    {
+        Debug.Log(obj.name);
+        if (item.isParasite)
+        {
+            if (IsFull(true))
             {
-                if (ispar)
-                    inventorySlotsforParasite[i].count += 1;
-                else
-                    inventorySlotsforSubject[i].count += 1;
-                break;
+                Debug.Log("Inventory is full");
+                return;
             }
-            else
+            for (int i = 0; i < inventorySlotsForParasites.Count; i++)
             {
-                if (ispar)
+                if (!inventorySlotsForParasites[i].isEmpty && item.itemName.Equals(inventorySlotsForParasites[i].slotItemName))
                 {
-                    if (inventorySlotsforParasite[i].img.sprite == null)
-                    {
-                        inventorySlotsforParasite[i].PutInSlot(sprite, name, description, obj);
-                        break;
-                    }
+                    inventorySlotsForParasites[i].stackCount++;
+                    break;
                 }
-                else 
+                else if (inventorySlotsForParasites[i].isEmpty)
                 {
-                    if (inventorySlotsforSubject[i].img.sprite == null)
-                    {
-                        inventorySlotsforSubject[i].PutInSlot(sprite, name, description, obj);
-                        break;
-                    }
+                    inventorySlotsForParasites[i].PutInSlot(item, obj);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            if (IsFull(false))
+            {
+                Debug.Log("Inventory is full");
+                return;
+            }
+            for (int i = 0; i < inventorySlotsForItems.Count; i++)
+            {
+                if (!inventorySlotsForItems[i].isEmpty && item.itemName.Equals(inventorySlotsForItems[i].slotItemName))
+                {
+                    inventorySlotsForItems[i].stackCount++;
+                    break;
+                }
+                else if (inventorySlotsForItems[i].isEmpty)
+                {
+                    inventorySlotsForItems[i].PutInSlot(item, obj);
+                    break;
                 }
             }
         }
