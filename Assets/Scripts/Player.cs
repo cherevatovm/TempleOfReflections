@@ -6,9 +6,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     bool shiftKeyWasPressed;
-    [SerializeField] float moveSpeed = 5f;
-    [SerializeField] Rigidbody2D rigidBody;
+    public float moveSpeed = 5f;
+    public Rigidbody2D rigidBody;
     Vector2 movement;
+    public static Player instance;
+
+    void Start()
+    {
+        instance = this;
+    }
 
     void Update()
     {
