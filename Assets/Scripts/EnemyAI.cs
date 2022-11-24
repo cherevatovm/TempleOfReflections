@@ -4,17 +4,10 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    CombatSystem combatSystem;
-
-    void Start()
-    {
-        combatSystem = GameObject.Find("Combat System").GetComponent<CombatSystem>();
-    }
-
     public void CombatAI()
     {
-        int totalDamage = combatSystem.CalcAffinityDamage(0, false, combatSystem.enemyUnit, combatSystem.playerUnit);
-        combatSystem.playerUnit.TakeDamage(totalDamage);
-        combatSystem.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " физического урона";
+        int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
+        CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
+        CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " физического урона";
     }
 }

@@ -164,8 +164,8 @@ MonoBehaviour:
   rb: {fileID: 4175498438214107577}
   unitCanvas: {fileID: 0}
   restartDelay: 1.5
-  unitName: PlayerCombat
-  meleeAttackStrength: 0
+  unitName: Player
+  meleeAttackStrength: 10
   mentalAttackStrength: 10
   armorModifier: 1
   currentHP: 100
@@ -175,6 +175,8 @@ MonoBehaviour:
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
+  appliedEffect: 000000
+  underEffectTurnsCount: 0
   weaknesses: 00000000
   resistances: 00000000
   nulls: 00000000
@@ -183,5 +185,3 @@ MonoBehaviour:
   - 1.2
   - 0
   - 0
-  effectTurnsCount: 0
-  cb: {fileID: 0}

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3658967559688643319}
   m_Layer: 0
   m_Name: Enemy Combat
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,8 +151,8 @@ MonoBehaviour:
   unitCanvas: {fileID: 0}
   restartDelay: 1.5
   unitName: Enemy
-  meleeAttackStrength: 0
-  mentalAttackStrength: 0
+  meleeAttackStrength: 10
+  mentalAttackStrength: 10
   armorModifier: 1
   currentHP: 50
   maxHP: 50
@@ -161,6 +161,8 @@ MonoBehaviour:
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
+  appliedEffect: 000000
+  underEffectTurnsCount: 0
   weaknesses: 01000000
   resistances: 00000000
   nulls: 00000000
@@ -169,8 +171,6 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  effectTurnsCount: 0
-  cb: {fileID: 0}
 --- !u!114 &-3658967559688643319
 MonoBehaviour:
   m_ObjectHideFlags: 0
