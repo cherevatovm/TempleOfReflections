@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rigidBody;
     Vector2 movement;
-    public static Player instance;
+    public static PlayerMovement instance;
 
     void Start()
     {

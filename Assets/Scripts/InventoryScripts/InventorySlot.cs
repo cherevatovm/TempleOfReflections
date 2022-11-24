@@ -44,7 +44,7 @@ public class InventorySlot : MonoBehaviour
 
     public void DropOutOfSlot()
     {        
-        var vector = new Vector3(Player.instance.transform.position.x + 1.5f, Player.instance.transform.position.y, Player.instance.transform.position.z);
+        var vector = new Vector3(PlayerMovement.instance.transform.position.x + 1.5f, PlayerMovement.instance.transform.position.y, PlayerMovement.instance.transform.position.z);
         ItemInfo.instance.Close();
         if (stackCount != 1)
         {
