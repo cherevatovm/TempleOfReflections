@@ -8,8 +8,7 @@ public class PickableItem : MonoBehaviour
     [Header("Описание предмета")]
     public string itemName;
     public string itemDescription;
-    public bool isParasite;
-    
+    public bool isParasite; 
     bool isCloseToItem;
 
 

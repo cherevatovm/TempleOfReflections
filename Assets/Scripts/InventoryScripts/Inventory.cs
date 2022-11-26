@@ -10,10 +10,11 @@ public class Inventory : MonoBehaviour
     
     List<InventorySlot> inventorySlotsForItems = new();
     List<InventorySlot> inventorySlotsForParasites = new();
-    
+
+    [SerializeField] Unit playerUnit;
+
     public static Inventory instance;
     bool isOpened;
-
 
     void Start()
     {
@@ -46,6 +47,30 @@ public class Inventory : MonoBehaviour
         isOpened = false;
     }
 
+    public bool IsElectraParInInventory()
+    {
+        foreach (var parInventorySlot in inventorySlotsForParasites)
+        {
+            if (parInventorySlot.slotObject == null)
+                break;
+            if (parInventorySlot.slotObject.GetComponent<Parasite>().availableDamageTypes[0])
+                return true;
+        }
+        return false;
+    }
+
+    public bool IsFiraParInInventory()
+    {
+        foreach (var parInventorySlot in inventorySlotsForParasites)
+        {
+            if (parInventorySlot.slotObject == null)
+                break;
+            if (parInventorySlot.slotObject.GetComponent<Parasite>().availableDamageTypes[1])
+                return true;
+        }
+        return false;
+    }
+
     bool IsFull(bool isParasite)
     {
         if (isParasite)
@@ -65,7 +90,6 @@ public class Inventory : MonoBehaviour
 
     public void PutInInventory(PickableItem item, GameObject obj)
     {
-        Debug.Log(obj.name);
         if (item.isParasite)
         {
             if (IsFull(true))
@@ -86,6 +110,7 @@ public class Inventory : MonoBehaviour
                     break;
                 }
             }
+
         }
         else
         {

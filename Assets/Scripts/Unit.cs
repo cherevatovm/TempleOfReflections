@@ -32,6 +32,18 @@ public class Unit : MonoBehaviour
     public bool[] nulls;
     public float[] damageTypeAffinities;
 
+    /*
+    void Update()
+    {
+        if (CompareTag("Player"))
+            foreach (var parInventorySlot in Inventory.instance.inventorySlotsForParasites)
+            {
+                if (parInventorySlot.slotObject == null)
+                    break;
+                parInventorySlot.slotObject.GetComponent<Parasite>().ApplyParasiteEffect(this);   
+            }
+    }
+    */
 
     public void TakeDamage(int damage) => currentHP -= damage;
 

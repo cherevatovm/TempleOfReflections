@@ -10,12 +10,11 @@ public class InventorySlot : MonoBehaviour
     public string slotItemDescription;
     public Text stackCountText;
     
-    GameObject slotObject;   
+    public GameObject slotObject;   
     Button clickableSlot;
            
     public int stackCount;
     public bool isEmpty = true;
-
 
     void Start()
     {
