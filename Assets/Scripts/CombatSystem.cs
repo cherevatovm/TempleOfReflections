@@ -16,7 +16,9 @@ public class CombatSystem : MonoBehaviour
 
     public Unit playerUnit;
     public Unit enemyUnit;
-    EnemyAI enemyAI;
+    //FireEnemyAI fireEnemyAI;
+    //ElectraEnemyAI electraEnemyAI;
+    BossEnemyAI bossEnemyAI;
 
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject enemyPrefab;
@@ -36,7 +38,7 @@ public class CombatSystem : MonoBehaviour
     public int[] mentalSkillsMPCost;
     float initArmorModifier = 1;
     public static CombatSystem instance;
-
+    
     void Start()
     {
         combatState = CombatState.START;
@@ -53,7 +55,11 @@ public class CombatSystem : MonoBehaviour
 
         GameObject enemyCombat = Instantiate(enemyPrefab, enemyCombatPosition);
         enemyUnit = enemyCombat.GetComponent<Unit>();
-        enemyAI = enemyCombat.GetComponent<EnemyAI>();
+
+        //fireEnemyAI = enemyCombat.GetComponent<FireEnemyAI>();
+        //electraEnemyAI = enemyCombat.GetComponent<ElectraEnemyAI>();
+        bossEnemyAI = enemyCombat.GetComponent<BossEnemyAI>();
+
         enemyUnit.knockedTurnsCount = 0;
         enemyUnit.knockedDownTimeout = 0;
 
@@ -254,8 +260,10 @@ public class CombatSystem : MonoBehaviour
         //enemyHUD.ChangeMP(enemyUnit.currentMP);
         if (enemyUnit.appliedEffect[1])
         {
+            //StopCoroutine(EnemyTurn());
             combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
+            yield break;
         }
         if (enemyUnit.IsDead())
         {
@@ -277,9 +285,11 @@ public class CombatSystem : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
         }
         yield return new WaitForSeconds(1f);
-        enemyAI.CombatAI();
+        //fireEnemyAI.CombatAI();
+        //electraEnemyAI.CombatAI();
+        bossEnemyAI.CombatAI();
+
         //playerHUD.ChangeHP(playerUnit.currentHP);
-        yield return new WaitForSeconds(1.5f);
         if (playerUnit.IsDead())
         {
             combatState = CombatState.LOST;
@@ -295,6 +305,7 @@ public class CombatSystem : MonoBehaviour
         }
         else
         {
+            yield return new WaitForSeconds(2f);
             combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
         }
