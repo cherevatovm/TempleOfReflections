@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public enum CombatState { START, PLAYER_TURN, ENEMY_TURN, WON, LOST }
 
@@ -16,9 +17,7 @@ public class CombatSystem : MonoBehaviour
 
     public Unit playerUnit;
     public Unit enemyUnit;
-    //FireEnemyAI fireEnemyAI;
-    //ElectraEnemyAI electraEnemyAI;
-    BossEnemyAI bossEnemyAI;
+    EnemyAI enemyAI;
 
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject enemyPrefab;
@@ -55,11 +54,7 @@ public class CombatSystem : MonoBehaviour
 
         GameObject enemyCombat = Instantiate(enemyPrefab, enemyCombatPosition);
         enemyUnit = enemyCombat.GetComponent<Unit>();
-
-        //fireEnemyAI = enemyCombat.GetComponent<FireEnemyAI>();
-        //electraEnemyAI = enemyCombat.GetComponent<ElectraEnemyAI>();
-        bossEnemyAI = enemyCombat.GetComponent<BossEnemyAI>();
-
+        enemyAI = enemyCombat.GetComponent<EnemyAI>();
         enemyUnit.knockedTurnsCount = 0;
         enemyUnit.knockedDownTimeout = 0;
 
@@ -93,7 +88,7 @@ public class CombatSystem : MonoBehaviour
             playerUnit.knockedDownTimeout = 3;
             yield return new WaitForSeconds(1f);
             combatUI.combatDialogue.text = "Игрок встал на ноги. Так продолжайте же сражаться!";
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1f);
         }
         playerUnit.UnitEffectUpdate();
         //playerHUD.ChangeHP(playerUnit.currentHP);
@@ -151,7 +146,7 @@ public class CombatSystem : MonoBehaviour
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
         combatUI.combatDialogue.text = "Игрок успешно перешел в защиту";
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         StartCoroutine(EnemyTurn());
     }
 
@@ -260,8 +255,8 @@ public class CombatSystem : MonoBehaviour
         //enemyHUD.ChangeMP(enemyUnit.currentMP);
         if (enemyUnit.appliedEffect[1])
         {
-            //StopCoroutine(EnemyTurn());
             combatState = CombatState.PLAYER_TURN;
+            yield return new WaitForSeconds(1f);
             StartCoroutine(PlayerTurn());
             yield break;
         }
@@ -285,14 +280,17 @@ public class CombatSystem : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
         }
         yield return new WaitForSeconds(1f);
-        //fireEnemyAI.CombatAI();
-        //electraEnemyAI.CombatAI();
-        bossEnemyAI.CombatAI();
-
+        enemyAI.CombatAI(out string effectMessage);
+        if (!string.IsNullOrEmpty(effectMessage))
+        {
+            yield return new WaitForSeconds(1f);
+            combatUI.combatDialogue.text = effectMessage;
+        }
         //playerHUD.ChangeHP(playerUnit.currentHP);
         if (playerUnit.IsDead())
         {
             combatState = CombatState.LOST;
+            yield return new WaitForSeconds(1f);
             FinishBattle();
         }
         else if (playerUnit.isKnockedDown && playerUnit.knockedTurnsCount == 0)
@@ -305,7 +303,7 @@ public class CombatSystem : MonoBehaviour
         }
         else
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.5f);
             combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
         }

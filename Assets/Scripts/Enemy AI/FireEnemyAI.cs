@@ -6,27 +6,25 @@ public class FireEnemyAI : EnemyAI
 {
     System.Random random = new System.Random();
 
-    public override void CombatAI()
+    public override void CombatAI(out string effectMessage)
     {
+        effectMessage = string.Empty;
         if (CombatSystem.instance.enemyUnit.currentHP <= (int)(0.33 * CombatSystem.instance.enemyUnit.maxHP))
             StartCoroutine(BerserkMode());
-
         else
         {
             int attackProbability = random.Next(1, 101);
-
             if (attackProbability <= 75)
             {
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
                 CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
                 CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " физического урона";
             }
-
             else if (attackProbability > 75)
             {
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
                 CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
-                CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " огненного урона";
+                effectMessage = "Враг наносит " + totalDamage + " огненного урона";
                 CombatSystem.instance.playerUnit.FiraEffect();
             }
         }
@@ -43,16 +41,15 @@ public class FireEnemyAI : EnemyAI
             int totalDamage = (int)(1.15 * CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit));
             CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
             CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " физического урона";
-            yield return new WaitForSeconds(1.3f);
+            yield return new WaitForSeconds(1.5f);
         }
-
         else
         {
             int totalDamage = (int)(1.15 * CombatSystem.instance.CalcAffinityDamage(3, true, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit));
             CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
-            CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " огненного урона";
             CombatSystem.instance.playerUnit.FiraEffect();
-            yield return new WaitForSeconds(1.3f);
+            yield return new WaitForSeconds(1.5f);
+            CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " огненного урона";
         }
 
     }

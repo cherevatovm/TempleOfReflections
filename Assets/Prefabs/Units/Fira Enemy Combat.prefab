@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 777443953741211765}
   - component: {fileID: 7280136942455806491}
   m_Layer: 0
-  m_Name: Fire Enemy Combat
+  m_Name: Fira Enemy Combat
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,14 +163,14 @@ MonoBehaviour:
   knockedDownTimeout: 0
   appliedEffect: 000000
   underEffectTurnsCount: 0
-  weaknesses: 01000000
-  resistances: 00000000
+  weaknesses: 00000100
+  resistances: 00000001
   nulls: 00000000
   damageTypeAffinities:
-  - 0
-  - 0
-  - 0
-  - 0
+  - 1
+  - 1
+  - 1
+  - 1.2
 --- !u!114 &7280136942455806491
 MonoBehaviour:
   m_ObjectHideFlags: 0

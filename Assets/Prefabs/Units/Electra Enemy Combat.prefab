@@ -163,14 +163,14 @@ MonoBehaviour:
   knockedDownTimeout: 0
   appliedEffect: 000000
   underEffectTurnsCount: 0
-  weaknesses: 01000000
-  resistances: 00000000
+  weaknesses: 00010000
+  resistances: 00000100
   nulls: 00000000
   damageTypeAffinities:
-  - 0
-  - 0
-  - 0
-  - 0
+  - 1
+  - 1
+  - 1.2
+  - 1
 --- !u!114 &-3658967559688643319
 MonoBehaviour:
   m_ObjectHideFlags: 0
