@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -9,43 +8,58 @@ public class Inventory : MonoBehaviour
     [SerializeField] Transform parentSlotForParasites;
     
     List<InventorySlot> inventorySlotsForItems = new();
-    List<InventorySlot> inventorySlotsForParasites = new();
+    public List<InventorySlot> inventorySlotsForParasites = new();
 
-    [SerializeField] Unit playerUnit;
+    public Unit attachedPlayerUnit;
 
     public static Inventory instance;
-    bool isOpened;
+    public bool isOpened;
 
     void Start()
     {
         instance = this;
         for (int i = 0; i < parentSlotForItems.childCount; i++)
             inventorySlotsForItems.Add(parentSlotForItems.GetChild(i).GetComponent<InventorySlot>());
-        for (int i = 0; i < parentSlotForParasites.childCount;i++)
+        for (int i = 0; i < parentSlotForParasites.childCount; i++)
             inventorySlotsForParasites.Add(parentSlotForParasites.GetChild(i).GetComponent<InventorySlot>());
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) && !CombatSystem.instance.isInCombat && !attachedPlayerUnit.IsDead())
             if (isOpened)
                 instance.Close();
             else
                 instance.Open();
     }
 
-    void Open()
+    public void Open()
     {
         gameObject.transform.localScale = Vector3.one;
         isOpened = true;
     }
 
-    void Close()
+    public void Close()
     {
         gameObject.transform.localScale = Vector3.zero;
         ItemInfo.instance.Close();
         isOpened = false;
     }
+
+    /*
+    public bool ContainsParasiteWithOppositeEffect(int negEffectIndex)
+    {
+        int count = 0;
+        foreach (var parInventorySlot in inventorySlotsForParasites)
+        {
+            if (parInventorySlot.slotObject == null)
+                break;
+            if (parInventorySlot.slotObject.GetComponent<Parasite>().posEffectIndex == negEffectIndex)
+                count++;
+        }
+        return count > 1;
+    }
+    */
 
     public bool IsElectraParInInventory()
     {
@@ -101,6 +115,7 @@ public class Inventory : MonoBehaviour
             {
                 if (!inventorySlotsForParasites[i].isEmpty && item.itemName.Equals(inventorySlotsForParasites[i].slotItemName))
                 {
+                    Destroy(obj);
                     inventorySlotsForParasites[i].stackCount++;
                     break;
                 }
@@ -110,7 +125,7 @@ public class Inventory : MonoBehaviour
                     break;
                 }
             }
-
+            obj.GetComponent<Parasite>().ApplyParasiteEffect();
         }
         else
         {

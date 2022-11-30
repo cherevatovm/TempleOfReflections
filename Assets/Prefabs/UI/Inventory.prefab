@@ -524,6 +524,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723368567970107
@@ -894,6 +895,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723368669736651
@@ -1036,6 +1038,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723368685046135
@@ -1178,6 +1181,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723368774297869
@@ -1400,6 +1404,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723368954038628
@@ -1550,7 +1555,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 18
+    m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -1897,6 +1902,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentSlotForItems: {fileID: 1996723369210245430}
   parentSlotForParasites: {fileID: 1996723369560137910}
+  inventorySlotsForParasites: []
+  attachedPlayerUnit: {fileID: 0}
+  isOpened: 0
 --- !u!1 &1996723369112904481
 GameObject:
   m_ObjectHideFlags: 0
@@ -2365,6 +2373,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369210245431
@@ -3106,6 +3115,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369477065293
@@ -3568,6 +3578,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369554486824
@@ -3710,6 +3721,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369560137911
@@ -3961,6 +3973,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369669704890
@@ -4259,6 +4272,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369719300145
@@ -4641,6 +4655,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369879118736
@@ -4783,6 +4798,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369907963378
@@ -5431,6 +5447,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723370174949520
@@ -5573,6 +5590,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723370267796694
@@ -5715,6 +5733,7 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723370270367234

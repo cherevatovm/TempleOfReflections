@@ -26,8 +26,6 @@ public class ItemInfo : MonoBehaviour
         var vector = new Vector3(pos.x + 5, pos.y + 2, pos.z);
         gameObject.transform.position = vector;
         this.slot = slot;
-        //if (this.slot.slotObject.GetComponent<PickableItem>().isParasite)
-            //button.gameObject.SetActive(false);
     }
 
     public void Close() => gameObject.transform.localScale = Vector3.zero;

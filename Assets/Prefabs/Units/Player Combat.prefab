@@ -164,7 +164,7 @@ MonoBehaviour:
   rb: {fileID: 4175498438214107577}
   unitCanvas: {fileID: 0}
   restartDelay: 1.5
-  unitName: Player
+  unitName: 'Player '
   meleeAttackStrength: 10
   mentalAttackStrength: 10
   armorModifier: 1
@@ -180,8 +180,8 @@ MonoBehaviour:
   weaknesses: 00000000
   resistances: 00000000
   nulls: 00000000
-  damageTypeAffinities:
+  elementAffinities:
   - 0
-  - 1.2
+  - 0
   - 0
   - 0

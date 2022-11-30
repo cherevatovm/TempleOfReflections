@@ -42,13 +42,21 @@ public class InventorySlot : MonoBehaviour
     }
 
     public void DropOutOfSlot()
-    {        
+    {
+        if (CombatSystem.instance.isInCombat)
+        {
+            CombatSystem.instance.combatUI.combatDialogue.text = "Вы не можете выбросить предмет во время боя";
+            return;
+        }
         var vector = new Vector3(PlayerMovement.instance.transform.position.x + 1.5f, PlayerMovement.instance.transform.position.y, PlayerMovement.instance.transform.position.z);
         ItemInfo.instance.Close();
         if (stackCount != 1)
         {
             slotObject.SetActive(true);
-            Instantiate(slotObject, vector, Quaternion.identity);
+            if (slotObject.GetComponent<PickableItem>().isParasite)
+                slotObject.GetComponent<Parasite>().DetachParasite();
+            else
+                Instantiate(slotObject, vector, Quaternion.identity);
             slotObject.SetActive(false);
             stackCount--;
             if (stackCount == 1)
@@ -60,6 +68,11 @@ public class InventorySlot : MonoBehaviour
         {
             slotObject.SetActive(true);
             slotObject.transform.position = vector;
+            if (slotObject.GetComponent<PickableItem>().isParasite)
+            {
+                slotObject.GetComponent<Parasite>().DetachParasite();
+                Destroy(slotObject);
+            }
             Clear();
         }
     }

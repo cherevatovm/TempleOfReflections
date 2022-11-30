@@ -13,6 +13,7 @@ public class CombatSystem : MonoBehaviour
     const float resistMult = 0.5f;
     const float knockedDownMult = 1.2f;
     public const float effectProbability = 0.2f;
+    public bool isInCombat;
 
     public Unit playerUnit;
     public Unit enemyUnit;
@@ -46,8 +47,10 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator SetupBattle()
     {
+        isInCombat = true;
         GameObject playerCombat = Instantiate(playerPrefab, playerCombatPosition);
         playerUnit = playerCombat.GetComponent<Unit>();
+        playerUnit.CopyStats(Inventory.instance.attachedPlayerUnit);
         playerUnit.knockedTurnsCount = 0;
         playerUnit.knockedDownTimeout = 0;
 
@@ -256,6 +259,7 @@ public class CombatSystem : MonoBehaviour
         {
             combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
+            yield break;
         }
         if (enemyUnit.IsDead())
         {
@@ -302,15 +306,24 @@ public class CombatSystem : MonoBehaviour
 
 //-----------------------------(Методы для кнопок)-------------------------------------------------
     
+    public void OnItemButton()
+    {
+        if (combatState != CombatState.PLAYER_TURN)
+            return;
+        if (Inventory.instance.isOpened)
+            Inventory.instance.Close();
+        else
+            Inventory.instance.Open();
+    }
+
     public void OnAttackButton()
     {
         if (combatState != CombatState.PLAYER_TURN)
             return;
-        if (combatUI.mSkillButtonsWereinstantiated && combatUI.buttonShowLock)
-        {
-            combatUI.buttonShowLock = false;
+        if (Inventory.instance.isOpened)
+            Inventory.instance.Close();
+        if (combatUI.mSkillButtonsWereinstantiated && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
-        }
         combatUI.combatDialogue.text = "Игрок начинает атаку";
         StartCoroutine(PlayerAttack());
     }
@@ -319,11 +332,10 @@ public class CombatSystem : MonoBehaviour
     {
         if (combatState != CombatState.PLAYER_TURN)
             return;
-        if (combatUI.mSkillButtonsWereinstantiated && combatUI.buttonShowLock)
-        {
-            combatUI.buttonShowLock = false;
+        if (Inventory.instance.isOpened)
+            Inventory.instance.Close();
+        if (combatUI.mSkillButtonsWereinstantiated && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
-        }
         combatUI.combatDialogue.text = "Игрок защищается";
         StartCoroutine(PlayerDefend());
     }
@@ -332,11 +344,12 @@ public class CombatSystem : MonoBehaviour
     {
         if (combatState != CombatState.PLAYER_TURN)
             return;
-        combatUI.buttonShowLock = true;
+        if (Inventory.instance.isOpened)
+            Inventory.instance.Close();
         if (combatUI.mSkillButtonsWereinstantiated)
             combatUI.HideOrShowMentalSkillButtons();
         else
-        {            
+        {
             combatUI.SetMentalSkillButtons();
             combatUI.mSkillButtonsWereinstantiated = true;
         }
@@ -348,14 +361,14 @@ public class CombatSystem : MonoBehaviour
         {
             combatUI.combatDialogue.text = "Игрок использует пси навык";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.buttonShowLock = false;
+            combatUI.areButtonsShown = false;
             StartCoroutine(PlayerPsionaSkill());
         }
         else
         {
             combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.buttonShowLock = false;
+            combatUI.areButtonsShown = false;
         }
     }
 
@@ -365,14 +378,14 @@ public class CombatSystem : MonoBehaviour
         {
             combatUI.combatDialogue.text = "Игрок использует электро навык";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.buttonShowLock = false;
+            combatUI.areButtonsShown = false;
             StartCoroutine(PlayerElectraSkill());
         }
         else
         {
             combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.buttonShowLock = false;
+            combatUI.areButtonsShown = false;
         }
     }
 
@@ -382,14 +395,14 @@ public class CombatSystem : MonoBehaviour
         {
             combatUI.combatDialogue.text = "Игрок использует огненный навык";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.buttonShowLock = false;
+            combatUI.areButtonsShown = false;
             StartCoroutine(PlayerFiraSkill());
         }
         else
         {
             combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.buttonShowLock = false;
+            combatUI.areButtonsShown = false;
         }
     }
 
@@ -399,7 +412,9 @@ public class CombatSystem : MonoBehaviour
     {
         StopAllCoroutines();
         if (combatState == CombatState.WON)
-        {           
+        {
+            Inventory.instance.attachedPlayerUnit.CopyStats(playerUnit);
+            isInCombat = false;
             mainCamera.enabled = true;
             combatCamera.enabled = false;
             combatUI.gameObject.SetActive(false);
@@ -419,7 +434,7 @@ public class CombatSystem : MonoBehaviour
             return 0;
         float attackStrength;
         if (isMental)
-            attackStrength = attackingUnit.mentalAttackStrength * attackingUnit.damageTypeAffinities[damageTypeID];
+            attackStrength = attackingUnit.mentalAttackStrength * attackingUnit.elementAffinities[damageTypeID];
         else
             attackStrength = attackingUnit.meleeAttackStrength;
         float totalDamage = attackStrength * defendingUnit.armorModifier;        
