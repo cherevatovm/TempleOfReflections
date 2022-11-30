@@ -33,7 +33,12 @@ public class Unit : MonoBehaviour
     public float[] damageTypeAffinities;
 
 
+    public void UseHpMixture(int percent) => currentHP += percent * maxHP / 100;
+
+    public void UseMpMixture(int percent) => currentMP += percent * maxMP / 100;
+
     public void TakeDamage(int damage) => currentHP -= damage;
+
 
     public void ReduceCurrentMP(int MPcost) => currentMP -= MPcost;
 

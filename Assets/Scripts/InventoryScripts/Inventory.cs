@@ -7,7 +7,8 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField] Transform parentSlotForItems;
     [SerializeField] Transform parentSlotForParasites;
-    
+    [SerializeField] Rigidbody2D rb;
+
     List<InventorySlot> inventorySlotsForItems = new();
     List<InventorySlot> inventorySlotsForParasites = new();
     
@@ -82,7 +83,7 @@ public class Inventory : MonoBehaviour
                 }
                 else if (inventorySlotsForParasites[i].isEmpty)
                 {
-                    inventorySlotsForParasites[i].PutInSlot(item, obj);
+                    inventorySlotsForParasites[i].PutInSlot(item, obj, rb);
                     break;
                 }
             }
@@ -103,7 +104,7 @@ public class Inventory : MonoBehaviour
                 }
                 else if (inventorySlotsForItems[i].isEmpty)
                 {
-                    inventorySlotsForItems[i].PutInSlot(item, obj);
+                    inventorySlotsForItems[i].PutInSlot(item, obj, rb);
                     break;
                 }
             }

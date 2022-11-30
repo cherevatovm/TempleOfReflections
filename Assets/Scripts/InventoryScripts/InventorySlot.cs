@@ -9,7 +9,11 @@ public class InventorySlot : MonoBehaviour
     public string slotItemName;
     public string slotItemDescription;
     public Text stackCountText;
-    
+    public PickableItem Item;
+    public Rigidbody2D Rb;
+    public Unit unit;
+
+
     GameObject slotObject;   
     Button clickableSlot;
            
@@ -33,8 +37,11 @@ public class InventorySlot : MonoBehaviour
             stackCountText.text = stackCount.ToString();
     }
 
-    public void PutInSlot(PickableItem item, GameObject obj)
+    public void PutInSlot(PickableItem item, GameObject obj, Rigidbody2D rb)
     {
+        Item = item;
+        Rb = rb;
+        unit = Rb.GetComponent<Unit>();
         isEmpty = false;
         previewImage.sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
         slotItemName = item.itemName;
@@ -64,16 +71,72 @@ public class InventorySlot : MonoBehaviour
             Clear();
         }
     }
-  
+
+    public void UseItem()
+    {
+        if (Item.GetType() == typeof(HpMixture))
+        {
+            if (unit.currentHP != unit.maxHP)
+            {
+                var Im = (HpMixture)Item;
+                if (unit.currentHP + Im.HP * unit.maxHP / 100 < unit.maxHP)
+                {
+                    unit.UseHpMixture(Im.HP);
+                }
+                else
+                    unit.currentHP = unit.maxHP;
+                if (stackCount != 1)
+                {
+                    stackCount--;
+                    if (stackCount == 1)
+                        stackCountText.text = "";
+                    else
+                        stackCountText.text = stackCount.ToString();
+                }
+                else
+                {
+                    Clear();
+                    ItemInfo.instance.Close();
+                }
+            }
+        }
+        if (Item.GetType() == typeof(MPMixture))
+        {
+            if (unit.currentMP != unit.maxMP)
+            {
+                var Im = (MPMixture)Item;
+                if (unit.currentHP + Im.MP * unit.maxHP / 100 < unit.maxHP)
+                {
+                    unit.UseMpMixture(Im.MP);
+                }
+                else
+                    unit.currentHP = unit.maxHP;
+                if (stackCount != 1)
+                {
+                    stackCount--;
+                    if (stackCount == 1)
+                        stackCountText.text = "";
+                    else
+                        stackCountText.text = stackCount.ToString();
+                }
+                else
+                {
+                    Clear();
+                    ItemInfo.instance.Close();
+                }
+            }
+        }
+    }
+
     public void SlotClicked() 
     {
         if (!isEmpty)
         { 
             var vector = new Vector3(gameObject.transform.position.x + 5, gameObject.transform.position.y + 2, gameObject.transform.position.z);
             if (ItemInfo.instance.transform.localScale == Vector3.zero)
-                ItemInfo.instance.Open(slotItemDescription, gameObject.transform.position, this);
+                ItemInfo.instance.Open(slotItemName, slotItemDescription, gameObject.transform.position, this);
             else if (ItemInfo.instance.transform.localScale == Vector3.one && ItemInfo.instance.transform.position != vector)
-                ItemInfo.instance.Open(slotItemDescription, gameObject.transform.position, this);
+                ItemInfo.instance.Open(slotItemName, slotItemDescription, gameObject.transform.position, this);
             else
                 ItemInfo.instance.Close();
         }
