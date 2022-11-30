@@ -35,6 +35,14 @@ public class Unit : MonoBehaviour
 
     public void TakeDamage(int damage) => currentHP -= damage;
 
+    public void Heal(int HP)
+    {
+        if (maxHP - currentHP > HP)
+            currentHP += HP;
+        else
+            currentHP = maxHP;
+    }
+
     public void ReduceCurrentMP(int MPcost) => currentMP -= MPcost;
 
     public void IncreaseCurrentMP(int MPcost) => currentMP += MPcost;
@@ -126,7 +134,7 @@ public class Unit : MonoBehaviour
             CombatSystem.instance.combatUI.combatDialogue.text = unitName + " оправляется от эффекта";
         }
     }
-
+   
     public void Death()
     {
         Debug.Log("Game over");

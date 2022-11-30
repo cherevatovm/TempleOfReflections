@@ -395,7 +395,7 @@ MonoBehaviour:
   playerUnit: {fileID: 0}
   enemyUnit: {fileID: 0}
   playerPrefab: {fileID: 1489905009835651852, guid: 588f729097ab24e4a813018e93695f96, type: 3}
-  enemyPrefab: {fileID: 196512860558776952, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+  enemyPrefab: {fileID: 8218781585777761111, guid: 1f29d72e799a37d47bf973c7d4f737b7, type: 3}
   playerCombatPosition: {fileID: 1027566400}
   enemyCombatPosition: {fileID: 1916666801}
   playerHUD: {fileID: 0}
@@ -1012,6 +1012,8 @@ MonoBehaviour:
   - {fileID: 4071184949458146153, guid: 900f22dc547d2b344bd35a32a478da13, type: 3}
   - {fileID: 3833179637913507161, guid: ff5d9c5b51396314c91069dc40703cc8, type: 3}
   - {fileID: 2246011507445775219, guid: 01ce19142f5dee748a180cfbc02ea5f0, type: 3}
+  buttonShowLock: 0
+  mSkillButtonsWereinstantiated: 0
 --- !u!1 &1698401361
 GameObject:
   m_ObjectHideFlags: 0
