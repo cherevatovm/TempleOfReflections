@@ -9,17 +9,13 @@ public class InventorySlot : MonoBehaviour
     public string slotItemName;
     public string slotItemDescription;
     public Text stackCountText;
-    public PickableItem Item;
-    public Rigidbody2D Rb;
-    public Unit unit;
-
+    public PickableItem slotItem;
 
     GameObject slotObject;   
     Button clickableSlot;
            
     public int stackCount;
     public bool isEmpty = true;
-
 
     void Start()
     {
@@ -37,12 +33,10 @@ public class InventorySlot : MonoBehaviour
             stackCountText.text = stackCount.ToString();
     }
 
-    public void PutInSlot(PickableItem item, GameObject obj, Rigidbody2D rb)
+    public void PutInSlot(PickableItem item, GameObject obj)
     {
-        Item = item;
-        Rb = rb;
-        unit = Rb.GetComponent<Unit>();
         isEmpty = false;
+        slotItem = item;
         previewImage.sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
         slotItemName = item.itemName;
         slotItemDescription = item.itemDescription;
@@ -50,13 +44,21 @@ public class InventorySlot : MonoBehaviour
     }
 
     public void DropOutOfSlot()
-    {        
+    {
+        if (CombatSystem.instance.isInCombat)
+        {
+            CombatSystem.instance.combatUI.combatDialogue.text = "Вы не можете выбросить предмет во время боя";
+            return;
+        }
         var vector = new Vector3(PlayerMovement.instance.transform.position.x + 1.5f, PlayerMovement.instance.transform.position.y, PlayerMovement.instance.transform.position.z);
         ItemInfo.instance.Close();
         if (stackCount != 1)
         {
             slotObject.SetActive(true);
-            Instantiate(slotObject, vector, Quaternion.identity);
+            //if (slotObject.GetComponent<PickableItem>().isParasite)
+                //slotObject.GetComponent<Parasite>().DetachParasite();
+            //else
+                Instantiate(slotObject, vector, Quaternion.identity);
             slotObject.SetActive(false);
             stackCount--;
             if (stackCount == 1)
@@ -68,23 +70,27 @@ public class InventorySlot : MonoBehaviour
         {
             slotObject.SetActive(true);
             slotObject.transform.position = vector;
+            /*
+            if (slotObject.GetComponent<PickableItem>().isParasite)
+            {
+                slotObject.GetComponent<Parasite>().DetachParasite();
+                Destroy(slotObject);
+            }
+            */
             Clear();
         }
     }
 
     public void UseItem()
     {
-        if (Item.GetType() == typeof(HpMixture))
+        if (slotItem.isParasite)
+            return;
+        string itemType = slotItem.GetType().ToString();
+        switch (itemType)
         {
-            if (unit.currentHP != unit.maxHP)
-            {
-                var Im = (HpMixture)Item;
-                if (unit.currentHP + Im.HP * unit.maxHP / 100 < unit.maxHP)
-                {
-                    unit.UseHpMixture(Im.HP);
-                }
-                else
-                    unit.currentHP = unit.maxHP;
+            case "HpMixture":
+                var mixture0 = (HpMixture)slotItem;
+                Inventory.instance.attachedUnit.Heal((int)(Inventory.instance.attachedUnit.maxHP * (mixture0.percentOfRestoredHP / 100.0)));
                 if (stackCount != 1)
                 {
                     stackCount--;
@@ -95,22 +101,13 @@ public class InventorySlot : MonoBehaviour
                 }
                 else
                 {
-                    Clear();
                     ItemInfo.instance.Close();
+                    Clear();
                 }
-            }
-        }
-        if (Item.GetType() == typeof(MPMixture))
-        {
-            if (unit.currentMP != unit.maxMP)
-            {
-                var Im = (MPMixture)Item;
-                if (unit.currentHP + Im.MP * unit.maxHP / 100 < unit.maxHP)
-                {
-                    unit.UseMpMixture(Im.MP);
-                }
-                else
-                    unit.currentHP = unit.maxHP;
+                break;
+            case "MpMixture":
+                var mixture1 = (MpMixture)slotItem;
+                Inventory.instance.attachedUnit.IncreaseCurrentMP((int)(Inventory.instance.attachedUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
                 if (stackCount != 1)
                 {
                     stackCount--;
@@ -121,10 +118,10 @@ public class InventorySlot : MonoBehaviour
                 }
                 else
                 {
-                    Clear();
                     ItemInfo.instance.Close();
+                    Clear();
                 }
-            }
+                break;
         }
     }
 
@@ -145,6 +142,7 @@ public class InventorySlot : MonoBehaviour
     public void Clear()
     {
         isEmpty = true;
+        slotItem = null;
         previewImage.sprite = null;
         slotObject = null;
         slotItemName = "";

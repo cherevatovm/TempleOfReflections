@@ -24,11 +24,10 @@ public class ItemInfo : MonoBehaviour
         UseButton.onClick.AddListener(delegate { slot.UseItem(); });
     }
 
-
-
-
     public void Open(string itemName, string description, Vector3 pos, InventorySlot slot)
     {
+        if (slot.slotItem.isParasite)
+            UseButton.gameObject.SetActive(false);
         descriptionText.text = description;
         nameText.text = itemName;
         gameObject.transform.localScale = Vector3.one;

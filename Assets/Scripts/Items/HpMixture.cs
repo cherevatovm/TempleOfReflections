@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class HpMixture : PickableItem
 {
-    public int HP;
+    public int percentOfRestoredHP;
 }

@@ -30,23 +30,49 @@ public class Unit : MonoBehaviour
     public bool[] weaknesses;
     public bool[] resistances;
     public bool[] nulls;
-    public float[] damageTypeAffinities;
-
-
-    public void UseHpMixture(int percent) => currentHP += percent * maxHP / 100;
-
-    public void UseMpMixture(int percent) => currentMP += percent * maxMP / 100;
+    public float[] elementAffinities;
 
     public void TakeDamage(int damage) => currentHP -= damage;
 
+    public void Heal(int HP)
+    {
+        if (maxHP - currentHP > HP)
+            currentHP += HP;
+        else
+            currentHP = maxHP;
+    }
 
-    public void ReduceCurrentMP(int MPcost) => currentMP -= MPcost;
+    public void ReduceCurrentMP(int MPcost)
+    {
+        currentMP -= MPcost;
+        if (currentMP < 0)
+            currentMP = 0;
+    }
 
-    public void IncreaseCurrentMP(int MPcost) => currentMP += MPcost;
+    public void IncreaseCurrentMP(int MP)
+    {
+        if (maxMP - currentMP > MP)
+            currentMP += MP;
+        else
+            currentMP = maxMP;
+    }
 
     public bool IsDead() => currentHP <= 0;
 
     public bool DoesHaveMP() => currentMP > 0;
+
+    public void CopyStats(Unit otherUnit)
+    {
+        meleeAttackStrength = otherUnit.meleeAttackStrength;
+        mentalAttackStrength = otherUnit.mentalAttackStrength;
+        armorModifier = otherUnit.armorModifier;
+        currentHP = otherUnit.currentHP;
+        maxHP = otherUnit.maxHP;
+        System.Array.Copy(otherUnit.weaknesses, weaknesses, 4);
+        System.Array.Copy(otherUnit.resistances, resistances, 4);
+        System.Array.Copy(otherUnit.nulls, nulls, 4);
+        System.Array.Copy(otherUnit.elementAffinities, elementAffinities, 4);
+    }
 
     public void UnitEffectUpdate()
     {

@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
     [SerializeField] Transform parentSlotForItems;
     [SerializeField] Transform parentSlotForParasites;
-    [SerializeField] Rigidbody2D rb;
 
     List<InventorySlot> inventorySlotsForItems = new();
     List<InventorySlot> inventorySlotsForParasites = new();
-    
+
+    public Unit attachedUnit;
+
     public static Inventory instance;
     bool isOpened;
 
@@ -27,7 +27,7 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) && !CombatSystem.instance.isInCombat && !attachedUnit.IsDead())
             if (isOpened)
                 instance.Close();
             else
@@ -46,6 +46,32 @@ public class Inventory : MonoBehaviour
         ItemInfo.instance.Close();
         isOpened = false;
     }
+
+    /*
+    public bool IsElectraParInInventory()
+    {
+        foreach (var parInventorySlot in inventorySlotsForParasites)
+        {
+            if (parInventorySlot.slotObject == null)
+                break;
+            if (parInventorySlot.slotObject.GetComponent<Parasite>().availableDamageTypes[0])
+                return true;
+        }
+        return false;
+    }
+
+    public bool IsFiraParInInventory()
+    {
+        foreach (var parInventorySlot in inventorySlotsForParasites)
+        {
+            if (parInventorySlot.slotObject == null)
+                break;
+            if (parInventorySlot.slotObject.GetComponent<Parasite>().availableDamageTypes[1])
+                return true;
+        }
+        return false;
+    }
+    */
 
     bool IsFull(bool isParasite)
     {
@@ -66,7 +92,6 @@ public class Inventory : MonoBehaviour
 
     public void PutInInventory(PickableItem item, GameObject obj)
     {
-        Debug.Log(obj.name);
         if (item.isParasite)
         {
             if (IsFull(true))
@@ -78,12 +103,13 @@ public class Inventory : MonoBehaviour
             {
                 if (!inventorySlotsForParasites[i].isEmpty && item.itemName.Equals(inventorySlotsForParasites[i].slotItemName))
                 {
+                    Destroy(obj);
                     inventorySlotsForParasites[i].stackCount++;
                     break;
                 }
                 else if (inventorySlotsForParasites[i].isEmpty)
                 {
-                    inventorySlotsForParasites[i].PutInSlot(item, obj, rb);
+                    inventorySlotsForParasites[i].PutInSlot(item, obj);
                     break;
                 }
             }
@@ -104,7 +130,7 @@ public class Inventory : MonoBehaviour
                 }
                 else if (inventorySlotsForItems[i].isEmpty)
                 {
-                    inventorySlotsForItems[i].PutInSlot(item, obj, rb);
+                    inventorySlotsForItems[i].PutInSlot(item, obj);
                     break;
                 }
             }

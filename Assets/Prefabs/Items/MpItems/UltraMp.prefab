@@ -129,4 +129,4 @@ MonoBehaviour:
   itemDescription: "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442
     100% MP"
   isParasite: 0
-  MP: 100
+  percentOfRestoredMP: 100
