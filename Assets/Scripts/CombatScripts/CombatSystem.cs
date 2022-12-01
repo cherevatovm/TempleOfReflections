@@ -282,14 +282,12 @@ public class CombatSystem : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
         }
         yield return new WaitForSeconds(1f);
-        /*
         enemyAI.CombatAI(out string effectMessage);
         if (!string.IsNullOrEmpty(effectMessage))
         {
             yield return new WaitForSeconds(1f);
             combatUI.combatDialogue.text = effectMessage;
         }
-        */
         //playerHUD.ChangeHP(playerUnit.currentHP);
         yield return new WaitForSeconds(1.5f);
         if (playerUnit.IsDead())
@@ -315,7 +313,7 @@ public class CombatSystem : MonoBehaviour
     }
 
     //-----------------------------(Методы для кнопок)-------------------------------------------------
-    /*
+
     public void OnItemButton()
     {
         if (combatState != CombatState.PLAYER_TURN)
@@ -415,7 +413,7 @@ public class CombatSystem : MonoBehaviour
             combatUI.areButtonsShown = false;
         }
     }
-    */
+
     //--------------------------------------------------------------------------------
 
     void FinishBattle()

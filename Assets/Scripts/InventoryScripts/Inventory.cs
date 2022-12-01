@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     public Unit attachedUnit;
 
     public static Inventory instance;
-    bool isOpened;
+    public bool isOpened;
 
 
     void Start()
@@ -34,13 +34,13 @@ public class Inventory : MonoBehaviour
                 instance.Open();
     }
 
-    void Open()
+    public void Open()
     {
         gameObject.transform.localScale = Vector3.one;
         isOpened = true;
     }
 
-    void Close()
+    public void Close()
     {
         gameObject.transform.localScale = Vector3.zero;
         ItemInfo.instance.Close();
