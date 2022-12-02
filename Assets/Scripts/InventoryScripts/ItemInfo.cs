@@ -28,6 +28,8 @@ public class ItemInfo : MonoBehaviour
     {
         if (slot.slotItem.isParasite)
             UseButton.gameObject.SetActive(false);
+        else
+            UseButton.gameObject.SetActive(true);
         descriptionText.text = description;
         nameText.text = itemName;
         gameObject.transform.localScale = Vector3.one;

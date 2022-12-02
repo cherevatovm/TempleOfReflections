@@ -51,6 +51,5 @@ public class FireEnemyAI : EnemyAI
             yield return new WaitForSeconds(1.5f);
             CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " огненного урона";
         }
-
     }
 }
