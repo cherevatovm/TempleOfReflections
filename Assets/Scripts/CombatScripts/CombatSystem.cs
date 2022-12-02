@@ -36,6 +36,7 @@ public class CombatSystem : MonoBehaviour
     float initArmorModifier = 1;
     public int[] mentalSkillsMPCost;
     public bool isInCombat;
+    public bool wasAnItemUsed;
     public static CombatSystem instance;
 
     void Start()
@@ -92,6 +93,7 @@ public class CombatSystem : MonoBehaviour
             combatUI.combatDialogue.text = "Игрок встал на ноги. Так продолжайте же сражаться!";
             yield return new WaitForSeconds(1f);
         }
+        wasAnItemUsed = false;
         playerUnit.UnitEffectUpdate();
         //playerHUD.ChangeHP(playerUnit.currentHP);
         //playerHUD.ChangeMP(playerUnit.currentMP);
@@ -148,6 +150,13 @@ public class CombatSystem : MonoBehaviour
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
         combatUI.combatDialogue.text = "Игрок успешно перешел в защиту";
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(EnemyTurn());
+    }
+
+    public IEnumerator PlayerUsingItem()
+    {
+        combatUI.combatDialogue.text = "Игрок использует предмет";
         yield return new WaitForSeconds(1f);
         StartCoroutine(EnemyTurn());
     }
@@ -316,7 +325,7 @@ public class CombatSystem : MonoBehaviour
 
     public void OnItemButton()
     {
-        if (combatState != CombatState.PLAYER_TURN)
+        if (combatState != CombatState.PLAYER_TURN || wasAnItemUsed)
             return;
         if (Inventory.instance.isOpened)
             Inventory.instance.Close();
@@ -421,6 +430,7 @@ public class CombatSystem : MonoBehaviour
         StopAllCoroutines();
         if (combatState == CombatState.WON)
         {
+            wasAnItemUsed = false;
             Inventory.instance.attachedUnit.CopyStats(playerUnit);
             isInCombat = false;
             mainCamera.enabled = true;

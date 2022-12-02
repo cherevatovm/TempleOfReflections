@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3306134, y: 0.09374802}
   m_AnchorMax: {x: 0.66238743, y: 0.28800002}
-  m_AnchoredPosition: {x: -100, y: -0.9999924}
-  m_SizeDelta: {x: 1.4899902, y: -0.22000027}
+  m_AnchoredPosition: {x: -190, y: -8}
+  m_SizeDelta: {x: 0, y: 0.00000047683716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5967009392334592938
 CanvasRenderer:
@@ -201,7 +201,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C"
+  m_Text: "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C"
 --- !u!1 &1996723368136490573
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,6 +726,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723368567970107
@@ -1096,6 +1098,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723368669736651
@@ -1238,6 +1242,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723368685046135
@@ -1380,6 +1386,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723368774297869
@@ -1602,6 +1610,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723368954038628
@@ -1719,8 +1729,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.029000001, y: 0.3254982}
   m_AnchorMax: {x: 0.96625394, y: 0.7257564}
-  m_AnchoredPosition: {x: -0.8800354, y: -0.10749817}
-  m_SizeDelta: {x: 1.76, y: -0.215}
+  m_AnchoredPosition: {x: 1, y: -0.10749817}
+  m_SizeDelta: {x: 0.0000063180923, y: -0.215}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1996723368960869133
 CanvasRenderer:
@@ -1752,7 +1762,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 18
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -1763,7 +1773,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: asdskdjflkasjdflkjsadjroiaefnmasnlcnlksacndlknlksdnfndslknflkdsnflkndslkfndsklflksdjflkjdslfkjdslkfd
+  m_Text: 
 --- !u!1 &1996723368963608986
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,8 +1809,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.29013872, y: 0.7257564}
   m_AnchorMax: {x: 0.69900006, y: 0.9224139}
-  m_AnchoredPosition: {x: -1, y: 0.5}
-  m_SizeDelta: {x: 2, y: -1.0100002}
+  m_AnchoredPosition: {x: -1, y: 0}
+  m_SizeDelta: {x: 2, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1996723368963608983
 CanvasRenderer:
@@ -1832,7 +1842,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -2099,6 +2109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentSlotForItems: {fileID: 1996723369210245430}
   parentSlotForParasites: {fileID: 1996723369560137910}
+  attachedUnit: {fileID: 0}
+  isOpened: 0
 --- !u!1 &1996723369112904481
 GameObject:
   m_ObjectHideFlags: 0
@@ -2272,6 +2284,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab984c1411fbcf843b8b82727f2cd09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DropButton: {fileID: 0}
+  UseButton: {fileID: 0}
 --- !u!1 &1996723369142106876
 GameObject:
   m_ObjectHideFlags: 0
@@ -2568,6 +2582,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369210245431
@@ -3309,6 +3325,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369477065293
@@ -3771,6 +3789,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369554486824
@@ -3913,6 +3933,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369560137911
@@ -4164,6 +4186,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369669704890
@@ -4321,7 +4345,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0441\u0431\u0440\u043E\u0441\u0438\u0442\u044C"
+  m_Text: "\u0412\u044B\u0431\u0440\u043E\u0441\u0438\u0442\u044C"
 --- !u!1 &1996723369700357708
 GameObject:
   m_ObjectHideFlags: 0
@@ -4462,6 +4486,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369719300145
@@ -4844,6 +4870,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369879118736
@@ -4986,6 +5014,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723369907963378
@@ -5025,8 +5055,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3306134, y: 0.09374802}
   m_AnchorMax: {x: 0.66238743, y: 0.28800002}
-  m_AnchoredPosition: {x: 106, y: -0.9999924}
-  m_SizeDelta: {x: 1.4899902, y: -0.22000027}
+  m_AnchoredPosition: {x: 190, y: -7.999998}
+  m_SizeDelta: {x: 0, y: 0.0000038146973}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1996723369907963150
 CanvasRenderer:
@@ -5634,6 +5664,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723370174949520
@@ -5776,6 +5808,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723370267796694
@@ -5918,6 +5952,8 @@ MonoBehaviour:
   slotItemName: 
   slotItemDescription: 
   stackCountText: {fileID: 0}
+  slotItem: {fileID: 0}
+  slotObject: {fileID: 0}
   stackCount: 0
   isEmpty: 1
 --- !u!1 &1996723370270367234

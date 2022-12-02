@@ -11,7 +11,6 @@ public class PickableItem : MonoBehaviour
     public bool isParasite; 
     bool isCloseToItem;
 
-
     void Update()
     {
         if (isCloseToItem)

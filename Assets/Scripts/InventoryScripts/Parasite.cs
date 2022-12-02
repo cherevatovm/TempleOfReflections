@@ -63,16 +63,16 @@ public class Parasite : PickableItem
         switch (negEffectIndex)
         {
             case 0:
-                itemDescription += "\nДает слабость к физическому урону и понижает предрасположенность к нему на 15%";
+                itemDescription += "\nДает слабость к физическому урону и понижает предрасположенность к нему на 8%";
                 break;
             case 1:
-                itemDescription += "\nДает слабость к псионическому урону и понижает предрасположенность к нему на 15%";
+                itemDescription += "\nДает слабость к псионическому урону и понижает предрасположенность к нему на 8%";
                 break;
             case 2:
-                itemDescription += "\nДает слабость к электрическому урону и понижает предрасположенность к нему на 15%";
+                itemDescription += "\nДает слабость к электрическому урону и понижает предрасположенность к нему на 8%";
                 break;
             case 3:
-                itemDescription += "\nДает слабость к огненному урону и понижает предрасположенность к нему на 15%";
+                itemDescription += "\nДает слабость к огненному урону и понижает предрасположенность к нему на 8%";
                 break;
             case 4:
                 itemDescription += "\nПонижает максимум HP на " + percentages[0] + "%";
@@ -88,7 +88,7 @@ public class Parasite : PickableItem
 
     public void ApplyParasiteEffect()
     {
-        attachedUnit = Inventory.instance.attachedPlayerUnit;
+        attachedUnit = Inventory.instance.attachedUnit;
         initArmorModifier = attachedUnit.armorModifier;
         initUnitStats[0] = attachedUnit.meleeAttackStrength;
         initUnitStats[1] = attachedUnit.mentalAttackStrength;
@@ -261,7 +261,7 @@ public class Parasite : PickableItem
     {
         if (attachedUnit.weaknesses[damageTypeID])
         {
-            attachedUnit.elementAffinities[damageTypeID] -= attachedUnit.elementAffinities[damageTypeID] * 0.15f;
+            attachedUnit.elementAffinities[damageTypeID] -= attachedUnit.elementAffinities[damageTypeID] * 0.08f;
             return;
         }
         if (attachedUnit.resistances[damageTypeID])
@@ -269,7 +269,7 @@ public class Parasite : PickableItem
         else if (attachedUnit.nulls[damageTypeID])
             attachedUnit.nulls[damageTypeID] = false;
         attachedUnit.weaknesses[damageTypeID] = true;
-        attachedUnit.elementAffinities[damageTypeID] -= attachedUnit.elementAffinities[damageTypeID] * 0.15f;
+        attachedUnit.elementAffinities[damageTypeID] -= attachedUnit.elementAffinities[damageTypeID] * 0.08f;
     }
 
     //---------------------------------------------------------------------------

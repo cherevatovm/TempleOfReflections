@@ -11,7 +11,7 @@ public class InventorySlot : MonoBehaviour
     public Text stackCountText;
     public PickableItem slotItem;
 
-    GameObject slotObject;   
+    public GameObject slotObject;   
     Button clickableSlot;
            
     public int stackCount;
@@ -55,9 +55,9 @@ public class InventorySlot : MonoBehaviour
         if (stackCount != 1)
         {
             slotObject.SetActive(true);
-            //if (slotObject.GetComponent<PickableItem>().isParasite)
-                //slotObject.GetComponent<Parasite>().DetachParasite();
-            //else
+            if (slotItem.isParasite)
+                slotObject.GetComponent<Parasite>().DetachParasite();
+            else
                 Instantiate(slotObject, vector, Quaternion.identity);
             slotObject.SetActive(false);
             stackCount--;
@@ -70,13 +70,11 @@ public class InventorySlot : MonoBehaviour
         {
             slotObject.SetActive(true);
             slotObject.transform.position = vector;
-            /*
-            if (slotObject.GetComponent<PickableItem>().isParasite)
+            if (slotItem.isParasite)
             {
                 slotObject.GetComponent<Parasite>().DetachParasite();
                 Destroy(slotObject);
             }
-            */
             Clear();
         }
     }
@@ -85,12 +83,17 @@ public class InventorySlot : MonoBehaviour
     {
         if (slotItem.isParasite)
             return;
+        if (CombatSystem.instance.isInCombat)
+            CombatSystem.instance.wasAnItemUsed = true;
         string itemType = slotItem.GetType().ToString();
         switch (itemType)
         {
             case "HpMixture":
                 var mixture0 = (HpMixture)slotItem;
-                Inventory.instance.attachedUnit.Heal((int)(Inventory.instance.attachedUnit.maxHP * (mixture0.percentOfRestoredHP / 100.0)));
+                if (CombatSystem.instance.isInCombat)
+                    CombatSystem.instance.playerUnit.Heal((int)(CombatSystem.instance.playerUnit.maxHP * (mixture0.percentOfRestoredHP / 100.0)));
+                else
+                    Inventory.instance.attachedUnit.Heal((int)(Inventory.instance.attachedUnit.maxHP * (mixture0.percentOfRestoredHP / 100.0)));
                 if (stackCount != 1)
                 {
                     stackCount--;
@@ -107,7 +110,10 @@ public class InventorySlot : MonoBehaviour
                 break;
             case "MpMixture":
                 var mixture1 = (MpMixture)slotItem;
-                Inventory.instance.attachedUnit.IncreaseCurrentMP((int)(Inventory.instance.attachedUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
+                if (CombatSystem.instance.isInCombat)
+                    CombatSystem.instance.playerUnit.IncreaseCurrentMP((int)(CombatSystem.instance.playerUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
+                else
+                    Inventory.instance.attachedUnit.IncreaseCurrentMP((int)(Inventory.instance.attachedUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
                 if (stackCount != 1)
                 {
                     stackCount--;
@@ -122,6 +128,11 @@ public class InventorySlot : MonoBehaviour
                     Clear();
                 }
                 break;
+        }
+        if (CombatSystem.instance.isInCombat)
+        {
+            Inventory.instance.Close();
+            StartCoroutine(CombatSystem.instance.PlayerUsingItem());
         }
     }
 

@@ -15,7 +15,6 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
     public bool isOpened;
 
-
     void Start()
     {
         instance = this;
@@ -27,7 +26,7 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B) && !CombatSystem.instance.isInCombat && !attachedUnit.IsDead())
+        if (Input.GetKeyDown(KeyCode.B) /*&& !CombatSystem.instance.isInCombat*/ && !attachedUnit.IsDead())
             if (isOpened)
                 instance.Close();
             else
@@ -36,6 +35,7 @@ public class Inventory : MonoBehaviour
 
     public void Open()
     {
+        Debug.Log("test");
         gameObject.transform.localScale = Vector3.one;
         isOpened = true;
     }
@@ -47,7 +47,6 @@ public class Inventory : MonoBehaviour
         isOpened = false;
     }
 
-    /*
     public bool IsElectraParInInventory()
     {
         foreach (var parInventorySlot in inventorySlotsForParasites)
@@ -71,7 +70,6 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }
-    */
 
     bool IsFull(bool isParasite)
     {
@@ -113,6 +111,7 @@ public class Inventory : MonoBehaviour
                     break;
                 }
             }
+            obj.GetComponent<Parasite>().ApplyParasiteEffect();
         }
         else
         {

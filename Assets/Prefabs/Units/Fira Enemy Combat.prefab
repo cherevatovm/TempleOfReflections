@@ -166,7 +166,7 @@ MonoBehaviour:
   weaknesses: 00000100
   resistances: 00000001
   nulls: 00000000
-  damageTypeAffinities:
+  elementAffinities:
   - 1
   - 1
   - 1
