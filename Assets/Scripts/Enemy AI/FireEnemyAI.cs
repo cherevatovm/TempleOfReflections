@@ -6,6 +6,11 @@ public class FireEnemyAI : EnemyAI
 {
     System.Random random = new System.Random();
 
+    void Start()
+    {
+        enemyID = 1;
+    }
+
     public override void CombatAI(out string effectMessage)
     {
         effectMessage = string.Empty;
