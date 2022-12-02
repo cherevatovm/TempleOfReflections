@@ -598,7 +598,6 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      neo_zero_props_and_items_01_20: 1292477781
       neo_zero_props_and_items_01_0: 1638869849
       neo_zero_props_and_items_01_11: 2014750014
       neo_zero_props_and_items_01_8: 196980312
@@ -617,6 +616,7 @@ TextureImporter:
       neo_zero_props_and_items_01_21: -1387626592
       neo_zero_props_and_items_01_15: -325881457
       neo_zero_props_and_items_01_10: 1818012155
+      neo_zero_props_and_items_01_20: 1292477781
       neo_zero_props_and_items_01_7: -1741655356
       neo_zero_props_and_items_01_9: -1998244091
       neo_zero_props_and_items_01_3: -57797479

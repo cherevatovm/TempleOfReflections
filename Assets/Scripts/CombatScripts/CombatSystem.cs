@@ -18,8 +18,10 @@ public class CombatSystem : MonoBehaviour
     public Unit enemyUnit;
     EnemyAI enemyAI;
 
+    public EnemyAI encounteredEnemy;
+
     [SerializeField] GameObject playerPrefab;
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject[] enemyPrefabs;
 
     [SerializeField] Transform playerCombatPosition;
     [SerializeField] Transform enemyCombatPosition;
@@ -41,13 +43,17 @@ public class CombatSystem : MonoBehaviour
 
     void Start()
     {
+        combatCamera.enabled = false;
         combatState = CombatState.START;
         instance = this;
-        StartCoroutine(SetupBattle());
+        //StartCoroutine(SetupBattle());
     }
 
-    IEnumerator SetupBattle()
+    public IEnumerator SetupBattle()
     {
+        encounteredEnemy.gameObject.GetComponent<Collider2D>().enabled = false;
+        encounteredEnemy.gameObject.GetComponent<EnemyMovement>().enabled = false;
+
         isInCombat = true;
         GameObject playerCombat = Instantiate(playerPrefab, playerCombatPosition);
         playerUnit = playerCombat.GetComponent<Unit>();
@@ -55,7 +61,8 @@ public class CombatSystem : MonoBehaviour
         playerUnit.knockedTurnsCount = 0;
         playerUnit.knockedDownTimeout = 0;
 
-        GameObject enemyCombat = Instantiate(enemyPrefab, enemyCombatPosition);
+
+        GameObject enemyCombat = Instantiate(enemyPrefabs[encounteredEnemy.enemyID], enemyCombatPosition);
         enemyUnit = enemyCombat.GetComponent<Unit>();
         enemyAI = enemyCombat.GetComponent<EnemyAI>();
         enemyUnit.knockedTurnsCount = 0;
@@ -438,6 +445,7 @@ public class CombatSystem : MonoBehaviour
             combatUI.gameObject.SetActive(false);
             Destroy(playerCombatPosition.GetChild(0).gameObject);
             Destroy(enemyCombatPosition.GetChild(0).gameObject);
+            Destroy(encounteredEnemy.gameObject);
         }
         else if (combatState == CombatState.LOST)
         {

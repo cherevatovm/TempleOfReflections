@@ -6,6 +6,11 @@ public class ElectraEnemyAI : EnemyAI
 {
     System.Random random = new System.Random();
 
+    void Start()
+    {
+        enemyID = 0;
+    }
+
     public override void CombatAI(out string effectMessage)
     {
         effectMessage = string.Empty;
