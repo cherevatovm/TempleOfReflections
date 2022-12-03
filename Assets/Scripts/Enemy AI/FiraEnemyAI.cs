@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireEnemyAI : EnemyAI
+public class FiraEnemyAI : EnemyAI
 {
     System.Random random = new System.Random();
 
-    void Start()
-    {
-        enemyID = 1;
-    }
+    void Start() => enemyID = 1;
 
     public override void CombatAI(out string effectMessage)
     {
@@ -21,12 +18,14 @@ public class FireEnemyAI : EnemyAI
             int attackProbability = random.Next(1, 101);
             if (attackProbability <= 75)
             {
+                SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
                 CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
                 CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " физического урона";
             }
             else if (attackProbability > 75)
             {
+                SoundManager.PlaySound(SoundManager.Sound.FiraSkill);
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
                 CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
                 effectMessage = "Враг наносит " + totalDamage + " огненного урона";
@@ -43,13 +42,14 @@ public class FireEnemyAI : EnemyAI
         int fireOrBase = random.Next(1, 3);
         if (fireOrBase == 1)
         {
+            SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
             int totalDamage = (int)(1.15 * CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit));
             CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
             CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " физического урона";
-            yield return new WaitForSeconds(1.5f);
         }
         else
         {
+            SoundManager.PlaySound(SoundManager.Sound.FiraSkill);
             int totalDamage = (int)(1.15 * CombatSystem.instance.CalcAffinityDamage(3, true, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit));
             CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
             CombatSystem.instance.playerUnit.FiraEffect();

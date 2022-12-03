@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Canvas unitCanvas;
-    [SerializeField] float restartDelay = 1.5f;
+    [SerializeField] float restartDelay = 3f;
     System.Random random = new System.Random();
 
     public string unitName;    
@@ -160,10 +160,10 @@ public class Unit : MonoBehaviour
 
     public void Death()
     {
+        SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
         Debug.Log("Game over");
         rb.bodyType = RigidbodyType2D.Static;
-        if (unitName == "Player")
-            unitCanvas.gameObject.SetActive(true);
+        unitCanvas.gameObject.SetActive(true);
         Invoke(nameof(Restart), restartDelay);
     }
 

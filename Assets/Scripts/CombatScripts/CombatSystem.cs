@@ -51,8 +51,13 @@ public class CombatSystem : MonoBehaviour
 
     public IEnumerator SetupBattle()
     {
+        SoundManager.StopLoopedSound();
+        SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
+        SoundManager.PlaySound(SoundManager.Sound.MentalBattle);
+
         encounteredEnemy.gameObject.GetComponent<Collider2D>().enabled = false;
         encounteredEnemy.gameObject.GetComponent<EnemyMovement>().enabled = false;
+        Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = false;
 
         isInCombat = true;
         GameObject playerCombat = Instantiate(playerPrefab, playerCombatPosition);
@@ -122,6 +127,7 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
+        SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
         int totalDamage = CalcAffinityDamage(0, false, playerUnit, enemyUnit);
         enemyUnit.TakeDamage(totalDamage);
         combatState = CombatState.ENEMY_TURN;
@@ -170,6 +176,7 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerPsionaSkill()
     {
+        SoundManager.PlaySound(SoundManager.Sound.PsiSkill);
         int totalDamage = CalcAffinityDamage(1, true, playerUnit, enemyUnit);
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[0]);
@@ -202,6 +209,7 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerElectraSkill()
     {
+        SoundManager.PlaySound(SoundManager.Sound.ElectraSkill);
         int totalDamage = CalcAffinityDamage(2, true, playerUnit, enemyUnit);
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[1]);
@@ -234,6 +242,7 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerFiraSkill()
     {
+        SoundManager.PlaySound(SoundManager.Sound.FiraSkill);
         int totalDamage = CalcAffinityDamage(3, true, playerUnit, enemyUnit);
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[2]);
@@ -437,8 +446,12 @@ public class CombatSystem : MonoBehaviour
         StopAllCoroutines();
         if (combatState == CombatState.WON)
         {
+            SoundManager.StopLoopedSound();
+            SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
+            SoundManager.PlaySound(SoundManager.Sound.Mystery);
             wasAnItemUsed = false;
             Inventory.instance.attachedUnit.CopyStats(playerUnit);
+            Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = true;
             isInCombat = false;
             mainCamera.enabled = true;
             combatCamera.enabled = false;
@@ -450,7 +463,7 @@ public class CombatSystem : MonoBehaviour
         else if (combatState == CombatState.LOST)
         {
             combatUI.combatDialogue.text = "Игрок оказался повержен...";
-            playerCombatPosition.GetChild(0).gameObject.GetComponent<Unit>().Death();
+            Inventory.instance.attachedUnit.Death();
         }
     }
 

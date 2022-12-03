@@ -17,8 +17,8 @@ public class CombatUI : MonoBehaviour
     public void SetMentalSkillButtons()
     {
         availableMentalSkillButtons[0] = true;
-        availableMentalSkillButtons[1] = Inventory.instance.IsElectraParInInventory();
-        availableMentalSkillButtons[2] = Inventory.instance.IsFiraParInInventory();
+        availableMentalSkillButtons[1] = true;//Inventory.instance.IsElectraParInInventory();
+        availableMentalSkillButtons[2] = true;//Inventory.instance.IsFiraParInInventory();
         for (int i = 0; i < buttonPrefabs.Length; i++)
         {
             mentalSkillButtonList.Add(Instantiate(buttonPrefabs[i], transform).GetComponent<Button>());

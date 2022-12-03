@@ -6,10 +6,7 @@ public class ElectraEnemyAI : EnemyAI
 {
     System.Random random = new System.Random();
 
-    void Start()
-    {
-        enemyID = 0;
-    }
+    void Start() => enemyID = 0;
 
     public override void CombatAI(out string effectMessage)
     {
@@ -17,6 +14,7 @@ public class ElectraEnemyAI : EnemyAI
         int attackProbability = random.Next(1, 101);
         if (attackProbability <= 60)
         {
+            SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
             int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
             CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
             CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " физического урона";
@@ -25,6 +23,7 @@ public class ElectraEnemyAI : EnemyAI
         }
         else if (attackProbability > 60)
         {
+            SoundManager.PlaySound(SoundManager.Sound.ElectraSkill);
             int totalDamage = CombatSystem.instance.CalcAffinityDamage(2, true, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
             CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
             effectMessage = "Враг наносит " + totalDamage + " электрического урона";
@@ -42,6 +41,7 @@ public class ElectraEnemyAI : EnemyAI
             CombatSystem.instance.combatUI.combatDialogue.text = effectMessage;
             yield return new WaitForSeconds(1.5f);
         }
+        SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
         int totalDamage = (int)(0.5 * CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit));
         CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
         CombatSystem.instance.combatUI.combatDialogue.text = "Враг использует быструю атаку и наносит " + totalDamage + " физического урона";

@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4175498438214107577}
   unitCanvas: {fileID: 0}
-  restartDelay: 1.5
+  restartDelay: 3
   unitName: 'Player '
   meleeAttackStrength: 10
   mentalAttackStrength: 10
