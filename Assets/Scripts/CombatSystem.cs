@@ -39,28 +39,21 @@ public class CombatSystem : MonoBehaviour
     float initArmorModifier = 1;
     public static CombatSystem instance;
 
-    public bool attackButtonWasPressed;
+    public bool playerAttackButtonWasPressed = false;
+    public bool enemyAttackButtonWasPressed = false;
+    public bool playerIsHurting = false;
+    public bool enemyIsHurting = false;
 
-    //Animator animator;
     
     void Start()
     {
-        //animator = GetComponent<Animator>();
-        //animator.SetFloat("moveX", 0);
-        //animator.SetFloat("moveY", 1);
-        //PlayerMovement.instance.moveSpeed = 0;
         combatState = CombatState.START;
         instance = this;
-        attackButtonWasPressed = false;
         StartCoroutine(SetupBattle());
     }
 
     IEnumerator SetupBattle()
     {
-        //animator = GetComponent<Animator>();
-        //animator.SetFloat("moveX", 0);
-        //animator.SetFloat("moveY", 1);
-
         isInCombat = true;
 
         GameObject playerCombat = Instantiate(playerPrefab, playerCombatPosition);
@@ -127,13 +120,14 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
+        playerAttackButtonWasPressed = true;
         int totalDamage = CalcAffinityDamage(0, false, playerUnit, enemyUnit);
+        enemyIsHurting = true;
         enemyUnit.TakeDamage(totalDamage);
-        attackButtonWasPressed = true;
-        //yield return new WaitForSeconds(0.5f);
-        //attackButtonWasPressed = false;
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
+        enemyIsHurting = false;
+        playerAttackButtonWasPressed = false;
         //enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " физического урона";
         yield return new WaitForSeconds(1.5f);
@@ -171,15 +165,17 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerPsionaSkill()
     {
+        playerAttackButtonWasPressed = true;
         int totalDamage = CalcAffinityDamage(1, true, playerUnit, enemyUnit);
+        enemyIsHurting = true;
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[0]);
         enemyUnit.PsionaEffect();
-        attackButtonWasPressed = true;
         //yield return new WaitForSeconds(0.5f);
-        //attackButtonWasPressed = false;
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
+        enemyIsHurting = false;
+        playerAttackButtonWasPressed = false;
         //enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " псионического урона";
         yield return new WaitForSeconds(1.5f);
@@ -206,15 +202,17 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerElectraSkill()
     {
+        playerAttackButtonWasPressed = true;
         int totalDamage = CalcAffinityDamage(2, true, playerUnit, enemyUnit);
+        enemyIsHurting = true;
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[1]);
         enemyUnit.ElectraEffect();
-        attackButtonWasPressed = true;
         //yield return new WaitForSeconds(0.5f);
-        //attackButtonWasPressed = false;
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
+        enemyIsHurting = false;
+        playerAttackButtonWasPressed = false;
         //enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " электрического урона";
         yield return new WaitForSeconds(1.5f);
@@ -241,15 +239,16 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerFiraSkill()
     {
+        playerAttackButtonWasPressed = true;
         int totalDamage = CalcAffinityDamage(3, true, playerUnit, enemyUnit);
+        enemyIsHurting = true;
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[2]);
         enemyUnit.FiraEffect();
-        attackButtonWasPressed = true;
-        //yield return new WaitForSeconds(0.5f);
-        //attackButtonWasPressed = false;
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
+        enemyIsHurting = false;
+        playerAttackButtonWasPressed = false;
         //enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " огненного урона";
         yield return new WaitForSeconds(1.5f);
@@ -309,6 +308,11 @@ public class CombatSystem : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
         enemyAI.CombatAI(out string effectMessage);
+        playerIsHurting = true;
+        enemyAttackButtonWasPressed = true;
+        yield return new WaitForSeconds(0.5f);
+        playerIsHurting = false;
+        enemyAttackButtonWasPressed = false;
         if (!string.IsNullOrEmpty(effectMessage))
         {
             yield return new WaitForSeconds(1f);
@@ -318,7 +322,7 @@ public class CombatSystem : MonoBehaviour
         if (playerUnit.IsDead())
         {
             combatState = CombatState.LOST;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.5f);
             FinishBattle();
         }
         else if (playerUnit.isKnockedDown && playerUnit.knockedTurnsCount == 0)

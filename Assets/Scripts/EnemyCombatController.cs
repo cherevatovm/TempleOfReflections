@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCombatController : MonoBehaviour
+public class EnemyCombatController : MonoBehaviour
 {
     Animator animator;
 
@@ -13,15 +13,12 @@ public class PlayerCombatController : MonoBehaviour
 
     private void Update()
     {
-        animator.SetFloat("moveX", -1);
-        SetAnimationCombat();
+        if (CombatSystem.instance.enemyAttackButtonWasPressed)
+            animator.SetTrigger("attack");
+        if (CombatSystem.instance.enemyIsHurting)
+            animator.SetTrigger("isHurting");
+        if (CombatSystem.instance.enemyUnit.IsDead())
+            animator.SetTrigger("isDead");
     }
 
-    void SetAnimationCombat()
-    {
-        if (CombatSystem.instance.playerAttackButtonWasPressed)
-            animator.SetTrigger("attack");
-        if (CombatSystem.instance.playerIsHurting)
-            animator.SetTrigger("isHurting");
-    }
 }

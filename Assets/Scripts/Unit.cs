@@ -32,14 +32,8 @@ public class Unit : MonoBehaviour
     public bool[] nulls;
     public float[] damageTypeAffinities;
 
-    public bool isHurting = false;
 
-
-    public void TakeDamage(int damage) 
-    {
-        currentHP -= damage;
-        isHurting = true;
-    } 
+    public void TakeDamage(int damage) => currentHP -= damage;
 
     public void Heal(int HP)
     {
