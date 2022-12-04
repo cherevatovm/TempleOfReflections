@@ -22,13 +22,11 @@ public class PlayerMovement : MonoBehaviour
         {
             shiftKeyWasPressed = true;
             moveSpeed = 8f;
-            Debug.Log("is running");
         }
         else if (Input.GetKeyDown(KeyCode.LeftShift) && shiftKeyWasPressed)
         {
             shiftKeyWasPressed = false;
             moveSpeed = 5f;
-            Debug.Log("stopped running");
         }
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");             

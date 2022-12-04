@@ -42,7 +42,6 @@ public static class SoundManager
             {
                 AudioSource audioSource = soundObject.GetComponent<AudioSource>();
                 soundObject.SetActive(true);
-                Debug.Log(audioSource.isPlaying);
                 if ((int)sound < 12)
                     audioSource.PlayOneShot(GetAudioClip(sound));
                 else
@@ -51,7 +50,6 @@ public static class SoundManager
                     audioSource.clip = GetAudioClip(sound);
                     audioSource.Play();
                 }
-                Debug.Log(audioSource.isPlaying);
             }
         }
     }

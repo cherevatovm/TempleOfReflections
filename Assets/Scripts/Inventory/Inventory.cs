@@ -35,7 +35,6 @@ public class Inventory : MonoBehaviour
 
     public void Open()
     {
-        Debug.Log("test");
         gameObject.transform.localScale = Vector3.one;
         isOpened = true;
     }
@@ -94,7 +93,6 @@ public class Inventory : MonoBehaviour
         {
             if (IsFull(true))
             {
-                Debug.Log("Inventory is full");
                 return;
             }
             for (int i = 0; i < inventorySlotsForParasites.Count; i++)
@@ -117,7 +115,6 @@ public class Inventory : MonoBehaviour
         {
             if (IsFull(false))
             {
-                Debug.Log("Inventory is full");
                 return;
             }
             for (int i = 0; i < inventorySlotsForItems.Count; i++)

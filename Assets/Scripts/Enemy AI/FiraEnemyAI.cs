@@ -16,20 +16,22 @@ public class FiraEnemyAI : EnemyAI
         else
         {
             int attackProbability = random.Next(1, 101);
-            if (attackProbability <= 75)
+            if (attackProbability > 75 && CombatSystem.instance.enemyUnit.currentMP >= 3)
+            {
+                SoundManager.PlaySound(SoundManager.Sound.FiraSkill);
+                int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
+                CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
+                CombatSystem.instance.enemyUnit.ReduceCurrentMP(3);
+                CombatSystem.instance.enemyHUD.ChangeMP(CombatSystem.instance.enemyUnit.currentMP);
+                effectMessage = "Враг наносит " + totalDamage + " огненного урона";
+                CombatSystem.instance.playerUnit.FiraEffect();
+            }
+            else
             {
                 SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
                 CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
                 CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " физического урона";
-            }
-            else if (attackProbability > 75)
-            {
-                SoundManager.PlaySound(SoundManager.Sound.FiraSkill);
-                int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
-                CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
-                effectMessage = "Враг наносит " + totalDamage + " огненного урона";
-                CombatSystem.instance.playerUnit.FiraEffect();
             }
         }
     }
@@ -52,6 +54,8 @@ public class FiraEnemyAI : EnemyAI
             SoundManager.PlaySound(SoundManager.Sound.FiraSkill);
             int totalDamage = (int)(1.15 * CombatSystem.instance.CalcAffinityDamage(3, true, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit));
             CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
+            CombatSystem.instance.enemyUnit.ReduceCurrentMP(3);
+            CombatSystem.instance.enemyHUD.ChangeMP(CombatSystem.instance.enemyUnit.currentMP);
             CombatSystem.instance.playerUnit.FiraEffect();
             yield return new WaitForSeconds(1.5f);
             CombatSystem.instance.combatUI.combatDialogue.text = "Враг наносит " + totalDamage + " огненного урона";

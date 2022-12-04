@@ -27,7 +27,7 @@ public class CombatSystem : MonoBehaviour
     [SerializeField] Transform enemyCombatPosition;
 
     [SerializeField] CombatHUD playerHUD;
-    [SerializeField] CombatHUD enemyHUD;
+    public CombatHUD enemyHUD;
 
     [SerializeField] CombatState combatState;
     public CombatUI combatUI;
@@ -46,7 +46,6 @@ public class CombatSystem : MonoBehaviour
         combatCamera.enabled = false;
         combatState = CombatState.START;
         instance = this;
-        //StartCoroutine(SetupBattle());
     }
 
     public IEnumerator SetupBattle()
@@ -74,8 +73,8 @@ public class CombatSystem : MonoBehaviour
         enemyUnit.knockedDownTimeout = 0;
 
         combatUI.gameObject.SetActive(true);
-        //playerHUD.SetHUD(playerUnit);
-        //enemyHUD.SetHUD(enemyUnit);
+        playerHUD.SetHUD(playerUnit);
+        enemyHUD.SetHUD(enemyUnit);
 
         combatCamera.enabled = true;
         mainCamera.enabled = false;
@@ -107,8 +106,8 @@ public class CombatSystem : MonoBehaviour
         }
         wasAnItemUsed = false;
         playerUnit.UnitEffectUpdate();
-        //playerHUD.ChangeHP(playerUnit.currentHP);
-        //playerHUD.ChangeMP(playerUnit.currentMP);
+        playerHUD.ChangeHP(playerUnit.currentHP);
+        playerHUD.ChangeMP(playerUnit.currentMP);
         yield return new WaitForSeconds(1f);
         if (playerUnit.appliedEffect[1])
         {
@@ -170,6 +169,8 @@ public class CombatSystem : MonoBehaviour
     public IEnumerator PlayerUsingItem()
     {
         combatUI.combatDialogue.text = "Игрок использует предмет";
+        playerHUD.ChangeHP(playerUnit.currentHP);
+        playerHUD.ChangeMP(playerUnit.currentMP);
         yield return new WaitForSeconds(1f);
         StartCoroutine(EnemyTurn());
     }
@@ -180,10 +181,11 @@ public class CombatSystem : MonoBehaviour
         int totalDamage = CalcAffinityDamage(1, true, playerUnit, enemyUnit);
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[0]);
+        playerHUD.ChangeMP(playerUnit.currentMP);
         enemyUnit.PsionaEffect();
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
-        //enemyHUD.ChangeHP(enemyUnit.currentHP);
+        enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " псионического урона";
         yield return new WaitForSeconds(1.5f);
         if (enemyUnit.IsDead())
@@ -213,10 +215,11 @@ public class CombatSystem : MonoBehaviour
         int totalDamage = CalcAffinityDamage(2, true, playerUnit, enemyUnit);
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[1]);
+        playerHUD.ChangeMP(playerUnit.currentMP);
         enemyUnit.ElectraEffect();
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
-        //enemyHUD.ChangeHP(enemyUnit.currentHP);
+        enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " электрического урона";
         yield return new WaitForSeconds(1.5f);
         if (enemyUnit.IsDead())
@@ -246,10 +249,11 @@ public class CombatSystem : MonoBehaviour
         int totalDamage = CalcAffinityDamage(3, true, playerUnit, enemyUnit);
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[2]);
+        playerHUD.ChangeMP(playerUnit.currentMP);
         enemyUnit.FiraEffect();
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
-        //enemyHUD.ChangeHP(enemyUnit.currentHP);
+        enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " огненного урона";
         yield return new WaitForSeconds(1.5f);
         if (enemyUnit.IsDead())
@@ -278,8 +282,8 @@ public class CombatSystem : MonoBehaviour
     public IEnumerator EnemyTurn()
     {
         enemyUnit.UnitEffectUpdate();
-        //enemyHUD.ChangeHP(enemyUnit.currentHP);
-        //enemyHUD.ChangeMP(enemyUnit.currentMP);
+        enemyHUD.ChangeHP(enemyUnit.currentHP);
+        enemyHUD.ChangeMP(enemyUnit.currentMP);
         if (enemyUnit.appliedEffect[1])
         {
             combatState = CombatState.PLAYER_TURN;
@@ -313,7 +317,7 @@ public class CombatSystem : MonoBehaviour
             yield return new WaitForSeconds(1f);
             combatUI.combatDialogue.text = effectMessage;
         }
-        //playerHUD.ChangeHP(playerUnit.currentHP);
+        playerHUD.ChangeHP(playerUnit.currentHP);
         yield return new WaitForSeconds(1.5f);
         if (playerUnit.IsDead())
         {
