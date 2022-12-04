@@ -72,6 +72,7 @@ public class CombatSystem : MonoBehaviour
         enemyUnit.knockedTurnsCount = 0;
         enemyUnit.knockedDownTimeout = 0;
 
+        GameUI.instance.gameObject.SetActive(false);
         combatUI.gameObject.SetActive(true);
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
@@ -131,7 +132,7 @@ public class CombatSystem : MonoBehaviour
         enemyUnit.TakeDamage(totalDamage);
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
-        //enemyHUD.ChangeHP(enemyUnit.currentHP);
+        enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " физического урона";
         yield return new WaitForSeconds(1.5f);
         if (enemyUnit.IsDead())
@@ -457,6 +458,7 @@ public class CombatSystem : MonoBehaviour
             Inventory.instance.attachedUnit.CopyStats(playerUnit);
             Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = true;
             isInCombat = false;
+            GameUI.instance.gameObject.SetActive(true);
             mainCamera.enabled = true;
             combatCamera.enabled = false;
             combatUI.gameObject.SetActive(false);

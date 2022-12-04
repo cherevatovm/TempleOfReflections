@@ -110,6 +110,7 @@ public class Inventory : MonoBehaviour
                 }
             }
             obj.GetComponent<Parasite>().ApplyParasiteEffect();
+            GameUI.instance.SetUI(attachedUnit);
         }
         else
         {

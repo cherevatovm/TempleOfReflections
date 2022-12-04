@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-public class CombatHUD : MonoBehaviour
+public class GameUI : MonoBehaviour
 {
-    [SerializeField] TMP_Text textName;
     [SerializeField] TMP_Text hpCounter;
     [SerializeField] TMP_Text mpCounter;
     [SerializeField] Slider hpSlider;
     [SerializeField] Slider mpSlider;
+    [SerializeField] GameObject exitMenu;
+    [SerializeField] GameObject noteMenu;
+    public static GameUI instance;
 
-    public void SetHUD(Unit unit)
+    void Awake() => instance = this;
+
+    void Update()
     {
-        textName.text = unit.name;
+        if (Input.GetKeyDown(KeyCode.Escape))
+            ShowOrHideExitMenu();
+    }
+
+    public void SetUI(Unit unit)
+    {
         hpCounter.text = unit.currentHP + "/" + unit.maxHP;
         mpCounter.text = unit.currentMP + "/" + unit.maxMP;
         hpSlider.maxValue = unit.maxHP;
@@ -36,4 +45,24 @@ public class CombatHUD : MonoBehaviour
         mpSlider.value = mp;
         mpCounter.text = mp + "/" + mpSlider.maxValue;
     }
+
+    public void ShowOrHideExitMenu()
+    {
+        if (exitMenu.activeSelf)
+            exitMenu.SetActive(false);
+        else
+            exitMenu.SetActive(true);
+    }
+
+    public void ShowOrHideNoteMenu()
+    {
+        if (noteMenu.activeSelf)
+            noteMenu.SetActive(false);
+        else
+            noteMenu.SetActive(true);
+    }
+
+    public void ShowDeathscreen() => transform.GetChild(0).gameObject.SetActive(true);
+
+    public void ExitGame() => Application.Quit();
 }

@@ -11,6 +11,7 @@ public class DialogueManager : MonoBehaviour
 	public TMP_Text dialogueText;
 	[SerializeField] Canvas dialogueCanvas;
 	[SerializeField] PlayerMovement playerMovement;
+    [HideInInspector] public DialogueTrigger dialogueTrigger;
 
     private Queue<string> sentences;
 
@@ -22,7 +23,9 @@ public class DialogueManager : MonoBehaviour
 
 	public void StartDialogue(Dialogue dialogue)
 	{
-		playerMovement.enabled = false;
+        dialogueTrigger.wasKeyPressed = false;
+        dialogueTrigger.pressLock = true;
+        playerMovement.enabled = false;
 		nameText.text = dialogue.name;
 		sentences.Clear();
 		foreach (string sentence in dialogue.sentences)
@@ -57,5 +60,6 @@ public class DialogueManager : MonoBehaviour
 	{
 		playerMovement.enabled = true;
         dialogueCanvas.gameObject.SetActive(false);
-	}
+        dialogueTrigger.pressLock = false;
+    }
 }

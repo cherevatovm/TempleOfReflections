@@ -56,7 +56,10 @@ public class InventorySlot : MonoBehaviour
         {
             slotObject.SetActive(true);
             if (slotItem.isParasite)
+            {
                 slotObject.GetComponent<Parasite>().DetachParasite();
+                GameUI.instance.SetUI(Inventory.instance.attachedUnit);
+            }
             else
                 Instantiate(slotObject, vector, Quaternion.identity);
             slotObject.SetActive(false);
@@ -73,6 +76,7 @@ public class InventorySlot : MonoBehaviour
             if (slotItem.isParasite)
             {
                 slotObject.GetComponent<Parasite>().DetachParasite();
+                GameUI.instance.SetUI(Inventory.instance.attachedUnit);
                 Destroy(slotObject);
             }
             Clear();

@@ -8,7 +8,6 @@ using System.Linq;
 public class Unit : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
-    [SerializeField] Canvas unitCanvas;
     [SerializeField] float restartDelay = 3f;
     System.Random random = new System.Random();
 
@@ -32,7 +31,18 @@ public class Unit : MonoBehaviour
     public bool[] nulls;
     public float[] elementAffinities;
 
-    public void TakeDamage(int damage) => currentHP -= damage;
+    void Start()
+    {
+        if (CompareTag("Player"))
+            GameUI.instance.SetUI(this);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHP -= damage;
+        if (CompareTag("Player"))
+            GameUI.instance.ChangeHP(currentHP);
+    }
 
     public void Heal(int HP)
     {
@@ -40,6 +50,8 @@ public class Unit : MonoBehaviour
             currentHP += HP;
         else
             currentHP = maxHP;
+        if (CompareTag("Player"))
+            GameUI.instance.ChangeHP(currentHP);
     }
 
     public void ReduceCurrentMP(int MPcost)
@@ -47,6 +59,8 @@ public class Unit : MonoBehaviour
         currentMP -= MPcost;
         if (currentMP < 0)
             currentMP = 0;
+        if (CompareTag("Player"))
+            GameUI.instance.ChangeMP(currentMP);
     }
 
     public void IncreaseCurrentMP(int MP)
@@ -55,6 +69,8 @@ public class Unit : MonoBehaviour
             currentMP += MP;
         else
             currentMP = maxMP;
+        if (CompareTag("Player"))
+            GameUI.instance.ChangeMP(currentMP);
     }
 
     public bool IsDead() => currentHP <= 0;
@@ -163,7 +179,7 @@ public class Unit : MonoBehaviour
         SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
         Debug.Log("Game over");
         rb.bodyType = RigidbodyType2D.Static;
-        unitCanvas.gameObject.SetActive(true);
+        GameUI.instance.ShowDeathscreen();
         Invoke(nameof(Restart), restartDelay);
     }
 
