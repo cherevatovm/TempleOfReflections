@@ -35,18 +35,34 @@ public class CombatSystem : MonoBehaviour
     [SerializeField] Camera combatCamera;
 
     public int[] mentalSkillsMPCost;
+    public bool isInCombat;
     float initArmorModifier = 1;
     public static CombatSystem instance;
+
+    public bool attackButtonWasPressed;
+
+    //Animator animator;
     
     void Start()
     {
+        //animator = GetComponent<Animator>();
+        //animator.SetFloat("moveX", 0);
+        //animator.SetFloat("moveY", 1);
+        //PlayerMovement.instance.moveSpeed = 0;
         combatState = CombatState.START;
         instance = this;
+        attackButtonWasPressed = false;
         StartCoroutine(SetupBattle());
     }
 
     IEnumerator SetupBattle()
     {
+        //animator = GetComponent<Animator>();
+        //animator.SetFloat("moveX", 0);
+        //animator.SetFloat("moveY", 1);
+
+        isInCombat = true;
+
         GameObject playerCombat = Instantiate(playerPrefab, playerCombatPosition);
         playerUnit = playerCombat.GetComponent<Unit>();
         playerUnit.knockedTurnsCount = 0;
@@ -113,6 +129,9 @@ public class CombatSystem : MonoBehaviour
     {
         int totalDamage = CalcAffinityDamage(0, false, playerUnit, enemyUnit);
         enemyUnit.TakeDamage(totalDamage);
+        attackButtonWasPressed = true;
+        //yield return new WaitForSeconds(0.5f);
+        //attackButtonWasPressed = false;
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
         //enemyHUD.ChangeHP(enemyUnit.currentHP);
@@ -156,6 +175,9 @@ public class CombatSystem : MonoBehaviour
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[0]);
         enemyUnit.PsionaEffect();
+        attackButtonWasPressed = true;
+        //yield return new WaitForSeconds(0.5f);
+        //attackButtonWasPressed = false;
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
         //enemyHUD.ChangeHP(enemyUnit.currentHP);
@@ -188,6 +210,9 @@ public class CombatSystem : MonoBehaviour
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[1]);
         enemyUnit.ElectraEffect();
+        attackButtonWasPressed = true;
+        //yield return new WaitForSeconds(0.5f);
+        //attackButtonWasPressed = false;
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
         //enemyHUD.ChangeHP(enemyUnit.currentHP);
@@ -220,6 +245,9 @@ public class CombatSystem : MonoBehaviour
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[2]);
         enemyUnit.FiraEffect();
+        attackButtonWasPressed = true;
+        //yield return new WaitForSeconds(0.5f);
+        //attackButtonWasPressed = false;
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
         //enemyHUD.ChangeHP(enemyUnit.currentHP);
@@ -406,9 +434,11 @@ public class CombatSystem : MonoBehaviour
 
     void FinishBattle()
     {
+
         StopAllCoroutines();
         if (combatState == CombatState.WON)
-        {           
+        {
+            isInCombat = false;
             mainCamera.enabled = true;
             combatCamera.enabled = false;
             combatUI.gameObject.SetActive(false);

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3451246488489928909}
   - component: {fileID: 2717877326276490918}
   - component: {fileID: -3658967559688643319}
+  - component: {fileID: 4018075717634864949}
   m_Layer: 0
   m_Name: Electra Enemy Combat
   m_TagString: Enemy
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0e983ad8fc7bd4f4187c33223f6b784c, type: 3}
+  m_Sprite: {fileID: 1321889371, guid: a56b6bfa661660640bda989df2b489d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,18 +102,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0050058365, y: -0.19022167}
+  m_Offset: {x: -0.015828907, y: -0.18202049}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 1.1818181, y: 1.5151515}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.76973176, y: 1.3804433}
+  m_Size: {x: 0.644184, y: 1.1302623}
   m_EdgeRadius: 0
 --- !u!50 &3451246488489928909
 Rigidbody2D:
@@ -134,7 +135,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!114 &2717877326276490918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,3 +184,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d0639fede5a59438f2feb3019327b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &4018075717634864949
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196512860558776952}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bea682396bc15dd48bd45bd3b81526bf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
