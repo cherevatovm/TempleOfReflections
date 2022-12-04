@@ -24,7 +24,8 @@ public class CombatSystem : MonoBehaviour
     [SerializeField] GameObject[] enemyPrefabs;
 
     [SerializeField] Transform playerCombatPosition;
-    [SerializeField] Transform enemyCombatPosition;
+    [SerializeField] Transform[] enemyCombatPositions = new Transform[3];
+    Transform enemyCombatPosition;
 
     [SerializeField] CombatHUD playerHUD;
     public CombatHUD enemyHUD;
@@ -70,7 +71,7 @@ public class CombatSystem : MonoBehaviour
         playerUnit.knockedTurnsCount = 0;
         playerUnit.knockedDownTimeout = 0;
 
-
+        enemyCombatPosition = enemyCombatPositions[encounteredEnemy.enemyID];
         GameObject enemyCombat = Instantiate(enemyPrefabs[encounteredEnemy.enemyID], enemyCombatPosition);
         enemyUnit = enemyCombat.GetComponent<Unit>();
         enemyAI = enemyCombat.GetComponent<EnemyAI>();

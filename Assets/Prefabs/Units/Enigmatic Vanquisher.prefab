@@ -10,14 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 5021757046155829932}
   - component: {fileID: 5021757046155829933}
-  - component: {fileID: 5021757046155829934}
   - component: {fileID: 5021757046155829935}
   - component: {fileID: 5021757046155829928}
   - component: {fileID: 5021757046155829929}
   - component: {fileID: 5021757046155829930}
   - component: {fileID: 5021757046155829939}
+  - component: {fileID: 5037473587283026341}
+  - component: {fileID: -1224265462422185048}
   m_Layer: 0
-  m_Name: Fira Enemy Combat
+  m_Name: Enigmatic Vanquisher
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 5021757046155829931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.38, y: 0.12, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -90,32 +91,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!61 &5021757046155829934
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5021757046155829931}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0050058365, y: -0.19022167}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.142857, y: 5.142857}
-    newSize: {x: 1, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.76973176, y: 1.3804433}
-  m_EdgeRadius: 0
 --- !u!50 &5021757046155829935
 Rigidbody2D:
   serializedVersion: 4
@@ -150,16 +125,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5021757046155829935}
-  unitCanvas: {fileID: 0}
   restartDelay: 1.5
   unitName: Enemy
   meleeAttackStrength: 10
   mentalAttackStrength: 10
   armorModifier: 1
-  currentHP: 25
-  maxHP: 25
-  currentMP: 25
-  maxMP: 25
+  currentHP: 65
+  maxHP: 65
+  currentMP: 15
+  maxMP: 15
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
@@ -168,7 +142,7 @@ MonoBehaviour:
   weaknesses: 00000100
   resistances: 00000001
   nulls: 00000000
-  damageTypeAffinities:
+  elementAffinities:
   - 1
   - 1
   - 1
@@ -185,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4688aad0b3f074284a4a9cf9b0765d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyID: 1
 --- !u!95 &5021757046155829930
 Animator:
   serializedVersion: 4
@@ -217,3 +192,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08807befb1e86cd4ba1767a1f2099c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &5037473587283026341
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021757046155829931}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
+--- !u!114 &-1224265462422185048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021757046155829931}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ece36551c6b564c9eba46809c0b4e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints: []
+  moveSpeed: 3
