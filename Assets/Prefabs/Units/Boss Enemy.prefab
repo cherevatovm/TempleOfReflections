@@ -148,7 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 6868437260319680994}
-  unitCanvas: {fileID: 0}
   restartDelay: 1.5
   unitName: Enemy
   meleeAttackStrength: 15
@@ -183,4 +182,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f9ee0d061af5844a8a2044baabb1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyID: 0
+  enemyID: 2
