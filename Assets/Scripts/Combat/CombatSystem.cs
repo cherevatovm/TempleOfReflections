@@ -41,6 +41,11 @@ public class CombatSystem : MonoBehaviour
     public bool wasAnItemUsed;
     public static CombatSystem instance;
 
+    public bool playerAttackButtonWasPressed;
+    public bool enemyAttackButtonWasPressed;
+    public bool playerIsHurting;
+    public bool enemyIsHurting;
+
     void Start()
     {
         combatCamera.enabled = false;
@@ -127,11 +132,15 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
+        playerAttackButtonWasPressed = true;
         SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
         int totalDamage = CalcAffinityDamage(0, false, playerUnit, enemyUnit);
+        enemyIsHurting = true;
         enemyUnit.TakeDamage(totalDamage);
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
+        enemyIsHurting = false;
+        playerAttackButtonWasPressed = false;
         enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " физического урона";
         yield return new WaitForSeconds(1.5f);
@@ -178,14 +187,18 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerPsionaSkill()
     {
+        playerAttackButtonWasPressed = true;
         SoundManager.PlaySound(SoundManager.Sound.PsiSkill);
         int totalDamage = CalcAffinityDamage(1, true, playerUnit, enemyUnit);
+        enemyIsHurting = true;
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[0]);
         playerHUD.ChangeMP(playerUnit.currentMP);
         enemyUnit.PsionaEffect();
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
+        enemyIsHurting = false;
+        playerAttackButtonWasPressed = false;
         enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " псионического урона";
         yield return new WaitForSeconds(1.5f);
@@ -212,14 +225,18 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerElectraSkill()
     {
+        playerAttackButtonWasPressed = true;
         SoundManager.PlaySound(SoundManager.Sound.ElectraSkill);
         int totalDamage = CalcAffinityDamage(2, true, playerUnit, enemyUnit);
+        enemyIsHurting = true;
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[1]);
         playerHUD.ChangeMP(playerUnit.currentMP);
         enemyUnit.ElectraEffect();
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
+        enemyIsHurting = false;
+        playerAttackButtonWasPressed = false;
         enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " электрического урона";
         yield return new WaitForSeconds(1.5f);
@@ -246,14 +263,18 @@ public class CombatSystem : MonoBehaviour
 
     IEnumerator PlayerFiraSkill()
     {
+        playerAttackButtonWasPressed = true;
         SoundManager.PlaySound(SoundManager.Sound.FiraSkill);
         int totalDamage = CalcAffinityDamage(3, true, playerUnit, enemyUnit);
+        enemyIsHurting = true;
         enemyUnit.TakeDamage(totalDamage);
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[2]);
         playerHUD.ChangeMP(playerUnit.currentMP);
         enemyUnit.FiraEffect();
         combatState = CombatState.ENEMY_TURN;
         yield return new WaitForSeconds(1f);
+        enemyIsHurting = false;
+        playerAttackButtonWasPressed = false;
         enemyHUD.ChangeHP(enemyUnit.currentHP);
         combatUI.combatDialogue.text = "Игрок наносит " + totalDamage + " огненного урона";
         yield return new WaitForSeconds(1.5f);
@@ -313,6 +334,11 @@ public class CombatSystem : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
         enemyAI.CombatAI(out string effectMessage);
+        playerIsHurting = true;
+        enemyAttackButtonWasPressed = true;
+        yield return new WaitForSeconds(0.5f);
+        playerIsHurting = false;
+        enemyAttackButtonWasPressed = false;
         if (!string.IsNullOrEmpty(effectMessage))
         {
             yield return new WaitForSeconds(1f);
