@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TriggerItemController : MonoBehaviour
 {
-    [SerializeField] bool isHealthAffectingItem;//if == true, then the item restores/damage HP, if == false, MP 
+    [SerializeField] bool isHealthAffectingItem;
     [SerializeField] int Impact;
     [SerializeField] Unit playerUnit;
 
@@ -12,7 +12,6 @@ public class TriggerItemController : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Игрок подошел");
             if (isHealthAffectingItem)
                 ChangeCurrentHealth();
             else
@@ -22,17 +21,19 @@ public class TriggerItemController : MonoBehaviour
 
     void ChangeCurrentHealth()
     {
-        playerUnit.currentHP += Impact;
-        if (playerUnit.currentHP > playerUnit.maxHP)
-            playerUnit.currentHP = playerUnit.maxHP;
+        if (Impact > 0)
+            playerUnit.Heal(Impact);
+        else
+            playerUnit.TakeDamage(Impact * -1);
         if (playerUnit.IsDead())
             playerUnit.Death();
     }
 
     void ChangeCurrentMP()
     {
-        playerUnit.currentMP += Impact;
-        if (playerUnit.currentMP > playerUnit.maxMP)
-            playerUnit.currentMP = playerUnit.maxMP;
+        if (Impact > 0)
+            playerUnit.IncreaseCurrentMP(Impact);
+        else
+            playerUnit.ReduceCurrentMP(Impact * -1);
     }
 }
