@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8429003693444029571}
   - component: {fileID: 7802583780419722364}
   m_Layer: 0
-  m_Name: MInHp
+  m_Name: MinHp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

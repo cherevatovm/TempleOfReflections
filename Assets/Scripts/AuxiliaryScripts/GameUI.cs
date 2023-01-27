@@ -10,8 +10,9 @@ public class GameUI : MonoBehaviour
     [SerializeField] TMP_Text mpCounter;
     [SerializeField] Slider hpSlider;
     [SerializeField] Slider mpSlider;
-    [SerializeField] GameObject exitMenu;
-    [SerializeField] GameObject noteMenu;
+    [SerializeField] public GameObject exitUI;
+    [SerializeField] GameObject noteUI;
+    [SerializeField] GameObject dialogueUI;
     public static GameUI instance;
 
     void Awake() => instance = this;
@@ -19,7 +20,7 @@ public class GameUI : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            ShowOrHideExitMenu();
+            ShowOrHideExitUI();
     }
 
     public void SetUI(Unit unit)
@@ -46,21 +47,35 @@ public class GameUI : MonoBehaviour
         mpCounter.text = mp + "/" + mpSlider.maxValue;
     }
 
-    public void ShowOrHideExitMenu()
+    public void ShowOrHideExitUI()
     {
-        if (exitMenu.activeSelf)
-            exitMenu.SetActive(false);
+        if (Inventory.instance.isOpened)
+        {
+            Inventory.instance.Close();
+            return;
+        }
+        else if (noteUI.activeSelf)
+        {
+            NoteManager.instance.EndReading();
+            return;
+        }
+        else if (dialogueUI.activeSelf)
+            return;
+        if (exitUI.activeSelf)
+            exitUI.SetActive(false);
         else
-            exitMenu.SetActive(true);
+            exitUI.SetActive(true);
     }
 
-    public void ShowOrHideNoteMenu()
+    public void ShowOrHideNoteUI() //На данный момент бесполезно
     {
-        if (noteMenu.activeSelf)
-            noteMenu.SetActive(false);
+        if (noteUI.activeSelf)
+            noteUI.SetActive(false);
         else
-            noteMenu.SetActive(true);
+            noteUI.SetActive(true);
     }
+
+    public bool IsSubmenuActive() => exitUI.activeSelf || noteUI.activeSelf || dialogueUI.activeSelf;
 
     public void ShowDeathscreen() => transform.GetChild(0).gameObject.SetActive(true);
 

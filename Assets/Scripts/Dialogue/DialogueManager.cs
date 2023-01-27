@@ -9,7 +9,7 @@ public class DialogueManager : MonoBehaviour
 	public static DialogueManager instance;
 	public TMP_Text nameText;
 	public TMP_Text dialogueText;
-	[SerializeField] Canvas dialogueCanvas;
+	[SerializeField] GameObject dialogueUI;
 	[SerializeField] PlayerMovement playerMovement;
     [HideInInspector] public DialogueTrigger dialogueTrigger;
 
@@ -23,6 +23,10 @@ public class DialogueManager : MonoBehaviour
 
 	public void StartDialogue(Dialogue dialogue)
 	{
+        if (Inventory.instance.isOpened)
+            Inventory.instance.Close();
+        else if (GameUI.instance.exitUI.activeSelf)
+            GameUI.instance.exitUI.SetActive(false);
         dialogueTrigger.wasKeyPressed = false;
         dialogueTrigger.pressLock = true;
         playerMovement.enabled = false;
@@ -30,7 +34,7 @@ public class DialogueManager : MonoBehaviour
 		sentences.Clear();
 		foreach (string sentence in dialogue.sentences)
 			sentences.Enqueue(sentence);
-		dialogueCanvas.gameObject.SetActive(true);
+		dialogueUI.SetActive(true);
 		DisplayNextSentence();
 	}
 
@@ -59,7 +63,7 @@ public class DialogueManager : MonoBehaviour
 	void EndDialogue()
 	{
 		playerMovement.enabled = true;
-        dialogueCanvas.gameObject.SetActive(false);
+        dialogueUI.SetActive(false);
         dialogueTrigger.pressLock = false;
     }
 }

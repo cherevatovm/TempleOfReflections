@@ -20,13 +20,13 @@ public class Inventory : MonoBehaviour
         instance = this;
         for (int i = 0; i < parentSlotForItems.childCount; i++)
             inventorySlotsForItems.Add(parentSlotForItems.GetChild(i).GetComponent<InventorySlot>());
-        for (int i = 0; i < parentSlotForParasites.childCount;i++)
+        for (int i = 0; i < parentSlotForParasites.childCount; i++)
             inventorySlotsForParasites.Add(parentSlotForParasites.GetChild(i).GetComponent<InventorySlot>());
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B) /*&& !CombatSystem.instance.isInCombat*/ && !attachedUnit.IsDead())
+        if (Input.GetKeyDown(KeyCode.B) && !CombatSystem.instance.isInCombat && !GameUI.instance.IsSubmenuActive() && !attachedUnit.IsDead())
             if (isOpened)
                 instance.Close();
             else

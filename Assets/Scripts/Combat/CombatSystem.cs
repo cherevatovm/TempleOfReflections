@@ -82,6 +82,7 @@ public class CombatSystem : MonoBehaviour
         combatUI.gameObject.SetActive(true);
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
+        combatUI.UpdateMentalSkillButtons();
 
         combatCamera.enabled = true;
         mainCamera.enabled = false;
@@ -231,7 +232,7 @@ public class CombatSystem : MonoBehaviour
         int totalDamage = CalcAffinityDamage(2, true, playerUnit, enemyUnit);
         enemyIsHurting = true;
         enemyUnit.TakeDamage(totalDamage);
-        playerUnit.ReduceCurrentMP(mentalSkillsMPCost[1]);
+        playerUnit.ReduceCurrentMP(mentalSkillsMPCost[0]);
         playerHUD.ChangeMP(playerUnit.currentMP);
         enemyUnit.ElectraEffect();
         combatState = CombatState.ENEMY_TURN;
@@ -269,7 +270,7 @@ public class CombatSystem : MonoBehaviour
         int totalDamage = CalcAffinityDamage(3, true, playerUnit, enemyUnit);
         enemyIsHurting = true;
         enemyUnit.TakeDamage(totalDamage);
-        playerUnit.ReduceCurrentMP(mentalSkillsMPCost[2]);
+        playerUnit.ReduceCurrentMP(mentalSkillsMPCost[0]);
         playerHUD.ChangeMP(playerUnit.currentMP);
         enemyUnit.FiraEffect();
         combatState = CombatState.ENEMY_TURN;
@@ -496,6 +497,9 @@ public class CombatSystem : MonoBehaviour
         else if (combatState == CombatState.LOST)
         {
             combatUI.combatDialogue.text = "Игрок оказался повержен...";
+            GameUI.instance.gameObject.SetActive(true);
+            for (int i = 0; i < GameUI.instance.transform.childCount; i++)
+                GameUI.instance.transform.GetChild(i).gameObject.SetActive(false);
             Inventory.instance.attachedUnit.Death();
         }
     }

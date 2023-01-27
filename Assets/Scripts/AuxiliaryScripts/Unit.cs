@@ -84,6 +84,8 @@ public class Unit : MonoBehaviour
         armorModifier = otherUnit.armorModifier;
         currentHP = otherUnit.currentHP;
         maxHP = otherUnit.maxHP;
+        currentMP = otherUnit.currentMP;
+        maxMP = otherUnit.maxMP;
         System.Array.Copy(otherUnit.weaknesses, weaknesses, 4);
         System.Array.Copy(otherUnit.resistances, resistances, 4);
         System.Array.Copy(otherUnit.nulls, nulls, 4);
@@ -177,6 +179,7 @@ public class Unit : MonoBehaviour
     public void Death()
     {
         SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
+        StopAllCoroutines();
         Debug.Log("Game over");
         rb.bodyType = RigidbodyType2D.Static;
         GameUI.instance.ShowDeathscreen();

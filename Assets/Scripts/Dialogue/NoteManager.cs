@@ -16,6 +16,10 @@ public class NoteManager : MonoBehaviour
 
     public void StartReading(Dialogue note)
     {
+        if (Inventory.instance.isOpened)
+            Inventory.instance.Close();
+        else if (GameUI.instance.exitUI.activeSelf)
+            GameUI.instance.exitUI.SetActive(false);
         dialogueTrigger.wasKeyPressed = false;
         dialogueTrigger.pressLock = true;
         playerMovement.enabled = false;

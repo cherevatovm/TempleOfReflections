@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,5 +55,11 @@ public class CombatUI : MonoBehaviour
                     mentalSkillButtonList[i].gameObject.SetActive(true);
             areButtonsShown = true;
         }
+    }
+
+    public void UpdateMentalSkillButtons()
+    {
+        availableMentalSkillButtons[1] = Inventory.instance.IsElectraParInInventory();
+        availableMentalSkillButtons[2] = Inventory.instance.IsFiraParInInventory();
     }
 }

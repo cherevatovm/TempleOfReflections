@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -409241921683697879}
   - component: {fileID: 1622391755321119148}
   m_Layer: 0
-  m_Name: Harbringer of Misfortune
+  m_Name: Harbinger of Misfortune
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
