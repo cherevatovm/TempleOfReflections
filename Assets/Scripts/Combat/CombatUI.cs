@@ -8,16 +8,16 @@ public class CombatUI : MonoBehaviour
 {
     public TextMeshProUGUI combatDialogue;
     public GameObject[] buttonPrefabs;
-    List<Button> mentalSkillButtonList = new();
-    bool[] availableMentalSkillButtons = new bool[3];
-    public bool areButtonsShown;
-    public bool mSkillButtonsWereinstantiated;
+    private List<Button> mentalSkillButtonList = new();
+    private bool[] availableMentalSkillButtons = new bool[4];
+    [HideInInspector] public bool areButtonsShown;
+    [HideInInspector] public bool skillButtonsWereinstantiated;
 
     public void SetMentalSkillButtons()
     {
         availableMentalSkillButtons[0] = true;
-        availableMentalSkillButtons[1] = Inventory.instance.IsElectraParInInventory();
-        availableMentalSkillButtons[2] = Inventory.instance.IsFiraParInInventory();
+        for (int i = 1; i < availableMentalSkillButtons.Length; i++)
+            availableMentalSkillButtons[i] = Inventory.instance.IsMentalParInInventory(i - 1);
         for (int i = 0; i < buttonPrefabs.Length; i++)
         {
             mentalSkillButtonList.Add(Instantiate(buttonPrefabs[i], transform).GetComponent<Button>());
@@ -31,6 +31,9 @@ public class CombatUI : MonoBehaviour
                     break;
                 case "Fira Button(Clone)":
                     mentalSkillButtonList[i].onClick.AddListener(delegate { GameObject.Find("Combat System").GetComponent<CombatSystem>().OnFiraButton(); });
+                    break;
+                case "Regena Button(Clone)":
+                    mentalSkillButtonList[i].onClick.AddListener(delegate { GameObject.Find("Combat System").GetComponent<CombatSystem>().OnRegenaButton(); });
                     break;
             }
         }
@@ -59,7 +62,7 @@ public class CombatUI : MonoBehaviour
 
     public void UpdateMentalSkillButtons()
     {
-        availableMentalSkillButtons[1] = Inventory.instance.IsElectraParInInventory();
-        availableMentalSkillButtons[2] = Inventory.instance.IsFiraParInInventory();
+        for (int i = 1; i < availableMentalSkillButtons.Length; i++)
+            availableMentalSkillButtons[i] = Inventory.instance.IsMentalParInInventory(i - 1);
     }
 }

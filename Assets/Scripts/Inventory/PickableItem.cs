@@ -9,19 +9,16 @@ public class PickableItem : MonoBehaviour
     public string itemName;
     public string itemDescription;
     public bool isParasite; 
-    bool isCloseToItem;
+    private bool isCloseToItem;
 
-    void Update()
+    private void Update()
     {
         if (isCloseToItem)
             if (Input.GetKeyDown(KeyCode.F))
-            {
                 Inventory.instance.PutInInventory(this, gameObject);
-                gameObject.SetActive(false);
-            }
     }
-    
-    void OnTriggerEnter2D(Collider2D collision) => isCloseToItem = true;
-    
-    void OnTriggerExit2D(Collider2D collision) => isCloseToItem = false;
+
+    private void OnTriggerEnter2D(Collider2D collision) => isCloseToItem = true;
+
+    private void OnTriggerExit2D(Collider2D collision) => isCloseToItem = false;
 }

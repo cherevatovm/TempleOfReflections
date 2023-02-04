@@ -46,55 +46,12 @@ public class Inventory : MonoBehaviour
         isOpened = false;
     }
 
-    public bool IsElectraParInInventory()
-    {
-        foreach (var parInventorySlot in inventorySlotsForParasites)
-        {
-            if (parInventorySlot.slotObject == null)
-                break;
-            if (parInventorySlot.slotObject.GetComponent<Parasite>().availableDamageTypes[0])
-                return true;
-        }
-        return false;
-    }
-
-    public bool IsFiraParInInventory()
-    {
-        foreach (var parInventorySlot in inventorySlotsForParasites)
-        {
-            if (parInventorySlot.slotObject == null)
-                break;
-            if (parInventorySlot.slotObject.GetComponent<Parasite>().availableDamageTypes[1])
-                return true;
-        }
-        return false;
-    }
-
-    bool IsFull(bool isParasite)
-    {
-        if (isParasite)
-        {
-            for (int i = inventorySlotsForParasites.Count - 1; i > -1; i--)
-                if (inventorySlotsForParasites[i].isEmpty)
-                    return false;
-        }
-        else
-        {
-            for (int i = inventorySlotsForItems.Count - 1; i > -1; i--)
-                if (inventorySlotsForItems[i].isEmpty)
-                    return false;
-        }
-        return true;
-    }
-
     public void PutInInventory(PickableItem item, GameObject obj)
     {
         if (item.isParasite)
         {
             if (IsFull(true))
-            {
                 return;
-            }
             for (int i = 0; i < inventorySlotsForParasites.Count; i++)
             {
                 if (!inventorySlotsForParasites[i].isEmpty && item.itemName.Equals(inventorySlotsForParasites[i].slotItemName))
@@ -110,14 +67,13 @@ public class Inventory : MonoBehaviour
                 }
             }
             obj.GetComponent<Parasite>().ApplyParasiteEffect();
+            obj.SetActive(false);
             GameUI.instance.SetUI(attachedUnit);
         }
         else
         {
             if (IsFull(false))
-            {
                 return;
-            }
             for (int i = 0; i < inventorySlotsForItems.Count; i++)
             {
                 if (!inventorySlotsForItems[i].isEmpty && item.itemName.Equals(inventorySlotsForItems[i].slotItemName))
@@ -131,6 +87,150 @@ public class Inventory : MonoBehaviour
                     break;
                 }
             }
+            obj.SetActive(false);
         }
+    }
+
+    public void GroupParasitesInSlots()
+    {
+        for (int i = 0; i < inventorySlotsForParasites.Count; i++)
+        {
+            if (inventorySlotsForParasites[i].isEmpty && IsSomethingInSlotsAfter(true, i))
+            {
+                int j = i;
+                int k = i + 1;
+                while (k != inventorySlotsForParasites.Count && !inventorySlotsForParasites[k].isEmpty)
+                {
+                    inventorySlotsForParasites[j].PutInSlot(inventorySlotsForParasites[k].slotItem, inventorySlotsForParasites[k].slotObject);
+                    inventorySlotsForParasites[k].Clear();
+                    k++;
+                    j++;
+                }
+                break;
+            }
+        }
+    }
+
+    public void GroupItemsInSlots()
+    {
+        for (int i = 0; i < inventorySlotsForItems.Count; i++)
+        {
+            if (inventorySlotsForItems[i].isEmpty && IsSomethingInSlotsAfter(false, i))
+            {
+                int j = i;
+                int k = i + 1;
+                while (k != inventorySlotsForItems.Count && !inventorySlotsForItems[k].isEmpty)
+                {
+                    inventorySlotsForItems[j].PutInSlot(inventorySlotsForItems[k].slotItem, inventorySlotsForItems[k].slotObject);
+                    inventorySlotsForItems[k].Clear();
+                    k++;
+                    j++;
+                }
+                break;
+            }
+        }
+    }
+
+    public int OccupiedSlotsCount(bool isParasite)
+    {
+        int count = 0;
+        if (isParasite)
+        {
+            for (int i = 0; i < inventorySlotsForParasites.Count; i++)
+                if (!inventorySlotsForParasites[i].isEmpty)
+                    count++;
+        }
+        else
+            for (int i = 0; i < inventorySlotsForItems.Count; i++)
+                if (!inventorySlotsForItems[i].isEmpty)
+                    count++;
+        return count;
+    }
+
+    public int SameEffectParCount(int effectIndex, bool posOrNeg)
+    {
+        int count = 0;
+        for (int i = 0; i < inventorySlotsForParasites.Count; i++)
+        {
+            if (inventorySlotsForParasites[i].isEmpty)
+                break;
+            if (posOrNeg)
+            {
+                if (inventorySlotsForParasites[i].slotObject.GetComponent<Parasite>().posEffectIndex == effectIndex)
+                    count++;
+            }
+            else
+            {
+                if (inventorySlotsForParasites[i].slotObject.GetComponent<Parasite>().negEffectIndex == effectIndex)
+                    count++;
+            }
+        }
+        return count;
+    }
+
+    public bool IsThereParWithSameEffect(Parasite parasite, int effectIndex, out bool posOrNeg)
+    {
+        int parIndex = 0;
+        for (int i = 0; i < inventorySlotsForParasites.Count; i++)
+            if (inventorySlotsForParasites[i].slotItem.Equals(parasite))
+            {
+                parIndex = i;
+                break;
+            }
+        int posIndex = -1;
+        int negIndex = -1;
+        for (int i = 0; i < inventorySlotsForParasites.Count; i++)
+        {
+            if (inventorySlotsForParasites[i].isEmpty)
+                break;
+            if (i == parIndex)
+                continue;
+            if (inventorySlotsForParasites[i].slotObject.GetComponent<Parasite>().posEffectIndex == effectIndex)
+            {
+                posIndex = i;
+                continue;
+            }
+            if (inventorySlotsForParasites[i].slotObject.GetComponent<Parasite>().negEffectIndex == effectIndex)
+                negIndex = i;
+        }
+        posOrNeg = posIndex > negIndex;
+        return posIndex != -1 || negIndex != -1;
+    }
+
+    public bool IsMentalParInInventory(int mentalSkillID)
+    {
+        foreach (var parInventorySlot in inventorySlotsForParasites)
+        {
+            if (parInventorySlot.slotObject == null)
+                break;
+            if (parInventorySlot.slotObject.GetComponent<Parasite>().availableMentalSkills[mentalSkillID])
+                return true;
+        }
+        return false;
+    }
+
+    private bool IsFull(bool isParasite)
+    {
+        if (isParasite)
+            return OccupiedSlotsCount(true) == inventorySlotsForParasites.Count;
+        else
+            return OccupiedSlotsCount(false) == inventorySlotsForItems.Count;
+    }
+
+    private bool IsSomethingInSlotsAfter(bool isParasite, int index)
+    {
+        if (index == inventorySlotsForParasites.Count - 1)
+            return false;
+        if (isParasite)
+        {
+            for (int i = index; i < inventorySlotsForParasites.Count; i++)
+                if (!inventorySlotsForParasites[i].isEmpty)
+                    return true;
+        }
+        else
+            for (int i = index; i < inventorySlotsForItems.Count; i++)
+                if (!inventorySlotsForItems[i].isEmpty)
+                    return true;
+        return false;
     }
 }

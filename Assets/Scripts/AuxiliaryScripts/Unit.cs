@@ -7,9 +7,15 @@ using System.Linq;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D rb;
-    [SerializeField] float restartDelay = 3f;
-    System.Random random = new System.Random();
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private float restartDelay = 3f;
+    private System.Random random = new System.Random();
+
+    [HideInInspector] public int initMaxHP;
+    [HideInInspector] public int initMaxMP;
+    [HideInInspector] public int initMeleeAttackStrength;
+    [HideInInspector] public int initMentalAttackStrength;
+    [HideInInspector] public float[] initElementAffinities;
 
     public string unitName;    
     public int meleeAttackStrength;
@@ -19,12 +25,12 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentMP;
     public int maxMP;
-    
-    public bool isKnockedDown;
-    public int knockedTurnsCount;
-    public int knockedDownTimeout;
-    public bool[] appliedEffect = new bool[3];
-    public int underEffectTurnsCount = 0;
+
+    [HideInInspector] public bool isKnockedDown;
+    [HideInInspector] public int knockedTurnsCount;
+    [HideInInspector] public int knockedDownTimeout;
+    [HideInInspector] public bool[] appliedEffect = new bool[3];
+    [HideInInspector] public int underEffectTurnsCount = 0;
 
     public bool[] weaknesses;
     public bool[] resistances;
@@ -34,7 +40,15 @@ public class Unit : MonoBehaviour
     void Start()
     {
         if (CompareTag("Player"))
+        {
             GameUI.instance.SetUI(this);
+            initMaxHP = maxHP;
+            initMaxMP = maxMP;
+            initMeleeAttackStrength = meleeAttackStrength;
+            initMentalAttackStrength = mentalAttackStrength;
+            initElementAffinities = new float[4];
+            System.Array.Copy(elementAffinities, initElementAffinities, 4);
+        }
     }
 
     public void TakeDamage(int damage)
@@ -180,8 +194,8 @@ public class Unit : MonoBehaviour
     {
         SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
         StopAllCoroutines();
-        Debug.Log("Game over");
         rb.bodyType = RigidbodyType2D.Static;
+        Inventory.instance.Close();
         GameUI.instance.ShowDeathscreen();
         Invoke(nameof(Restart), restartDelay);
     }
