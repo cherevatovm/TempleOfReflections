@@ -15,6 +15,10 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
     public bool isOpened;
 
+    public bool BIsOpened;
+
+    public box Box;
+
     void Start()
     {
         instance = this;
@@ -26,11 +30,17 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B) && !CombatSystem.instance.isInCombat && !GameUI.instance.IsSubmenuActive() && !attachedUnit.IsDead())
+        if (Input.GetKeyDown(KeyCode.B)&& !BIsOpened && !CombatSystem.instance.isInCombat && !GameUI.instance.IsSubmenuActive() && !attachedUnit.IsDead())
             if (isOpened)
                 instance.Close();
             else
                 instance.Open();
+    }
+
+    public void BoxIsOpened(bool isopened, box b)
+    {
+        BIsOpened = isopened;
+        Box = b;
     }
 
     public void Open()

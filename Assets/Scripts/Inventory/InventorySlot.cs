@@ -43,6 +43,7 @@ public class InventorySlot : MonoBehaviour
         slotObject = obj;
     }
 
+
     public void DropOutOfSlot()
     {
         if (CombatSystem.instance.isInCombat)
@@ -54,15 +55,18 @@ public class InventorySlot : MonoBehaviour
         ItemInfo.instance.Close();
         if (stackCount != 1)
         {
-            slotObject.SetActive(true);
-            if (slotItem.isParasite)
+            if (!Inventory.instance.BIsOpened)
             {
-                slotObject.GetComponent<Parasite>().DetachParasite();
-                GameUI.instance.SetUI(Inventory.instance.attachedUnit);
+                slotObject.SetActive(true);
+                if (slotItem.isParasite)
+                {
+                    slotObject.GetComponent<Parasite>().DetachParasite();
+                    GameUI.instance.SetUI(Inventory.instance.attachedUnit);
+                }
+                else
+                    Instantiate(slotObject, vector, Quaternion.identity);
+                slotObject.SetActive(false);
             }
-            else
-                Instantiate(slotObject, vector, Quaternion.identity);
-            slotObject.SetActive(false);
             stackCount--;
             if (stackCount == 1)
                 stackCountText.text = "";
@@ -71,13 +75,16 @@ public class InventorySlot : MonoBehaviour
         }
         else
         {
-            slotObject.SetActive(true);
-            slotObject.transform.position = vector;
-            if (slotItem.isParasite)
+            if (!Inventory.instance.BIsOpened)
             {
-                slotObject.GetComponent<Parasite>().DetachParasite();
-                GameUI.instance.SetUI(Inventory.instance.attachedUnit);
-                Destroy(slotObject);
+                slotObject.SetActive(true);
+                slotObject.transform.position = vector;
+                if (slotItem.isParasite)
+                {
+                    slotObject.GetComponent<Parasite>().DetachParasite();
+                    GameUI.instance.SetUI(Inventory.instance.attachedUnit);
+                    Destroy(slotObject);
+                }
             }
             Clear();
         }
@@ -140,15 +147,38 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
+    public void PutInBox()
+    {
+        for (int i = 0; i < Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).transform.childCount; i++)
+        {
+            if (!Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<BoxSlots>().isEmpty
+                && slotItem.itemName.Equals(Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<BoxSlots>().slotItemName))
+            {
+                Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<BoxSlots>().stackCount++;
+                break;
+            }
+            else if (Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<BoxSlots>().isEmpty)
+            {
+                Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<BoxSlots>().PutInSlot(slotItem, slotObject);
+                break;
+            }
+        }
+        DropOutOfSlot();
+    }
+
     public void SlotClicked() 
     {
         if (!isEmpty)
         { 
             var vector = new Vector3(gameObject.transform.position.x + 5, gameObject.transform.position.y + 2, gameObject.transform.position.z);
             if (ItemInfo.instance.transform.localScale == Vector3.zero)
+            {
                 ItemInfo.instance.Open(slotItemName, slotItemDescription, gameObject.transform.position, this);
+            }
             else if (ItemInfo.instance.transform.localScale == Vector3.one && ItemInfo.instance.transform.position != vector)
+            {
                 ItemInfo.instance.Open(slotItemName, slotItemDescription, gameObject.transform.position, this);
+            }
             else
                 ItemInfo.instance.Close();
         }
