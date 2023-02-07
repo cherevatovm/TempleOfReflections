@@ -12,12 +12,12 @@ public class InventorySlot : MonoBehaviour
     public PickableItem slotItem;
 
     public GameObject slotObject;   
-    Button clickableSlot;
+    private Button clickableSlot;
            
     public int stackCount;
     public bool isEmpty = true;
 
-    void Start()
+    private void Start()
     {
         clickableSlot = gameObject.GetComponent<Button>();
         clickableSlot.onClick.AddListener(SlotClicked);        
@@ -27,7 +27,7 @@ public class InventorySlot : MonoBehaviour
         stackCountText.text = "";
     }
 
-    void Update()
+    private void Update()
     {
         if (stackCount > 1)
             stackCountText.text = stackCount.ToString();
@@ -80,6 +80,8 @@ public class InventorySlot : MonoBehaviour
                 Destroy(slotObject);
             }
             Clear();
+            Inventory.instance.GroupParasitesInSlots();
+            Inventory.instance.GroupItemsInSlots();
         }
     }
 
@@ -98,19 +100,6 @@ public class InventorySlot : MonoBehaviour
                     CombatSystem.instance.playerUnit.Heal((int)(CombatSystem.instance.playerUnit.maxHP * (mixture0.percentOfRestoredHP / 100.0)));
                 else
                     Inventory.instance.attachedUnit.Heal((int)(Inventory.instance.attachedUnit.maxHP * (mixture0.percentOfRestoredHP / 100.0)));
-                if (stackCount != 1)
-                {
-                    stackCount--;
-                    if (stackCount == 1)
-                        stackCountText.text = "";
-                    else
-                        stackCountText.text = stackCount.ToString();
-                }
-                else
-                {
-                    ItemInfo.instance.Close();
-                    Clear();
-                }
                 break;
             case "MpMixture":
                 var mixture1 = (MpMixture)slotItem;
@@ -118,20 +107,21 @@ public class InventorySlot : MonoBehaviour
                     CombatSystem.instance.playerUnit.IncreaseCurrentMP((int)(CombatSystem.instance.playerUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
                 else
                     Inventory.instance.attachedUnit.IncreaseCurrentMP((int)(Inventory.instance.attachedUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
-                if (stackCount != 1)
-                {
-                    stackCount--;
-                    if (stackCount == 1)
-                        stackCountText.text = "";
-                    else
-                        stackCountText.text = stackCount.ToString();
-                }
-                else
-                {
-                    ItemInfo.instance.Close();
-                    Clear();
-                }
                 break;
+        }
+        if (stackCount != 1)
+        {
+            stackCount--;
+            if (stackCount == 1)
+                stackCountText.text = "";
+            else
+                stackCountText.text = stackCount.ToString();
+        }
+        else
+        {
+            ItemInfo.instance.Close();
+            Clear();
+            Inventory.instance.GroupItemsInSlots();
         }
         if (CombatSystem.instance.isInCombat)
         {

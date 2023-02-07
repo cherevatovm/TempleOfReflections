@@ -7,9 +7,15 @@ using System.Linq;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] Rigidbody2D rb;
-    [SerializeField] float restartDelay = 3f;
-    System.Random random = new System.Random();
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private float restartDelay = 3f;
+    private System.Random random = new();
+
+    [HideInInspector] public int initMaxHP;
+    [HideInInspector] public int initMaxMP;
+    [HideInInspector] public int initMeleeAttackStrength;
+    [HideInInspector] public int initMentalAttackStrength;
+    [HideInInspector] public float[] initElementAffinities;
 
     public string unitName;    
     public int meleeAttackStrength;
@@ -19,22 +25,30 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentMP;
     public int maxMP;
-    
-    public bool isKnockedDown;
-    public int knockedTurnsCount;
-    public int knockedDownTimeout;
-    public bool[] appliedEffect = new bool[3];
-    public int underEffectTurnsCount = 0;
+
+    [HideInInspector] public bool isKnockedDown;
+    [HideInInspector] public int knockedTurnsCount;
+    [HideInInspector] public int knockedDownTimeout;
+    [HideInInspector] public bool[] appliedEffect = new bool[3];
+    [HideInInspector] public int underEffectTurnsCount = 0;
 
     public bool[] weaknesses;
     public bool[] resistances;
     public bool[] nulls;
     public float[] elementAffinities;
 
-    void Start()
+    private void Start()
     {
         if (CompareTag("Player"))
+        {
             GameUI.instance.SetUI(this);
+            initMaxHP = maxHP;
+            initMaxMP = maxMP;
+            initMeleeAttackStrength = meleeAttackStrength;
+            initMentalAttackStrength = mentalAttackStrength;
+            initElementAffinities = new float[4];
+            System.Array.Copy(elementAffinities, initElementAffinities, 4);
+        }
     }
 
     public void TakeDamage(int damage)
@@ -92,34 +106,50 @@ public class Unit : MonoBehaviour
         System.Array.Copy(otherUnit.elementAffinities, elementAffinities, 4);
     }
 
-    public void UnitEffectUpdate()
+    public bool UnitEffectUpdate()
     {
-        if (appliedEffect.Contains(true))
+        bool res = appliedEffect.Contains(true);
+        if (res)
         {
             int index = System.Array.FindIndex(appliedEffect, elem => elem.Equals(true));
             switch (index)
             {
                 case 0:
-                    PsionaEffect();
+                    PsionaEffectUpdate();
                     break;
                 case 1:
-                    ElectraEffect();
+                    ElectraEffectUpdate();
                     break;
                 case 2:
-                    FiraEffect();
+                    FiraEffectUpdate();
                     break;
             }
         }
+        return res;
     }
 
-    public void PsionaEffect()
+    public string ApplyEffect(int effectIndex)
     {
-        if (!appliedEffect.Contains(true) && !resistances[1] && !nulls[1] && random.NextDouble() < CombatSystem.effectProbability)
+        if (effectIndex < 0 || effectIndex >= appliedEffect.Length)
+            return string.Empty;
+        string message = string.Empty;
+        if (!appliedEffect.Contains(true) && !resistances[effectIndex + 1] && !nulls[effectIndex + 1] && random.NextDouble() < CombatSystem.effectProbability)
         {
-            appliedEffect[0] = true;
-            CombatSystem.instance.combatUI.combatDialogue.text = "На " + unitName + " наложен эффект поглощения MP";
+            appliedEffect[effectIndex] = true;
+            message = effectIndex switch
+            {
+                0 => "На " + unitName + " наложен эффект поглощения MP",
+                1 => unitName + " оказывается окован электричеством, которое не позволяет двигаться",
+                2 => unitName + " в огне!",
+                _ => string.Empty,
+            };
         }
-        else if (appliedEffect[0] && underEffectTurnsCount < 3)
+        return message;
+    }
+
+    private void PsionaEffectUpdate()
+    {
+        if (appliedEffect[0] && underEffectTurnsCount < 3)
         {
             underEffectTurnsCount++;
             int takenMP = (int)(0.08 * maxMP);
@@ -134,14 +164,9 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void ElectraEffect()
+    private void ElectraEffectUpdate()
     {
-        if (!appliedEffect.Contains(true) && !resistances[2] && !nulls[2] && random.NextDouble() < CombatSystem.effectProbability)
-        {
-            appliedEffect[1] = true;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " оказывается окован электричеством, которое не позволяет двигаться";
-        }
-        else if (appliedEffect[1] && underEffectTurnsCount < 2)
+        if (appliedEffect[1] && underEffectTurnsCount < 2)
         {
             underEffectTurnsCount++;
             CombatSystem.instance.combatUI.combatDialogue.text = unitName + " чересчур шокирован, чтобы двигаться";
@@ -154,14 +179,9 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void FiraEffect()
+    private void FiraEffectUpdate()
     {
-        if (!appliedEffect.Contains(true) && !resistances[3] && !nulls[3] && random.NextDouble() < CombatSystem.effectProbability)
-        {
-            appliedEffect[2] = true;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " в огне!";
-        }
-        else if (appliedEffect[2] && underEffectTurnsCount < 3)
+        if (appliedEffect[2] && underEffectTurnsCount < 3)
         {
             underEffectTurnsCount++;
             int takenHP = (int)(0.05 * maxHP);
@@ -180,14 +200,11 @@ public class Unit : MonoBehaviour
     {
         SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
         StopAllCoroutines();
-        Debug.Log("Game over");
         rb.bodyType = RigidbodyType2D.Static;
+        Inventory.instance.Close();
         GameUI.instance.ShowDeathscreen();
         Invoke(nameof(Restart), restartDelay);
     }
 
-    void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    private void Restart() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 }

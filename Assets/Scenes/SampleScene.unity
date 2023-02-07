@@ -271,7 +271,9 @@ MonoBehaviour:
   itemName: "\u041E\u0441\u043A\u043E\u043B\u043E\u043A 2"
   itemDescription: 
   isParasite: 0
-  availableDamageTypes: 0000
+  availableMentalSkills: 000000
+  posEffectIndex: 0
+  negEffectIndex: 0
 --- !u!58 &31674467
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -505,7 +507,9 @@ MonoBehaviour:
   itemName: "\u041E\u0441\u043A\u043E\u043B\u043E\u043A 5"
   itemDescription: 
   isParasite: 0
-  availableDamageTypes: 0000
+  availableMentalSkills: 000000
+  posEffectIndex: 0
+  negEffectIndex: 0
 --- !u!58 &54893969
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1850,7 +1854,9 @@ MonoBehaviour:
   itemName: "\u041E\u0441\u043A\u043E\u043B\u043E\u043A 3"
   itemDescription: 
   isParasite: 0
-  availableDamageTypes: 0000
+  availableMentalSkills: 000000
+  posEffectIndex: 0
+  negEffectIndex: 0
 --- !u!58 &139368401
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -32829,7 +32835,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.18, y: 1.48, z: -10}
+  m_LocalPosition: {x: 1.01, y: 1.74, z: -11}
   m_LocalScale: {x: -0.0002088393, y: 0.0000006588477, z: -0.000036646514}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43838,7 +43844,9 @@ MonoBehaviour:
   itemName: "\u041E\u0441\u043A\u043E\u043B\u043E\u043A 4"
   itemDescription: 
   isParasite: 0
-  availableDamageTypes: 0000
+  availableMentalSkills: 000000
+  posEffectIndex: 0
+  negEffectIndex: 0
 --- !u!58 &958287786
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -47444,6 +47452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefb8d579153cab4ab20d895b748f74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reflectionProbability1: 0
+  reflectionProbability2: 0
   playerUnit: {fileID: 0}
   enemyUnit: {fileID: 0}
   encounteredEnemy: {fileID: 0}
@@ -101735,6 +101745,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7963220043925325626, guid: 08c76732325b8944cb2c6abc75665e07, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963220043925325626, guid: 08c76732325b8944cb2c6abc75665e07, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963220043925325626, guid: 08c76732325b8944cb2c6abc75665e07, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     - target: {fileID: 7963220043925325628, guid: 08c76732325b8944cb2c6abc75665e07, type: 3}
       propertyPath: m_Name
       value: Game UI
@@ -101809,7 +101831,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797885786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.18, y: 1.48, z: -10}
+  m_LocalPosition: {x: 1.01, y: 1.74, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -104203,15 +104225,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3716822496166854093, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.18
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 3716822496166854093, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.48
+      value: 1.74
       objectReference: {fileID: 0}
     - target: {fileID: 3716822496166854093, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3716822496166854093, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: m_LocalRotation.w
@@ -104247,23 +104269,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8386962703566295209, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: maxHP
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8386962703566295209, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: maxMP
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8386962703566295209, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: currentHP
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8386962703566295209, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: currentMP
-      value: 30
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8386962703566295209, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: restartDelay
-      value: 2.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8386962703566295209, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: nulls.Array.size
@@ -104284,6 +104306,10 @@ PrefabInstance:
     - target: {fileID: 8386962703566295209, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: resistances.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386962703566295209, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
+      propertyPath: weaknesses.Array.data[0]
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8386962703566295209, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: elementAffinities.Array.size
@@ -107342,7 +107368,9 @@ MonoBehaviour:
   itemName: "\u041E\u0441\u043A\u043E\u043B\u043E\u043A 1"
   itemDescription: 
   isParasite: 0
-  availableDamageTypes: 0101
+  availableMentalSkills: 010101
+  posEffectIndex: 0
+  negEffectIndex: 0
 --- !u!58 &2117057153
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -107988,6 +108016,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7160847060597896210, guid: 5774f2d9fd35c0c4eba8594ebe1a6195, type: 3}
+      propertyPath: buttonPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160847060597896210, guid: 5774f2d9fd35c0c4eba8594ebe1a6195, type: 3}
+      propertyPath: buttonPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 8108035833687480520, guid: 61da2a331767231428c1eb9c21efaae6, type: 3}
     - target: {fileID: 7160847060597896211, guid: 5774f2d9fd35c0c4eba8594ebe1a6195, type: 3}
       propertyPath: m_Pivot.x
       value: 0
