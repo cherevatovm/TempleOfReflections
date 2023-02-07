@@ -126,7 +126,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5021757046155829935}
   restartDelay: 1.5
-  unitName: Enemy
+  initMaxHP: 0
+  initMaxMP: 0
+  initMeleeAttackStrength: 0
+  initMentalAttackStrength: 0
+  initElementAffinities: []
+  unitName: Enigmatic Vanquisher
   meleeAttackStrength: 10
   mentalAttackStrength: 10
   armorModifier: 1

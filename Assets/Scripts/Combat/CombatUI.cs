@@ -11,7 +11,7 @@ public class CombatUI : MonoBehaviour
     private List<Button> mentalSkillButtonList = new();
     private bool[] availableMentalSkillButtons = new bool[4];
     [HideInInspector] public bool areButtonsShown;
-    [HideInInspector] public bool skillButtonsWereinstantiated;
+    [HideInInspector] public bool skillButtonsWereInstantiated;
 
     public void SetMentalSkillButtons()
     {
@@ -40,6 +40,7 @@ public class CombatUI : MonoBehaviour
         for (int i = 1; i < availableMentalSkillButtons.Length; i++)
             if (!availableMentalSkillButtons[i])
                 mentalSkillButtonList[i].gameObject.SetActive(false);
+        areButtonsShown = true;
     }
 
     public void HideOrShowMentalSkillButtons()

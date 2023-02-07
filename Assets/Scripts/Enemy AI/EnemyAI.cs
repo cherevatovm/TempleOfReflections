@@ -6,7 +6,7 @@ public abstract class EnemyAI : MonoBehaviour
 {
     public int enemyID;
 
-    public abstract void CombatAI(out string effectMessage);
+    public abstract List<string> CombatAI(out int soundID);
 
     void OnTriggerEnter2D(Collider2D collision)
     {

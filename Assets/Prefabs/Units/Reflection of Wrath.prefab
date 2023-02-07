@@ -127,12 +127,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 8164385237867508116}
   restartDelay: 1.5
-  unitName: Enemy
+  initMaxHP: 0
+  initMaxMP: 0
+  initMeleeAttackStrength: 0
+  initMentalAttackStrength: 0
+  initElementAffinities: []
+  unitName: Reflection of Wrath
   meleeAttackStrength: 15
-  mentalAttackStrength: 28
-  armorModifier: 1.2
-  currentHP: 250
-  maxHP: 250
+  mentalAttackStrength: 17
+  armorModifier: 1
+  currentHP: 150
+  maxHP: 150
   currentMP: 50
   maxMP: 50
   isKnockedDown: 0

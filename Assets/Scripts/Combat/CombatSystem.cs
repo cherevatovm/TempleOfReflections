@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEditor.VersionControl;
 
 public enum CombatState { START, PLAYER_TURN, ENEMY_TURN, WON, LOST }
 
@@ -12,10 +13,10 @@ public class CombatSystem : MonoBehaviour
     private const float weaknessMult = 1.25f;
     private const float resistMult = 0.5f;
     private const float knockedDownMult = 1.2f;
-    public const float effectProbability = 0.2f;
+    public const float effectProbability = 1f;
     
-    public float reflectionProbability1;
-    public float reflectionProbability2;
+    [HideInInspector] public float reflectionProbability1;
+    [HideInInspector] public float reflectionProbability2;
 
     [HideInInspector] public Unit playerUnit;
     [HideInInspector] public Unit enemyUnit;
@@ -111,19 +112,19 @@ public class CombatSystem : MonoBehaviour
         {
             playerUnit.isKnockedDown = false;
             playerUnit.knockedTurnsCount = 0;
-            playerUnit.knockedDownTimeout = 3;
-            yield return new WaitForSeconds(1f);
-            combatUI.combatDialogue.text = "Игрок встал на ноги. Так продолжайте же сражаться!";
-            yield return new WaitForSeconds(1f);
+            playerUnit.knockedDownTimeout = 3;;
+            combatUI.combatDialogue.text = playerUnit.unitName + " встал на ноги. Так продолжайте же сражаться!";
+            yield return new WaitForSeconds(1.5f);
         }
         wasAnItemUsed = false;
-        playerUnit.UnitEffectUpdate();
-        playerHUD.ChangeHP(playerUnit.currentHP);
-        playerHUD.ChangeMP(playerUnit.currentMP);
-        yield return new WaitForSeconds(1f);
+        if (playerUnit.UnitEffectUpdate())
+        {
+            playerHUD.ChangeHP(playerUnit.currentHP);
+            playerHUD.ChangeMP(playerUnit.currentMP);
+            yield return new WaitForSeconds(1.5f);
+        }
         if (playerUnit.appliedEffect[1])
         {
-            yield return new WaitForSeconds(1f);
             combatState = CombatState.ENEMY_TURN;
             StartCoroutine(EnemyTurn());
         }
@@ -138,26 +139,28 @@ public class CombatSystem : MonoBehaviour
 
     private IEnumerator PlayerDefend()
     {
+        combatState = CombatState.ENEMY_TURN;
         initArmorModifier = playerUnit.armorModifier;
         playerUnit.armorModifier *= 0.4f;
-        combatState = CombatState.ENEMY_TURN;
-        yield return new WaitForSeconds(1f);
-        combatUI.combatDialogue.text = "Игрок успешно перешел в защиту";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
+        combatUI.combatDialogue.text = playerUnit.unitName + " успешно перешел в защиту";
+        yield return new WaitForSeconds(1.5f);
         StartCoroutine(EnemyTurn());
     }
 
     public IEnumerator PlayerUsingItem()
     {
-        combatUI.combatDialogue.text = "Игрок использует предмет";
+        combatState = CombatState.ENEMY_TURN;
         playerHUD.ChangeHP(playerUnit.currentHP);
         playerHUD.ChangeMP(playerUnit.currentMP);
-        yield return new WaitForSeconds(1f);
+        combatUI.combatDialogue.text = playerUnit.unitName + " использует предмет";
+        yield return new WaitForSeconds(1.5f);
         StartCoroutine(EnemyTurn());
     }
 
     private IEnumerator PlayerAttack(int damageTypeID, bool isMental)
     {
+        combatState = CombatState.ENEMY_TURN;
         playerAttackButtonWasPressed = true;
         switch (damageTypeID)
         {
@@ -175,50 +178,47 @@ public class CombatSystem : MonoBehaviour
                 break;
         }
         string message;
+        string effectMessage;
         if (reflectionProbability2 > 0 && random.NextDouble() < reflectionProbability2)
-        {            
-            message = ReflectAction(playerUnit, damageTypeID - 1, -CalcAffinityDamage(damageTypeID, isMental, playerUnit, playerUnit));
+        {
+            yield return new WaitForSeconds(0.5f);
+            message = ReflectAction(playerUnit, damageTypeID - 1, -CalcAffinityDamage(damageTypeID, isMental, playerUnit, playerUnit), out effectMessage);
             playerIsHurting = true;
+            yield return new WaitForSeconds(1f);
         }
         else
         {
             int totalDamage = CalcAffinityDamage(damageTypeID, isMental, playerUnit, enemyUnit);
             enemyIsHurting = true;
+            yield return new WaitForSeconds(1.5f);
             enemyUnit.TakeDamage(totalDamage);
-            switch (damageTypeID)
+            effectMessage = enemyUnit.ApplyEffect(damageTypeID - 1);
+            message = damageTypeID switch
             {
-                case 0:
-                    message = playerUnit.unitName + " наносит " + totalDamage + " физического урона";
-                    break;
-                case 1:
-                    enemyUnit.PsionaEffect();
-                    message = playerUnit.unitName + " наносит " + totalDamage + " псионического урона";
-                    break;
-                case 2:
-                    enemyUnit.ElectraEffect();
-                    message = playerUnit.unitName + " наносит " + totalDamage + " электрического урона";
-                    break;
-                case 3:
-                    enemyUnit.FiraEffect();
-                    message = playerUnit.unitName + " наносит " + totalDamage + " огненного урона";
-                    break;
-                default:
-                    message = string.Empty;
-                    break;
-            }
+                0 => playerUnit.unitName + " наносит " + totalDamage + " физического урона",
+                1 => playerUnit.unitName + " наносит " + totalDamage + " псионического урона",
+                2 => playerUnit.unitName + " наносит " + totalDamage + " электрического урона",
+                3 => playerUnit.unitName + " наносит " + totalDamage + " огненного урона",
+                _ => string.Empty,
+            };
         }
         if (isMental)
         {
             playerUnit.ReduceCurrentMP(mentalSkillsMPCost[0]);
             playerHUD.ChangeMP(playerUnit.currentMP);
         }
-        combatState = CombatState.ENEMY_TURN;
-        yield return new WaitForSeconds(1f);
-        playerIsHurting = false;
-        enemyIsHurting = false;
+        if (!string.IsNullOrEmpty(effectMessage))
+        {
+            playerIsHurting = false;
+            enemyIsHurting = false;
+            combatUI.combatDialogue.text = effectMessage;
+            yield return new WaitForSeconds(1.5f);
+        }
         playerAttackButtonWasPressed = false;
         playerHUD.ChangeHP(playerUnit.currentHP);
         enemyHUD.ChangeHP(enemyUnit.currentHP);
+        playerIsHurting = false;
+        enemyIsHurting = false;
         combatUI.combatDialogue.text = message;
         yield return new WaitForSeconds(1.5f);
         if (playerUnit.IsDead())
@@ -226,21 +226,25 @@ public class CombatSystem : MonoBehaviour
             combatState = CombatState.LOST;
             FinishBattle();
         }
+        else if (playerUnit.isKnockedDown && playerUnit.knockedTurnsCount == 0)
+        {
+            combatUI.combatDialogue.text = playerUnit.unitName + " сбил себя с ног своей же атакой. Неловко вышло...";
+            yield return new WaitForSeconds(1.5f);
+            StartCoroutine(EnemyTurn());
+        }
         else if (enemyUnit.IsDead())
         {
             combatState = CombatState.WON;
-            yield return new WaitForSeconds(1f);
-            combatUI.combatDialogue.text = "Игрок одержал победу!";
+            combatUI.combatDialogue.text = playerUnit.unitName + " одержал победу!";
             yield return new WaitForSeconds(1.5f);
             FinishBattle();
         }
         else if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
         {
-            combatState = CombatState.PLAYER_TURN;
             enemyUnit.knockedTurnsCount++;
-            yield return new WaitForSeconds(1f);
-            combatUI.combatDialogue.text = "Враг сбит с ног. Игроку предоставляется еще один ход!";
+            combatUI.combatDialogue.text = "Враг сбит с ног. " + playerUnit.unitName + " предоставляется еще один ход!";
             yield return new WaitForSeconds(1.5f);
+            combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
         }
         else
@@ -249,10 +253,12 @@ public class CombatSystem : MonoBehaviour
 
     private IEnumerator PlayerRegenaSkill()
     {
+        combatState = CombatState.ENEMY_TURN;
         playerAttackButtonWasPressed = true;
+        yield return new WaitForSeconds(1.5f);
         string message;
         if (reflectionProbability2 > 0 && random.NextDouble() < reflectionProbability2)
-            message = ReflectAction(enemyUnit, -1, (int)(enemyUnit.maxHP * 0.25));
+            message = ReflectAction(enemyUnit, -1, (int)(enemyUnit.maxHP * 0.25), out _);
         else
         {
             playerUnit.Heal((int)(playerUnit.maxHP * 0.25));
@@ -261,19 +267,16 @@ public class CombatSystem : MonoBehaviour
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[0]);
         playerHUD.ChangeHP(playerUnit.currentHP);
         playerHUD.ChangeMP(playerUnit.currentMP);
-        combatState = CombatState.ENEMY_TURN;
-        yield return new WaitForSeconds(1f);
-        playerAttackButtonWasPressed = false;
         enemyHUD.ChangeHP(enemyUnit.currentHP);
+        playerAttackButtonWasPressed = false;
         combatUI.combatDialogue.text = message;
         yield return new WaitForSeconds(1.5f);
         if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
         {
-            combatState = CombatState.PLAYER_TURN;
             enemyUnit.knockedTurnsCount++;
-            yield return new WaitForSeconds(1f);
-            combatUI.combatDialogue.text = "Враг сбит с ног. Игроку предоставляется еще один ход!";
+            combatUI.combatDialogue.text = "Враг сбит с ног. " + playerUnit.unitName + " предоставляется еще один ход!";
             yield return new WaitForSeconds(1.5f);
+            combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
         }
         else
@@ -284,21 +287,22 @@ public class CombatSystem : MonoBehaviour
 
     public IEnumerator EnemyTurn()
     {
-        enemyUnit.UnitEffectUpdate();
-        enemyHUD.ChangeHP(enemyUnit.currentHP);
-        enemyHUD.ChangeMP(enemyUnit.currentMP);
+        if (enemyUnit.UnitEffectUpdate())
+        {
+            enemyHUD.ChangeHP(enemyUnit.currentHP);
+            enemyHUD.ChangeMP(enemyUnit.currentMP);
+            yield return new WaitForSeconds(1.5f);
+        }
         if (enemyUnit.appliedEffect[1])
         {
             combatState = CombatState.PLAYER_TURN;
-            yield return new WaitForSeconds(1f);
             StartCoroutine(PlayerTurn());
             yield break;
         }
         if (enemyUnit.IsDead())
         {
             combatState = CombatState.WON;
-            yield return new WaitForSeconds(1f);
-            combatUI.combatDialogue.text = "Игрок одержал победу!";
+            combatUI.combatDialogue.text = playerUnit.unitName + " одержал победу!";
             yield return new WaitForSeconds(1.5f);
             FinishBattle();
         }
@@ -309,35 +313,49 @@ public class CombatSystem : MonoBehaviour
             enemyUnit.isKnockedDown = false;
             enemyUnit.knockedTurnsCount = 0;
             enemyUnit.knockedDownTimeout = 3;
-            yield return new WaitForSeconds(1f);
-            combatUI.combatDialogue.text = "Враг встал на ноги";
+            combatUI.combatDialogue.text = enemyUnit.unitName + " встал на ноги";
             yield return new WaitForSeconds(1.5f);
         }
-        yield return new WaitForSeconds(1f);
-        enemyAI.CombatAI(out string effectMessage);
         enemyAttackButtonWasPressed = true;
-        yield return new WaitForSeconds(0.5f);
-        playerIsHurting = false;
-        enemyIsHurting = false;
-        enemyAttackButtonWasPressed = false;
-        if (!string.IsNullOrEmpty(effectMessage))
+        List<string> messages = enemyAI.CombatAI(out int soundID);
+        for (int i = 0; i < messages.Count; i++)
         {
-            yield return new WaitForSeconds(1f);
-            combatUI.combatDialogue.text = effectMessage;
+            if (enemyAI.enemyID == 0 && i == messages.Count - 1 && soundID != -1)
+                SoundManager.PlaySound((SoundManager.Sound)soundID);
+            if (!string.IsNullOrEmpty(messages[i]))
+            {
+                combatUI.combatDialogue.text = messages[i];
+                yield return new WaitForSeconds(1.5f);
+                playerIsHurting = false;
+                enemyIsHurting = false;
+            }
         }
+        enemyAttackButtonWasPressed = false;
         playerHUD.ChangeHP(playerUnit.currentHP);
-        yield return new WaitForSeconds(1.5f);
-        if (playerUnit.IsDead())
+        enemyHUD.ChangeHP(enemyUnit.currentHP);
+        if (enemyUnit.IsDead())
+        {
+            combatState = CombatState.WON;
+            combatUI.combatDialogue.text = playerUnit.unitName + " одержал победу!";
+            yield return new WaitForSeconds(1.5f);
+            FinishBattle();
+        }
+        else if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
+        {
+            combatUI.combatDialogue.text = enemyUnit.unitName + " сбил себя с ног своей же атакой. Какая неудача!";
+            yield return new WaitForSeconds(1.5f);
+            combatState = CombatState.PLAYER_TURN;
+            StartCoroutine(PlayerTurn());
+        }
+        else if (playerUnit.IsDead())
         {
             combatState = CombatState.LOST;
-            yield return new WaitForSeconds(1f);
             FinishBattle();
         }
         else if (playerUnit.isKnockedDown && playerUnit.knockedTurnsCount == 0)
         {            
             playerUnit.knockedTurnsCount++;
-            yield return new WaitForSeconds(1f);
-            combatUI.combatDialogue.text = "Игрок сбит с ног. Снова ход врага!";
+            combatUI.combatDialogue.text = playerUnit.unitName + " сбит с ног. Снова ход врага!";
             yield return new WaitForSeconds(1.5f);
             StartCoroutine(EnemyTurn());
         }
@@ -359,6 +377,8 @@ public class CombatSystem : MonoBehaviour
             Inventory.instance.Close();
         else
             Inventory.instance.Open();
+        if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
+            combatUI.HideOrShowMentalSkillButtons();
     }
 
     public void OnAttackButton()
@@ -367,9 +387,9 @@ public class CombatSystem : MonoBehaviour
             return;
         if (Inventory.instance.isOpened)
             Inventory.instance.Close();
-        if (combatUI.skillButtonsWereinstantiated && combatUI.areButtonsShown)
+        if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
-        combatUI.combatDialogue.text = "Игрок начинает атаку";
+        combatUI.combatDialogue.text = playerUnit.unitName + " начинает атаку";
         StartCoroutine(PlayerAttack(0, false));
     }
 
@@ -379,9 +399,9 @@ public class CombatSystem : MonoBehaviour
             return;
         if (Inventory.instance.isOpened)
             Inventory.instance.Close();
-        if (combatUI.skillButtonsWereinstantiated && combatUI.areButtonsShown)
+        if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
-        combatUI.combatDialogue.text = "Игрок защищается";
+        combatUI.combatDialogue.text = playerUnit.unitName + " защищается";
         StartCoroutine(PlayerDefend());
     }
 
@@ -391,12 +411,12 @@ public class CombatSystem : MonoBehaviour
             return;
         if (Inventory.instance.isOpened)
             Inventory.instance.Close();
-        if (combatUI.skillButtonsWereinstantiated)
+        if (combatUI.skillButtonsWereInstantiated)
             combatUI.HideOrShowMentalSkillButtons();
         else
         {
             combatUI.SetMentalSkillButtons();
-            combatUI.skillButtonsWereinstantiated = true;
+            combatUI.skillButtonsWereInstantiated = true;
         }
     }
 
@@ -404,16 +424,14 @@ public class CombatSystem : MonoBehaviour
     {
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
-            combatUI.combatDialogue.text = "Игрок использует пси навык";
+            combatUI.combatDialogue.text = playerUnit.unitName + " использует пси навык";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.areButtonsShown = false;
             StartCoroutine(PlayerAttack(1, true));
         }
         else
         {
             combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.areButtonsShown = false;
         }
     }
 
@@ -421,16 +439,14 @@ public class CombatSystem : MonoBehaviour
     {
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
-            combatUI.combatDialogue.text = "Игрок использует электрический навык";
+            combatUI.combatDialogue.text = playerUnit.unitName + " использует электрический навык";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.areButtonsShown = false;
             StartCoroutine(PlayerAttack(2, true));
         }
         else
         {
             combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.areButtonsShown = false;
         }
     }
 
@@ -438,16 +454,14 @@ public class CombatSystem : MonoBehaviour
     {
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
-            combatUI.combatDialogue.text = "Игрок использует огненный навык";
+            combatUI.combatDialogue.text = playerUnit.unitName + " использует огненный навык";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.areButtonsShown = false;
             StartCoroutine(PlayerAttack(3, true));
         }
         else
         {
             combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.areButtonsShown = false;
         }
     }
 
@@ -455,16 +469,14 @@ public class CombatSystem : MonoBehaviour
     {
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
-            combatUI.combatDialogue.text = "Игрок использует целительный навык";
+            combatUI.combatDialogue.text = playerUnit.unitName + " использует целительный навык";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.areButtonsShown = false;
             StartCoroutine(PlayerRegenaSkill());
         }
         else
         {
             combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
             combatUI.HideOrShowMentalSkillButtons();
-            combatUI.areButtonsShown = false;
         }
     }
 
@@ -492,7 +504,6 @@ public class CombatSystem : MonoBehaviour
         }
         else if (combatState == CombatState.LOST)
         {
-            combatUI.combatDialogue.text = "Игрок оказался повержен...";
             GameUI.instance.gameObject.SetActive(true);
             for (int i = 0; i < GameUI.instance.transform.childCount; i++)
                 GameUI.instance.transform.GetChild(i).gameObject.SetActive(false);
@@ -500,33 +511,20 @@ public class CombatSystem : MonoBehaviour
         }
     }
 
-    public string ReflectAction(Unit receiver, int effectIndex, int totalDamage)
+    public string ReflectAction(Unit receiver, int effectIndex, int totalDamage, out string effectMessage)
     {
         string message;
         if (totalDamage < 0)
         {
             receiver.TakeDamage(-totalDamage);
-            message = receiver.unitName + " атакует, но атака оказывается отражена обратно, " + receiver.unitName + " получает " + -totalDamage + " урона";
+            message = "Атака оказывается отражена в нападающего, " + receiver.unitName + " получает " + -totalDamage + " урона";
         }
         else
         {
             receiver.Heal(totalDamage);
             message = "Эффект оказывается отражен в " + receiver.unitName + ", что восстанавливает ему " + totalDamage + " здоровья";
         }
-        switch (effectIndex)
-        {
-            case 0:
-                receiver.PsionaEffect();
-                break;
-            case 1:
-                receiver.ElectraEffect();
-                break;
-            case 2:
-                receiver.FiraEffect();
-                break;
-            default:
-                break;
-        }
+        effectMessage = enemyUnit.ApplyEffect(effectIndex);
         return message;
     }
 

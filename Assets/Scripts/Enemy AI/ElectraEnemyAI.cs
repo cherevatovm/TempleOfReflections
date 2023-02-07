@@ -8,62 +8,59 @@ public class ElectraEnemyAI : EnemyAI
 
     private void Start() => enemyID = 0;
 
-    public override void CombatAI(out string effectMessage)
+    public override List<string> CombatAI(out int soundID)
     {
+        List<string> messageList = new();
+        soundID = -1;
         int attackProbability = random.Next(1, 101);
         if (attackProbability > 60 && CombatSystem.instance.enemyUnit.currentMP >= 3)
         {
             SoundManager.PlaySound(SoundManager.Sound.ElectraSkill);
             if (CombatSystem.instance.reflectionProbability1 > 0 && random.NextDouble() < CombatSystem.instance.reflectionProbability1)
             {
-                effectMessage = CombatSystem.instance.ReflectAction(CombatSystem.instance.enemyUnit, 1, -CombatSystem.instance.CalcAffinityDamage(2, true, CombatSystem.instance.enemyUnit, CombatSystem.instance.enemyUnit));
+                string message = CombatSystem.instance.ReflectAction(CombatSystem.instance.enemyUnit, 1, -CombatSystem.instance.CalcAffinityDamage(2, true, CombatSystem.instance.enemyUnit, CombatSystem.instance.enemyUnit), out string effectMessage);
+                messageList.Add(effectMessage);
+                messageList.Add(message);
                 CombatSystem.instance.enemyIsHurting = true;
+                CombatSystem.instance.enemyUnit.ReduceCurrentMP(3);
+                CombatSystem.instance.enemyHUD.ChangeMP(CombatSystem.instance.enemyUnit.currentMP);
+                return messageList;
             }
             else
             {
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(2, true, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
                 CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
                 CombatSystem.instance.playerIsHurting = true;
-                CombatSystem.instance.playerUnit.ElectraEffect();               
-                effectMessage = "Враг наносит " + totalDamage + " электрического урона";
+                messageList.Add(CombatSystem.instance.playerUnit.ApplyEffect(1));              
+                messageList.Add("Враг наносит " + totalDamage + " электрического урона");
             }           
             CombatSystem.instance.enemyUnit.ReduceCurrentMP(3);
-            CombatSystem.instance.enemyHUD.ChangeMP(CombatSystem.instance.enemyUnit.currentMP);            
-            if (CombatSystem.instance.enemyUnit.currentHP >= (int)(0.7 * CombatSystem.instance.enemyUnit.maxHP))
-                StartCoroutine(FastAttack(effectMessage));
+            CombatSystem.instance.enemyHUD.ChangeMP(CombatSystem.instance.enemyUnit.currentMP);
         }
         else
         {
             SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
             if (CombatSystem.instance.reflectionProbability1 > 0 && random.NextDouble() < CombatSystem.instance.reflectionProbability1)
             {
-                effectMessage = CombatSystem.instance.ReflectAction(CombatSystem.instance.enemyUnit, -1, -CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.enemyUnit));
+                messageList.Add(CombatSystem.instance.ReflectAction(CombatSystem.instance.enemyUnit, -1, -CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.enemyUnit), out _));
                 CombatSystem.instance.enemyIsHurting = true;
+                return messageList;
             }
             else
             {
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit);
                 CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
                 CombatSystem.instance.playerIsHurting = true;
-                effectMessage = "Враг наносит " + totalDamage + " физического урона";
+                messageList.Add("Враг наносит " + totalDamage + " физического урона");
             }
-            CombatSystem.instance.combatUI.combatDialogue.text = effectMessage;
-            if (CombatSystem.instance.enemyUnit.currentHP >= (int)(0.7 * CombatSystem.instance.enemyUnit.maxHP))
-                StartCoroutine(FastAttack(effectMessage));
         }
-    }
-
-    private IEnumerator FastAttack(string effectMessage)
-    {
-        yield return new WaitForSeconds(1.5f);
-        if (!string.IsNullOrEmpty(effectMessage))
+        if (CombatSystem.instance.enemyUnit.currentHP >= (int)(0.7 * CombatSystem.instance.enemyUnit.maxHP))
         {
-            CombatSystem.instance.combatUI.combatDialogue.text = effectMessage;
-            yield return new WaitForSeconds(1.5f);
+            soundID = 1;
+            int totalDamage = (int)(0.5 * CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit));
+            CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
+            messageList.Add("Враг использует быструю атаку и наносит " + totalDamage + " физического урона");
         }
-        SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
-        int totalDamage = (int)(0.5 * CombatSystem.instance.CalcAffinityDamage(0, false, CombatSystem.instance.enemyUnit, CombatSystem.instance.playerUnit));
-        CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
-        CombatSystem.instance.combatUI.combatDialogue.text = "Враг использует быструю атаку и наносит " + totalDamage + " физического урона";
+        return messageList;
     }
 }
