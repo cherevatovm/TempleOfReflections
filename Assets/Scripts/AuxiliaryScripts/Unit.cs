@@ -19,7 +19,15 @@ public class Unit : MonoBehaviour
     public int maxHP;
     public int currentMP;
     public int maxMP;
-    
+    public int itemEffectTurnsCount = 0;
+    public bool underItemEffect;
+
+    [HideInInspector] public int initMaxHP;
+    [HideInInspector] public int initMaxMP;
+    [HideInInspector] public int initMeleeAttackStrength;
+    [HideInInspector] public int initMentalAttackStrength;
+    [HideInInspector] public float[] initElementAffinities;
+
     public bool isKnockedDown;
     public int knockedTurnsCount;
     public int knockedDownTimeout;
@@ -31,10 +39,18 @@ public class Unit : MonoBehaviour
     public bool[] nulls;
     public float[] elementAffinities;
 
-    void Start()
+    private void Start()
     {
         if (CompareTag("Player"))
+        {
             GameUI.instance.SetUI(this);
+            initMaxHP = maxHP;
+            initMaxMP = maxMP;
+            initMeleeAttackStrength = meleeAttackStrength;
+            initMentalAttackStrength = mentalAttackStrength;
+            initElementAffinities = new float[4];
+            System.Array.Copy(elementAffinities, initElementAffinities, 4);
+        }
     }
 
     public void TakeDamage(int damage)
@@ -71,6 +87,16 @@ public class Unit : MonoBehaviour
             currentMP = maxMP;
         if (CompareTag("Player"))
             GameUI.instance.ChangeMP(currentMP);
+    }
+
+    public void IncreaseMeleeAttack(double PAttack)
+    {
+        CombatSystem.instance.playerUnit.meleeAttackStrength = CombatSystem.instance.playerUnit.meleeAttackStrength + (int)(CombatSystem.instance.playerUnit.meleeAttackStrength * PAttack);
+    }
+
+    public void ReduceMeleeAttack(double PAttack)
+    {
+        CombatSystem.instance.enemyUnit.meleeAttackStrength = CombatSystem.instance.enemyUnit.meleeAttackStrength - (int)(CombatSystem.instance.enemyUnit.meleeAttackStrength * PAttack);
     }
 
     public bool IsDead() => currentHP <= 0;

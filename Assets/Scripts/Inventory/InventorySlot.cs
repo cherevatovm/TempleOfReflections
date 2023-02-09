@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -118,6 +119,91 @@ public class InventorySlot : MonoBehaviour
                     CombatSystem.instance.playerUnit.IncreaseCurrentMP((int)(CombatSystem.instance.playerUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
                 else
                     Inventory.instance.attachedUnit.IncreaseCurrentMP((int)(Inventory.instance.attachedUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
+                if (stackCount != 1)
+                {
+                    stackCount--;
+                    if (stackCount == 1)
+                        stackCountText.text = "";
+                    else
+                        stackCountText.text = stackCount.ToString();
+                }
+                else
+                {
+                    ItemInfo.instance.Close();
+                    Clear();
+                }
+                break;
+            case "PsionaTalisman":
+                if (CombatSystem.instance.isInCombat) 
+                {
+                    CombatSystem.instance.enemyUnit.TakeDamage(CombatSystem.instance.CalcAffinityDamage(1, true, CombatSystem.instance.playerUnit, CombatSystem.instance.enemyUnit));
+                    CombatSystem.instance.enemyUnit.PsionaEffect();
+                }    
+                else
+                    return;
+                if (stackCount != 1)
+                {
+                    stackCount--;
+                    if (stackCount == 1)
+                        stackCountText.text = "";
+                    else
+                        stackCountText.text = stackCount.ToString();
+                }
+                else
+                {
+                    ItemInfo.instance.Close();
+                    Clear();
+                }
+                break;
+            case "ElectraTalisman":
+                if (CombatSystem.instance.isInCombat)
+                {
+                    CombatSystem.instance.enemyUnit.TakeDamage(CombatSystem.instance.CalcAffinityDamage(2, true, CombatSystem.instance.playerUnit, CombatSystem.instance.enemyUnit));
+                    CombatSystem.instance.enemyUnit.ElectraEffect();
+                }
+                else
+                    return;
+                if (stackCount != 1)
+                {
+                    stackCount--;
+                    if (stackCount == 1)
+                        stackCountText.text = "";
+                    else
+                        stackCountText.text = stackCount.ToString();
+                }
+                else
+                {
+                    ItemInfo.instance.Close();
+                    Clear();
+                }
+                break;
+            case "FiraTalisman":
+                if (CombatSystem.instance.isInCombat)
+                {
+                    CombatSystem.instance.enemyUnit.TakeDamage(CombatSystem.instance.CalcAffinityDamage(3, true, CombatSystem.instance.playerUnit, CombatSystem.instance.enemyUnit));
+                    CombatSystem.instance.enemyUnit.FiraEffect();
+                }
+                else
+                    return;
+                if (stackCount != 1)
+                {
+                    stackCount--;
+                    if (stackCount == 1)
+                        stackCountText.text = "";
+                    else
+                        stackCountText.text = stackCount.ToString();
+                }
+                else
+                {
+                    ItemInfo.instance.Close();
+                    Clear();
+                }
+                break;
+            case "MotivationTalisman":
+                if (!CombatSystem.instance.isInCombat)
+                    return;
+                CombatSystem.instance.playerUnit.underItemEffect = true;
+
                 if (stackCount != 1)
                 {
                     stackCount--;
