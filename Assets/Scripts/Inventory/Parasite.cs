@@ -280,4 +280,9 @@ public class Parasite : PickableItem
         attachedUnit.nulls[damageTypeID] = initNulls[damageTypeID];
         attachedUnit.elementAffinities[damageTypeID] = initElementAffinities[damageTypeID]; 
     }
+
+    public override void UseItem(out string message)
+    {
+        throw new System.NotImplementedException();
+    }
 }

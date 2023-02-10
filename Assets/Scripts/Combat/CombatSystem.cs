@@ -117,9 +117,24 @@ public class CombatSystem : MonoBehaviour
         playerHUD.ChangeHP(playerUnit.currentHP);
         playerHUD.ChangeMP(playerUnit.currentMP);
         yield return new WaitForSeconds(1f);
+        if (playerUnit.underItemEffect)
+        {
+            if (playerUnit.affectingItem.doesHaveContinuousEffect)
+            {
+                playerUnit.affectingItem.ApplyEffect();
+                yield return new WaitForSeconds(1f);
+            }
+            playerUnit.affectingItem.RemoveEffect();
+            if (!playerUnit.underItemEffect)
+            {
+                combatUI.combatDialogue.text = "Ёффект от предмета, наложенный на " + playerUnit.unitName + ", прошел";
+                yield return new WaitForSeconds(1f);
+            }
+            else
+                playerUnit.itemEffectTurnsCount++;
+        }
         if (playerUnit.appliedEffect[1])
         {
-            yield return new WaitForSeconds(1f);
             combatState = CombatState.ENEMY_TURN;
             StartCoroutine(EnemyTurn());
         }
@@ -180,11 +195,28 @@ public class CombatSystem : MonoBehaviour
 
     public IEnumerator PlayerUsingItem()
     {
-        combatUI.combatDialogue.text = "»грок использует предмет";
         playerHUD.ChangeHP(playerUnit.currentHP);
         playerHUD.ChangeMP(playerUnit.currentMP);
+        enemyHUD.ChangeHP(enemyUnit.currentHP);
+        enemyHUD.ChangeMP(enemyUnit.currentMP);
         yield return new WaitForSeconds(1f);
-        StartCoroutine(EnemyTurn());
+        if (enemyUnit.IsDead())
+        {
+            combatState = CombatState.WON;
+            combatUI.combatDialogue.text = "»грок одержал победу!";
+            yield return new WaitForSeconds(1.5f);
+            FinishBattle();
+        }
+        else if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
+        {
+            combatState = CombatState.PLAYER_TURN;
+            enemyUnit.knockedTurnsCount++;
+            combatUI.combatDialogue.text = "¬раг сбит с ног. »гроку предоставл€етс€ еще один ход!";
+            yield return new WaitForSeconds(1.5f);
+            StartCoroutine(PlayerTurn());
+        }
+        else
+            StartCoroutine(EnemyTurn());
     }
 
     IEnumerator PlayerPsionaSkill()
@@ -308,6 +340,22 @@ public class CombatSystem : MonoBehaviour
         enemyUnit.UnitEffectUpdate();
         enemyHUD.ChangeHP(enemyUnit.currentHP);
         enemyHUD.ChangeMP(enemyUnit.currentMP);
+        if (enemyUnit.underItemEffect)
+        {
+            if (enemyUnit.affectingItem.doesHaveContinuousEffect)
+            {
+                enemyUnit.affectingItem.ApplyEffect();
+                yield return new WaitForSeconds(1f);
+            }
+            enemyUnit.affectingItem.RemoveEffect();
+            if (!enemyUnit.underItemEffect)
+            {
+                combatUI.combatDialogue.text = "Ёффект от предмета, наложенный на " + enemyUnit.unitName + ", прошел";
+                yield return new WaitForSeconds(1f);
+            }
+            else
+                enemyUnit.itemEffectTurnsCount++;
+        }
         if (enemyUnit.appliedEffect[1])
         {
             combatState = CombatState.PLAYER_TURN;

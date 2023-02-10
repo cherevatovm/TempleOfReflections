@@ -21,6 +21,7 @@ public class Unit : MonoBehaviour
     public int maxMP;
     public int itemEffectTurnsCount = 0;
     public bool underItemEffect;
+    public ItemWithEffect affectingItem;
 
     [HideInInspector] public int initMaxHP;
     [HideInInspector] public int initMaxMP;
@@ -87,16 +88,6 @@ public class Unit : MonoBehaviour
             currentMP = maxMP;
         if (CompareTag("Player"))
             GameUI.instance.ChangeMP(currentMP);
-    }
-
-    public void IncreaseMeleeAttack(double PAttack)
-    {
-        CombatSystem.instance.playerUnit.meleeAttackStrength = CombatSystem.instance.playerUnit.meleeAttackStrength + (int)(CombatSystem.instance.playerUnit.meleeAttackStrength * PAttack);
-    }
-
-    public void ReduceMeleeAttack(double PAttack)
-    {
-        CombatSystem.instance.enemyUnit.meleeAttackStrength = CombatSystem.instance.enemyUnit.meleeAttackStrength - (int)(CombatSystem.instance.enemyUnit.meleeAttackStrength * PAttack);
     }
 
     public bool IsDead() => currentHP <= 0;

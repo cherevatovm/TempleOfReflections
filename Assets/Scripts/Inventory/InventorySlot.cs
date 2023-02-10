@@ -84,140 +84,37 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    public void UseItem()
+    public void UseItemInSlot()
     {
         if (slotItem.isParasite)
             return;
+        if (!CombatSystem.instance.isInCombat && slotItem.isUsableInCombatOnly)
+            return;
         if (CombatSystem.instance.isInCombat)
-            CombatSystem.instance.wasAnItemUsed = true;
-        string itemType = slotItem.GetType().ToString();
-        switch (itemType)
         {
-            case "HpMixture":
-                var mixture0 = (HpMixture)slotItem;
-                if (CombatSystem.instance.isInCombat)
-                    CombatSystem.instance.playerUnit.Heal((int)(CombatSystem.instance.playerUnit.maxHP * (mixture0.percentOfRestoredHP / 100.0)));
-                else
-                    Inventory.instance.attachedUnit.Heal((int)(Inventory.instance.attachedUnit.maxHP * (mixture0.percentOfRestoredHP / 100.0)));
-                if (stackCount != 1)
-                {
-                    stackCount--;
-                    if (stackCount == 1)
-                        stackCountText.text = "";
-                    else
-                        stackCountText.text = stackCount.ToString();
-                }
-                else
-                {
-                    ItemInfo.instance.Close();
-                    Clear();
-                }
-                break;
-            case "MpMixture":
-                var mixture1 = (MpMixture)slotItem;
-                if (CombatSystem.instance.isInCombat)
-                    CombatSystem.instance.playerUnit.IncreaseCurrentMP((int)(CombatSystem.instance.playerUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
-                else
-                    Inventory.instance.attachedUnit.IncreaseCurrentMP((int)(Inventory.instance.attachedUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
-                if (stackCount != 1)
-                {
-                    stackCount--;
-                    if (stackCount == 1)
-                        stackCountText.text = "";
-                    else
-                        stackCountText.text = stackCount.ToString();
-                }
-                else
-                {
-                    ItemInfo.instance.Close();
-                    Clear();
-                }
-                break;
-            case "PsionaTalisman":
-                if (CombatSystem.instance.isInCombat) 
-                {
-                    CombatSystem.instance.enemyUnit.TakeDamage(CombatSystem.instance.CalcAffinityDamage(1, true, CombatSystem.instance.playerUnit, CombatSystem.instance.enemyUnit));
-                    CombatSystem.instance.enemyUnit.PsionaEffect();
-                }    
-                else
-                    return;
-                if (stackCount != 1)
-                {
-                    stackCount--;
-                    if (stackCount == 1)
-                        stackCountText.text = "";
-                    else
-                        stackCountText.text = stackCount.ToString();
-                }
-                else
-                {
-                    ItemInfo.instance.Close();
-                    Clear();
-                }
-                break;
-            case "ElectraTalisman":
-                if (CombatSystem.instance.isInCombat)
-                {
-                    CombatSystem.instance.enemyUnit.TakeDamage(CombatSystem.instance.CalcAffinityDamage(2, true, CombatSystem.instance.playerUnit, CombatSystem.instance.enemyUnit));
-                    CombatSystem.instance.enemyUnit.ElectraEffect();
-                }
-                else
-                    return;
-                if (stackCount != 1)
-                {
-                    stackCount--;
-                    if (stackCount == 1)
-                        stackCountText.text = "";
-                    else
-                        stackCountText.text = stackCount.ToString();
-                }
-                else
-                {
-                    ItemInfo.instance.Close();
-                    Clear();
-                }
-                break;
-            case "FiraTalisman":
-                if (CombatSystem.instance.isInCombat)
-                {
-                    CombatSystem.instance.enemyUnit.TakeDamage(CombatSystem.instance.CalcAffinityDamage(3, true, CombatSystem.instance.playerUnit, CombatSystem.instance.enemyUnit));
-                    CombatSystem.instance.enemyUnit.FiraEffect();
-                }
-                else
-                    return;
-                if (stackCount != 1)
-                {
-                    stackCount--;
-                    if (stackCount == 1)
-                        stackCountText.text = "";
-                    else
-                        stackCountText.text = stackCount.ToString();
-                }
-                else
-                {
-                    ItemInfo.instance.Close();
-                    Clear();
-                }
-                break;
-            case "MotivationTalisman":
-                if (!CombatSystem.instance.isInCombat)
-                    return;
-                CombatSystem.instance.playerUnit.underItemEffect = true;
-
-                if (stackCount != 1)
-                {
-                    stackCount--;
-                    if (stackCount == 1)
-                        stackCountText.text = "";
-                    else
-                        stackCountText.text = stackCount.ToString();
-                }
-                else
-                {
-                    ItemInfo.instance.Close();
-                    Clear();
-                }
-                break;
+            slotItem.UseItem(out string message);
+            if (string.IsNullOrEmpty(message))
+            {
+                CombatSystem.instance.combatUI.combatDialogue.text = "Ёффект от данного предмета все еще действует";
+                return;
+            }
+            CombatSystem.instance.combatUI.combatDialogue.text = message;
+            CombatSystem.instance.wasAnItemUsed = true; //--------
+        }
+        else
+            slotItem.UseItem(out _);
+        if (stackCount != 1)
+        {
+            stackCount--;
+            if (stackCount == 1)
+                stackCountText.text = "";
+            else
+                stackCountText.text = stackCount.ToString();
+        }
+        else
+        {
+            ItemInfo.instance.Close();
+            Clear();
         }
         if (CombatSystem.instance.isInCombat)
         {
