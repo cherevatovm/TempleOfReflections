@@ -15,20 +15,13 @@ public class MentalSkillTalisman : PickableItem
             return;
         int totalDamage = CombatSystem.instance.CalcAffinityDamage(damageTypeID, true, CombatSystem.instance.playerUnit, CombatSystem.instance.enemyUnit);
         CombatSystem.instance.enemyUnit.TakeDamage(totalDamage);
-        switch (damageTypeID)
+        CombatSystem.instance.enemyUnit.ApplyEffect(damageTypeID - 1);
+        message = damageTypeID switch
         {
-            case 1:
-                CombatSystem.instance.enemyUnit.PsionaEffect();
-                message = CombatSystem.instance.playerUnit.unitName + " наносит " + totalDamage + " псионического урона";
-                break;
-            case 2:
-                CombatSystem.instance.enemyUnit.ElectraEffect();
-                message = CombatSystem.instance.playerUnit.unitName + " наносит " + totalDamage + " электрического урона";
-                break;
-            case 3:
-                CombatSystem.instance.enemyUnit.FiraEffect();
-                message = CombatSystem.instance.playerUnit.unitName + " наносит " + totalDamage + " огненного урона";
-                break;
-        }
+            1 => CombatSystem.instance.playerUnit.unitName + " наносит " + totalDamage + " псионического урона",
+            2 => CombatSystem.instance.playerUnit.unitName + " наносит " + totalDamage + " электрического урона",
+            3 => CombatSystem.instance.playerUnit.unitName + " наносит " + totalDamage + " огненного урона",
+            _ => string.Empty,
+        };
     }
 }

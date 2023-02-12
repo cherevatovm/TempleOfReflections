@@ -142,9 +142,9 @@ public class Unit : MonoBehaviour
             appliedEffect[effectIndex] = true;
             message = effectIndex switch
             {
-                0 => "�� " + unitName + " ������� ������ ���������� MP",
-                1 => unitName + " ����������� ������ ��������������, ������� �� ��������� ���������",
-                2 => unitName + " � ����!",
+                0 => "На " + unitName + " наложен эффект поглощения MP",
+                1 => unitName + " оказывается окован электричеством, которое не позволяет двигаться",
+                2 => unitName + " в огне!",
                 _ => string.Empty,
             };
         }
@@ -158,13 +158,13 @@ public class Unit : MonoBehaviour
             underEffectTurnsCount++;
             int takenMP = (int)(0.08 * maxMP);
             ReduceCurrentMP(takenMP);
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " ������ " + takenMP + " ����� MP";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " теряет " + takenMP + " очков MP";
         }
         else if (underEffectTurnsCount == 3)
         {
             appliedEffect[0] = false;
             underEffectTurnsCount = 0;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " ����������� �� �������";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " оправляется от эффекта";
         }
     }
 
@@ -173,13 +173,13 @@ public class Unit : MonoBehaviour
         if (appliedEffect[1] && underEffectTurnsCount < 2)
         {
             underEffectTurnsCount++;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " �������� ���������, ����� ���������";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " чересчур шокирован, чтобы двигаться";
         }
         else if (underEffectTurnsCount == 2)
         {
             appliedEffect[1] = false;
             underEffectTurnsCount = 0;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " ����������� �� �������";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " оправляется от эффекта";
         }
     }
 
@@ -190,13 +190,13 @@ public class Unit : MonoBehaviour
             underEffectTurnsCount++;
             int takenHP = (int)(0.05 * maxHP);
             TakeDamage(takenHP);
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " ������ " + takenHP + " ����� ��������";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " теряет " + takenHP + " очков здоровья";
         }
         else if (underEffectTurnsCount == 3)
         {
             appliedEffect[2] = false;
             underEffectTurnsCount = 0;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " ����������� �� �������";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " оправляется от эффекта";
         }
     }
 

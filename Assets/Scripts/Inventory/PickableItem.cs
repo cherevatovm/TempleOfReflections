@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public abstract class PickableItem : MonoBehaviour
 {
-    [Header("�������� ��������")]
+    [Header("Описание предмета")]
     private bool isCloseToItem;
     public string itemName;
     public string itemDescription;
