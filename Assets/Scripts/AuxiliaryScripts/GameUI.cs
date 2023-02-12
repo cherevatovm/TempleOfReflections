@@ -49,7 +49,7 @@ public class GameUI : MonoBehaviour
 
     public void ShowOrHideExitUI()
     {
-        if (Inventory.instance.isOpened)
+        if (Inventory.instance.isOpen)
         {
             Inventory.instance.Close();
             return;

@@ -5,61 +5,51 @@ using UnityEngine.UI;
 
 public class ItemInfo : MonoBehaviour
 {
+    private Button DropButton;
+    private Button UseButton;
+    private Button PutInContainerButton;
+    private InventorySlot slot;
+    protected Text descriptionText;
+    protected Text nameText;
     public static ItemInfo instance;
-    Text descriptionText;
-    Text nameText;
-    public Button DropButton;
-    public Button UseButton;
-    public Button BoxButton;
-    InventorySlot slot;
-    public bool BIsOpened;
 
-
-
-    void Start()
+    private void Start()
     {
-        descriptionText = gameObject.transform.GetChild(1).GetComponent<Text>();
-        nameText = gameObject.transform.GetChild(0).GetComponent<Text>();
+        nameText = transform.GetChild(0).GetComponent<Text>();
+        descriptionText = transform.GetChild(1).GetComponent<Text>();
         instance = this;
-        DropButton = gameObject.transform.GetChild(2).GetComponent<Button>();
+        DropButton = transform.GetChild(2).GetComponent<Button>();
         DropButton.onClick.AddListener(delegate { slot.DropOutOfSlot(); });
-        UseButton = gameObject.transform.GetChild(3).GetComponent<Button>();
+        UseButton = transform.GetChild(3).GetComponent<Button>();
         UseButton.onClick.AddListener(delegate { slot.UseItem(); });
-        BoxButton = gameObject.transform.GetChild(4).GetComponent<Button>();
-        BoxButton.onClick.AddListener(delegate { slot.PutInBox(); });
-
+        PutInContainerButton = transform.GetChild(4).GetComponent<Button>();
+        PutInContainerButton.onClick.AddListener(delegate { Inventory.instance.PutInContainer(slot); });
     }
 
     public void Open(string itemName, string description, Vector3 pos, InventorySlot slot)
     {
+        ContainerItemInfo.instance.Close();
+        if (Inventory.instance.isContainerOpen)
+        {
+            DropButton.gameObject.SetActive(false);
+            UseButton.gameObject.SetActive(false);
+            PutInContainerButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            DropButton.gameObject.SetActive(true);
+            UseButton.gameObject.SetActive(true);
+            PutInContainerButton.gameObject.SetActive(false);
+        }
         if (slot.slotItem.isParasite)
             UseButton.gameObject.SetActive(false);
-        else
-            UseButton.gameObject.SetActive(true);
         descriptionText.text = description;
         nameText.text = itemName;
-        gameObject.transform.localScale = Vector3.one;
+        transform.localScale = Vector3.one;
         var vector = new Vector3(pos.x + 5, pos.y + 2, pos.z);
-        gameObject.transform.position = vector;
+        transform.position = vector;
         this.slot = slot;
-        if (BIsOpened)
-        {
-            ItemInfo.instance.transform.GetChild(2).gameObject.transform.localScale = Vector3.zero;
-            ItemInfo.instance.transform.GetChild(3).gameObject.transform.localScale = Vector3.zero;
-            ItemInfo.instance.transform.GetChild(4).gameObject.transform.localScale = Vector3.one;
-        }
-        else
-        {
-            ItemInfo.instance.transform.GetChild(2).gameObject.transform.localScale = Vector3.one;
-            ItemInfo.instance.transform.GetChild(3).gameObject.transform.localScale = Vector3.one;
-            ItemInfo.instance.transform.GetChild(4).gameObject.transform.localScale = Vector3.zero;
-        }
     }
 
-    public void Close() => gameObject.transform.localScale = Vector3.zero;
-
-    public void BoxIsOpened(bool isopened)
-    {
-        BIsOpened = isopened;
-    }
+    public void Close() => transform.localScale = Vector3.zero;
 }

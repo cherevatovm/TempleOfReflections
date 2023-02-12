@@ -12,22 +12,22 @@ public class InventorySlot : MonoBehaviour
     public PickableItem slotItem;
 
     public GameObject slotObject;   
-    Button clickableSlot;
+    protected Button clickableSlot;
            
     public int stackCount;
     public bool isEmpty = true;
 
-    void Start()
+    protected void Start()
     {
         clickableSlot = gameObject.GetComponent<Button>();
         clickableSlot.onClick.AddListener(SlotClicked);        
-        previewImage = gameObject.transform.GetChild(0).GetComponent<Image>();
-        stackCountText = gameObject.transform.GetChild(1).GetComponent<Text>();
+        previewImage = transform.GetChild(0).GetComponent<Image>();
+        stackCountText = transform.GetChild(1).GetComponent<Text>();
         stackCount = 1;
         stackCountText.text = "";
     }
 
-    void Update()
+    protected void Update()
     {
         if (stackCount > 1)
             stackCountText.text = stackCount.ToString();
@@ -44,7 +44,7 @@ public class InventorySlot : MonoBehaviour
     }
 
 
-    public void DropOutOfSlot()
+    public virtual void DropOutOfSlot()
     {
         if (CombatSystem.instance.isInCombat)
         {
@@ -55,7 +55,7 @@ public class InventorySlot : MonoBehaviour
         ItemInfo.instance.Close();
         if (stackCount != 1)
         {
-            if (!Inventory.instance.BIsOpened)
+            if (!Inventory.instance.isContainerOpen)
             {
                 slotObject.SetActive(true);
                 if (slotItem.isParasite)
@@ -75,7 +75,7 @@ public class InventorySlot : MonoBehaviour
         }
         else
         {
-            if (!Inventory.instance.BIsOpened)
+            if (!Inventory.instance.isContainerOpen)
             {
                 slotObject.SetActive(true);
                 slotObject.transform.position = vector;
@@ -147,38 +147,15 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    public void PutInBox()
-    {
-        for (int i = 0; i < Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).transform.childCount; i++)
-        {
-            if (!Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<BoxSlots>().isEmpty
-                && slotItem.itemName.Equals(Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<BoxSlots>().slotItemName))
-            {
-                Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<BoxSlots>().stackCount++;
-                break;
-            }
-            else if (Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<BoxSlots>().isEmpty)
-            {
-                Inventory.instance.Box.gameObj.transform.GetChild(0).GetChild(0).GetChild(i).GetComponent<BoxSlots>().PutInSlot(slotItem, slotObject);
-                break;
-            }
-        }
-        DropOutOfSlot();
-    }
-
-    public void SlotClicked() 
+    public virtual void SlotClicked() 
     {
         if (!isEmpty)
         { 
-            var vector = new Vector3(gameObject.transform.position.x + 5, gameObject.transform.position.y + 2, gameObject.transform.position.z);
+            var vector = new Vector3(transform.position.x + 5, transform.position.y + 2, transform.position.z);
             if (ItemInfo.instance.transform.localScale == Vector3.zero)
-            {
-                ItemInfo.instance.Open(slotItemName, slotItemDescription, gameObject.transform.position, this);
-            }
+                ItemInfo.instance.Open(slotItemName, slotItemDescription, transform.position, this);
             else if (ItemInfo.instance.transform.localScale == Vector3.one && ItemInfo.instance.transform.position != vector)
-            {
-                ItemInfo.instance.Open(slotItemName, slotItemDescription, gameObject.transform.position, this);
-            }
+                ItemInfo.instance.Open(slotItemName, slotItemDescription, transform.position, this);
             else
                 ItemInfo.instance.Close();
         }

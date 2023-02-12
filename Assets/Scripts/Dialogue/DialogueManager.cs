@@ -23,7 +23,7 @@ public class DialogueManager : MonoBehaviour
 
 	public void StartDialogue(Dialogue dialogue)
 	{
-        if (Inventory.instance.isOpened)
+        if (Inventory.instance.isOpen)
             Inventory.instance.Close();
         else if (GameUI.instance.exitUI.activeSelf)
             GameUI.instance.exitUI.SetActive(false);

@@ -376,7 +376,7 @@ public class CombatSystem : MonoBehaviour
     {
         if (combatState != CombatState.PLAYER_TURN || wasAnItemUsed)
             return;
-        if (Inventory.instance.isOpened)
+        if (Inventory.instance.isOpen)
             Inventory.instance.Close();
         else
             Inventory.instance.Open();
@@ -386,7 +386,7 @@ public class CombatSystem : MonoBehaviour
     {
         if (combatState != CombatState.PLAYER_TURN)
             return;
-        if (Inventory.instance.isOpened)
+        if (Inventory.instance.isOpen)
             Inventory.instance.Close();
         if (combatUI.mSkillButtonsWereinstantiated && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
@@ -398,7 +398,7 @@ public class CombatSystem : MonoBehaviour
     {
         if (combatState != CombatState.PLAYER_TURN)
             return;
-        if (Inventory.instance.isOpened)
+        if (Inventory.instance.isOpen)
             Inventory.instance.Close();
         if (combatUI.mSkillButtonsWereinstantiated && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
@@ -410,7 +410,7 @@ public class CombatSystem : MonoBehaviour
     {
         if (combatState != CombatState.PLAYER_TURN)
             return;
-        if (Inventory.instance.isOpened)
+        if (Inventory.instance.isOpen)
             Inventory.instance.Close();
         if (combatUI.mSkillButtonsWereinstantiated)
             combatUI.HideOrShowMentalSkillButtons();
