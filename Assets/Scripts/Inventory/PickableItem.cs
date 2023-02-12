@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PickableItem : MonoBehaviour
+public abstract class PickableItem : MonoBehaviour
 {
-    [Header("Описание предмета")]
+    [Header("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")]
+    private bool isCloseToItem;
     public string itemName;
     public string itemDescription;
-    public bool isParasite; 
-    private bool isCloseToItem;
+    [HideInInspector] public bool isParasite;
+    [HideInInspector] public bool isUsableInCombatOnly;
 
     private void Update()
     {
@@ -17,6 +18,8 @@ public class PickableItem : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
                 Inventory.instance.PutInInventory(this, gameObject);
     }
+
+    public abstract void UseItem(out string message);
 
     private void OnTriggerEnter2D(Collider2D collision) => isCloseToItem = true;
 

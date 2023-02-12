@@ -21,7 +21,7 @@ public class ItemInfo : MonoBehaviour
         DropButton = gameObject.transform.GetChild(2).GetComponent<Button>();
         DropButton.onClick.AddListener(delegate { slot.DropOutOfSlot(); });
         UseButton = gameObject.transform.GetChild(3).GetComponent<Button>();
-        UseButton.onClick.AddListener(delegate { slot.UseItem(); });
+        UseButton.onClick.AddListener(delegate { slot.UseItemInSlot(); });
     }
 
     public void Open(string itemName, string description, Vector3 pos, InventorySlot slot)

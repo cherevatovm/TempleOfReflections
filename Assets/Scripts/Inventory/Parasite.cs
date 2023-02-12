@@ -306,4 +306,9 @@ public class Parasite : PickableItem
             attachedUnit.resistances[effectIndex] = false;
         }
     }
+
+    public override void UseItem(out string message)
+    {
+        throw new System.NotImplementedException();
+    }
 }

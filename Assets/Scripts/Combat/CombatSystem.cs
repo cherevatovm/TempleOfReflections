@@ -91,7 +91,7 @@ public class CombatSystem : MonoBehaviour
 
         combatCamera.enabled = true;
         mainCamera.enabled = false;
-        combatUI.combatDialogue.text = "Битва началась";
+        combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 
         yield return new WaitForSeconds(1.5f);
 
@@ -100,7 +100,7 @@ public class CombatSystem : MonoBehaviour
     }
 
 
-    //-----------------------------(Действия игрока)-------------------------------------------------
+    //-----------------------------(пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)-------------------------------------------------
 
     public IEnumerator PlayerTurn()
     {
@@ -113,7 +113,7 @@ public class CombatSystem : MonoBehaviour
             playerUnit.isKnockedDown = false;
             playerUnit.knockedTurnsCount = 0;
             playerUnit.knockedDownTimeout = 3;;
-            combatUI.combatDialogue.text = playerUnit.unitName + " встал на ноги. Так продолжайте же сражаться!";
+            combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!";
             yield return new WaitForSeconds(1.5f);
         }
         wasAnItemUsed = false;
@@ -122,6 +122,22 @@ public class CombatSystem : MonoBehaviour
             playerHUD.ChangeHP(playerUnit.currentHP);
             playerHUD.ChangeMP(playerUnit.currentMP);
             yield return new WaitForSeconds(1.5f);
+        }
+        if (playerUnit.underItemEffect)
+        {
+            if (playerUnit.affectingItem.doesHaveContinuousEffect)
+            {
+                playerUnit.affectingItem.ApplyEffect();
+                yield return new WaitForSeconds(1f);
+            }
+            playerUnit.affectingItem.RemoveEffect();
+            if (!playerUnit.underItemEffect)
+            {
+                combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ " + playerUnit.unitName + ", пїЅпїЅпїЅпїЅпїЅпїЅ";
+                yield return new WaitForSeconds(1f);
+            }
+            else
+                playerUnit.itemEffectTurnsCount++;
         }
         if (playerUnit.appliedEffect[1])
         {
@@ -134,7 +150,7 @@ public class CombatSystem : MonoBehaviour
             FinishBattle();
         }
         else
-            combatUI.combatDialogue.text = "Выберите действие:";
+            combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:";
     }
 
     private IEnumerator PlayerDefend()
@@ -143,7 +159,7 @@ public class CombatSystem : MonoBehaviour
         initArmorModifier = playerUnit.armorModifier;
         playerUnit.armorModifier *= 0.4f;
         yield return new WaitForSeconds(1.5f);
-        combatUI.combatDialogue.text = playerUnit.unitName + " успешно перешел в защиту";
+        combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ";
         yield return new WaitForSeconds(1.5f);
         StartCoroutine(EnemyTurn());
     }
@@ -153,9 +169,26 @@ public class CombatSystem : MonoBehaviour
         combatState = CombatState.ENEMY_TURN;
         playerHUD.ChangeHP(playerUnit.currentHP);
         playerHUD.ChangeMP(playerUnit.currentMP);
-        combatUI.combatDialogue.text = playerUnit.unitName + " использует предмет";
+        enemyHUD.ChangeHP(enemyUnit.currentHP);
+        enemyHUD.ChangeMP(enemyUnit.currentMP);
         yield return new WaitForSeconds(1.5f);
-        StartCoroutine(EnemyTurn());
+        if (enemyUnit.IsDead())
+        {
+            combatState = CombatState.WON;
+            combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ!";
+            yield return new WaitForSeconds(1.5f);
+            FinishBattle();
+        }
+        else if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
+        {
+            combatState = CombatState.PLAYER_TURN;
+            enemyUnit.knockedTurnsCount++;
+            combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ!";
+            yield return new WaitForSeconds(1.5f);
+            StartCoroutine(PlayerTurn());
+        }
+        else
+            StartCoroutine(EnemyTurn());
     }
 
     private IEnumerator PlayerAttack(int damageTypeID, bool isMental)
@@ -195,10 +228,10 @@ public class CombatSystem : MonoBehaviour
             effectMessage = enemyUnit.ApplyEffect(damageTypeID - 1);
             message = damageTypeID switch
             {
-                0 => playerUnit.unitName + " наносит " + totalDamage + " физического урона",
-                1 => playerUnit.unitName + " наносит " + totalDamage + " псионического урона",
-                2 => playerUnit.unitName + " наносит " + totalDamage + " электрического урона",
-                3 => playerUnit.unitName + " наносит " + totalDamage + " огненного урона",
+                0 => playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + totalDamage + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ",
+                1 => playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + totalDamage + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ",
+                2 => playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + totalDamage + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ",
+                3 => playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + totalDamage + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ",
                 _ => string.Empty,
             };
         }
@@ -228,21 +261,21 @@ public class CombatSystem : MonoBehaviour
         }
         else if (playerUnit.isKnockedDown && playerUnit.knockedTurnsCount == 0)
         {
-            combatUI.combatDialogue.text = playerUnit.unitName + " сбил себя с ног своей же атакой. Неловко вышло...";
+            combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ...";
             yield return new WaitForSeconds(1.5f);
             StartCoroutine(EnemyTurn());
         }
         else if (enemyUnit.IsDead())
         {
             combatState = CombatState.WON;
-            combatUI.combatDialogue.text = playerUnit.unitName + " одержал победу!";
+            combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ!";
             yield return new WaitForSeconds(1.5f);
             FinishBattle();
         }
         else if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
         {
             enemyUnit.knockedTurnsCount++;
-            combatUI.combatDialogue.text = "Враг сбит с ног. " + playerUnit.unitName + " предоставляется еще один ход!";
+            combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ. " + playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ!";
             yield return new WaitForSeconds(1.5f);
             combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
@@ -262,7 +295,7 @@ public class CombatSystem : MonoBehaviour
         else
         {
             playerUnit.Heal((int)(playerUnit.maxHP * 0.25));
-            message = playerUnit.unitName + " излечивает " + (int)(playerUnit.maxHP * 0.25) + " здоровья";
+            message = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + (int)(playerUnit.maxHP * 0.25) + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
         }
         playerUnit.ReduceCurrentMP(mentalSkillsMPCost[0]);
         playerHUD.ChangeHP(playerUnit.currentHP);
@@ -274,7 +307,7 @@ public class CombatSystem : MonoBehaviour
         if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
         {
             enemyUnit.knockedTurnsCount++;
-            combatUI.combatDialogue.text = "Враг сбит с ног. " + playerUnit.unitName + " предоставляется еще один ход!";
+            combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ. " + playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ!";
             yield return new WaitForSeconds(1.5f);
             combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
@@ -283,7 +316,7 @@ public class CombatSystem : MonoBehaviour
             StartCoroutine(EnemyTurn());
     }
 
-    //-----------------------------(Действия врага)-------------------------------------------------
+    //-----------------------------(пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)-------------------------------------------------
 
     public IEnumerator EnemyTurn()
     {
@@ -292,6 +325,22 @@ public class CombatSystem : MonoBehaviour
             enemyHUD.ChangeHP(enemyUnit.currentHP);
             enemyHUD.ChangeMP(enemyUnit.currentMP);
             yield return new WaitForSeconds(1.5f);
+        }
+        if (enemyUnit.underItemEffect)
+        {
+            if (enemyUnit.affectingItem.doesHaveContinuousEffect)
+            {
+                enemyUnit.affectingItem.ApplyEffect();
+                yield return new WaitForSeconds(1f);
+            }
+            enemyUnit.affectingItem.RemoveEffect();
+            if (!enemyUnit.underItemEffect)
+            {
+                combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ " + enemyUnit.unitName + ", пїЅпїЅпїЅпїЅпїЅпїЅ";
+                yield return new WaitForSeconds(1f);
+            }
+            else
+                enemyUnit.itemEffectTurnsCount++;
         }
         if (enemyUnit.appliedEffect[1])
         {
@@ -302,7 +351,7 @@ public class CombatSystem : MonoBehaviour
         if (enemyUnit.IsDead())
         {
             combatState = CombatState.WON;
-            combatUI.combatDialogue.text = playerUnit.unitName + " одержал победу!";
+            combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ!";
             yield return new WaitForSeconds(1.5f);
             FinishBattle();
         }
@@ -313,7 +362,7 @@ public class CombatSystem : MonoBehaviour
             enemyUnit.isKnockedDown = false;
             enemyUnit.knockedTurnsCount = 0;
             enemyUnit.knockedDownTimeout = 3;
-            combatUI.combatDialogue.text = enemyUnit.unitName + " встал на ноги";
+            combatUI.combatDialogue.text = enemyUnit.unitName + " пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ";
             yield return new WaitForSeconds(1.5f);
         }
         enemyAttackButtonWasPressed = true;
@@ -336,13 +385,13 @@ public class CombatSystem : MonoBehaviour
         if (enemyUnit.IsDead())
         {
             combatState = CombatState.WON;
-            combatUI.combatDialogue.text = playerUnit.unitName + " одержал победу!";
+            combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ!";
             yield return new WaitForSeconds(1.5f);
             FinishBattle();
         }
         else if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
         {
-            combatUI.combatDialogue.text = enemyUnit.unitName + " сбил себя с ног своей же атакой. Какая неудача!";
+            combatUI.combatDialogue.text = enemyUnit.unitName + " пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!";
             yield return new WaitForSeconds(1.5f);
             combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
@@ -355,7 +404,7 @@ public class CombatSystem : MonoBehaviour
         else if (playerUnit.isKnockedDown && playerUnit.knockedTurnsCount == 0)
         {            
             playerUnit.knockedTurnsCount++;
-            combatUI.combatDialogue.text = playerUnit.unitName + " сбит с ног. Снова ход врага!";
+            combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ!";
             yield return new WaitForSeconds(1.5f);
             StartCoroutine(EnemyTurn());
         }
@@ -367,7 +416,7 @@ public class CombatSystem : MonoBehaviour
         }
     }
 
-    //-----------------------------(Методы для кнопок)-------------------------------------------------
+    //-----------------------------(пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)-------------------------------------------------
 
     public void OnItemButton()
     {
@@ -389,7 +438,7 @@ public class CombatSystem : MonoBehaviour
             Inventory.instance.Close();
         if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
-        combatUI.combatDialogue.text = playerUnit.unitName + " начинает атаку";
+        combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ";
         StartCoroutine(PlayerAttack(0, false));
     }
 
@@ -401,7 +450,7 @@ public class CombatSystem : MonoBehaviour
             Inventory.instance.Close();
         if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
-        combatUI.combatDialogue.text = playerUnit.unitName + " защищается";
+        combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
         StartCoroutine(PlayerDefend());
     }
 
@@ -424,13 +473,13 @@ public class CombatSystem : MonoBehaviour
     {
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
-            combatUI.combatDialogue.text = playerUnit.unitName + " использует пси навык";
+            combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ";
             combatUI.HideOrShowMentalSkillButtons();
             StartCoroutine(PlayerAttack(1, true));
         }
         else
         {
-            combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
+            combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ MP пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ";
             combatUI.HideOrShowMentalSkillButtons();
         }
     }
@@ -439,13 +488,13 @@ public class CombatSystem : MonoBehaviour
     {
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
-            combatUI.combatDialogue.text = playerUnit.unitName + " использует электрический навык";
+            combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ";
             combatUI.HideOrShowMentalSkillButtons();
             StartCoroutine(PlayerAttack(2, true));
         }
         else
         {
-            combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
+            combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ MP пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ";
             combatUI.HideOrShowMentalSkillButtons();
         }
     }
@@ -454,13 +503,13 @@ public class CombatSystem : MonoBehaviour
     {
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
-            combatUI.combatDialogue.text = playerUnit.unitName + " использует огненный навык";
+            combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ";
             combatUI.HideOrShowMentalSkillButtons();
             StartCoroutine(PlayerAttack(3, true));
         }
         else
         {
-            combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
+            combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ MP пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ";
             combatUI.HideOrShowMentalSkillButtons();
         }
     }
@@ -469,13 +518,13 @@ public class CombatSystem : MonoBehaviour
     {
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
-            combatUI.combatDialogue.text = playerUnit.unitName + " использует целительный навык";
+            combatUI.combatDialogue.text = playerUnit.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ";
             combatUI.HideOrShowMentalSkillButtons();
             StartCoroutine(PlayerRegenaSkill());
         }
         else
         {
-            combatUI.combatDialogue.text = "Недостаточно MP для использования навыка";
+            combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ MP пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ";
             combatUI.HideOrShowMentalSkillButtons();
         }
     }
@@ -517,12 +566,12 @@ public class CombatSystem : MonoBehaviour
         if (totalDamage < 0)
         {
             receiver.TakeDamage(-totalDamage);
-            message = "Атака оказывается отражена в нападающего, " + receiver.unitName + " получает " + -totalDamage + " урона";
+            message = "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, " + receiver.unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ " + -totalDamage + " пїЅпїЅпїЅпїЅпїЅ";
         }
         else
         {
             receiver.Heal(totalDamage);
-            message = "Эффект оказывается отражен в " + receiver.unitName + ", что восстанавливает ему " + totalDamage + " здоровья";
+            message = "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ " + receiver.unitName + ", пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ " + totalDamage + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
         }
         effectMessage = enemyUnit.ApplyEffect(effectIndex);
         return message;

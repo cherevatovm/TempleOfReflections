@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,7 +48,7 @@ public class InventorySlot : MonoBehaviour
     {
         if (CombatSystem.instance.isInCombat)
         {
-            CombatSystem.instance.combatUI.combatDialogue.text = "Вы не можете выбросить предмет во время боя";
+            CombatSystem.instance.combatUI.combatDialogue.text = "пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ";
             return;
         }
         var vector = new Vector3(PlayerMovement.instance.transform.position.x + 1.5f, PlayerMovement.instance.transform.position.y, PlayerMovement.instance.transform.position.z);
@@ -85,30 +86,25 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    public void UseItem()
+    public void UseItemInSlot()
     {
         if (slotItem.isParasite)
             return;
+        if (!CombatSystem.instance.isInCombat && slotItem.isUsableInCombatOnly)
+            return;
         if (CombatSystem.instance.isInCombat)
-            CombatSystem.instance.wasAnItemUsed = true;
-        string itemType = slotItem.GetType().ToString();
-        switch (itemType)
         {
-            case "HpMixture":
-                var mixture0 = (HpMixture)slotItem;
-                if (CombatSystem.instance.isInCombat)
-                    CombatSystem.instance.playerUnit.Heal((int)(CombatSystem.instance.playerUnit.maxHP * (mixture0.percentOfRestoredHP / 100.0)));
-                else
-                    Inventory.instance.attachedUnit.Heal((int)(Inventory.instance.attachedUnit.maxHP * (mixture0.percentOfRestoredHP / 100.0)));
-                break;
-            case "MpMixture":
-                var mixture1 = (MpMixture)slotItem;
-                if (CombatSystem.instance.isInCombat)
-                    CombatSystem.instance.playerUnit.IncreaseCurrentMP((int)(CombatSystem.instance.playerUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
-                else
-                    Inventory.instance.attachedUnit.IncreaseCurrentMP((int)(Inventory.instance.attachedUnit.maxMP * (mixture1.percentOfRestoredMP / 100.0)));
-                break;
+            slotItem.UseItem(out string message);
+            if (string.IsNullOrEmpty(message))
+            {
+                CombatSystem.instance.combatUI.combatDialogue.text = "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+                return;
+            }
+            CombatSystem.instance.combatUI.combatDialogue.text = message;
+            CombatSystem.instance.wasAnItemUsed = true; //--------
         }
+        else
+            slotItem.UseItem(out _);
         if (stackCount != 1)
         {
             stackCount--;
@@ -121,7 +117,6 @@ public class InventorySlot : MonoBehaviour
         {
             ItemInfo.instance.Close();
             Clear();
-            Inventory.instance.GroupItemsInSlots();
         }
         if (CombatSystem.instance.isInCombat)
         {

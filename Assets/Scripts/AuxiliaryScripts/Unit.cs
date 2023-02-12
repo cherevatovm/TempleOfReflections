@@ -26,6 +26,10 @@ public class Unit : MonoBehaviour
     public int currentMP;
     public int maxMP;
 
+    public int itemEffectTurnsCount = 0;
+    public bool underItemEffect;
+    public ItemWithEffect affectingItem;
+
     [HideInInspector] public bool isKnockedDown;
     [HideInInspector] public int knockedTurnsCount;
     [HideInInspector] public int knockedDownTimeout;
@@ -138,9 +142,9 @@ public class Unit : MonoBehaviour
             appliedEffect[effectIndex] = true;
             message = effectIndex switch
             {
-                0 => "На " + unitName + " наложен эффект поглощения MP",
-                1 => unitName + " оказывается окован электричеством, которое не позволяет двигаться",
-                2 => unitName + " в огне!",
+                0 => "пїЅпїЅ " + unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ MP",
+                1 => unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ",
+                2 => unitName + " пїЅ пїЅпїЅпїЅпїЅ!",
                 _ => string.Empty,
             };
         }
@@ -154,13 +158,13 @@ public class Unit : MonoBehaviour
             underEffectTurnsCount++;
             int takenMP = (int)(0.08 * maxMP);
             ReduceCurrentMP(takenMP);
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " теряет " + takenMP + " очков MP";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " пїЅпїЅпїЅпїЅпїЅпїЅ " + takenMP + " пїЅпїЅпїЅпїЅпїЅ MP";
         }
         else if (underEffectTurnsCount == 3)
         {
             appliedEffect[0] = false;
             underEffectTurnsCount = 0;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " оправляется от эффекта";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
         }
     }
 
@@ -169,13 +173,13 @@ public class Unit : MonoBehaviour
         if (appliedEffect[1] && underEffectTurnsCount < 2)
         {
             underEffectTurnsCount++;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " чересчур шокирован, чтобы двигаться";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
         }
         else if (underEffectTurnsCount == 2)
         {
             appliedEffect[1] = false;
             underEffectTurnsCount = 0;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " оправляется от эффекта";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
         }
     }
 
@@ -186,13 +190,13 @@ public class Unit : MonoBehaviour
             underEffectTurnsCount++;
             int takenHP = (int)(0.05 * maxHP);
             TakeDamage(takenHP);
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " теряет " + takenHP + " очков здоровья";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " пїЅпїЅпїЅпїЅпїЅпїЅ " + takenHP + " пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
         }
         else if (underEffectTurnsCount == 3)
         {
             appliedEffect[2] = false;
             underEffectTurnsCount = 0;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " оправляется от эффекта";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
         }
     }
 
