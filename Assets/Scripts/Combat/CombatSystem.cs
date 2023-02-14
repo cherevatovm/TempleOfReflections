@@ -20,6 +20,7 @@ public class CombatSystem : MonoBehaviour
 
     [HideInInspector] public Unit playerUnit;
     [HideInInspector] public Unit enemyUnit;
+    public List<Unit> enemyUnits;
     private EnemyAI enemyAI;
 
     [HideInInspector] public EnemyAI encounteredEnemy;
@@ -287,84 +288,89 @@ public class CombatSystem : MonoBehaviour
 
     public IEnumerator EnemyTurn()
     {
-        if (enemyUnit.UnitEffectUpdate())
+        for (int i = 0; i < enemyUnits.Count; i++)
         {
-            enemyHUD.ChangeHP(enemyUnit.currentHP);
-            enemyHUD.ChangeMP(enemyUnit.currentMP);
-            yield return new WaitForSeconds(1.5f);
-        }
-        if (enemyUnit.appliedEffect[1])
-        {
-            combatState = CombatState.PLAYER_TURN;
-            StartCoroutine(PlayerTurn());
-            yield break;
-        }
-        if (enemyUnit.IsDead())
-        {
-            combatState = CombatState.WON;
-            combatUI.combatDialogue.text = playerUnit.unitName + " одержал победу!";
-            yield return new WaitForSeconds(1.5f);
-            FinishBattle();
-        }
-        if (enemyUnit.knockedDownTimeout > 0)
-            enemyUnit.knockedDownTimeout--;
-        if (enemyUnit.isKnockedDown)
-        {
-            enemyUnit.isKnockedDown = false;
-            enemyUnit.knockedTurnsCount = 0;
-            enemyUnit.knockedDownTimeout = 3;
-            combatUI.combatDialogue.text = enemyUnit.unitName + " встал на ноги";
-            yield return new WaitForSeconds(1.5f);
-        }
-        enemyAttackButtonWasPressed = true;
-        List<string> messages = enemyAI.CombatAI(out int soundID);
-        for (int i = 0; i < messages.Count; i++)
-        {
-            if (enemyAI.enemyID == 0 && i == messages.Count - 1 && soundID != -1)
-                SoundManager.PlaySound((SoundManager.Sound)soundID);
-            if (!string.IsNullOrEmpty(messages[i]))
+            if (enemyUnits[i].UnitEffectUpdate())
             {
-                combatUI.combatDialogue.text = messages[i];
+                enemyHUD.ChangeHP(enemyUnits[i].currentHP);
+                enemyHUD.ChangeMP(enemyUnits[i].currentMP);
                 yield return new WaitForSeconds(1.5f);
-                playerIsHurting = false;
-                enemyIsHurting = false;
             }
-        }
-        enemyAttackButtonWasPressed = false;
-        playerHUD.ChangeHP(playerUnit.currentHP);
-        enemyHUD.ChangeHP(enemyUnit.currentHP);
-        if (enemyUnit.IsDead())
-        {
-            combatState = CombatState.WON;
-            combatUI.combatDialogue.text = playerUnit.unitName + " одержал победу!";
-            yield return new WaitForSeconds(1.5f);
-            FinishBattle();
-        }
-        else if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
-        {
-            combatUI.combatDialogue.text = enemyUnit.unitName + " сбил себя с ног своей же атакой. Какая неудача!";
-            yield return new WaitForSeconds(1.5f);
-            combatState = CombatState.PLAYER_TURN;
-            StartCoroutine(PlayerTurn());
-        }
-        else if (playerUnit.IsDead())
-        {
-            combatState = CombatState.LOST;
-            FinishBattle();
-        }
-        else if (playerUnit.isKnockedDown && playerUnit.knockedTurnsCount == 0)
-        {            
-            playerUnit.knockedTurnsCount++;
-            combatUI.combatDialogue.text = playerUnit.unitName + " сбит с ног. Снова ход врага!";
-            yield return new WaitForSeconds(1.5f);
-            StartCoroutine(EnemyTurn());
-        }
-        else
-        {
-            yield return new WaitForSeconds(1.5f);
-            combatState = CombatState.PLAYER_TURN;
-            StartCoroutine(PlayerTurn());
-        }
+            if (enemyUnits[i].appliedEffect[1])
+            {
+                combatState = CombatState.PLAYER_TURN;
+                StartCoroutine(PlayerTurn());
+                yield break;
+            }
+            if (enemyUnits[i].IsDead())
+            {
+                combatState = CombatState.WON;
+                combatUI.combatDialogue.text = playerUnit.unitName + " одержал победу!";
+                yield return new WaitForSeconds(1.5f);
+                FinishBattle();
+            }
+            if (enemyUnits[i].knockedDownTimeout > 0)
+                enemyUnits[i].knockedDownTimeout--;
+            if (enemyUnits[i].isKnockedDown)
+            {
+                enemyUnits[i].isKnockedDown = false;
+                enemyUnits[i].knockedTurnsCount = 0;
+                enemyUnits[i].knockedDownTimeout = 3;
+                combatUI.combatDialogue.text = enemyUnits[i].unitName + " встал на ноги";
+                yield return new WaitForSeconds(1.5f);
+            }
+            enemyAttackButtonWasPressed = true;
+            List<string> messages = enemyAI.CombatAI(out int soundID);
+            for (int j = 0; j < messages.Count; j++)
+            {
+                if (enemyAI.enemyID == 0 && j == messages.Count - 1 && soundID != -1)
+                    SoundManager.PlaySound((SoundManager.Sound)soundID);
+                if (!string.IsNullOrEmpty(messages[j]))
+                {
+                    combatUI.combatDialogue.text = messages[j];
+                    yield return new WaitForSeconds(1.5f);
+                    playerIsHurting = false;
+                    enemyIsHurting = false;
+                }
+            }
+            enemyAttackButtonWasPressed = false;
+            playerHUD.ChangeHP(playerUnit.currentHP);
+            enemyHUD.ChangeHP(enemyUnits[i].currentHP);
+            if (enemyUnits[i].IsDead())
+                enemyUnits.RemoveAt(i);
+            if (enemyUnits.Count == 0)
+            {
+                combatState = CombatState.WON;
+                combatUI.combatDialogue.text = playerUnit.unitName + " одержал победу!";
+                yield return new WaitForSeconds(1.5f);
+                FinishBattle();
+            }
+            else if (enemyUnits[i].isKnockedDown && enemyUnits[i].knockedTurnsCount == 0)
+            {
+                combatUI.combatDialogue.text = enemyUnits[i].unitName + " сбил себя с ног своей же атакой. Какая неудача!";
+                yield return new WaitForSeconds(1.5f);
+                combatState = CombatState.PLAYER_TURN;
+                StartCoroutine(PlayerTurn());
+            }
+            else if (playerUnit.IsDead())
+            {
+                combatState = CombatState.LOST;
+                FinishBattle();
+            }
+            else if (playerUnit.isKnockedDown && playerUnit.knockedTurnsCount == 0)
+            {
+                playerUnit.knockedTurnsCount++;
+                combatUI.combatDialogue.text = playerUnit.unitName + " сбит с ног. Снова ход врага!";
+                yield return new WaitForSeconds(1.5f);
+                StartCoroutine(EnemyTurn());
+            }
+            else
+            {
+                yield return new WaitForSeconds(1.5f);
+                combatState = CombatState.PLAYER_TURN;
+                StartCoroutine(PlayerTurn());
+            }
+        }   
     }
 
     //-----------------------------(Методы для кнопок)-------------------------------------------------
