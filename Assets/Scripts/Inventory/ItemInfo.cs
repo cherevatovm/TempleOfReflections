@@ -5,38 +5,51 @@ using UnityEngine.UI;
 
 public class ItemInfo : MonoBehaviour
 {
+    private Button DropButton;
+    private Button UseButton;
+    private Button PutInContainerButton;
+    private InventorySlot slot;
+    protected Text descriptionText;
+    protected Text nameText;
     public static ItemInfo instance;
-    Text descriptionText;
-    Text nameText;
-    public Button DropButton;
-    public Button UseButton;
-    InventorySlot slot;
-    
 
-    void Start()
+    private void Start()
     {
-        descriptionText = gameObject.transform.GetChild(1).GetComponent<Text>();
-        nameText = gameObject.transform.GetChild(0).GetComponent<Text>();
+        nameText = transform.GetChild(0).GetComponent<Text>();
+        descriptionText = transform.GetChild(1).GetComponent<Text>();
         instance = this;
-        DropButton = gameObject.transform.GetChild(2).GetComponent<Button>();
+        DropButton = transform.GetChild(2).GetComponent<Button>();
         DropButton.onClick.AddListener(delegate { slot.DropOutOfSlot(); });
-        UseButton = gameObject.transform.GetChild(3).GetComponent<Button>();
+        UseButton = transform.GetChild(3).GetComponent<Button>();
         UseButton.onClick.AddListener(delegate { slot.UseItemInSlot(); });
+        PutInContainerButton = transform.GetChild(4).GetComponent<Button>();
+        PutInContainerButton.onClick.AddListener(delegate { Inventory.instance.PutInContainer(slot); });
     }
 
     public void Open(string itemName, string description, Vector3 pos, InventorySlot slot)
     {
+        ContainerItemInfo.instance.Close();
+        if (Inventory.instance.isContainerOpen)
+        {
+            DropButton.gameObject.SetActive(false);
+            UseButton.gameObject.SetActive(false);
+            PutInContainerButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            DropButton.gameObject.SetActive(true);
+            UseButton.gameObject.SetActive(true);
+            PutInContainerButton.gameObject.SetActive(false);
+        }
         if (slot.slotItem.isParasite)
             UseButton.gameObject.SetActive(false);
-        else
-            UseButton.gameObject.SetActive(true);
         descriptionText.text = description;
         nameText.text = itemName;
-        gameObject.transform.localScale = Vector3.one;
+        transform.localScale = Vector3.one;
         var vector = new Vector3(pos.x + 5, pos.y + 2, pos.z);
-        gameObject.transform.position = vector;
+        transform.position = vector;
         this.slot = slot;
     }
 
-    public void Close() => gameObject.transform.localScale = Vector3.zero;
+    public void Close() => transform.localScale = Vector3.zero;
 }

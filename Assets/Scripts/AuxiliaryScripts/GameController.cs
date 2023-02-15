@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    void Awake() => SoundManager.InitSoundTimerDict();
+    private void Awake() => SoundManager.InitSoundTimerDict();
 }

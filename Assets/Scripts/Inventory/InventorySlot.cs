@@ -13,22 +13,22 @@ public class InventorySlot : MonoBehaviour
     public PickableItem slotItem;
 
     public GameObject slotObject;   
-    private Button clickableSlot;
+    protected Button clickableSlot;
            
     public int stackCount;
     public bool isEmpty = true;
 
-    private void Start()
+    protected void Start()
     {
         clickableSlot = gameObject.GetComponent<Button>();
         clickableSlot.onClick.AddListener(SlotClicked);        
-        previewImage = gameObject.transform.GetChild(0).GetComponent<Image>();
-        stackCountText = gameObject.transform.GetChild(1).GetComponent<Text>();
+        previewImage = transform.GetChild(0).GetComponent<Image>();
+        stackCountText = transform.GetChild(1).GetComponent<Text>();
         stackCount = 1;
         stackCountText.text = "";
     }
 
-    private void Update()
+    protected void Update()
     {
         if (stackCount > 1)
             stackCountText.text = stackCount.ToString();
@@ -44,7 +44,8 @@ public class InventorySlot : MonoBehaviour
         slotObject = obj;
     }
 
-    public void DropOutOfSlot()
+
+    public virtual void DropOutOfSlot()
     {
         if (CombatSystem.instance.isInCombat)
         {
@@ -55,15 +56,18 @@ public class InventorySlot : MonoBehaviour
         ItemInfo.instance.Close();
         if (stackCount != 1)
         {
-            slotObject.SetActive(true);
-            if (slotItem.isParasite)
+            if (!Inventory.instance.isContainerOpen)
             {
-                slotObject.GetComponent<Parasite>().DetachParasite();
-                GameUI.instance.SetUI(Inventory.instance.attachedUnit);
+                slotObject.SetActive(true);
+                if (slotItem.isParasite)
+                {
+                    slotObject.GetComponent<Parasite>().DetachParasite();
+                    GameUI.instance.SetUI(Inventory.instance.attachedUnit);
+                }
+                else
+                    Instantiate(slotObject, vector, Quaternion.identity);
+                slotObject.SetActive(false);
             }
-            else
-                Instantiate(slotObject, vector, Quaternion.identity);
-            slotObject.SetActive(false);
             stackCount--;
             if (stackCount == 1)
                 stackCountText.text = "";
@@ -72,13 +76,16 @@ public class InventorySlot : MonoBehaviour
         }
         else
         {
-            slotObject.SetActive(true);
-            slotObject.transform.position = vector;
-            if (slotItem.isParasite)
+            if (!Inventory.instance.isContainerOpen)
             {
-                slotObject.GetComponent<Parasite>().DetachParasite();
-                GameUI.instance.SetUI(Inventory.instance.attachedUnit);
-                Destroy(slotObject);
+                slotObject.SetActive(true);
+                slotObject.transform.position = vector;
+                if (slotItem.isParasite)
+                {
+                    slotObject.GetComponent<Parasite>().DetachParasite();
+                    GameUI.instance.SetUI(Inventory.instance.attachedUnit);
+                    Destroy(slotObject);
+                }
             }
             Clear();
             Inventory.instance.GroupParasitesInSlots();
@@ -125,15 +132,15 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    public void SlotClicked() 
+    public virtual void SlotClicked() 
     {
         if (!isEmpty)
         { 
-            var vector = new Vector3(gameObject.transform.position.x + 5, gameObject.transform.position.y + 2, gameObject.transform.position.z);
+            var vector = new Vector3(transform.position.x + 5, transform.position.y + 2, transform.position.z);
             if (ItemInfo.instance.transform.localScale == Vector3.zero)
-                ItemInfo.instance.Open(slotItemName, slotItemDescription, gameObject.transform.position, this);
+                ItemInfo.instance.Open(slotItemName, slotItemDescription, transform.position, this);
             else if (ItemInfo.instance.transform.localScale == Vector3.one && ItemInfo.instance.transform.position != vector)
-                ItemInfo.instance.Open(slotItemName, slotItemDescription, gameObject.transform.position, this);
+                ItemInfo.instance.Open(slotItemName, slotItemDescription, transform.position, this);
             else
                 ItemInfo.instance.Close();
         }
