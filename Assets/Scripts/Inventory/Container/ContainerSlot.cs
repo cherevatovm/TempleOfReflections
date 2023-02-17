@@ -8,7 +8,10 @@ public class ContainerSlot : InventorySlot
     public override void DropOutOfSlot()
     {
         ContainerItemInfo.instance.Close();
-        Inventory.instance.PutInInventory(slotItem, slotObject);
+        GameObject obj = Instantiate(slotObject);
+        Inventory.instance.PutInInventory(obj);
+        if (obj != null)
+            obj.SetActive(false);
         Inventory.instance.ClearSameIndexSlotInContainer(this);
         if (stackCount != 1)
         {
@@ -19,7 +22,11 @@ public class ContainerSlot : InventorySlot
                 stackCountText.text = stackCount.ToString();
         }
         else
+        {
+            Destroy(slotObject);
             Clear();
+        }
+        Inventory.instance.GroupItemsInContainerSlots();    
     }
 
     public override void SlotClicked()

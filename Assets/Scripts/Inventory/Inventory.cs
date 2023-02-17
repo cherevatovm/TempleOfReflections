@@ -10,8 +10,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] Transform parentSlotForParasites;
     [SerializeField] Transform parentContainerSlots;
 
-    List<InventorySlot> inventorySlotsForItems = new();
-    List<InventorySlot> inventorySlotsForParasites = new();
+    private List<InventorySlot> inventorySlotsForItems = new();
+    private List<InventorySlot> inventorySlotsForParasites = new();
     private List<ContainerSlot> inventoryContainerSlots = new();
 
     public Unit attachedUnit;
@@ -63,21 +63,16 @@ public class Inventory : MonoBehaviour
         isOpen = false;
     }
 
-    public void PutInInventory(PickableItem item, GameObject obj)
+    public void PutInInventory(GameObject obj)
     {
+        PickableItem item = obj.GetComponent<PickableItem>();
         if (item.isParasite)
         {
             if (IsFull(1))
                 return;
             for (int i = 0; i < inventorySlotsForParasites.Count; i++)
             {
-                if (!inventorySlotsForParasites[i].isEmpty && item.itemName.Equals(inventorySlotsForParasites[i].slotItemName))
-                {
-                    Destroy(obj);
-                    inventorySlotsForParasites[i].stackCount++;
-                    break;
-                }
-                else if (inventorySlotsForParasites[i].isEmpty)
+                if (inventorySlotsForParasites[i].isEmpty)
                 {
                     inventorySlotsForParasites[i].PutInSlot(item, obj);
                     break;
@@ -89,30 +84,29 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            if (IsFull(0))
-                return;
             for (int i = 0; i < inventorySlotsForItems.Count; i++)
             {
                 if (!inventorySlotsForItems[i].isEmpty && item.itemName.Equals(inventorySlotsForItems[i].slotItemName))
                 {
                     inventorySlotsForItems[i].stackCount++;
+                    Destroy(obj);
                     break;
                 }
                 else if (inventorySlotsForItems[i].isEmpty)
                 {
                     inventorySlotsForItems[i].PutInSlot(item, obj);
+                    obj.SetActive(false);
                     break;
                 }
-            }
-            obj.SetActive(false);
+            }            
         }
     }
 
     public void GroupParasitesInSlots()
     {
-        for (int i = 0; i < inventorySlotsForParasites.Count; i++)
+        for (int i = 0; i < inventorySlotsForParasites.Count - 1; i++)
         {
-            if (inventorySlotsForParasites[i].isEmpty && IsSomethingInSlotsAfter(true, i))
+            if (inventorySlotsForParasites[i].isEmpty && !inventorySlotsForParasites[i + 1].isEmpty)
             {
                 int j = i;
                 int k = i + 1;
@@ -130,16 +124,45 @@ public class Inventory : MonoBehaviour
 
     public void GroupItemsInSlots()
     {
-        for (int i = 0; i < inventorySlotsForItems.Count; i++)
+        for (int i = 0; i < inventorySlotsForItems.Count - 1; i++)
         {
-            if (inventorySlotsForItems[i].isEmpty && IsSomethingInSlotsAfter(false, i))
+            if (inventorySlotsForItems[i].isEmpty && !inventorySlotsForItems[i + 1].isEmpty)
             {
                 int j = i;
                 int k = i + 1;
                 while (k != inventorySlotsForItems.Count && !inventorySlotsForItems[k].isEmpty)
                 {
                     inventorySlotsForItems[j].PutInSlot(inventorySlotsForItems[k].slotItem, inventorySlotsForItems[k].slotObject);
+                    if (inventorySlotsForItems[k].stackCount > 1)
+                        inventorySlotsForItems[j].stackCount = inventorySlotsForItems[k].stackCount;
                     inventorySlotsForItems[k].Clear();
+                    k++;
+                    j++;
+                }
+                break;
+            }
+        }
+    }
+
+    public void GroupItemsInContainerSlots()
+    {
+        for (int i = 0; i < inventoryContainerSlots.Count - 1; i++)
+        {
+            if (inventoryContainerSlots[i].isEmpty && !inventoryContainerSlots[i + 1].isEmpty)
+            {
+                int j = i;
+                int k = i + 1;
+                while (k != inventoryContainerSlots.Count && !inventoryContainerSlots[k].isEmpty)
+                {
+                    inventoryContainerSlots[j].PutInSlot(inventoryContainerSlots[k].slotItem, inventoryContainerSlots[k].slotObject);
+                    container.containerSlots[j].PutInSlot(inventoryContainerSlots[k].slotItem, inventoryContainerSlots[k].slotObject);
+                    if (inventoryContainerSlots[k].stackCount > 1)
+                    {
+                        inventoryContainerSlots[j].stackCount = inventoryContainerSlots[k].stackCount;
+                        container.containerSlots[j].stackCount = inventoryContainerSlots[k].stackCount;
+                    }
+                    inventoryContainerSlots[k].Clear();
+                    container.containerSlots[k].Clear();
                     k++;
                     j++;
                 }
@@ -228,48 +251,16 @@ public class Inventory : MonoBehaviour
 
     private bool IsFull(int whichSlots)
     {
-        if (whichSlots == 1)
-        {
-            for (int i = inventorySlotsForParasites.Count - 1; i > -1; i--)
-                if (inventorySlotsForParasites[i].isEmpty)
-                    return false;
-        }
-        else if (whichSlots == 0)
-        {
-            for (int i = inventorySlotsForItems.Count - 1; i > -1; i--)
-                if (inventorySlotsForItems[i].isEmpty)
-                    return false;
-        }
+        if (whichSlots == 0)
+            return !inventorySlotsForItems[^1].isEmpty;
+        else if (whichSlots == 1)
+            return !inventorySlotsForParasites[^1].isEmpty;
         else
-        {
-            for (int i = inventoryContainerSlots.Count - 1; i > -1; i--)
-                if (inventoryContainerSlots[i].isEmpty)
-                    return false;
-        }
-        return true;
-    }
-
-    private bool IsSomethingInSlotsAfter(bool isParasite, int index)
-    {
-        if (index == inventorySlotsForParasites.Count - 1)
-            return false;
-        if (isParasite)
-        {
-            for (int i = index; i < inventorySlotsForParasites.Count; i++)
-                if (!inventorySlotsForParasites[i].isEmpty)
-                    return true;
-        }
-        else
-            for (int i = index; i < inventorySlotsForItems.Count; i++)
-                if (!inventorySlotsForItems[i].isEmpty)
-                    return true;
-        return false;
+            return !inventoryContainerSlots[^1].isEmpty;
     }
 
     public void PutInContainer(InventorySlot slot)
     {
-        if (IsFull(2))
-            return;
         for (int i = 0; i < inventoryContainerSlots.Count; i++)
         {
             if (!inventoryContainerSlots[i].isEmpty && slot.slotItemName.Equals(inventoryContainerSlots[i].slotItemName))
@@ -280,8 +271,10 @@ public class Inventory : MonoBehaviour
             }
             else if (inventoryContainerSlots[i].isEmpty)
             {
-                inventoryContainerSlots[i].PutInSlot(slot.slotItem, slot.slotObject);
-                container.containerSlots[i].PutInSlot(slot.slotItem, slot.slotObject);
+                GameObject containerObject = Instantiate(slot.slotObject);
+                inventoryContainerSlots[i].PutInSlot(containerObject.GetComponent<PickableItem>(), containerObject);
+                container.containerSlots[i].PutInSlot(containerObject.GetComponent<PickableItem>(), containerObject);
+                containerObject.SetActive(false);
                 break;
             }
         }

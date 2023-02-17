@@ -16,7 +16,7 @@ public class InventorySlot : MonoBehaviour
     protected Button clickableSlot;
            
     public int stackCount;
-    public bool isEmpty = true;
+    [HideInInspector] public bool isEmpty = true;
 
     protected void Start()
     {
@@ -49,7 +49,7 @@ public class InventorySlot : MonoBehaviour
     {
         if (CombatSystem.instance.isInCombat)
         {
-            CombatSystem.instance.combatUI.combatDialogue.text = "�� �� ������ ��������� ������� �� ����� ���";
+            CombatSystem.instance.combatUI.combatDialogue.text = "Вы не можете выбросить предмет во время боя";
             return;
         }
         var vector = new Vector3(PlayerMovement.instance.transform.position.x + 1.5f, PlayerMovement.instance.transform.position.y, PlayerMovement.instance.transform.position.z);
@@ -87,6 +87,8 @@ public class InventorySlot : MonoBehaviour
                     Destroy(slotObject);
                 }
             }
+            else
+                Destroy(slotObject);
             Clear();
             Inventory.instance.GroupParasitesInSlots();
             Inventory.instance.GroupItemsInSlots();
@@ -104,11 +106,10 @@ public class InventorySlot : MonoBehaviour
             slotItem.UseItem(out string message);
             if (string.IsNullOrEmpty(message))
             {
-                CombatSystem.instance.combatUI.combatDialogue.text = "������ �� ������� �������� ��� ��� ���������";
+                CombatSystem.instance.combatUI.combatDialogue.text = "Эффект от этого предмета все еще действует";
                 return;
             }
             CombatSystem.instance.combatUI.combatDialogue.text = message;
-            CombatSystem.instance.wasAnItemUsed = true; //--------
         }
         else
             slotItem.UseItem(out _);
@@ -124,6 +125,7 @@ public class InventorySlot : MonoBehaviour
         {
             ItemInfo.instance.Close();
             Clear();
+            Inventory.instance.GroupItemsInSlots();
         }
         if (CombatSystem.instance.isInCombat)
         {
@@ -152,6 +154,8 @@ public class InventorySlot : MonoBehaviour
         slotItem = null;
         previewImage.sprite = null;
         slotObject = null;
+        stackCount = 1;
+        stackCountText.text = "";
         slotItemName = "";
         slotItemDescription = "";
     }

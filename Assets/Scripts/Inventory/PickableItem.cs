@@ -16,7 +16,7 @@ public abstract class PickableItem : MonoBehaviour
     {
         if (isCloseToItem)
             if (Input.GetKeyDown(KeyCode.F))
-                Inventory.instance.PutInInventory(this, gameObject);
+                Inventory.instance.PutInInventory(gameObject);
     }
 
     public abstract void UseItem(out string message);

@@ -37,6 +37,8 @@ public class Container : MonoBehaviour
             if (containerSlots[i].isEmpty)
                 break;
             containerSlotsInInventory.GetChild(i).GetComponent<ContainerSlot>().PutInSlot(containerSlots[i].slotItem, containerSlots[i].slotObject);
+            if (containerSlots[i].stackCount > 1)
+                containerSlotsInInventory.GetChild(i).GetComponent<ContainerSlot>().stackCount = containerSlots[i].stackCount;
         }
         Inventory.instance.isContainerOpen = true;
         Inventory.instance.container = this;

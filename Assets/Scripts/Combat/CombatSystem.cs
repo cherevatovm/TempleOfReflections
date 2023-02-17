@@ -43,7 +43,6 @@ public class CombatSystem : MonoBehaviour
     private float initArmorModifier = 1;
     public int[] mentalSkillsMPCost;
     [HideInInspector] public bool isInCombat;
-    [HideInInspector] public bool wasAnItemUsed;
     public static CombatSystem instance;
     private System.Random random = new System.Random();
 
@@ -95,7 +94,6 @@ public class CombatSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        combatState = CombatState.PLAYER_TURN;
         StartCoroutine(PlayerTurn());
     }
 
@@ -116,7 +114,6 @@ public class CombatSystem : MonoBehaviour
             combatUI.combatDialogue.text = playerUnit.unitName + " встал на ноги. Так продолжайте же сражаться!";
             yield return new WaitForSeconds(1.5f);
         }
-        wasAnItemUsed = false;
         if (playerUnit.UnitEffectUpdate())
         {
             playerHUD.ChangeHP(playerUnit.currentHP);
@@ -150,7 +147,10 @@ public class CombatSystem : MonoBehaviour
             FinishBattle();
         }
         else
+        {
+            combatState = CombatState.PLAYER_TURN;
             combatUI.combatDialogue.text = "Выберите действие:";
+        }
     }
 
     private IEnumerator PlayerDefend()
@@ -181,7 +181,6 @@ public class CombatSystem : MonoBehaviour
         }
         else if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
         {
-            combatState = CombatState.PLAYER_TURN;
             enemyUnit.knockedTurnsCount++;
             combatUI.combatDialogue.text = "Враг сбит с ног. " + playerUnit.unitName + " предоставляется еще один ход!";
             yield return new WaitForSeconds(1.5f);
@@ -277,7 +276,6 @@ public class CombatSystem : MonoBehaviour
             enemyUnit.knockedTurnsCount++;
             combatUI.combatDialogue.text = "Враг сбит с ног. " + playerUnit.unitName + " предоставляется еще один ход!";
             yield return new WaitForSeconds(1.5f);
-            combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
         }
         else
@@ -309,7 +307,6 @@ public class CombatSystem : MonoBehaviour
             enemyUnit.knockedTurnsCount++;
             combatUI.combatDialogue.text = "Враг сбит с ног. " + playerUnit.unitName + " предоставляется еще один ход!";
             yield return new WaitForSeconds(1.5f);
-            combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
         }
         else
@@ -344,7 +341,6 @@ public class CombatSystem : MonoBehaviour
         }
         if (enemyUnit.appliedEffect[1])
         {
-            combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
             yield break;
         }
@@ -393,7 +389,6 @@ public class CombatSystem : MonoBehaviour
         {
             combatUI.combatDialogue.text = enemyUnit.unitName + " сбит с ног собственной атакой. Какая неудача!";
             yield return new WaitForSeconds(1.5f);
-            combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
         }
         else if (playerUnit.IsDead())
@@ -411,7 +406,6 @@ public class CombatSystem : MonoBehaviour
         else
         {
             yield return new WaitForSeconds(1.5f);
-            combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
         }
     }
@@ -420,7 +414,7 @@ public class CombatSystem : MonoBehaviour
 
     public void OnItemButton()
     {
-        if (combatState != CombatState.PLAYER_TURN || wasAnItemUsed)
+        if (combatState != CombatState.PLAYER_TURN)
             return;
         if (Inventory.instance.isOpen)
             Inventory.instance.Close();
@@ -539,7 +533,6 @@ public class CombatSystem : MonoBehaviour
             SoundManager.StopLoopedSound();
             SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
             SoundManager.PlaySound(SoundManager.Sound.Mystery);
-            wasAnItemUsed = false;
             Inventory.instance.attachedUnit.CopyStats(playerUnit);
             Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = true;
             isInCombat = false;
