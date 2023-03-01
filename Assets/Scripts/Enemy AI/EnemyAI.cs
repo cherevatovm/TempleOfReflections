@@ -10,10 +10,14 @@ public abstract class EnemyAI : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            CombatSystem.instance.encounteredEnemy = this;
-            StartCoroutine(CombatSystem.instance.SetupBattle());
-        }
+            
+            if (collision.CompareTag("Player"))
+            {
+         
+                CombatSystem.instance.encounteredEnemy = this;
+                StartCoroutine(CombatSystem.instance.SetupBattle());
+         
+                
+            }
     }
 }
