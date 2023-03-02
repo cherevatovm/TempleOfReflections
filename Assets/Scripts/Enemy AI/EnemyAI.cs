@@ -8,9 +8,9 @@ public abstract class EnemyAI : MonoBehaviour
 
     public abstract List<string> CombatAI(out int soundID);
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !CombatSystem.instance.isInCombat)
         {
             CombatSystem.instance.encounteredEnemy = this;
             StartCoroutine(CombatSystem.instance.SetupBattle());
