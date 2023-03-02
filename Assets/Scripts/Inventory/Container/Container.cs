@@ -9,6 +9,7 @@ public class Container : MonoBehaviour
     [HideInInspector] public List<ContainerSlot> containerSlots = new(16);
     private bool isOpen;
     private bool isCloseToContainer;
+    public bool isNeedToKey;
 
     private void Start()
     {
@@ -24,7 +25,26 @@ public class Container : MonoBehaviour
                 if (isOpen)
                     Close();
                 else
-                    Open();
+                {
+                    if (isNeedToKey)
+                    {
+                        if (Inventory.instance.SlotForKey.stackCount != 0)
+                        {
+                            Inventory.instance.SlotForKey.UseItemInSlot();
+                            Open();
+                            isNeedToKey = false;
+                            Debug.Log("you have opened container");
+                        }
+                        else
+                        {
+                            Debug.Log("you have not key");
+                        }
+                    }
+                    else
+                    {
+                        Open();
+                    }
+                }
             }
     }
 

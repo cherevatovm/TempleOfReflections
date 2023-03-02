@@ -41,6 +41,11 @@ public class ItemInfo : MonoBehaviour
             UseButton.gameObject.SetActive(true);
             PutInContainerButton.gameObject.SetActive(false);
         }
+        if (slot == Inventory.instance.SlotForKey)
+        {
+            DropButton.gameObject.SetActive(false);
+            UseButton.gameObject.SetActive(false);
+        }
         if (slot.slotItem.isParasite)
             UseButton.gameObject.SetActive(false);
         descriptionText.text = description;
