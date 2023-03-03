@@ -17,8 +17,8 @@ public class Inventory : MonoBehaviour
     public Unit attachedUnit;
 
     public static Inventory instance;
-    public InventorySlot SlotForKey;
     public bool isOpen;
+    public int KeyCount;
     
     [HideInInspector] public Container container;
     [HideInInspector] public bool isContainerOpen;
@@ -32,7 +32,6 @@ public class Inventory : MonoBehaviour
             inventorySlotsForParasites.Add(parentSlotForParasites.GetChild(i).GetComponent<InventorySlot>());
         for (int i = 0; i < parentContainerSlots.childCount; i++)
             inventoryContainerSlots.Add(parentContainerSlots.GetChild(i).GetComponent<ContainerSlot>());
-        SlotForKey = transform.transform.GetChild(0).GetChild(2).GetComponent<InventorySlot>();
         transform.GetChild(0).gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(false);
     }
@@ -68,19 +67,10 @@ public class Inventory : MonoBehaviour
     public void PutInInventory(GameObject obj)
     {
         PickableItem item = obj.GetComponent<PickableItem>();
-        if (item.itemName == "Ключ")
+        if (item.GetComponent<Key>() != null)
         {
-            if (!SlotForKey.isEmpty && item.itemName.Equals(SlotForKey.slotItemName))
-            {
-                SlotForKey.stackCount++;
-                Destroy(obj);
-            }
-            else if (SlotForKey.isEmpty)
-            {
-                SlotForKey.PutInSlot(item, obj);
-                obj.SetActive(false);
-            }
-
+            KeyCount++;
+            Destroy(obj);
         }
         else if (item.isParasite)
         {

@@ -9,7 +9,7 @@ public class Container : MonoBehaviour
     [HideInInspector] public List<ContainerSlot> containerSlots = new(16);
     private bool isOpen;
     private bool isCloseToContainer;
-    public bool isNeedToKey;
+    public bool isNeedOfKey;
 
     private void Start()
     {
@@ -26,18 +26,18 @@ public class Container : MonoBehaviour
                     Close();
                 else
                 {
-                    if (isNeedToKey)
+                    if (isNeedOfKey)
                     {
-                        if (Inventory.instance.SlotForKey.stackCount != 0)
+                        if (Inventory.instance.KeyCount != 0)
                         {
-                            Inventory.instance.SlotForKey.UseItemInSlot();
+                            Inventory.instance.KeyCount --;
                             Open();
-                            isNeedToKey = false;
+                            isNeedOfKey = false;
                             Debug.Log("you have opened container");
                         }
                         else
                         {
-                            Debug.Log("you have not key");
+                            Debug.Log("you don't have key");
                         }
                     }
                     else
