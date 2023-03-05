@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class EnemyCombatController : MonoBehaviour
 {
-    Animator animator;
+    private Animator animator;
+    public bool attackButtonWasPressed;
+    public bool isHurting;
+    public bool isDying;
 
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
-    }
+    private void Start() => animator = GetComponent<Animator>();
 
     private void Update()
     {
-        if (CombatSystem.instance.enemyAttackButtonWasPressed)
+        if (attackButtonWasPressed)
             animator.SetTrigger("attack");
-        if (CombatSystem.instance.enemyIsHurting)
+        else if (isHurting)
             animator.SetTrigger("isHurting");
-        if (CombatSystem.instance.enemyUnit.IsDead())
+        else if (isDying)
             animator.SetTrigger("isDead");
     }
 

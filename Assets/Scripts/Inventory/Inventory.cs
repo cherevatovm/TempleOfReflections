@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] Transform parentSlotForItems;
-    [SerializeField] Transform parentSlotForParasites;
+    [SerializeField] private Transform parentSlotForItems;
+    [SerializeField] private Transform parentSlotForParasites;
 
-    List<InventorySlot> inventorySlotsForItems = new();
-    List<InventorySlot> inventorySlotsForParasites = new();
+    private List<InventorySlot> inventorySlotsForItems = new();
+    private List<InventorySlot> inventorySlotsForParasites = new();
 
-    public Unit attachedUnit;
+    public Player attachedUnit;
 
     public static Inventory instance;
     public bool isOpened;

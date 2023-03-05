@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Parasite : PickableItem
 {
-    private Unit attachedUnit;
+    private Player attachedUnit;
     public bool[] availableMentalSkills = new bool[3];
     public int posEffectIndex;
     public int negEffectIndex;

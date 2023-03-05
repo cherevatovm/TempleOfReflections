@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8164385237867508113}
   - component: {fileID: 8164385237867508118}
   - component: {fileID: 8164385237867508116}
-  - component: {fileID: 8164385237867508117}
+  - component: {fileID: 3944667755132923821}
   - component: {fileID: 8164385237867508122}
   - component: {fileID: 8164385237867508123}
   - component: {fileID: 8164385237867508112}
@@ -113,7 +113,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &8164385237867508117
+--- !u!114 &3944667755132923821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,16 +122,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8164385237867508120}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a51dde758dad242bfc88524da42839, type: 3}
+  m_Script: {fileID: 11500000, guid: 4aa6b409570c1d44f9e2f0051a074ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 8164385237867508116}
-  restartDelay: 1.5
-  initMaxHP: 0
-  initMaxMP: 0
-  initMeleeAttackStrength: 0
-  initMentalAttackStrength: 0
-  initElementAffinities: []
+  rb: {fileID: 0}
   unitName: Reflection of Wrath
   meleeAttackStrength: 15
   mentalAttackStrength: 17
@@ -153,6 +147,8 @@ MonoBehaviour:
   - 1
   - 1
   - 1.5
+  enemyPrefabsForCombat: []
+  combatHUD: {fileID: 0}
 --- !u!114 &8164385237867508122
 MonoBehaviour:
   m_ObjectHideFlags: 0

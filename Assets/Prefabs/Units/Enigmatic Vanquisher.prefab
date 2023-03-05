@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5021757046155829932}
   - component: {fileID: 5021757046155829933}
   - component: {fileID: 5021757046155829935}
-  - component: {fileID: 5021757046155829928}
+  - component: {fileID: 3279220197283129822}
   - component: {fileID: 5021757046155829929}
   - component: {fileID: 5021757046155829930}
   - component: {fileID: 5021757046155829939}
@@ -112,7 +112,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &5021757046155829928
+--- !u!114 &3279220197283129822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,16 +121,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5021757046155829931}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a51dde758dad242bfc88524da42839, type: 3}
+  m_Script: {fileID: 11500000, guid: 4aa6b409570c1d44f9e2f0051a074ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5021757046155829935}
-  restartDelay: 1.5
-  initMaxHP: 0
-  initMaxMP: 0
-  initMeleeAttackStrength: 0
-  initMentalAttackStrength: 0
-  initElementAffinities: []
   unitName: Enigmatic Vanquisher
   meleeAttackStrength: 10
   mentalAttackStrength: 10
@@ -152,6 +146,8 @@ MonoBehaviour:
   - 1
   - 1
   - 1.2
+  enemyPrefabsForCombat: []
+  combatHUD: {fileID: 0}
 --- !u!114 &5021757046155829929
 MonoBehaviour:
   m_ObjectHideFlags: 0
