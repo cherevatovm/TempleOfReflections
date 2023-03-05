@@ -13,10 +13,10 @@ public class CombatSystem : MonoBehaviour
     private const float weaknessMult = 1.25f;
     private const float resistMult = 0.5f;
     private const float knockedDownMult = 1.2f;
-    public const float effectProbability = 1f;
+    public const float effectProbability = 0.2f;
 
-    public float reflectionProbability1;
-    public float reflectionProbability2;
+    [HideInInspector] public float reflectionProbability1;
+    [HideInInspector] public float reflectionProbability2;
 
     [HideInInspector] public Player playerUnit;
     [HideInInspector] public int curEnemyID;
@@ -27,9 +27,18 @@ public class CombatSystem : MonoBehaviour
     [SerializeField] GameObject playerPrefab;
     [HideInInspector] public Enemy encounteredEnemy;
 
+    [System.Serializable]
+    private class ListWrapper
+    {
+        public List<Transform> myList;
+
+        public Transform this[int index]
+        {
+            get => myList[index];
+        }
+    }
     [SerializeField] Transform playerCombatPosition;
-    [SerializeField] Transform[] possibleCombatPositions = new Transform[3];
-    //private Transform[] enemyCombatPositions = new Transform[4];
+    [SerializeField] List<ListWrapper> possibleCombatPositions;
 
     [SerializeField] CombatHUD playerHUD;
     public CombatHUD[] enemyHUDs;
@@ -79,7 +88,7 @@ public class CombatSystem : MonoBehaviour
         playerUnit.knockedDownTimeout = 0;
         for (int i = 0; i < encounteredEnemy.enemyPrefabsForCombat.Length; i++)
         {
-            GameObject enemyCombat = Instantiate(encounteredEnemy.enemyPrefabsForCombat[i], possibleCombatPositions[i]);
+            GameObject enemyCombat = Instantiate(encounteredEnemy.enemyPrefabsForCombat[i], possibleCombatPositions[i][encounteredEnemy.enemyPrefabsForCombat[i].GetComponent<EnemyAI>().enemyID]);
             enemyUnits.Add(enemyCombat.GetComponent<Enemy>());
             enemyAIs.Add(enemyCombat.GetComponent<EnemyAI>());
             enemyCombatControllers.Add(enemyCombat.GetComponent<EnemyCombatController>());
