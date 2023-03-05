@@ -6,9 +6,9 @@ public class TriggerItemController : MonoBehaviour
 {
     [SerializeField] bool isHealthAffectingItem;
     [SerializeField] int Impact;
-    [SerializeField] Unit playerUnit;
+    [SerializeField] Player playerUnit;
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -19,7 +19,7 @@ public class TriggerItemController : MonoBehaviour
         }
     }
 
-    void ChangeCurrentHealth()
+    private void ChangeCurrentHealth()
     {
         if (Impact > 0)
             playerUnit.Heal(Impact);
@@ -29,7 +29,7 @@ public class TriggerItemController : MonoBehaviour
             playerUnit.Death();
     }
 
-    void ChangeCurrentMP()
+    private void ChangeCurrentMP()
     {
         if (Impact > 0)
             playerUnit.IncreaseCurrentMP(Impact);

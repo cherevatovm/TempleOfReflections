@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
     private List<InventorySlot> inventorySlotsForParasites = new();
     private List<ContainerSlot> inventoryContainerSlots = new();
 
-    public Unit attachedUnit;
+    public Player attachedUnit;
 
     public static Inventory instance;
     public bool isOpen;

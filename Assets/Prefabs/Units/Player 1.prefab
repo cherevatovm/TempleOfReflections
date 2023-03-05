@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1585202882985107726}
   - component: {fileID: 3448779695164875682}
   - component: {fileID: 9094710789642194626}
+  - component: {fileID: -1366060368434092182}
   - component: {fileID: 2253893368581526327}
-  - component: {fileID: 8386962703566295209}
   - component: {fileID: 3716822496166854092}
   m_Layer: 0
   m_Name: Player 1
@@ -136,6 +136,46 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &-1366060368434092182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6010487204012260471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571e24b73f9561e468d7371a15f92424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 9094710789642194626}
+  unitName: Player
+  meleeAttackStrength: 15
+  mentalAttackStrength: 15
+  armorModifier: 1
+  currentHP: 60
+  maxHP: 60
+  currentMP: 30
+  maxMP: 30
+  isKnockedDown: 0
+  knockedTurnsCount: 0
+  knockedDownTimeout: 0
+  appliedEffect: 000000
+  underEffectTurnsCount: 0
+  weaknesses: 00000000
+  resistances: 00010000
+  nulls: 00000000
+  elementAffinities:
+  - 1
+  - 1.2
+  - 1
+  - 1
+  restartDelay: 3
+  initMaxHP: 0
+  initMaxMP: 0
+  initMeleeAttackStrength: 0
+  initMentalAttackStrength: 0
+  initElementAffinities: []
 --- !u!114 &2253893368581526327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,37 +190,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   rigidBody: {fileID: 9094710789642194626}
---- !u!114 &8386962703566295209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6010487204012260471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a51dde758dad242bfc88524da42839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 9094710789642194626}
-  restartDelay: 1.5
-  unitName: Player
-  meleeAttackStrength: 0
-  mentalAttackStrength: 0
-  armorModifier: 1
-  currentHP: 0
-  maxHP: 0
-  currentMP: 0
-  maxMP: 0
-  isKnockedDown: 0
-  knockedTurnsCount: 0
-  knockedDownTimeout: 0
-  appliedEffect: 000000
-  underEffectTurnsCount: 0
-  weaknesses: 000000
-  resistances: 
-  nulls: 
-  elementAffinities: []
 --- !u!95 &3716822496166854092
 Animator:
   serializedVersion: 4

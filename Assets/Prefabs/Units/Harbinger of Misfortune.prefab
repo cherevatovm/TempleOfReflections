@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 121105109028774537}
   - component: {fileID: 121105109028774536}
   - component: {fileID: 121105109028774550}
-  - component: {fileID: 121105109028774549}
+  - component: {fileID: -1613365070585333300}
   - component: {fileID: 121105109028774548}
   - component: {fileID: 121105109028774547}
   - component: {fileID: 121105109028774538}
@@ -112,7 +112,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &121105109028774549
+--- !u!114 &-1613365070585333300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,16 +121,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 121105109028774546}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a51dde758dad242bfc88524da42839, type: 3}
+  m_Script: {fileID: 11500000, guid: 4aa6b409570c1d44f9e2f0051a074ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 121105109028774550}
-  restartDelay: 1.5
-  initMaxHP: 0
-  initMaxMP: 0
-  initMeleeAttackStrength: 0
-  initMentalAttackStrength: 0
-  initElementAffinities: []
   unitName: Harbinger of Misfortune
   meleeAttackStrength: 10
   mentalAttackStrength: 10
@@ -152,6 +146,8 @@ MonoBehaviour:
   - 1
   - 1.2
   - 1
+  enemyPrefabsForCombat: []
+  combatHUD: {fileID: 0}
 --- !u!114 &121105109028774548
 MonoBehaviour:
   m_ObjectHideFlags: 0
