@@ -2590,6 +2590,7 @@ MonoBehaviour:
   parentContainerSlots: {fileID: 0}
   attachedUnit: {fileID: 0}
   isOpen: 0
+  KeyCount: 0
   container: {fileID: 0}
   isContainerOpen: 0
 --- !u!1 &1996723369131077487

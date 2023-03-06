@@ -17,7 +17,7 @@ public class Inventory : MonoBehaviour
     public Player attachedUnit;
 
     public static Inventory instance;
-    public bool isOpen;
+    [HideInInspector] public bool isOpen;
     
     [HideInInspector] public Container container;
     [HideInInspector] public bool isContainerOpen;

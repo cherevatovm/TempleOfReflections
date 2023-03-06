@@ -15,8 +15,8 @@ public class CombatSystem : MonoBehaviour
     private const float knockedDownMult = 1.2f;
     public const float effectProbability = 0.2f;
 
-    [HideInInspector] public float reflectionProbability1;
-    [HideInInspector] public float reflectionProbability2;
+    public float reflectionProbability1;
+    public float reflectionProbability2;
 
     [HideInInspector] public Player playerUnit;
     [HideInInspector] public int curEnemyID;
