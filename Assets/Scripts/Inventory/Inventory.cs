@@ -18,6 +18,7 @@ public class Inventory : MonoBehaviour
 
     public static Inventory instance;
     [HideInInspector] public bool isOpen;
+    public int KeyCount;
     
     [HideInInspector] public Container container;
     [HideInInspector] public bool isContainerOpen;
@@ -66,7 +67,12 @@ public class Inventory : MonoBehaviour
     public void PutInInventory(GameObject obj)
     {
         PickableItem item = obj.GetComponent<PickableItem>();
-        if (item.isParasite)
+        if (item is Key)
+        {
+            KeyCount++;
+            Destroy(obj);
+        }
+        else if (item.isParasite)
         {
             if (IsFull(1))
                 return;

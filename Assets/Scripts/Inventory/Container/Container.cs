@@ -7,6 +7,8 @@ public class Container : MonoBehaviour
     [SerializeField] private Transform containerSlotsInInventory;
     [SerializeField] private Transform parentSlots;
     [HideInInspector] public List<ContainerSlot> containerSlots = new(16);
+
+    [SerializeField] private bool isNeedOfKey;
     private bool isOpen;
     private bool isCloseToContainer;
 
@@ -18,11 +20,23 @@ public class Container : MonoBehaviour
 
     private void Update()
     {
-        if (isCloseToContainer)
-            if (Input.GetKeyDown(KeyCode.E))
+        if (isCloseToContainer && Input.GetKeyDown(KeyCode.E))
+            if (isOpen)
+                Close();
+            else
             {
-                if (isOpen)
-                    Close();
+                if (isNeedOfKey)
+                {
+                    if (Inventory.instance.KeyCount != 0)
+                    {
+                        Inventory.instance.KeyCount--;
+                        Open();
+                        isNeedOfKey = false;
+                        Debug.Log("You have opened the container");
+                    }
+                    else
+                        Debug.Log("You don't have key");
+                }
                 else
                     Open();
             }
@@ -63,7 +77,7 @@ public class Container : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) => isCloseToContainer = true;
 
-    private void OnTriggerExit2D(Collider2D collision) 
+    private void OnTriggerExit2D(Collider2D collision)
     {
         isCloseToContainer = false;
         Close();
