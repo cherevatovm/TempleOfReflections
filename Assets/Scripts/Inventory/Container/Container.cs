@@ -7,9 +7,10 @@ public class Container : MonoBehaviour
     [SerializeField] private Transform containerSlotsInInventory;
     [SerializeField] private Transform parentSlots;
     [HideInInspector] public List<ContainerSlot> containerSlots = new(16);
+
+    [SerializeField] private bool isNeedOfKey;
     private bool isOpen;
     private bool isCloseToContainer;
-    public bool isNeedOfKey;
 
     private void Start()
     {
@@ -19,32 +20,25 @@ public class Container : MonoBehaviour
 
     private void Update()
     {
-        if (isCloseToContainer)
-            if (Input.GetKeyDown(KeyCode.E))
+        if (isCloseToContainer && Input.GetKeyDown(KeyCode.E))
+            if (isOpen)
+                Close();
+            else
             {
-                if (isOpen)
-                    Close();
-                else
+                if (isNeedOfKey)
                 {
-                    if (isNeedOfKey)
+                    if (Inventory.instance.KeyCount != 0)
                     {
-                        if (Inventory.instance.KeyCount != 0)
-                        {
-                            Inventory.instance.KeyCount --;
-                            Open();
-                            isNeedOfKey = false;
-                            Debug.Log("you have opened container");
-                        }
-                        else
-                        {
-                            Debug.Log("you don't have key");
-                        }
+                        Inventory.instance.KeyCount--;
+                        Open();
+                        isNeedOfKey = false;
+                        Debug.Log("You have opened the container");
                     }
                     else
-                    {
-                        Open();
-                    }
+                        Debug.Log("You don't have key");
                 }
+                else
+                    Open();
             }
     }
 
@@ -83,7 +77,7 @@ public class Container : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) => isCloseToContainer = true;
 
-    private void OnTriggerExit2D(Collider2D collision) 
+    private void OnTriggerExit2D(Collider2D collision)
     {
         isCloseToContainer = false;
         Close();

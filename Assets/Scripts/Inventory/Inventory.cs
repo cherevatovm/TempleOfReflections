@@ -67,7 +67,7 @@ public class Inventory : MonoBehaviour
     public void PutInInventory(GameObject obj)
     {
         PickableItem item = obj.GetComponent<PickableItem>();
-        if (item.GetComponent<Key>() != null)
+        if (item is Key)
         {
             KeyCount++;
             Destroy(obj);
