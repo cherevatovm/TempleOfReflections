@@ -18,12 +18,18 @@ public class Enemy : Unit
 
     private void OnMouseDown()
     {
-        if (CombatSystem.instance.isInCombat && CombatSystem.instance.isChoosingEnemy)
+        if (CombatSystem.instance.isInCombat && CombatSystem.instance.isChoosingEnemyForAttack)
         {
             CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
-            CombatSystem.instance.isChoosingEnemy = false;
+            CombatSystem.instance.isChoosingEnemyForAttack = false;
             CombatSystem.instance.combatUI.combatDialogue.text = CombatSystem.instance.playerUnit.unitName + " начинает атаку";
             StartCoroutine(CombatSystem.instance.PlayerAttack(CombatSystem.instance.damageTypeID, CombatSystem.instance.isMental));
+        }
+        else if (CombatSystem.instance.isInCombat && CombatSystem.instance.isChoosingEnemyForItem)
+        {
+            CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
+            CombatSystem.instance.isChoosingEnemyForItem = false;
+            CombatSystem.instance.activeSlot.UseItemInSlot();
         }
     }
 }

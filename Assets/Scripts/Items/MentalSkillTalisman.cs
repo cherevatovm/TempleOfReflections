@@ -6,16 +6,21 @@ public class MentalSkillTalisman : PickableItem
 {
     public int damageTypeID;
 
-    private void Start() => isUsableInCombatOnly = true;
+    private void Start()
+    {
+        isUsableInCombatOnly = true;
+        isAffectingEnemy = true;
+    }
 
     public override void UseItem(out string message)
     {
         message = string.Empty;
         if (!CombatSystem.instance.isInCombat)
             return;
-        int totalDamage = CombatSystem.instance.CalcAffinityDamage(damageTypeID, true, CombatSystem.instance.playerUnit, CombatSystem.instance.enemyUnit);
-        CombatSystem.instance.enemyUnit.TakeDamage(totalDamage);
-        CombatSystem.instance.enemyUnit.ApplyEffect(damageTypeID - 1);
+        Enemy currentEnemyUnit = CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID];
+        int totalDamage = CombatSystem.instance.CalcAffinityDamage(damageTypeID, true, CombatSystem.instance.playerUnit, currentEnemyUnit);
+        currentEnemyUnit.TakeDamage(totalDamage);
+        currentEnemyUnit.ApplyEffect(damageTypeID - 1);
         message = damageTypeID switch
         {
             1 => CombatSystem.instance.playerUnit.unitName + " наносит " + totalDamage + " псионического урона",

@@ -11,6 +11,7 @@ public abstract class PickableItem : MonoBehaviour
     public string itemDescription;
     [HideInInspector] public bool isParasite;
     [HideInInspector] public bool isUsableInCombatOnly;
+    [HideInInspector] public bool isAffectingEnemy;
 
     private void Update()
     {

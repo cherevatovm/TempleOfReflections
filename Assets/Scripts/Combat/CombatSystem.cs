@@ -52,7 +52,8 @@ public class CombatSystem : MonoBehaviour
     private float initArmorModifier = 1;
     public int[] mentalSkillsMPCost;
     [HideInInspector] public bool isInCombat;
-    [HideInInspector] public bool isChoosingEnemy;
+    [HideInInspector] public bool isChoosingEnemyForAttack;
+    [HideInInspector] public bool isChoosingEnemyForItem;
     public static CombatSystem instance;
     private System.Random random = new System.Random();
 
@@ -61,6 +62,7 @@ public class CombatSystem : MonoBehaviour
 
     [HideInInspector] public int damageTypeID;
     [HideInInspector] public bool isMental;
+    [HideInInspector] public InventorySlot activeSlot;
 
     private void Start()
     {
@@ -109,6 +111,7 @@ public class CombatSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
+        combatState = CombatState.PLAYER_TURN;
         StartCoroutine(PlayerTurn());
     }
 
@@ -181,21 +184,16 @@ public class CombatSystem : MonoBehaviour
         combatState = CombatState.ENEMY_TURN;
         playerHUD.ChangeHP(playerUnit.currentHP);
         playerHUD.ChangeMP(playerUnit.currentMP);
-        enemyHUD.ChangeHP(enemyUnit.currentHP);
-        enemyHUD.ChangeMP(enemyUnit.currentMP);
+        enemyUnits[curEnemyID].combatHUD.ChangeHP(enemyUnits[curEnemyID].currentHP);
+        enemyUnits[curEnemyID].combatHUD.ChangeMP(enemyUnits[curEnemyID].currentMP);
+        activeSlot = null;
         yield return new WaitForSeconds(1.5f);
-        if (enemyUnit.IsDead())
+        if (!enemyUnits[curEnemyID].IsDead() && enemyUnits[curEnemyID].isKnockedDown && enemyUnits[curEnemyID].knockedTurnsCount == 0)
         {
-            combatState = CombatState.WON;
-            combatUI.combatDialogue.text = playerUnit.unitName + " одержал победу!";
-            yield return new WaitForSeconds(1.5f);
-            FinishBattle();
-        }
-        else if (enemyUnit.isKnockedDown && enemyUnit.knockedTurnsCount == 0)
-        {
-            enemyUnit.knockedTurnsCount++;
+            enemyUnits[curEnemyID].knockedTurnsCount++;
             combatUI.combatDialogue.text = "Враг сбит с ног. " + playerUnit.unitName + " предоставляется еще один ход!";
             yield return new WaitForSeconds(1.5f);
+            combatState = CombatState.PLAYER_TURN;
             StartCoroutine(PlayerTurn());
         }
         else
@@ -347,21 +345,21 @@ public class CombatSystem : MonoBehaviour
                 enemyUnits[i].combatHUD.ChangeMP(enemyUnits[i].currentMP);
                 yield return new WaitForSeconds(1.5f);
             }
-            if (enemyUnit[i].underItemEffect)
+            if (enemyUnits[i].underItemEffect)
             {
-                if (enemyUnit[i].affectingItem.doesHaveContinuousEffect)
+                if (enemyUnits[i].affectingItem.doesHaveContinuousEffect)
                 {
-                    enemyUnit[i].affectingItem.ApplyEffect();
+                    enemyUnits[i].affectingItem.ApplyEffect();
                     yield return new WaitForSeconds(1f);
                 }
-                enemyUnit[i].affectingItem.RemoveEffect();
-                if (!enemyUnit[i].underItemEffect)
+                enemyUnits[i].affectingItem.RemoveEffect();
+                if (!enemyUnits[i].underItemEffect)
                 {
-                    combatUI.combatDialogue.text = "Эффект от предмета, наложенный на " + enemyUnit[i].unitName + ", прошел";
+                    combatUI.combatDialogue.text = "Эффект от предмета, наложенный на " + enemyUnits[i].unitName + ", прошел";
                     yield return new WaitForSeconds(1f);
                 }
                 else
-                    enemyUnit[i].itemEffectTurnsCount++;
+                    enemyUnits[i].itemEffectTurnsCount++;
             }
             if (enemyUnits[i].appliedEffect[1])
                 continue;
@@ -460,7 +458,8 @@ public class CombatSystem : MonoBehaviour
     {
         if (combatState != CombatState.PLAYER_TURN)
             return;
-        isChoosingEnemy = false;
+        isChoosingEnemyForAttack = false;
+        isChoosingEnemyForItem = false;
         if (Inventory.instance.isOpen)
         {
             Inventory.instance.Close();
@@ -483,7 +482,8 @@ public class CombatSystem : MonoBehaviour
             Inventory.instance.Close();
         if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
-        isChoosingEnemy = true;
+        isChoosingEnemyForAttack = true;
+        isChoosingEnemyForItem = false;
         isMental = false;
         damageTypeID = 0;
         combatUI.combatDialogue.text = "Выберите цель для атаки";
@@ -493,7 +493,8 @@ public class CombatSystem : MonoBehaviour
     {
         if (combatState != CombatState.PLAYER_TURN)
             return;
-        isChoosingEnemy = false;
+        isChoosingEnemyForAttack = false;
+        isChoosingEnemyForItem = false;
         if (Inventory.instance.isOpen)
             Inventory.instance.Close();
         if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
@@ -515,6 +516,8 @@ public class CombatSystem : MonoBehaviour
             combatUI.SetMentalSkillButtons();
             combatUI.skillButtonsWereInstantiated = true;
         }
+        isChoosingEnemyForAttack = false;
+        isChoosingEnemyForItem = false;
         if (combatUI.areButtonsShown)
             combatUI.combatDialogue.text = "Выберите навык, который хотите применить";
         else
@@ -526,7 +529,7 @@ public class CombatSystem : MonoBehaviour
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
             combatUI.HideOrShowMentalSkillButtons();
-            isChoosingEnemy = true;
+            isChoosingEnemyForAttack = true;
             isMental = true;
             damageTypeID = 1;
             combatUI.combatDialogue.text = "Выберите цель для атаки";
@@ -543,7 +546,7 @@ public class CombatSystem : MonoBehaviour
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
             combatUI.HideOrShowMentalSkillButtons();
-            isChoosingEnemy = true;
+            isChoosingEnemyForAttack = true;
             isMental = true;
             damageTypeID = 2;
             combatUI.combatDialogue.text = "Выберите цель для атаки";
@@ -560,7 +563,7 @@ public class CombatSystem : MonoBehaviour
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
             combatUI.HideOrShowMentalSkillButtons();
-            isChoosingEnemy = true;
+            isChoosingEnemyForAttack = true;
             isMental = true;
             damageTypeID = 3;
             combatUI.combatDialogue.text = "Выберите цель для атаки";
@@ -574,7 +577,7 @@ public class CombatSystem : MonoBehaviour
 
     public void OnRegenaButton()
     {
-        isChoosingEnemy = false;
+        isChoosingEnemyForAttack = false;
         if (playerUnit.currentMP >= mentalSkillsMPCost[0])
         {
             combatUI.combatDialogue.text = playerUnit.unitName + " использует целительный навык";

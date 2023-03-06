@@ -8,6 +8,7 @@ public class WeakeningTalisman : ItemWithEffect
     {
         underEffectTurnsNumber = 3;
         isUsableInCombatOnly = true;
+        isAffectingEnemy = true;
     }
 
     public override void UseItem(out string message)
@@ -15,23 +16,25 @@ public class WeakeningTalisman : ItemWithEffect
         message = string.Empty;
         if (!CombatSystem.instance.isInCombat)
             return;
-        if (CombatSystem.instance.enemyUnit.affectingItem is WeakeningTalisman)
+        Enemy currentEnemyUnit = CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID];
+        if (currentEnemyUnit.affectingItem is WeakeningTalisman)
             return;
-        CombatSystem.instance.enemyUnit.underItemEffect = true;
-        CombatSystem.instance.enemyUnit.affectingItem = this;
-        CombatSystem.instance.enemyUnit.meleeAttackStrength -= (int)(0.25 * CombatSystem.instance.enemyUnit.meleeAttackStrength);
-        CombatSystem.instance.enemyUnit.mentalAttackStrength -= (int)(0.25 * CombatSystem.instance.enemyUnit.mentalAttackStrength);
-        message = CombatSystem.instance.playerUnit.unitName + " использует талисман ослабления для " + CombatSystem.instance.enemyUnit.unitName;
+        currentEnemyUnit.underItemEffect = true;
+        currentEnemyUnit.affectingItem = this;
+        currentEnemyUnit.meleeAttackStrength -= (int)(0.25 * currentEnemyUnit.meleeAttackStrength);
+        currentEnemyUnit.mentalAttackStrength -= (int)(0.25 * currentEnemyUnit.mentalAttackStrength);
+        message = CombatSystem.instance.playerUnit.unitName + " использует талисман ослабления для " + currentEnemyUnit.unitName;
     }
 
     public override void RemoveEffect()
     {
-        if (CombatSystem.instance.enemyUnit.itemEffectTurnsCount != underEffectTurnsNumber)
+        Enemy currentEnemyUnit = CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID];
+        if (CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID].itemEffectTurnsCount != underEffectTurnsNumber)
             return;
-        CombatSystem.instance.enemyUnit.underItemEffect = false;
-        CombatSystem.instance.enemyUnit.itemEffectTurnsCount = 0;
-        CombatSystem.instance.enemyUnit.affectingItem = null;
-        CombatSystem.instance.enemyUnit.meleeAttackStrength += (int)(0.25 * CombatSystem.instance.enemyUnit.meleeAttackStrength);
-        CombatSystem.instance.enemyUnit.mentalAttackStrength += (int)(0.25 * CombatSystem.instance.enemyUnit.mentalAttackStrength);
+        currentEnemyUnit.underItemEffect = false;
+        currentEnemyUnit.itemEffectTurnsCount = 0;
+        currentEnemyUnit.affectingItem = null;
+        currentEnemyUnit.meleeAttackStrength += (int)(0.25 * currentEnemyUnit.meleeAttackStrength);
+        currentEnemyUnit.mentalAttackStrength += (int)(0.25 * currentEnemyUnit.mentalAttackStrength);
     }
 }

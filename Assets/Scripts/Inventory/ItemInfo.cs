@@ -21,7 +21,7 @@ public class ItemInfo : MonoBehaviour
         DropButton = transform.GetChild(2).GetComponent<Button>();
         DropButton.onClick.AddListener(delegate { slot.DropOutOfSlot(); });
         UseButton = transform.GetChild(3).GetComponent<Button>();
-        UseButton.onClick.AddListener(delegate { slot.UseItemInSlot(); });
+        UseButton.onClick.AddListener(delegate { OnUseButton(); });
         PutInContainerButton = transform.GetChild(4).GetComponent<Button>();
         PutInContainerButton.onClick.AddListener(delegate { Inventory.instance.PutInContainer(slot); });
     }
@@ -52,4 +52,17 @@ public class ItemInfo : MonoBehaviour
     }
 
     public void Close() => transform.localScale = Vector3.zero;
+
+    public void OnUseButton()
+    {
+        if (slot.slotItem.isAffectingEnemy)
+        {
+            CombatSystem.instance.isChoosingEnemyForItem = true;
+            CombatSystem.instance.activeSlot = slot;
+            Inventory.instance.Close();
+            CombatSystem.instance.combatUI.combatDialogue.text = "Выберите цель, на которой хотите использовать предмет";
+        }
+        else
+            slot.UseItemInSlot();
+    }
 }
