@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class ContainerItemInfo : ItemInfo
 {
-    private Button TakeButton;
+    private Button TakeButton; 
+    private Button CloseButton; 
     private ContainerSlot containerSlot;
     public new static ContainerItemInfo instance;
 
@@ -16,6 +17,8 @@ public class ContainerItemInfo : ItemInfo
         descriptionText = transform.GetChild(1).GetComponent<Text>();
         TakeButton = transform.GetChild(2).GetComponent<Button>();
         TakeButton.onClick.AddListener(delegate { containerSlot.DropOutOfSlot(); });
+        CloseButton = transform.GetChild(3).GetComponent<Button>();
+        CloseButton.onClick.AddListener(delegate { ContainerItemInfo.instance.Close(); });
     }
 
     public void Open(string itemName, string description, Vector3 pos, ContainerSlot containerSlot)
