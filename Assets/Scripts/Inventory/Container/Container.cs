@@ -17,6 +17,7 @@ public class Container : MonoBehaviour
             containerSlots.Add(parentSlots.GetChild(i).GetComponent<ContainerSlot>());
     }
 
+
     private void Update()
     {
         if (isCloseToContainer)
@@ -33,11 +34,11 @@ public class Container : MonoBehaviour
                             Inventory.instance.KeyCount --;
                             Open();
                             isNeedOfKey = false;
-                            Debug.Log("you have opened container");
+                            ContainerOpeningText.instance.OpenText.gameObject.SetActive(true);
                         }
                         else
                         {
-                            Debug.Log("you don't have key");
+                            ContainerOpeningText.instance.DontOpenText.gameObject.SetActive(true);
                         }
                     }
                     else
@@ -85,6 +86,8 @@ public class Container : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision) 
     {
+        ContainerOpeningText.instance.DontOpenText.gameObject.SetActive(false);
+        ContainerOpeningText.instance.OpenText.gameObject.SetActive(false);
         isCloseToContainer = false;
         Close();
     }
