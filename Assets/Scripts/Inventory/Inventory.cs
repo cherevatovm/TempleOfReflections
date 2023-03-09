@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
 
     public static Inventory instance;
     public bool isOpened;
+    public int ShardsCount;
 
     void Start()
     {
@@ -112,6 +113,14 @@ public class Inventory : MonoBehaviour
             obj.GetComponent<Parasite>().ApplyParasiteEffect();
             GameUI.instance.SetUI(attachedUnit);
         }
+        else if (item is SolidifiedShard)
+        {
+            if (ShardsCount == 5)
+                return;
+            item.UseItem(out _);
+            Destroy(obj);
+            ShardsCount += 1;
+        }
         else
         {
             if (IsFull(false))
@@ -132,5 +141,15 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+    }
+
+    public InventorySlot FindSacrificialDoll()
+    {
+        for (int i = 0; i < inventorySlotsForItems.Count; i++)
+        {
+            if (inventorySlotsForItems[i].slotItem is SacrificialDoll)
+                return inventorySlotsForItems[i];
+        }
+        return null;
     }
 }

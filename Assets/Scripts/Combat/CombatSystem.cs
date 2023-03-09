@@ -544,6 +544,12 @@ public class CombatSystem : MonoBehaviour
         }
         else if (combatState == CombatState.LOST)
         {
+            if (Inventory.instance.FindSacrificialDoll() != null)
+            {
+                combatUI.combatDialogue.text = "Игрока спасла жертвенная кукла!";
+                Inventory.instance.FindSacrificialDoll().UseItemInSlot();
+                StartCoroutine(PlayerTurn());
+            }
             combatUI.combatDialogue.text = "Игрок оказался повержен...";
             GameUI.instance.gameObject.SetActive(true);
             for (int i = 0; i < GameUI.instance.transform.childCount; i++)
