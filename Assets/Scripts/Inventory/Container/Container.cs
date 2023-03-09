@@ -32,9 +32,11 @@ public class Container : MonoBehaviour
                         if (Inventory.instance.KeyCount != 0)
                         {
                             Inventory.instance.KeyCount --;
+
                             Open();
                             isNeedOfKey = false;
                             ContainerOpeningText.instance.OpenText.gameObject.SetActive(true);
+                            Inventory.instance.SlotForKeys.DropOutOfSlot();
                         }
                         else
                         {

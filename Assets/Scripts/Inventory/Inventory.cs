@@ -17,6 +17,7 @@ public class Inventory : MonoBehaviour
     public Unit attachedUnit;
 
     public static Inventory instance;
+    public InventorySlot SlotForKeys;
     public bool isOpen;
     public int KeyCount;
     
@@ -69,6 +70,10 @@ public class Inventory : MonoBehaviour
         PickableItem item = obj.GetComponent<PickableItem>();
         if (item.GetComponent<Key>() != null)
         {
+            if (!SlotForKeys.isEmpty)
+                SlotForKeys.stackCount++;
+            else
+            SlotForKeys.PutInSlot(item, obj);
             KeyCount++;
             Destroy(obj);
         }
