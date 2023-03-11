@@ -5,19 +5,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
-{
+{    
     [SerializeField] TMP_Text hpCounter;
     [SerializeField] TMP_Text mpCounter;
     [SerializeField] Slider hpSlider;
-    [SerializeField] Slider mpSlider;
-    [SerializeField] public GameObject exitUI;
+    [SerializeField] Slider mpSlider; 
     [SerializeField] GameObject noteUI;
     [SerializeField] GameObject dialogueUI;
+    public GameObject exitUI;
+    public TMP_Text gameDialogue;
     public static GameUI instance;
 
-    void Awake() => instance = this;
+    private void Awake() => instance = this;
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             ShowOrHideExitUI();

@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 7963220043925325626}
   - component: {fileID: 7963220043925325627}
   m_Layer: 5
-  m_Name: UI
+  m_Name: Death screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

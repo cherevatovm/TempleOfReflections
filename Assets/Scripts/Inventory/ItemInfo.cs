@@ -8,7 +8,7 @@ public class ItemInfo : MonoBehaviour
     private Button DropButton;
     private Button UseButton;
     private Button PutInContainerButton;
-    private Button CloseButton;
+    protected Button CloseButton;
     private InventorySlot slot;
     protected Text descriptionText;
     protected Text nameText;
@@ -26,7 +26,7 @@ public class ItemInfo : MonoBehaviour
         PutInContainerButton = transform.GetChild(4).GetComponent<Button>();
         PutInContainerButton.onClick.AddListener(delegate { Inventory.instance.PutInContainer(slot); });
         CloseButton = transform.GetChild(5).GetComponent<Button>();
-        CloseButton.onClick.AddListener(delegate { ItemInfo.instance.Close(); });
+        CloseButton.onClick.AddListener(delegate { Close(); });
     }
 
     public void Open(string itemName, string description, Vector3 pos, InventorySlot slot)

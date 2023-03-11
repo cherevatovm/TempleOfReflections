@@ -20,34 +20,26 @@ public class Container : MonoBehaviour
 
     private void Update()
     {
-        if (isCloseToContainer)
-            if (Input.GetKeyDown(KeyCode.E))
+        if (isCloseToContainer && Input.GetKeyDown(KeyCode.E))
+            if (isOpen)
+                Close();
+            else
             {
-                if (isOpen)
-                    Close();
-                else
+                if (isNeedOfKey)
                 {
-                    if (isNeedOfKey)
+                    if (Inventory.instance.keysInPossession != 0)
                     {
-                        if (Inventory.instance.KeyCount != 0)
-                        {
-                            Inventory.instance.KeyCount --;
-
-                            Open();
-                            isNeedOfKey = false;
-                            ContainerOpeningText.instance.OpenText.gameObject.SetActive(true);
-                            Inventory.instance.SlotForKeys.DropOutOfSlot();
-                        }
-                        else
-                        {
-                            ContainerOpeningText.instance.DontOpenText.gameObject.SetActive(true);
-                        }
+                        Inventory.instance.keysInPossession--;
+                        Inventory.instance.keyCounter.text = Inventory.instance.keysInPossession.ToString();
+                        Open();
+                        isNeedOfKey = false;
+                        GameUI.instance.gameDialogue.text = "Вы использовали ключ, чтобы отпереть замок";
                     }
                     else
-                    {
-                        Open();
-                    }
+                        GameUI.instance.gameDialogue.text = "У вас нет ключа, чтобы отпереть замок";
                 }
+                else
+                    Open();
             }
     }
 
@@ -86,10 +78,9 @@ public class Container : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) => isCloseToContainer = true;
 
-    private void OnTriggerExit2D(Collider2D collision) 
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        ContainerOpeningText.instance.DontOpenText.gameObject.SetActive(false);
-        ContainerOpeningText.instance.OpenText.gameObject.SetActive(false);
+        GameUI.instance.gameDialogue.text = string.Empty;
         isCloseToContainer = false;
         Close();
     }
