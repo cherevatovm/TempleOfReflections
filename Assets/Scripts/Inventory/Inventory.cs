@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using static UnityEditor.Progress;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -15,15 +16,16 @@ public class Inventory : MonoBehaviour
     private List<ContainerSlot> inventoryContainerSlots = new();
 
     public Player attachedUnit;
+    public Text keyCounter;
 
     public static Inventory instance;
     [HideInInspector] public bool isOpen;
-    public int KeyCount;
+    public int keysInPossession;
     
     [HideInInspector] public Container container;
     [HideInInspector] public bool isContainerOpen;
 
-    void Start()
+    private void Start()
     {
         instance = this;
         for (int i = 0; i < parentSlotForItems.childCount; i++)
@@ -32,11 +34,10 @@ public class Inventory : MonoBehaviour
             inventorySlotsForParasites.Add(parentSlotForParasites.GetChild(i).GetComponent<InventorySlot>());
         for (int i = 0; i < parentContainerSlots.childCount; i++)
             inventoryContainerSlots.Add(parentContainerSlots.GetChild(i).GetComponent<ContainerSlot>());
-        transform.GetChild(0).gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.B) && !isContainerOpen && !CombatSystem.instance.isInCombat && !GameUI.instance.IsSubmenuActive() && !attachedUnit.IsDead())
             if (isOpen)
@@ -69,7 +70,8 @@ public class Inventory : MonoBehaviour
         PickableItem item = obj.GetComponent<PickableItem>();
         if (item is Key)
         {
-            KeyCount++;
+            keysInPossession++;
+            keyCounter.text = keysInPossession.ToString();
             Destroy(obj);
         }
         else if (item.isParasite)

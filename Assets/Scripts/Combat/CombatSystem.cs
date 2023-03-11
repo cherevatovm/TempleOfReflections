@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-using UnityEditor.VersionControl;
 
 public enum CombatState { START, PLAYER_TURN, ENEMY_TURN, WON, LOST }
 

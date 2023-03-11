@@ -58,15 +58,18 @@ public class InventorySlot : MonoBehaviour
         {
             if (!Inventory.instance.isContainerOpen)
             {
-                slotObject.SetActive(true);
-                if (slotItem.isParasite)
+                if (slotItem.GetComponent<Key>() == null)
                 {
-                    slotObject.GetComponent<Parasite>().DetachParasite();
-                    GameUI.instance.SetUI(Inventory.instance.attachedUnit);
+                    slotObject.SetActive(true);
+                    if (slotItem.isParasite)
+                    {
+                        slotObject.GetComponent<Parasite>().DetachParasite();
+                        GameUI.instance.SetUI(Inventory.instance.attachedUnit);
+                    }
+                    else
+                        Instantiate(slotObject, vector, Quaternion.identity);
+                    slotObject.SetActive(false);
                 }
-                else
-                    Instantiate(slotObject, vector, Quaternion.identity);
-                slotObject.SetActive(false);
             }
             stackCount--;
             if (stackCount == 1)
@@ -136,7 +139,7 @@ public class InventorySlot : MonoBehaviour
 
     public virtual void SlotClicked() 
     {
-        if (!isEmpty)
+        if (!isEmpty && slotItem.GetComponent<Key>() == null)
         { 
             var vector = new Vector3(transform.position.x + 5, transform.position.y + 2, transform.position.z);
             if (ItemInfo.instance.transform.localScale == Vector3.zero)

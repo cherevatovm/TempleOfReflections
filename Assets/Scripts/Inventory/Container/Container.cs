@@ -18,6 +18,7 @@ public class Container : MonoBehaviour
             containerSlots.Add(parentSlots.GetChild(i).GetComponent<ContainerSlot>());
     }
 
+
     private void Update()
     {
         if (isCloseToContainer && Input.GetKeyDown(KeyCode.E))
@@ -27,15 +28,16 @@ public class Container : MonoBehaviour
             {
                 if (isNeedOfKey)
                 {
-                    if (Inventory.instance.KeyCount != 0)
+                    if (Inventory.instance.keysInPossession > 0)
                     {
-                        Inventory.instance.KeyCount--;
+                        Inventory.instance.keysInPossession--;
+                        Inventory.instance.keyCounter.text = Inventory.instance.keysInPossession.ToString();
                         Open();
                         isNeedOfKey = false;
-                        Debug.Log("You have opened the container");
+                        GameUI.instance.gameDialogue.text = "Вы использовали ключ, чтобы отпереть замок";
                     }
                     else
-                        Debug.Log("You don't have key");
+                        GameUI.instance.gameDialogue.text = "У вас нет ключей, чтобы отпереть замок";
                 }
                 else
                     Open();
@@ -79,6 +81,7 @@ public class Container : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        GameUI.instance.gameDialogue.text = string.Empty;
         isCloseToContainer = false;
         Close();
     }
