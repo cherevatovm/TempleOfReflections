@@ -9,11 +9,13 @@ public class Enemy : Unit
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !CombatSystem.instance.isInCombat)
         {
             CombatSystem.instance.encounteredEnemy = this;
             StartCoroutine(CombatSystem.instance.SetupBattle());
         }
+        else if (collision.CompareTag("Player"))
+            transform.position = GetComponent<EnemyMovement>().GetFirstWaypointsTransform().position;
     }
 
     private void OnMouseDown()

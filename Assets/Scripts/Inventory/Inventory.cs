@@ -50,16 +50,17 @@ public class Inventory : MonoBehaviour
     {
         gameObject.transform.localScale = Vector3.one;
         if (isContainerOpen)
-            transform.GetChild(1).gameObject.SetActive(true);
-        else
-            transform.GetChild(0).gameObject.SetActive(true);
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(true);            
+        }
         isOpen = true;
     }
 
     public void Close()
     {
         gameObject.transform.localScale = Vector3.zero;
-        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(false);
         ItemInfo.instance.Close();
         isOpen = false;

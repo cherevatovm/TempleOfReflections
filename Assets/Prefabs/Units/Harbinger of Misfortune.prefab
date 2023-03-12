@@ -133,6 +133,9 @@ MonoBehaviour:
   maxHP: 50
   currentMP: 25
   maxMP: 25
+  itemEffectTurnsCount: 0
+  underItemEffect: 0
+  affectingItem: {fileID: 0}
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
@@ -193,6 +196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08807befb1e86cd4ba1767a1f2099c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackButtonWasPressed: 0
+  isHurting: 0
+  isDying: 0
 --- !u!114 &-409241921683697879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,4 +236,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 1.25
