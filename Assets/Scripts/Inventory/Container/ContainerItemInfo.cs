@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ContainerItemInfo : ItemInfo
 {
-    private Button TakeButton;
+    private Button buyOrTakeButton;
     private ContainerSlot containerSlot;
     public new static ContainerItemInfo instance;
 
@@ -14,8 +15,8 @@ public class ContainerItemInfo : ItemInfo
         instance = this;
         nameText = transform.GetChild(0).GetComponent<Text>();
         descriptionText = transform.GetChild(1).GetComponent<Text>();
-        TakeButton = transform.GetChild(2).GetComponent<Button>();
-        TakeButton.onClick.AddListener(delegate { containerSlot.DropOutOfSlot(); });
+        buyOrTakeButton = transform.GetChild(2).GetComponent<Button>();
+        buyOrTakeButton.onClick.AddListener(delegate { containerSlot.DropOutOfSlot(); });
         CloseButton = transform.GetChild(3).GetComponent<Button>();
         CloseButton.onClick.AddListener(delegate { Close(); });
     }
@@ -29,5 +30,13 @@ public class ContainerItemInfo : ItemInfo
         var vector = new Vector3(pos.x + 5, pos.y + 2, pos.z);
         transform.position = vector;
         this.containerSlot = containerSlot;
+    }
+
+    public void ChangeBuyOrTakeButtonText(bool isTrading)
+    {
+        if (isTrading)
+            buyOrTakeButton.transform.GetChild(0).GetComponent<Text>().text = "Купить";
+        else
+            buyOrTakeButton.transform.GetChild(0).GetComponent<Text>().text = "Взять";
     }
 }

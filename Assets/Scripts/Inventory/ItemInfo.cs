@@ -44,7 +44,7 @@ public class ItemInfo : MonoBehaviour
             UseButton.gameObject.SetActive(true);
             PutInContainerButton.gameObject.SetActive(false);
         }
-        if (slot.slotItem.isParasite)
+        if (slot.slotItem is Parasite)
             UseButton.gameObject.SetActive(false);
         descriptionText.text = description;
         nameText.text = itemName;

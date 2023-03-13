@@ -15,7 +15,6 @@ public class Parasite : PickableItem
 
     private void Start()
     {
-        isParasite = true;
         posEffectIndex = random.Next(0, 12);
         negEffectIndex = random.Next(0, 9);
         while (negEffectIndex == posEffectIndex)

@@ -10,17 +10,21 @@ public class Inventory : MonoBehaviour
     [SerializeField] Transform parentSlotForItems;
     [SerializeField] Transform parentSlotForParasites;
     [SerializeField] Transform parentContainerSlots;
+    [SerializeField] Transform parentTradingSlots;
 
     private List<InventorySlot> inventorySlotsForItems = new();
     private List<InventorySlot> inventorySlotsForParasites = new();
     private List<ContainerSlot> inventoryContainerSlots = new();
+    private List<ContainerSlot> inventoryTradingSlots = new();
 
     public Player attachedUnit;
     public Text keyCounter;
+    public Text coinCounter;
 
     public static Inventory instance;
     [HideInInspector] public bool isOpen;
     public int keysInPossession;
+    public int coinsInPossession;
     
     [HideInInspector] public Container container;
     [HideInInspector] public bool isContainerOpen;
@@ -34,7 +38,10 @@ public class Inventory : MonoBehaviour
             inventorySlotsForParasites.Add(parentSlotForParasites.GetChild(i).GetComponent<InventorySlot>());
         for (int i = 0; i < parentContainerSlots.childCount; i++)
             inventoryContainerSlots.Add(parentContainerSlots.GetChild(i).GetComponent<ContainerSlot>());
+        for (int i = 0; i < parentTradingSlots.childCount; i++)
+            inventoryTradingSlots.Add(parentTradingSlots.GetChild(i).GetComponent<TradingSlot>());
         transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(false);
     }
 
     private void Update()
@@ -51,10 +58,16 @@ public class Inventory : MonoBehaviour
         gameObject.transform.localScale = Vector3.one;
         if (isContainerOpen)
         {
+            ContainerItemInfo.instance.ChangeBuyOrTakeButtonText(false);
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);            
         }
         isOpen = true;
+    }
+
+    public void OpenTradingMenu()
+    {
+
     }
 
     public void Close()
@@ -64,6 +77,7 @@ public class Inventory : MonoBehaviour
         transform.GetChild(1).gameObject.SetActive(false);
         ItemInfo.instance.Close();
         isOpen = false;
+        GameUI.instance.gameDialogue.text = string.Empty;
     }
 
     public void PutInInventory(GameObject obj)
@@ -75,7 +89,7 @@ public class Inventory : MonoBehaviour
             keyCounter.text = keysInPossession.ToString();
             Destroy(obj);
         }
-        else if (item.isParasite)
+        else if (item is Parasite)
         {
             if (IsFull(1))
                 return;

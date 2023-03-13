@@ -9,7 +9,7 @@ public abstract class PickableItem : MonoBehaviour
     private bool isCloseToItem;
     public string itemName;
     public string itemDescription;
-    [HideInInspector] public bool isParasite;
+    public int itemValue;
     [HideInInspector] public bool isUsableInCombatOnly;
     [HideInInspector] public bool isAffectingEnemy;
 

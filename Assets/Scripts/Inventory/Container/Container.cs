@@ -18,7 +18,6 @@ public class Container : MonoBehaviour
             containerSlots.Add(parentSlots.GetChild(i).GetComponent<ContainerSlot>());
     }
 
-
     private void Update()
     {
         if (isCloseToContainer && Input.GetKeyDown(KeyCode.E))

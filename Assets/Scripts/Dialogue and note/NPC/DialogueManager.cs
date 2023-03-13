@@ -15,7 +15,7 @@ public class DialogueManager : MonoBehaviour
 
     private Queue<string> sentences;
 
-	void Start()
+	private void Start()
 	{
 		instance = this;
 		sentences = new Queue<string>();
@@ -50,7 +50,7 @@ public class DialogueManager : MonoBehaviour
 		StartCoroutine(TypeSentence(sentence));
 	}
 
-	IEnumerator TypeSentence(string sentence)
+	private IEnumerator TypeSentence(string sentence)
 	{
 		dialogueText.text = "";
 		foreach (char letter in sentence.ToCharArray())
@@ -60,7 +60,7 @@ public class DialogueManager : MonoBehaviour
 		}
 	}
 
-	void EndDialogue()
+	private void EndDialogue()
 	{
 		playerMovement.enabled = true;
         dialogueUI.SetActive(false);
