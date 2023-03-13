@@ -76,6 +76,7 @@ public class CombatSystem : MonoBehaviour
         SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
         SoundManager.PlaySound(SoundManager.Sound.MentalBattle);
 
+        Inventory.instance.Close();
         encounteredEnemy.gameObject.GetComponent<Collider2D>().enabled = false;
         encounteredEnemy.gameObject.GetComponent<EnemyMovement>().enabled = false;
         Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = false;

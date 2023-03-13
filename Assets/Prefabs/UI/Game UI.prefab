@@ -125,9 +125,9 @@ MonoBehaviour:
   mpCounter: {fileID: 4968634255324343325}
   hpSlider: {fileID: 4968634255269647998}
   mpSlider: {fileID: 4968634256139961866}
-  exitUI: {fileID: 4968634254534550120}
   noteUI: {fileID: 4968634255476758477}
   dialogueUI: {fileID: 0}
+  exitUI: {fileID: 4968634254534550120}
   gameDialogue: {fileID: 4968634256226599964}
 --- !u!1 &3059959516240940535
 GameObject:
@@ -2656,8 +2656,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -494.68237, y: 36}
-  m_SizeDelta: {x: 930, y: 72}
+  m_AnchoredPosition: {x: -530.9282, y: 36}
+  m_SizeDelta: {x: 1000, y: 72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4968634256226599965
 CanvasRenderer:

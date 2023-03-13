@@ -65,5 +65,9 @@ public class DialogueManager : MonoBehaviour
 		playerMovement.enabled = true;
         dialogueUI.SetActive(false);
         dialogueTrigger.pressLock = false;
+		if (dialogueTrigger is Merchant)
+			Inventory.instance.ClearTradingMenu();
     }
+
+	public void SetActiveDialogueUI(bool isActive) => dialogueUI.SetActive(isActive);
 }

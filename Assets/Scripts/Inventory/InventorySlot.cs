@@ -18,7 +18,7 @@ public class InventorySlot : MonoBehaviour
     public int stackCount;
     [HideInInspector] public bool isEmpty = true;
 
-    protected void Start()
+    private void Start()
     {
         clickableSlot = gameObject.GetComponent<Button>();
         clickableSlot.onClick.AddListener(SlotClicked);
@@ -28,7 +28,7 @@ public class InventorySlot : MonoBehaviour
         stackCountText.text = "";
     }
 
-    protected void Update()
+    private void Update()
     {
         if (stackCount > 1)
             stackCountText.text = stackCount.ToString();

@@ -26,7 +26,7 @@ public class ContainerSlot : InventorySlot
             Destroy(slotObject);
             Clear();
         }
-        Inventory.instance.GroupItemsInContainerSlots();    
+        Inventory.instance.GroupItemsInContainerOrTradingSlots(Inventory.instance.isInTrade);    
     }
 
     public override void SlotClicked()

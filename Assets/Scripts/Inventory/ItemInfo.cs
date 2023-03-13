@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class ItemInfo : MonoBehaviour
 {
-    private Button DropButton;
-    private Button UseButton;
-    private Button PutInContainerButton;
-    protected Button CloseButton;
+    private Button dropButton;
+    private Button useButton;
+    private Button sellOrPutInContainerButton;
+    protected Button closeButton;
     private InventorySlot slot;
     protected Text descriptionText;
     protected Text nameText;
@@ -19,33 +19,33 @@ public class ItemInfo : MonoBehaviour
         nameText = transform.GetChild(0).GetComponent<Text>();
         descriptionText = transform.GetChild(1).GetComponent<Text>();
         instance = this;
-        DropButton = transform.GetChild(2).GetComponent<Button>();
-        DropButton.onClick.AddListener(delegate { slot.DropOutOfSlot(); });
-        UseButton = transform.GetChild(3).GetComponent<Button>();
-        UseButton.onClick.AddListener(delegate { OnUseButton(); });
-        PutInContainerButton = transform.GetChild(4).GetComponent<Button>();
-        PutInContainerButton.onClick.AddListener(delegate { Inventory.instance.PutInContainer(slot); });
-        CloseButton = transform.GetChild(5).GetComponent<Button>();
-        CloseButton.onClick.AddListener(delegate { Close(); });
+        dropButton = transform.GetChild(2).GetComponent<Button>();
+        dropButton.onClick.AddListener(delegate { slot.DropOutOfSlot(); });
+        useButton = transform.GetChild(3).GetComponent<Button>();
+        useButton.onClick.AddListener(delegate { OnUseButton(); });
+        sellOrPutInContainerButton = transform.GetChild(4).GetComponent<Button>();
+        sellOrPutInContainerButton.onClick.AddListener(delegate { Inventory.instance.PutInContainer(slot); });
+        closeButton = transform.GetChild(5).GetComponent<Button>();
+        closeButton.onClick.AddListener(delegate { Close(); });
     }
 
     public void Open(string itemName, string description, Vector3 pos, InventorySlot slot)
     {
         ContainerItemInfo.instance.Close();
-        if (Inventory.instance.isContainerOpen)
+        if (Inventory.instance.isContainerOpen || Inventory.instance.isInTrade)
         {
-            DropButton.gameObject.SetActive(false);
-            UseButton.gameObject.SetActive(false);
-            PutInContainerButton.gameObject.SetActive(true);
+            dropButton.gameObject.SetActive(false);
+            useButton.gameObject.SetActive(false);
+            sellOrPutInContainerButton.gameObject.SetActive(true);
         }
         else
         {
-            DropButton.gameObject.SetActive(true);
-            UseButton.gameObject.SetActive(true);
-            PutInContainerButton.gameObject.SetActive(false);
+            dropButton.gameObject.SetActive(true);
+            useButton.gameObject.SetActive(true);
+            sellOrPutInContainerButton.gameObject.SetActive(false);
         }
         if (slot.slotItem is Parasite)
-            UseButton.gameObject.SetActive(false);
+            useButton.gameObject.SetActive(false);
         descriptionText.text = description;
         nameText.text = itemName;
         transform.localScale = Vector3.one;
@@ -67,5 +67,13 @@ public class ItemInfo : MonoBehaviour
         }
         else
             slot.UseItemInSlot();
+    }
+    
+    public void ChangeSellOrPutInContainerButtonText(bool isTrading)
+    {
+        if (isTrading)
+            sellOrPutInContainerButton.transform.GetChild(0).GetComponent<Text>().text = "Продать";
+        else
+            sellOrPutInContainerButton.transform.GetChild(0).GetComponent<Text>().text = "Положить";
     }
 }

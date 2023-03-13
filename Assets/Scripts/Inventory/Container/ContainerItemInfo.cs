@@ -17,8 +17,8 @@ public class ContainerItemInfo : ItemInfo
         descriptionText = transform.GetChild(1).GetComponent<Text>();
         buyOrTakeButton = transform.GetChild(2).GetComponent<Button>();
         buyOrTakeButton.onClick.AddListener(delegate { containerSlot.DropOutOfSlot(); });
-        CloseButton = transform.GetChild(3).GetComponent<Button>();
-        CloseButton.onClick.AddListener(delegate { Close(); });
+        closeButton = transform.GetChild(3).GetComponent<Button>();
+        closeButton.onClick.AddListener(delegate { Close(); });
     }
 
     public void Open(string itemName, string description, Vector3 pos, ContainerSlot containerSlot)

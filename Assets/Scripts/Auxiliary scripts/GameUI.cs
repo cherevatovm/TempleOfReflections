@@ -52,7 +52,10 @@ public class GameUI : MonoBehaviour
     {
         if (Inventory.instance.isOpen)
         {
-            Inventory.instance.Close();
+            if (Inventory.instance.isInTrade)
+                Inventory.instance.CloseTradingMenu();
+            else
+                Inventory.instance.Close();
             return;
         }
         else if (noteUI.activeSelf)

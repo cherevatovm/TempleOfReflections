@@ -19,19 +19,22 @@ public class Inventory : MonoBehaviour
 
     public Player attachedUnit;
     public Text keyCounter;
-    public Text coinCounter;
+    [SerializeField] private Text merchantCointCounter;
+    [SerializeField] private Text coinCounter;
 
     public static Inventory instance;
     [HideInInspector] public bool isOpen;
     public int keysInPossession;
     public int coinsInPossession;
-    
+
+    [HideInInspector] public bool isInTrade;
     [HideInInspector] public Container container;
     [HideInInspector] public bool isContainerOpen;
 
     private void Start()
     {
         instance = this;
+        coinCounter.text = coinsInPossession.ToString();
         for (int i = 0; i < parentSlotForItems.childCount; i++)
             inventorySlotsForItems.Add(parentSlotForItems.GetChild(i).GetComponent<InventorySlot>());
         for (int i = 0; i < parentSlotForParasites.childCount; i++)
@@ -46,7 +49,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B) && !isContainerOpen && !CombatSystem.instance.isInCombat && !GameUI.instance.IsSubmenuActive() && !attachedUnit.IsDead())
+        if (Input.GetKeyDown(KeyCode.B) && !isContainerOpen && !isInTrade && !CombatSystem.instance.isInCombat && !GameUI.instance.IsSubmenuActive() && !attachedUnit.IsDead())
             if (isOpen)
                 instance.Close();
             else
@@ -58,16 +61,63 @@ public class Inventory : MonoBehaviour
         gameObject.transform.localScale = Vector3.one;
         if (isContainerOpen)
         {
+            ItemInfo.instance.ChangeSellOrPutInContainerButtonText(false);
             ContainerItemInfo.instance.ChangeBuyOrTakeButtonText(false);
             transform.GetChild(0).gameObject.SetActive(false);
-            transform.GetChild(1).gameObject.SetActive(true);            
+            transform.GetChild(1).gameObject.SetActive(true);
+        }
+        else if (isInTrade)
+        {
+            ItemInfo.instance.ChangeSellOrPutInContainerButtonText(true);
+            ContainerItemInfo.instance.ChangeBuyOrTakeButtonText(true);
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(2).gameObject.SetActive(true);
         }
         isOpen = true;
     }
 
     public void OpenTradingMenu()
     {
+        DialogueManager.instance.SetActiveDialogueUI(false);
+        if (inventoryTradingSlots[0].isEmpty)
+        {
+            Merchant merchant = DialogueManager.instance.dialogueTrigger as Merchant;
+            for (int i = 0; i < inventoryTradingSlots.Count; i++)
+            {
+                if (merchant.tradingSlots[i].isEmpty)
+                    break;
+                inventoryTradingSlots[i].PutInSlot(merchant.tradingSlots[i].slotItem, merchant.tradingSlots[i].slotObject);
+                if (merchant.tradingSlots[i].stackCount > 1)
+                    inventoryTradingSlots[i].stackCount = merchant.tradingSlots[i].stackCount;
+            }
+            merchantCointCounter.text = merchant.coinsInPossession.ToString();
+        }
+        isInTrade = true;
+        Open();
+    }
 
+    public void CloseTradingMenu()
+    {
+        DialogueManager.instance.SetActiveDialogueUI(true);
+        ContainerItemInfo.instance.Close();
+        isInTrade = false;
+        Close();
+    }
+
+    public void ClearTradingMenu()
+    {
+        for (int i = 0; i < inventoryTradingSlots.Count; i++)
+        {
+            if (inventoryTradingSlots[i].isEmpty)
+                break;
+            inventoryTradingSlots[i].Clear();
+        }
+    }
+
+    public void ChangeCoinAmount(int amount)
+    {
+        coinsInPossession += amount;
+        coinCounter.text = coinsInPossession.ToString();
     }
 
     public void Close()
@@ -75,6 +125,7 @@ public class Inventory : MonoBehaviour
         gameObject.transform.localScale = Vector3.zero;
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(false);
         ItemInfo.instance.Close();
         isOpen = false;
         GameUI.instance.gameDialogue.text = string.Empty;
@@ -121,7 +172,7 @@ public class Inventory : MonoBehaviour
                     obj.SetActive(false);
                     break;
                 }
-            }            
+            }
         }
     }
 
@@ -167,25 +218,37 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void GroupItemsInContainerSlots()
+    public void GroupItemsInContainerOrTradingSlots(bool isTrading)
     {
-        for (int i = 0; i < inventoryContainerSlots.Count - 1; i++)
+        List<ContainerSlot> inventoryList;
+        List<ContainerSlot> secondaryList;
+        if (isTrading)
         {
-            if (inventoryContainerSlots[i].isEmpty && !inventoryContainerSlots[i + 1].isEmpty)
+            inventoryList = inventoryTradingSlots;
+            secondaryList = (DialogueManager.instance.dialogueTrigger as Merchant).tradingSlots;
+        }
+        else
+        {
+            inventoryList = inventoryContainerSlots;
+            secondaryList = container.containerSlots;
+        }
+        for (int i = 0; i < inventoryList.Count - 1; i++)
+        {
+            if (inventoryList[i].isEmpty && !inventoryList[i + 1].isEmpty)
             {
                 int j = i;
                 int k = i + 1;
-                while (k != inventoryContainerSlots.Count && !inventoryContainerSlots[k].isEmpty)
+                while (k != inventoryList.Count && !inventoryList[k].isEmpty)
                 {
-                    inventoryContainerSlots[j].PutInSlot(inventoryContainerSlots[k].slotItem, inventoryContainerSlots[k].slotObject);
-                    container.containerSlots[j].PutInSlot(inventoryContainerSlots[k].slotItem, inventoryContainerSlots[k].slotObject);
-                    if (inventoryContainerSlots[k].stackCount > 1)
+                    inventoryList[j].PutInSlot(inventoryList[k].slotItem, inventoryList[k].slotObject);
+                    secondaryList[j].PutInSlot(inventoryList[k].slotItem, inventoryList[k].slotObject);
+                    if (inventoryList[k].stackCount > 1)
                     {
-                        inventoryContainerSlots[j].stackCount = inventoryContainerSlots[k].stackCount;
-                        container.containerSlots[j].stackCount = inventoryContainerSlots[k].stackCount;
+                        inventoryList[j].stackCount = inventoryList[k].stackCount;
+                        secondaryList[j].stackCount = inventoryList[k].stackCount;
                     }
-                    inventoryContainerSlots[k].Clear();
-                    container.containerSlots[k].Clear();
+                    inventoryList[k].Clear();
+                    secondaryList[k].Clear();
                     k++;
                     j++;
                 }
@@ -284,21 +347,58 @@ public class Inventory : MonoBehaviour
 
     public void PutInContainer(InventorySlot slot)
     {
-        for (int i = 0; i < inventoryContainerSlots.Count; i++)
+        if (!isInTrade)
         {
-            if (!inventoryContainerSlots[i].isEmpty && slot.slotItemName.Equals(inventoryContainerSlots[i].slotItemName))
+            for (int i = 0; i < inventoryContainerSlots.Count; i++)
             {
-                inventoryContainerSlots[i].stackCount++;
-                container.containerSlots[i].stackCount++;
-                break;
+                if (!inventoryContainerSlots[i].isEmpty && slot.slotItemName.Equals(inventoryContainerSlots[i].slotItemName))
+                {
+                    inventoryContainerSlots[i].stackCount++;
+                    container.containerSlots[i].stackCount++;
+                    break;
+                }
+                else if (inventoryContainerSlots[i].isEmpty)
+                {
+                    GameObject containerObject = Instantiate(slot.slotObject);
+                    inventoryContainerSlots[i].PutInSlot(containerObject.GetComponent<PickableItem>(), containerObject);
+                    container.containerSlots[i].PutInSlot(containerObject.GetComponent<PickableItem>(), containerObject);
+                    containerObject.SetActive(false);
+                    break;
+                }
             }
-            else if (inventoryContainerSlots[i].isEmpty)
+        }
+        else
+        {
+            Merchant merchant = DialogueManager.instance.dialogueTrigger as Merchant;
+            if (merchant.coinsInPossession >= slot.slotItem.itemValue)
             {
-                GameObject containerObject = Instantiate(slot.slotObject);
-                inventoryContainerSlots[i].PutInSlot(containerObject.GetComponent<PickableItem>(), containerObject);
-                container.containerSlots[i].PutInSlot(containerObject.GetComponent<PickableItem>(), containerObject);
-                containerObject.SetActive(false);
-                break;
+                for (int i = 0; i < inventoryTradingSlots.Count; i++)
+                {
+                    if (!inventoryTradingSlots[i].isEmpty && slot.slotItemName.Equals(inventoryTradingSlots[i].slotItemName))
+                    {
+                        inventoryTradingSlots[i].stackCount++;
+                        merchant.tradingSlots[i].stackCount++;
+                        break;
+                    }
+                    else if (inventoryTradingSlots[i].isEmpty)
+                    {
+                        GameObject tradingObject = Instantiate(slot.slotObject);
+                        inventoryTradingSlots[i].PutInSlot(tradingObject.GetComponent<PickableItem>(), tradingObject);
+                        merchant.tradingSlots[i].PutInSlot(tradingObject.GetComponent<PickableItem>(), tradingObject);
+                        tradingObject.SetActive(false);
+                        break;
+                    }
+                }
+                merchant.coinsInPossession -= slot.slotItem.itemValue;
+                merchantCointCounter.text = merchant.coinsInPossession.ToString();
+                ChangeCoinAmount(slot.slotItem.itemValue);
+                GameUI.instance.gameDialogue.text = "Вы продали " + slot.slotItemName;
+            }
+            else
+            {
+                ItemInfo.instance.Close();
+                GameUI.instance.gameDialogue.text = "У торговца недостаточно денег для того, чтобы вы могли продать этот предмет";
+                return;
             }
         }
         slot.DropOutOfSlot();
