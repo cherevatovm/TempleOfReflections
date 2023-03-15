@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class RecoveryTalisman : ItemWithEffect
         underEffectTurnsNumber = 8;
         isUsableInCombatOnly = true;
         doesHaveContinuousEffect = true;
-}
+    }
 
     public override void UseItem(out string message)
     {
@@ -20,9 +21,13 @@ public class RecoveryTalisman : ItemWithEffect
             return;
         CombatSystem.instance.playerUnit.underItemEffect = true;
         CombatSystem.instance.playerUnit.affectingItem = this;
+        message = CombatSystem.instance.playerUnit.unitName + " использует талисман восстановления";
+    }
+
+    public override void ApplyEffect()
+    {
         CombatSystem.instance.playerUnit.Heal((int)(CombatSystem.instance.playerUnit.maxHP * 0.05));
         CombatSystem.instance.playerUnit.IncreaseCurrentMP((int)(CombatSystem.instance.playerUnit.maxMP * 0.05));
-        message = CombatSystem.instance.playerUnit.unitName + " использует талисман восстановления";
     }
 
     public override void RemoveEffect()
