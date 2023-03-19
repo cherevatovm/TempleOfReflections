@@ -9,10 +9,10 @@ public class ContainerSlot : InventorySlot
     {
         ContainerItemInfo.instance.Close();
         GameObject obj = Instantiate(slotObject);
-        Inventory.instance.PutInInventory(obj);
+        Inventory.instance.PutInInventory(obj, this);
         if (obj != null)
             obj.SetActive(false);
-        Inventory.instance.ClearSameIndexSlotInContainer(this);
+        Inventory.instance.ClearSameIndexContainerOrTradingSlot(this);
         if (stackCount != 1)
         {
             stackCount--;

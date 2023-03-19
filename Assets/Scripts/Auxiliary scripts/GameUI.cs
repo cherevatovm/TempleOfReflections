@@ -53,7 +53,7 @@ public class GameUI : MonoBehaviour
         if (Inventory.instance.isOpen)
         {
             if (Inventory.instance.isInTrade)
-                Inventory.instance.CloseTradingMenu();
+                DialogueManager.instance.MerchantsLine();
             else
                 Inventory.instance.Close();
             return;

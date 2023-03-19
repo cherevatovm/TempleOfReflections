@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
-{
-    private bool alreadyTalkedTo;
+{   
     private bool inTriggerArea;
+    protected bool alreadyTalkedTo;
     public Dialogue dialogue1;
     public Dialogue dialogue2;
     [HideInInspector] public bool wasKeyPressed;

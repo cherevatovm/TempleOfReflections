@@ -12,6 +12,8 @@ public class ItemInfo : MonoBehaviour
     private InventorySlot slot;
     protected Text descriptionText;
     protected Text nameText;
+    protected Text priceText;
+    protected GameObject priceTag;
     public static ItemInfo instance;
 
     private void Start()
@@ -27,6 +29,8 @@ public class ItemInfo : MonoBehaviour
         sellOrPutInContainerButton.onClick.AddListener(delegate { Inventory.instance.PutInContainer(slot); });
         closeButton = transform.GetChild(5).GetComponent<Button>();
         closeButton.onClick.AddListener(delegate { Close(); });
+        priceTag = transform.GetChild(6).gameObject;
+        priceText = priceTag.transform.GetChild(1).GetComponent<Text>();
     }
 
     public void Open(string itemName, string description, Vector3 pos, InventorySlot slot)
@@ -37,6 +41,7 @@ public class ItemInfo : MonoBehaviour
             dropButton.gameObject.SetActive(false);
             useButton.gameObject.SetActive(false);
             sellOrPutInContainerButton.gameObject.SetActive(true);
+            ChangeSellOrPutInContainerButtonText(Inventory.instance.isInTrade);
         }
         else
         {
@@ -45,7 +50,25 @@ public class ItemInfo : MonoBehaviour
             sellOrPutInContainerButton.gameObject.SetActive(false);
         }
         if (slot.slotItem is Parasite)
+        {
             useButton.gameObject.SetActive(false);
+            priceTag.SetActive(false);
+        }
+        else
+        {
+            if (slot.justBoughtCount > 0)
+            {
+                priceText.text = slot.slotItem.itemValue.ToString();
+                priceTag.transform.GetChild(2).GetComponent<Text>().text = "Торговец вернет:";
+                sellOrPutInContainerButton.transform.GetChild(0).GetComponent<Text>().text = "Вернуть";
+            }
+            else
+            {
+                priceText.text = ((int)(slot.slotItem.itemValue * 0.75)).ToString();
+                priceTag.transform.GetChild(2).GetComponent<Text>().text = "Цена продажи:";                
+            }
+            priceTag.SetActive(true);
+        }
         descriptionText.text = description;
         nameText.text = itemName;
         transform.localScale = Vector3.one;

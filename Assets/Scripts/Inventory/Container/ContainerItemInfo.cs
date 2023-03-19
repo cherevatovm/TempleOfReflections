@@ -19,11 +19,27 @@ public class ContainerItemInfo : ItemInfo
         buyOrTakeButton.onClick.AddListener(delegate { containerSlot.DropOutOfSlot(); });
         closeButton = transform.GetChild(3).GetComponent<Button>();
         closeButton.onClick.AddListener(delegate { Close(); });
+        priceTag = transform.GetChild(4).gameObject;
+        priceText = priceTag.transform.GetChild(1).GetComponent<Text>();
     }
 
     public void Open(string itemName, string description, Vector3 pos, ContainerSlot containerSlot)
     {
         ItemInfo.instance.Close();
+        ChangeBuyOrTakeButtonText(Inventory.instance.isInTrade);
+        if (Inventory.instance.isInTrade)
+        {
+            if (containerSlot.justBoughtCount > 0)
+            {
+                priceText.text = ((int)(containerSlot.slotItem.itemValue * 0.75)).ToString();
+                priceTag.transform.GetChild(2).GetComponent<Text>().text = "Выкупить за:";
+                buyOrTakeButton.transform.GetChild(0).GetComponent<Text>().text = "Выкупить";
+            }
+            else
+                priceText.text = containerSlot.slotItem.itemValue.ToString();
+        }
+        else
+            priceText.text = ((int)(containerSlot.slotItem.itemValue * 0.75)).ToString();
         descriptionText.text = description;
         nameText.text = itemName;
         transform.localScale = Vector3.one;
@@ -35,8 +51,14 @@ public class ContainerItemInfo : ItemInfo
     public void ChangeBuyOrTakeButtonText(bool isTrading)
     {
         if (isTrading)
+        {
             buyOrTakeButton.transform.GetChild(0).GetComponent<Text>().text = "Купить";
+            priceTag.transform.GetChild(2).GetComponent<Text>().text = "Цена покупки:";
+        }
         else
+        {
             buyOrTakeButton.transform.GetChild(0).GetComponent<Text>().text = "Взять";
+            priceTag.transform.GetChild(2).GetComponent<Text>().text = "Цена продажи:";
+        }
     }
 }

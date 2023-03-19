@@ -16,6 +16,7 @@ public class InventorySlot : MonoBehaviour
     protected Button clickableSlot;
 
     public int stackCount;
+    [HideInInspector] public int justBoughtCount;
     [HideInInspector] public bool isEmpty = true;
 
     private void Start()
@@ -55,7 +56,7 @@ public class InventorySlot : MonoBehaviour
         ItemInfo.instance.Close();
         if (stackCount != 1)
         {
-            if (!Inventory.instance.isContainerOpen)
+            if (!(Inventory.instance.isContainerOpen || Inventory.instance.isInTrade))
             {
                 slotObject.SetActive(true);
                 if (slotItem is Parasite)
@@ -75,7 +76,7 @@ public class InventorySlot : MonoBehaviour
         }
         else
         {
-            if (!Inventory.instance.isContainerOpen)
+            if (!(Inventory.instance.isContainerOpen || Inventory.instance.isInTrade))
             {
                 slotObject.SetActive(true);
                 slotObject.transform.position = vector;
@@ -153,9 +154,10 @@ public class InventorySlot : MonoBehaviour
         slotItem = null;
         previewImage.sprite = null;
         slotObject = null;
+        justBoughtCount = 0;
         stackCount = 1;
-        stackCountText.text = "";
-        slotItemName = "";
-        slotItemDescription = "";
+        stackCountText.text = string.Empty;
+        slotItemName = string.Empty;
+        slotItemDescription = string.Empty;
     }
 }

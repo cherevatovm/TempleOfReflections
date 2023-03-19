@@ -44,7 +44,6 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < parentTradingSlots.childCount; i++)
             inventoryTradingSlots.Add(parentTradingSlots.GetChild(i).GetComponent<TradingSlot>());
         transform.GetChild(1).gameObject.SetActive(false);
-        transform.GetChild(2).gameObject.SetActive(false);
     }
 
     private void Update()
@@ -61,18 +60,14 @@ public class Inventory : MonoBehaviour
         gameObject.transform.localScale = Vector3.one;
         if (isContainerOpen)
         {
-            ItemInfo.instance.ChangeSellOrPutInContainerButtonText(false);
-            ContainerItemInfo.instance.ChangeBuyOrTakeButtonText(false);
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);
+            transform.GetChild(2).gameObject.SetActive(false);
         }
         else if (isInTrade)
-        {
-            ItemInfo.instance.ChangeSellOrPutInContainerButtonText(true);
-            ContainerItemInfo.instance.ChangeBuyOrTakeButtonText(true);
             transform.GetChild(0).gameObject.SetActive(false);
-            transform.GetChild(2).gameObject.SetActive(true);
-        }
+        else
+            transform.GetChild(2).gameObject.SetActive(false);
         isOpen = true;
     }
 
@@ -112,12 +107,26 @@ public class Inventory : MonoBehaviour
                 break;
             inventoryTradingSlots[i].Clear();
         }
+        for (int i = 0; i < inventorySlotsForItems.Count; i++)
+        {
+            if (inventorySlotsForItems[i].isEmpty)
+                break;
+            inventorySlotsForItems[i].justBoughtCount = 0;
+        }
     }
 
-    public void ChangeCoinAmount(int amount)
+    public void ChangeCoinAmount(bool isMerchant, int amount)
     {
-        coinsInPossession += amount;
-        coinCounter.text = coinsInPossession.ToString();
+        if (isMerchant)
+        {
+            (DialogueManager.instance.dialogueTrigger as Merchant).coinsInPossession += amount;
+            merchantCointCounter.text = (DialogueManager.instance.dialogueTrigger as Merchant).coinsInPossession.ToString();
+        }
+        else
+        {
+            coinsInPossession += amount;
+            coinCounter.text = coinsInPossession.ToString();
+        }
     }
 
     public void Close()
@@ -125,13 +134,13 @@ public class Inventory : MonoBehaviour
         gameObject.transform.localScale = Vector3.zero;
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(false);
-        transform.GetChild(2).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(true);
         ItemInfo.instance.Close();
         isOpen = false;
         GameUI.instance.gameDialogue.text = string.Empty;
     }
 
-    public void PutInInventory(GameObject obj)
+    public void PutInInventory(GameObject obj, InventorySlot sourceSlot = null)
     {
         PickableItem item = obj.GetComponent<PickableItem>();
         if (item is Key)
@@ -162,12 +171,16 @@ public class Inventory : MonoBehaviour
             {
                 if (!inventorySlotsForItems[i].isEmpty && item.itemName.Equals(inventorySlotsForItems[i].slotItemName))
                 {
-                    inventorySlotsForItems[i].stackCount++;
+                    if (isInTrade && sourceSlot.justBoughtCount == 0)
+                        inventorySlotsForItems[i].justBoughtCount++;
+                    inventorySlotsForItems[i].stackCount++;                    
                     Destroy(obj);
                     break;
                 }
                 else if (inventorySlotsForItems[i].isEmpty)
                 {
+                    if (isInTrade && sourceSlot.justBoughtCount == 0)
+                        inventorySlotsForItems[i].justBoughtCount++;
                     inventorySlotsForItems[i].PutInSlot(item, obj);
                     obj.SetActive(false);
                     break;
@@ -257,6 +270,39 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void ClearSameIndexContainerOrTradingSlot(ContainerSlot slot)
+    {
+        List<ContainerSlot> inventoryList;
+        List<ContainerSlot> secondaryList;
+        if (isInTrade)
+        {
+            inventoryList = inventoryTradingSlots;
+            secondaryList = (DialogueManager.instance.dialogueTrigger as Merchant).tradingSlots;
+        }
+        else
+        {
+            inventoryList = inventoryContainerSlots;
+            secondaryList = container.containerSlots;
+        }
+        for (int i = 0; i < inventoryList.Count; i++)
+        {
+            if (slot.Equals(inventoryList[i]))
+            {
+                if (secondaryList[i].stackCount != 1)
+                {
+                    secondaryList[i].stackCount--;
+                    if (secondaryList[i].stackCount == 1)
+                        secondaryList[i].stackCountText.text = "";
+                    else
+                        secondaryList[i].stackCountText.text = secondaryList[i].stackCount.ToString();
+                }
+                else
+                    secondaryList[i].Clear();
+                break;
+            }
+        }
+    }
+
     public int OccupiedSlotsCount(bool isParasite)
     {
         int count = 0;
@@ -335,14 +381,30 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    private bool IsFull(int whichSlots)
+    public bool IsFull(int whichSlots, PickableItem item = null)
     {
         if (whichSlots == 0)
-            return !inventorySlotsForItems[^1].isEmpty;
+        {
+            for (int i = 0; i < inventorySlotsForItems.Count; i++)
+            {
+                if (inventorySlotsForItems[i].isEmpty || item.itemName.Equals(inventorySlotsForItems[i].slotItemName))
+                    return false;
+            }
+            return true;
+        }
         else if (whichSlots == 1)
             return !inventorySlotsForParasites[^1].isEmpty;
+        List<ContainerSlot> inventoryList;
+        if (whichSlots == 2)
+            inventoryList = inventoryContainerSlots;
         else
-            return !inventoryContainerSlots[^1].isEmpty;
+            inventoryList = inventoryTradingSlots;
+        for (int i = 0; i < inventoryList.Count; i++)
+        {
+            if (inventoryList[i].isEmpty || item.itemName.Equals(inventoryList[i].slotItemName))
+                return false;
+        }
+        return true;
     }
 
     public void PutInContainer(InventorySlot slot)
@@ -369,6 +431,12 @@ public class Inventory : MonoBehaviour
         }
         else
         {
+            if (IsFull(3, slot.slotItem))
+            {
+                GameUI.instance.gameDialogue.text = "Продажа не удалась, в инвентаре торговца полон";
+                ItemInfo.instance.Close();
+                return;
+            }
             Merchant merchant = DialogueManager.instance.dialogueTrigger as Merchant;
             if (merchant.coinsInPossession >= slot.slotItem.itemValue)
             {
@@ -376,6 +444,8 @@ public class Inventory : MonoBehaviour
                 {
                     if (!inventoryTradingSlots[i].isEmpty && slot.slotItemName.Equals(inventoryTradingSlots[i].slotItemName))
                     {
+                        if (slot.justBoughtCount == 0)
+                            inventoryTradingSlots[i].justBoughtCount++;
                         inventoryTradingSlots[i].stackCount++;
                         merchant.tradingSlots[i].stackCount++;
                         break;
@@ -384,15 +454,26 @@ public class Inventory : MonoBehaviour
                     {
                         GameObject tradingObject = Instantiate(slot.slotObject);
                         inventoryTradingSlots[i].PutInSlot(tradingObject.GetComponent<PickableItem>(), tradingObject);
+                        if (slot.justBoughtCount == 0)
+                            inventoryTradingSlots[i].justBoughtCount++;
                         merchant.tradingSlots[i].PutInSlot(tradingObject.GetComponent<PickableItem>(), tradingObject);
                         tradingObject.SetActive(false);
                         break;
                     }
                 }
-                merchant.coinsInPossession -= slot.slotItem.itemValue;
-                merchantCointCounter.text = merchant.coinsInPossession.ToString();
-                ChangeCoinAmount(slot.slotItem.itemValue);
-                GameUI.instance.gameDialogue.text = "Вы продали " + slot.slotItemName;
+                if (slot.justBoughtCount > 0)
+                {
+                    slot.justBoughtCount--;
+                    ChangeCoinAmount(true, -slot.slotItem.itemValue);
+                    ChangeCoinAmount(false, slot.slotItem.itemValue);
+                    GameUI.instance.gameDialogue.text = "Вы вернули " + slot.slotItemName;
+                }
+                else
+                {
+                    ChangeCoinAmount(true, -(int)(slot.slotItem.itemValue * 0.75));
+                    ChangeCoinAmount(false, (int)(slot.slotItem.itemValue * 0.75));
+                    GameUI.instance.gameDialogue.text = "Вы продали " + slot.slotItemName;
+                }
             }
             else
             {
@@ -402,24 +483,5 @@ public class Inventory : MonoBehaviour
             }
         }
         slot.DropOutOfSlot();
-    }
-
-    public void ClearSameIndexSlotInContainer(ContainerSlot slot)
-    {
-        for (int i = 0; i < inventoryContainerSlots.Count; i++)
-            if (slot.Equals(inventoryContainerSlots[i]))
-            {
-                if (container.containerSlots[i].stackCount != 1)
-                {
-                    container.containerSlots[i].stackCount--;
-                    if (container.containerSlots[i].stackCount == 1)
-                        container.containerSlots[i].stackCountText.text = "";
-                    else
-                        container.containerSlots[i].stackCountText.text = container.containerSlots[i].stackCount.ToString();
-                }
-                else
-                    container.containerSlots[i].Clear();
-                break;
-            }
     }
 }

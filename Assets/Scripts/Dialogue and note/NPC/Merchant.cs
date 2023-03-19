@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Merchant : DialogueTrigger
 {
-    [SerializeField] private Transform parentSlots;
+    [SerializeField] private Transform parentSlots; 
     [HideInInspector] public List<ContainerSlot> tradingSlots = new(16);
+    public Dialogue tradingDialogue;
     public int coinsInPossession;
 
     private void Start()

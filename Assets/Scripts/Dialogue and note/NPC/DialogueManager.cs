@@ -19,6 +19,7 @@ public class DialogueManager : MonoBehaviour
 	{
 		instance = this;
 		sentences = new Queue<string>();
+		dialogueUI.transform.GetChild(0).GetChild(3).GetComponent<Button>().onClick.AddListener(MerchantsLine);
 	}
 
 	public void StartDialogue(Dialogue dialogue)
@@ -27,6 +28,7 @@ public class DialogueManager : MonoBehaviour
             Inventory.instance.Close();
         else if (GameUI.instance.exitUI.activeSelf)
             GameUI.instance.exitUI.SetActive(false);
+		dialogueUI.transform.GetChild(0).GetChild(3).gameObject.SetActive(dialogueTrigger is Merchant);
         dialogueTrigger.wasKeyPressed = false;
         dialogueTrigger.pressLock = true;
         playerMovement.enabled = false;
@@ -37,6 +39,29 @@ public class DialogueManager : MonoBehaviour
 		dialogueUI.SetActive(true);
 		DisplayNextSentence();
 	}
+
+	public void MerchantsLine()
+	{
+        Button tradeButton = dialogueUI.transform.GetChild(0).GetChild(3).GetComponent<Button>();
+        if (!Inventory.instance.isInTrade)
+		{
+			sentences.Clear();
+			foreach (string sentence in (dialogueTrigger as Merchant).tradingDialogue.sentences)
+				sentences.Enqueue(sentence);
+            dialogueUI.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);  
+            tradeButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Торговать";
+			tradeButton.onClick.RemoveListener(MerchantsLine);
+			tradeButton.onClick.AddListener(Inventory.instance.OpenTradingMenu);
+        }
+		else
+		{
+			if (sentences.Count == 0)
+				sentences.Enqueue((dialogueTrigger as Merchant).tradingDialogue.sentences[1]);
+            Inventory.instance.CloseTradingMenu();
+            dialogueUI.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+        }
+		DisplayNextSentence();
+    }
 
 	public void DisplayNextSentence()
 	{
@@ -66,7 +91,13 @@ public class DialogueManager : MonoBehaviour
         dialogueUI.SetActive(false);
         dialogueTrigger.pressLock = false;
 		if (dialogueTrigger is Merchant)
-			Inventory.instance.ClearTradingMenu();
+		{
+            Button tradeButton = dialogueUI.transform.GetChild(0).GetChild(3).GetComponent<Button>();
+            tradeButton.transform.GetChild(0).GetComponent<TMP_Text>().text = "Магазин";
+			tradeButton.onClick.RemoveListener(Inventory.instance.OpenTradingMenu);
+			tradeButton.onClick.AddListener(MerchantsLine);
+            Inventory.instance.ClearTradingMenu();
+        }
     }
 
 	public void SetActiveDialogueUI(bool isActive) => dialogueUI.SetActive(isActive);
