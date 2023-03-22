@@ -444,7 +444,8 @@ public class CombatSystem : MonoBehaviour
 
     private void RemoveEnemy(int enemyID)
     {
-        combatUI.combatDialogue.text = enemyUnits[enemyID].unitName + " повержен";
+        combatUI.combatDialogue.text = enemyUnits[enemyID].unitName + " оказывается повержен, оставляя после себя " + enemyUnits[enemyID].coinsDropped + " монет";
+        Inventory.instance.ChangeCoinAmount(false, enemyUnits[enemyID].coinsDropped);
         enemyUnits[enemyID].combatHUD.gameObject.SetActive(false);
         Destroy(enemyUnits[enemyID].gameObject);
         enemyCombatControllers.RemoveAt(enemyID);

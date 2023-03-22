@@ -22,14 +22,15 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Text merchantCointCounter;
     [SerializeField] private Text coinCounter;
 
-    public static Inventory instance;
-    [HideInInspector] public bool isOpen;
+    public static Inventory instance;   
     public int keysInPossession;
     public int coinsInPossession;
 
-    [HideInInspector] public bool isInTrade;
-    [HideInInspector] public Container container;
+    [HideInInspector] public bool isOpen;
+    [HideInInspector] public bool isInTrade;    
     [HideInInspector] public bool isContainerOpen;
+    [HideInInspector] public Container container;
+    [HideInInspector] public GameObject tempItem;
 
     private void Start()
     {
@@ -48,7 +49,7 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B) && !isContainerOpen && !isInTrade && !CombatSystem.instance.isInCombat && !GameUI.instance.IsSubmenuActive() && !attachedUnit.IsDead())
+        if (Input.GetKeyDown(KeyCode.I) && !isContainerOpen && !isInTrade && !CombatSystem.instance.isInCombat && !GameUI.instance.IsSubmenuActive() && !attachedUnit.IsDead())
             if (isOpen)
                 instance.Close();
             else
@@ -405,6 +406,12 @@ public class Inventory : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    public void PutParasiteInInventory()
+    {
+        PutInInventory(tempItem);
+        tempItem = null;
     }
 
     public void PutInContainer(InventorySlot slot)

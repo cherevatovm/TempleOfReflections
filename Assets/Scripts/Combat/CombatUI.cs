@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CombatUI : MonoBehaviour
 {
+    public EnemyInfoPanel enemyInfoPanel;
     public TextMeshProUGUI combatDialogue;
     public GameObject[] buttonPrefabs;
     private List<Button> mentalSkillButtonList = new();

@@ -151,6 +151,7 @@ MonoBehaviour:
   - 1.2
   enemyPrefabsForCombat: []
   combatHUD: {fileID: 0}
+  coinsDropped: 15
 --- !u!114 &5021757046155829929
 MonoBehaviour:
   m_ObjectHideFlags: 0

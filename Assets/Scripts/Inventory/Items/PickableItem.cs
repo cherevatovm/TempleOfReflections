@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public abstract class PickableItem : MonoBehaviour
 {
     [Header("Описание предмета")]
-    private bool isCloseToItem;
+    protected bool isCloseToItem;
     public string itemName;
     public string itemDescription;
     public int itemValue;
@@ -15,9 +15,8 @@ public abstract class PickableItem : MonoBehaviour
 
     private void Update()
     {
-        if (isCloseToItem)
-            if (Input.GetKeyDown(KeyCode.F))
-                Inventory.instance.PutInInventory(gameObject);
+        if (isCloseToItem && Input.GetKeyDown(KeyCode.F))
+            Inventory.instance.PutInInventory(gameObject);
     }
 
     public abstract void UseItem(out string message);

@@ -13,7 +13,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && !pressLock && inTriggerArea)
+        if (Input.GetKeyDown(KeyCode.T) && !pressLock && inTriggerArea)
             wasKeyPressed = true;
     }
 

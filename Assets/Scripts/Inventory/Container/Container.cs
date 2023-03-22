@@ -20,7 +20,7 @@ public class Container : MonoBehaviour
 
     private void Update()
     {
-        if (isCloseToContainer && Input.GetKeyDown(KeyCode.E))
+        if (isCloseToContainer && Input.GetKeyDown(KeyCode.F))
             if (isOpen)
                 Close();
             else

@@ -134,6 +134,9 @@ MonoBehaviour:
   maxHP: 150
   currentMP: 50
   maxMP: 50
+  itemEffectTurnsCount: 0
+  underItemEffect: 0
+  affectingItem: {fileID: 0}
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
@@ -149,6 +152,7 @@ MonoBehaviour:
   - 1.5
   enemyPrefabsForCombat: []
   combatHUD: {fileID: 0}
+  coinsDropped: 100
 --- !u!114 &8164385237867508122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08807befb1e86cd4ba1767a1f2099c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackButtonWasPressed: 0
+  isHurting: 0
+  isDying: 0
 --- !u!58 &5516479842872426065
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class GameUI : MonoBehaviour
     [SerializeField] Slider mpSlider; 
     [SerializeField] GameObject noteUI;
     [SerializeField] GameObject dialogueUI;
+    [SerializeField] GameObject itemPanel;
     public GameObject exitUI;
     public TMP_Text gameDialogue;
     public static GameUI instance;
@@ -58,6 +59,11 @@ public class GameUI : MonoBehaviour
                 Inventory.instance.Close();
             return;
         }
+        else if (itemPanel.activeSelf)
+        {
+            CloseItemPanel();
+            return;
+        }
         else if (noteUI.activeSelf)
         {
             NoteManager.instance.EndReading();
@@ -65,10 +71,7 @@ public class GameUI : MonoBehaviour
         }
         else if (dialogueUI.activeSelf)
             return;
-        if (exitUI.activeSelf)
-            exitUI.SetActive(false);
-        else
-            exitUI.SetActive(true);
+        exitUI.SetActive(!exitUI.activeSelf);
     }
 
     public void ShowOrHideNoteUI() //На данный момент бесполезно
@@ -79,7 +82,15 @@ public class GameUI : MonoBehaviour
             noteUI.SetActive(true);
     }
 
-    public bool IsSubmenuActive() => exitUI.activeSelf || noteUI.activeSelf || dialogueUI.activeSelf;
+    public void OpenItemPanel(PickableItem pickableItem)
+    {
+        itemPanel.SetActive(true);
+        itemPanel.transform.GetChild(1).GetComponent<Text>().text = pickableItem.itemDescription;
+    }
+
+    public void CloseItemPanel() => itemPanel.SetActive(false);
+
+    public bool IsSubmenuActive() => exitUI.activeSelf || noteUI.activeSelf || dialogueUI.activeSelf || itemPanel.activeSelf;
 
     public void ShowDeathscreen() => transform.GetChild(0).gameObject.SetActive(true);
 

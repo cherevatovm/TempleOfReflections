@@ -8,7 +8,7 @@ public class Parasite : PickableItem
     public bool[] availableMentalSkills = new bool[3];
     public int posEffectIndex;
     public int negEffectIndex;
-    
+
     private System.Random random = new System.Random();
     private int percentage;
     //private int percentage2; //сомневаюсь, что нужно
@@ -90,6 +90,22 @@ public class Parasite : PickableItem
                 itemDescription += "\nПервый осколок с этим эффектом дает шанс в 10% того, что ваша атака будет отражена обратно в вас (Каждый последующий повышает шанс на 2.5%, максимум 15%)";
                 break;
         }
+    }
+
+    private void Update()
+    {
+        if (isCloseToItem && Input.GetKeyDown(KeyCode.F))
+        {
+            Inventory.instance.tempItem = gameObject;
+            GameUI.instance.OpenItemPanel(this);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        isCloseToItem = false;
+        GameUI.instance.CloseItemPanel();
+        Inventory.instance.tempItem = null;
     }
 
     public void ApplyParasiteEffect()
@@ -244,7 +260,7 @@ public class Parasite : PickableItem
         }
     }
 
-//---------------------------(Positive effects)----------------------------------
+    //---------------------------(Positive effects)----------------------------------
 
     private void IncreaseHP() => attachedUnit.maxHP += (int)(attachedUnit.initMaxHP * 0.25);
 
@@ -256,7 +272,7 @@ public class Parasite : PickableItem
     {
         if (attachedUnit.nulls[damageTypeID])
         {
-            attachedUnit.elementAffinities[damageTypeID] += attachedUnit.initElementAffinities[damageTypeID] * 0.05f; 
+            attachedUnit.elementAffinities[damageTypeID] += attachedUnit.initElementAffinities[damageTypeID] * 0.05f;
             return;
         }
         if (attachedUnit.weaknesses[damageTypeID])
