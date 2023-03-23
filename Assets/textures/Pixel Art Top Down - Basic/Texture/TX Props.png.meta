@@ -638,7 +638,7 @@ TextureImporter:
         width: 27
         height: 61
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -659,7 +659,7 @@ TextureImporter:
         width: 56
         height: 41
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -680,7 +680,7 @@ TextureImporter:
         width: 27
         height: 61
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -688,6 +688,48 @@ TextureImporter:
       bones: []
       spriteID: 766f1530ecd83d247bc2a61535ebeffa
       internalID: 1170503261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Props_28
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 451
+        width: 32
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1754357155eb5034e9b9823e7d694f8c
+      internalID: 1691758857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TX Props_29
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 387
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cad2385ab8832c34aad03e8410ba53a3
+      internalID: -1103054100
       vertices: []
       indices: 
       edges: []
@@ -712,8 +754,10 @@ TextureImporter:
       TX Props_21: 1787005967
       TX Props_8: -2066474028
       TX Props_3: -1167998371
+      TX Props_28: 263036286
       TX Props_6: -482531708
       TX Props_18: -839858906
+      TX Props_29: 1691758857
       TX Props_16: 1914114829
       TX Props_22: 1348856997
       TX Props_19: 1784058696
