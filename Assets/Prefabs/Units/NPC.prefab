@@ -163,8 +163,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4560645954599096051}
-  unitCanvas: {fileID: 0}
-  restartDelay: 1.5
   unitName: Player
   meleeAttackStrength: 0
   mentalAttackStrength: 0
@@ -173,6 +171,9 @@ MonoBehaviour:
   maxHP: 0
   currentMP: 0
   maxMP: 0
+  itemEffectTurnsCount: 0
+  underItemEffect: 0
+  affectingItem: {fileID: 0}
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
@@ -181,7 +182,7 @@ MonoBehaviour:
   weaknesses: 000000
   resistances: 
   nulls: 
-  damageTypeAffinities: []
+  elementAffinities: []
 --- !u!95 &4560645954599096062
 Animator:
   serializedVersion: 4

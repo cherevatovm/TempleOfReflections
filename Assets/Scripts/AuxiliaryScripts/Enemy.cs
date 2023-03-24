@@ -31,5 +31,14 @@ public class Enemy : Unit
             CombatSystem.instance.isChoosingEnemyForItem = false;
             CombatSystem.instance.activeSlot.UseItemInSlot();
         }
+        else if (CombatSystem.instance.isInCombat && CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].isChoosingEnemyForAttack)
+        {
+            CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
+            CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].isChoosingEnemyForAttack = false;
+            CombatSystem.instance.combatUI.combatDialogue.text =
+                CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].unitName + " начинает атаку";
+            StartCoroutine(CombatSystem.instance.AllyAttack(CombatSystem.instance.damageTypeID, CombatSystem.instance.isMental));
+
+        }
     }
 }
