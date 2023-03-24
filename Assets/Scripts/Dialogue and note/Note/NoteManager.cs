@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class NoteManager : MonoBehaviour
 {
-    public static NoteManager instance;
+    [SerializeField] private PlayerMovement playerMovement;
     public TMP_Text titleText;
     public TMP_Text noteText;
-    [SerializeField] GameObject noteCanvas;
-    [SerializeField] PlayerMovement playerMovement;
     [HideInInspector] public DialogueTrigger dialogueTrigger;
+    public static NoteManager instance;
 
     void Start() => instance = this;
 
@@ -25,13 +24,15 @@ public class NoteManager : MonoBehaviour
         playerMovement.enabled = false;
         titleText.text = note.name;
         noteText.text = note.sentences[0];
-        noteCanvas.SetActive(true);
+        GameUI.instance.noteUI.SetActive(true);
+        GameUI.instance.blackout.SetActive(true);
     }
 
     public void EndReading()
     {
         playerMovement.enabled = true;
-        noteCanvas.SetActive(false);
+        GameUI.instance.noteUI.SetActive(false);
+        GameUI.instance.blackout.SetActive(false);
         dialogueTrigger.pressLock = false;
     }
 }

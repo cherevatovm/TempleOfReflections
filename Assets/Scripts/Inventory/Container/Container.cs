@@ -25,6 +25,11 @@ public class Container : MonoBehaviour
                 Close();
             else
             {
+                if (GameUI.instance.exitUI.activeSelf)
+                {
+                    Debug.Log("thats really weird");
+                    GameUI.instance.ShowOrHideExitUI();
+                }
                 if (isNeedOfKey)
                 {
                     if (Inventory.instance.keysInPossession > 0)
@@ -61,7 +66,7 @@ public class Container : MonoBehaviour
         isOpen = true;
     }
 
-    private void Close()
+    public void Close()
     {
         ContainerItemInfo.instance.Close();
         Inventory.instance.Close();
@@ -82,6 +87,7 @@ public class Container : MonoBehaviour
     {
         GameUI.instance.gameDialogue.text = string.Empty;
         isCloseToContainer = false;
-        Close();
+        if (isOpen)
+            Close();
     }
 }

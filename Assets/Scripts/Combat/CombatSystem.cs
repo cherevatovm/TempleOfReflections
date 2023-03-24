@@ -42,7 +42,7 @@ public class CombatSystem : MonoBehaviour
     [SerializeField] CombatHUD playerHUD;
     public CombatHUD[] enemyHUDs;
 
-    [SerializeField] CombatState combatState;
+    public CombatState combatState;
     public CombatUI combatUI;
 
     [SerializeField] Camera mainCamera;
@@ -89,7 +89,7 @@ public class CombatSystem : MonoBehaviour
         playerUnit.knockedDownTimeout = 0;
         for (int i = 0; i < encounteredEnemy.enemyPrefabsForCombat.Length; i++)
         {
-            GameObject enemyCombat = Instantiate(encounteredEnemy.enemyPrefabsForCombat[i], possibleCombatPositions[i][encounteredEnemy.enemyPrefabsForCombat[i].GetComponent<EnemyAI>().enemyID]);
+            GameObject enemyCombat = Instantiate(encounteredEnemy.enemyPrefabsForCombat[i], possibleCombatPositions[i][encounteredEnemy.enemyPrefabsForCombat[i].GetComponent<Enemy>().enemyID]);
             enemyUnits.Add(enemyCombat.GetComponent<Enemy>());
             enemyAIs.Add(enemyCombat.GetComponent<EnemyAI>());
             enemyCombatControllers.Add(enemyCombat.GetComponent<EnemyCombatController>());
@@ -165,7 +165,7 @@ public class CombatSystem : MonoBehaviour
             FinishBattle();
         }
         else
-            combatUI.combatDialogue.text = "Выберите действие";
+            combatUI.combatDialogue.text = "Выберите действие (правая кнопка мыши по врагу, чтобы увидеть информацию о нем)";
     }
 
     private IEnumerator PlayerDefend()
@@ -249,6 +249,7 @@ public class CombatSystem : MonoBehaviour
                 3 => playerUnit.unitName + " наносит " + totalDamage + " огненного урона",
                 _ => string.Empty,
             };
+            EnemyInfoPanel.instance.ChangeKnownAffinities(enemyUnits[curEnemyID].enemyID, damageTypeID);
         }
         if (isMental)
         {
@@ -389,7 +390,7 @@ public class CombatSystem : MonoBehaviour
             List<string> messages = enemyAIs[i].CombatAI(out int soundID);
             for (int j = 0; j < messages.Count; j++)
             {
-                if (enemyAIs[i].enemyID == 0 && j == messages.Count - 1 && soundID != -1)
+                if (enemyUnits[i].enemyID == 0 && j == messages.Count - 1 && soundID != -1)
                     SoundManager.PlaySound((SoundManager.Sound)soundID);
                 if (!string.IsNullOrEmpty(messages[j]))
                 {
@@ -442,15 +443,16 @@ public class CombatSystem : MonoBehaviour
         }
     }
 
-    private void RemoveEnemy(int enemyID)
+    private void RemoveEnemy(int enemyInArenaID)
     {
-        combatUI.combatDialogue.text = enemyUnits[enemyID].unitName + " оказывается повержен, оставляя после себя " + enemyUnits[enemyID].coinsDropped + " монет";
-        Inventory.instance.ChangeCoinAmount(false, enemyUnits[enemyID].coinsDropped);
-        enemyUnits[enemyID].combatHUD.gameObject.SetActive(false);
-        Destroy(enemyUnits[enemyID].gameObject);
-        enemyCombatControllers.RemoveAt(enemyID);
-        enemyUnits.RemoveAt(enemyID);
-        enemyAIs.RemoveAt(enemyID);
+        combatUI.combatDialogue.text = enemyUnits[enemyInArenaID].unitName + " оказывается повержен, оставляя после себя " + enemyUnits[enemyInArenaID].coinsDropped + " монет";
+        Inventory.instance.ChangeCoinAmount(false, enemyUnits[enemyInArenaID].coinsDropped);
+        EnemyInfoPanel.instance.IncreaseSlainInTotalCount(enemyUnits[enemyInArenaID].enemyID);
+        enemyUnits[enemyInArenaID].combatHUD.gameObject.SetActive(false);
+        Destroy(enemyUnits[enemyInArenaID].gameObject);
+        enemyCombatControllers.RemoveAt(enemyInArenaID);
+        enemyUnits.RemoveAt(enemyInArenaID);
+        enemyAIs.RemoveAt(enemyInArenaID);
     }
 
     //-----------------------------(Methods for buttons)-------------------------------------------------
@@ -461,10 +463,12 @@ public class CombatSystem : MonoBehaviour
             return;
         isChoosingEnemyForAttack = false;
         isChoosingEnemyForItem = false;
+        if (EnemyInfoPanel.instance.isActiveAndEnabled)
+            EnemyInfoPanel.instance.CloseEnemyInfoPanel();
         if (Inventory.instance.isOpen)
         {
             Inventory.instance.Close();
-            combatUI.combatDialogue.text = "Выберите действие";
+            combatUI.combatDialogue.text = "Выберите действие (правая кнопка мыши по врагу, чтобы увидеть информацию о нем)";
         }
         else
         {
@@ -479,6 +483,8 @@ public class CombatSystem : MonoBehaviour
     {
         if (combatState != CombatState.PLAYER_TURN)
             return;
+        if (EnemyInfoPanel.instance.isActiveAndEnabled)
+            EnemyInfoPanel.instance.CloseEnemyInfoPanel();
         if (Inventory.instance.isOpen)
             Inventory.instance.Close();
         if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
@@ -496,6 +502,8 @@ public class CombatSystem : MonoBehaviour
             return;
         isChoosingEnemyForAttack = false;
         isChoosingEnemyForItem = false;
+        if (EnemyInfoPanel.instance.isActiveAndEnabled)
+            EnemyInfoPanel.instance.CloseEnemyInfoPanel();
         if (Inventory.instance.isOpen)
             Inventory.instance.Close();
         if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
@@ -508,6 +516,8 @@ public class CombatSystem : MonoBehaviour
     {
         if (combatState != CombatState.PLAYER_TURN)
             return;
+        if (EnemyInfoPanel.instance.isActiveAndEnabled)
+            EnemyInfoPanel.instance.CloseEnemyInfoPanel();
         if (Inventory.instance.isOpen)
             Inventory.instance.Close();
         if (combatUI.skillButtonsWereInstantiated)
@@ -522,7 +532,7 @@ public class CombatSystem : MonoBehaviour
         if (combatUI.areButtonsShown)
             combatUI.combatDialogue.text = "Выберите навык, который хотите применить";
         else
-            combatUI.combatDialogue.text = "Выберите действие";
+            combatUI.combatDialogue.text = "Выберите действие (правая кнопка мыши по врагу, чтобы увидеть информацию о нем)";
     }
 
     public void OnPsionaButton()

@@ -94,8 +94,8 @@ public class Parasite : PickableItem
 
     private void Update()
     {
-        if (isCloseToItem && Input.GetKeyDown(KeyCode.F))
-        {
+        if (Input.GetKeyDown(KeyCode.F) && isCloseToItem)
+        {       
             Inventory.instance.tempItem = gameObject;
             GameUI.instance.OpenItemPanel(this);
         }

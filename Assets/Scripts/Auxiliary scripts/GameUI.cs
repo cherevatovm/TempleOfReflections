@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {    
-    [SerializeField] TMP_Text hpCounter;
-    [SerializeField] TMP_Text mpCounter;
-    [SerializeField] Slider hpSlider;
-    [SerializeField] Slider mpSlider; 
-    [SerializeField] GameObject noteUI;
-    [SerializeField] GameObject dialogueUI;
-    [SerializeField] GameObject itemPanel;
+    [SerializeField] private TMP_Text hpCounter;
+    [SerializeField] private TMP_Text mpCounter;
+    [SerializeField] private Slider hpSlider;
+    [SerializeField] private Slider mpSlider; 
+    [SerializeField] private GameObject dialogueUI;
+    [SerializeField] private GameObject itemPanel;  
+    public GameObject noteUI;
     public GameObject exitUI;
+    public GameObject blackout;
     public TMP_Text gameDialogue;
     public static GameUI instance;
 
@@ -55,6 +56,8 @@ public class GameUI : MonoBehaviour
         {
             if (Inventory.instance.isInTrade)
                 DialogueManager.instance.MerchantsLine();
+            else if (Inventory.instance.isContainerOpen)
+                Inventory.instance.container.Close();
             else
                 Inventory.instance.Close();
             return;
@@ -72,25 +75,22 @@ public class GameUI : MonoBehaviour
         else if (dialogueUI.activeSelf)
             return;
         exitUI.SetActive(!exitUI.activeSelf);
-    }
-
-    public void ShowOrHideNoteUI() //На данный момент бесполезно
-    {
-        if (noteUI.activeSelf)
-            noteUI.SetActive(false);
-        else
-            noteUI.SetActive(true);
+        blackout.SetActive(!blackout.activeSelf);
     }
 
     public void OpenItemPanel(PickableItem pickableItem)
     {
+        if (Inventory.instance.isOpen)
+            Inventory.instance.Close();
+        else if (exitUI.activeSelf)
+            ShowOrHideExitUI();
         itemPanel.SetActive(true);
         itemPanel.transform.GetChild(1).GetComponent<Text>().text = pickableItem.itemDescription;
     }
 
     public void CloseItemPanel() => itemPanel.SetActive(false);
 
-    public bool IsSubmenuActive() => exitUI.activeSelf || noteUI.activeSelf || dialogueUI.activeSelf || itemPanel.activeSelf;
+    public bool IsSubmenuActive() => noteUI.activeSelf || dialogueUI.activeSelf || itemPanel.activeSelf;
 
     public void ShowDeathscreen() => transform.GetChild(0).gameObject.SetActive(true);
 

@@ -150,9 +150,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1.5
+  enemyID: 2
+  coinsDropped: 100
   enemyPrefabsForCombat: []
   combatHUD: {fileID: 0}
-  coinsDropped: 100
 --- !u!114 &8164385237867508122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f9ee0d061af5844a8a2044baabb1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyID: 2
 --- !u!95 &8164385237867508123
 Animator:
   serializedVersion: 4

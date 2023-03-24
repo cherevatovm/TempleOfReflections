@@ -6,8 +6,6 @@ public class ElectraEnemyAI : EnemyAI
 {
     private System.Random random = new();
 
-    private void Start() => enemyID = 0;
-
     public override List<string> CombatAI(out int soundID)
     {
         List<string> messageList = new();
@@ -25,6 +23,7 @@ public class ElectraEnemyAI : EnemyAI
                 currentEnemyUnit.ReduceCurrentMP(3);
                 currentEnemyUnit.combatHUD.ChangeMP(currentEnemyUnit.currentMP);
                 CombatSystem.instance.enemyCombatControllers[CombatSystem.instance.curEnemyID].isHurting = true;
+                EnemyInfoPanel.instance.ChangeKnownAffinities(currentEnemyUnit.enemyID, 2);
                 return messageList;
             }
             else
@@ -45,6 +44,7 @@ public class ElectraEnemyAI : EnemyAI
             {
                 messageList.Add(CombatSystem.instance.ReflectAction(currentEnemyUnit, -1, -CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, currentEnemyUnit), out _));
                 CombatSystem.instance.enemyCombatControllers[CombatSystem.instance.curEnemyID].isHurting = true;
+                EnemyInfoPanel.instance.ChangeKnownAffinities(currentEnemyUnit.enemyID, 0);
                 return messageList;
             }
             else

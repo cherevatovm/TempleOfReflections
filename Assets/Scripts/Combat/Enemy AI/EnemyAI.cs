@@ -4,7 +4,5 @@ using UnityEngine;
 
 public abstract class EnemyAI : MonoBehaviour
 {
-    public int enemyID;
-
     public abstract List<string> CombatAI(out int soundID);
 }

@@ -6,11 +6,11 @@ using TMPro;
 
 public class CombatHUD : MonoBehaviour
 {
-    [SerializeField] TMP_Text textName;
-    [SerializeField] TMP_Text hpCounter;
-    [SerializeField] TMP_Text mpCounter;
-    [SerializeField] Slider hpSlider;
-    [SerializeField] Slider mpSlider;
+    [SerializeField] private TMP_Text textName;
+    [SerializeField] private TMP_Text hpCounter;
+    [SerializeField] private TMP_Text mpCounter;
+    [SerializeField] private Slider hpSlider;
+    [SerializeField] private Slider mpSlider;
 
     public void SetHUD(Unit unit)
     {

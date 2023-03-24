@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
+    public string enemyDescription;
+    public int enemyID;
+    public int coinsDropped;
     public GameObject[] enemyPrefabsForCombat;
     [HideInInspector] public CombatHUD combatHUD;
-    public int coinsDropped;
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && !CombatSystem.instance.isInCombat)
@@ -21,16 +23,18 @@ public class Enemy : Unit
 
     private void OnMouseOver()
     {
+        if (!CombatSystem.instance.isInCombat || EnemyInfoPanel.instance.isActiveAndEnabled)
+            return;
         if (Input.GetMouseButtonDown(0))
         {
-            if (CombatSystem.instance.isInCombat && CombatSystem.instance.isChoosingEnemyForAttack)
+            if (CombatSystem.instance.isChoosingEnemyForAttack)
             {
                 CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
                 CombatSystem.instance.isChoosingEnemyForAttack = false;
                 CombatSystem.instance.combatUI.combatDialogue.text = CombatSystem.instance.playerUnit.unitName + " начинает атаку";
                 StartCoroutine(CombatSystem.instance.PlayerAttack(CombatSystem.instance.damageTypeID, CombatSystem.instance.isMental));
             }
-            else if (CombatSystem.instance.isInCombat && CombatSystem.instance.isChoosingEnemyForItem)
+            else if (CombatSystem.instance.isChoosingEnemyForItem)
             {
                 CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
                 CombatSystem.instance.isChoosingEnemyForItem = false;
@@ -39,24 +43,8 @@ public class Enemy : Unit
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            //EnemyInfoPanel.instance.gameObject.SetActive(true);
-        }
-    }
-
-    private void OnMouseDown()
-    {
-        if (CombatSystem.instance.isInCombat && CombatSystem.instance.isChoosingEnemyForAttack)
-        {
-            CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
-            CombatSystem.instance.isChoosingEnemyForAttack = false;
-            CombatSystem.instance.combatUI.combatDialogue.text = CombatSystem.instance.playerUnit.unitName + " начинает атаку";
-            StartCoroutine(CombatSystem.instance.PlayerAttack(CombatSystem.instance.damageTypeID, CombatSystem.instance.isMental));
-        }
-        else if (CombatSystem.instance.isInCombat && CombatSystem.instance.isChoosingEnemyForItem)
-        {
-            CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
-            CombatSystem.instance.isChoosingEnemyForItem = false;
-            CombatSystem.instance.activeSlot.UseItemInSlot();
+            if (!Inventory.instance.isOpen && CombatSystem.instance.combatState == CombatState.PLAYER_TURN)
+                EnemyInfoPanel.instance.OpenEnemyInfoPanel(this);
         }
     }
 }

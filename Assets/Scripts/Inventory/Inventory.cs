@@ -53,12 +53,20 @@ public class Inventory : MonoBehaviour
             if (isOpen)
                 instance.Close();
             else
+            {
+                if (GameUI.instance.exitUI.activeSelf)
+                    GameUI.instance.ShowOrHideExitUI();
                 instance.Open();
+            }
     }
 
     public void Open()
     {
         gameObject.transform.localScale = Vector3.one;
+        if (CombatSystem.instance.isInCombat)
+            CombatSystem.instance.combatUI.blackouts[0].SetActive(true);
+        else
+            GameUI.instance.blackout.SetActive(true);
         if (isContainerOpen)
         {
             transform.GetChild(0).gameObject.SetActive(false);
@@ -133,6 +141,10 @@ public class Inventory : MonoBehaviour
     public void Close()
     {
         gameObject.transform.localScale = Vector3.zero;
+        if (CombatSystem.instance.isInCombat)
+            CombatSystem.instance.combatUI.blackouts[0].SetActive(false);
+        else
+            GameUI.instance.blackout.SetActive(false);
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(false);
         transform.GetChild(2).gameObject.SetActive(true);

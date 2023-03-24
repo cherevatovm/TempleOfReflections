@@ -6,13 +6,26 @@ using UnityEngine.UI;
 
 public class CombatUI : MonoBehaviour
 {
-    public EnemyInfoPanel enemyInfoPanel;
-    public TextMeshProUGUI combatDialogue;
-    public GameObject[] buttonPrefabs;
     private List<Button> mentalSkillButtonList = new();
-    private bool[] availableMentalSkillButtons = new bool[4];
+    private bool[] availableMentalSkillButtons = new bool[4];   
+    public TextMeshProUGUI combatDialogue;
+    public GameObject[] blackouts;
+    public GameObject[] buttonPrefabs;
     [HideInInspector] public bool areButtonsShown;
     [HideInInspector] public bool skillButtonsWereInstantiated;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EnemyInfoPanel.instance.CloseEnemyInfoPanel();
+            if (Inventory.instance.isOpen)
+            {
+                Inventory.instance.Close();
+                combatDialogue.text = "Выберите действие";
+            }
+        }
+    }
 
     public void SetMentalSkillButtons()
     {

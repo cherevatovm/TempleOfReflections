@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class EnemyInfoPanel : MonoBehaviour
         public bool[] knownAffinities = new bool[4];
         public bool[] weaknesses;
         public bool[] resistances;
-        public bool[] nulls;
+        public bool[] nulls;  
 
         public EnemyStats(Enemy enemy)
         {
@@ -29,12 +30,29 @@ public class EnemyInfoPanel : MonoBehaviour
     }
     [SerializeField] GameObject[] enemyPrefabs;
     private List<EnemyStats> enemyStats;
+    public static EnemyInfoPanel instance;
 
     private void Start()
     {
+        instance = this;
         foreach (var prefab in enemyPrefabs)
             enemyStats.Add(new EnemyStats(prefab.GetComponent<Enemy>()));
     }
 
     public void ChangeKnownAffinities(int enemyID, int damageTypeID) => enemyStats[enemyID][damageTypeID] = true;
+
+    public void IncreaseSlainInTotalCount(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OpenEnemyInfoPanel(Enemy enemy)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void CloseEnemyInfoPanel()
+    {
+        throw new NotImplementedException();
+    }
 }

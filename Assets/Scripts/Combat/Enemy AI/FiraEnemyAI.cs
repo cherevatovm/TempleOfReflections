@@ -6,8 +6,6 @@ public class FiraEnemyAI : EnemyAI
 {
     private System.Random random = new();
 
-    private void Start() => enemyID = 1;
-
     public override List<string> CombatAI(out int soundID)
     {
         soundID = -1;
@@ -25,6 +23,7 @@ public class FiraEnemyAI : EnemyAI
                 messageList.Add(effectMessage);
                 messageList.Add(message);
                 CombatSystem.instance.enemyCombatControllers[CombatSystem.instance.curEnemyID].isHurting = true;
+                EnemyInfoPanel.instance.ChangeKnownAffinities(currentEnemyUnit.enemyID, 3);
             }
             else
             {
@@ -44,6 +43,7 @@ public class FiraEnemyAI : EnemyAI
             {
                 messageList.Add(CombatSystem.instance.ReflectAction(currentEnemyUnit, -1, -CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, currentEnemyUnit), out _));
                 CombatSystem.instance.enemyCombatControllers[CombatSystem.instance.curEnemyID].isHurting = true;
+                EnemyInfoPanel.instance.ChangeKnownAffinities(currentEnemyUnit.enemyID, 0);
             }
             else
             {
@@ -73,6 +73,7 @@ public class FiraEnemyAI : EnemyAI
                 messageList.Add(effectMessage);
                 messageList.Add(message);
                 CombatSystem.instance.enemyCombatControllers[CombatSystem.instance.curEnemyID].isHurting = true;
+                EnemyInfoPanel.instance.ChangeKnownAffinities(currentEnemyUnit.enemyID, 3);
             }
             else
             {
@@ -92,6 +93,7 @@ public class FiraEnemyAI : EnemyAI
             {
                 messageList.Add(CombatSystem.instance.ReflectAction(currentEnemyUnit, -1, (int)(-1.15 * CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, currentEnemyUnit)), out _));
                 CombatSystem.instance.enemyCombatControllers[CombatSystem.instance.curEnemyID].isHurting = true;
+                EnemyInfoPanel.instance.ChangeKnownAffinities(currentEnemyUnit.enemyID, 0);
             }
             else
             {

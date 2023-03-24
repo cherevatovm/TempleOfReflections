@@ -6,8 +6,6 @@ public class BossEnemyAI : EnemyAI
 {
     System.Random random = new System.Random();
 
-    private void Start() => enemyID = 2;
-
     public override List<string> CombatAI(out int soundID)
     {
         List<string> messageList = new();
@@ -32,6 +30,7 @@ public class BossEnemyAI : EnemyAI
                 messageList.Add(effectMessage);
                 messageList.Add(message);
                 CombatSystem.instance.enemyCombatControllers[CombatSystem.instance.curEnemyID].isHurting = true;
+                EnemyInfoPanel.instance.ChangeKnownAffinities(currentEnemyUnit.enemyID, 1);
             }
             else
             {
@@ -53,6 +52,7 @@ public class BossEnemyAI : EnemyAI
                 messageList.Add(effectMessage);
                 messageList.Add(message);
                 CombatSystem.instance.enemyCombatControllers[CombatSystem.instance.curEnemyID].isHurting = true;
+                EnemyInfoPanel.instance.ChangeKnownAffinities(currentEnemyUnit.enemyID, 3);
             }
             else
             {
