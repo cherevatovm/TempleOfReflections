@@ -3,23 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
-{   
-    private bool inTriggerArea;
-    protected bool alreadyTalkedTo;
+{
+    private bool alreadyTalkedTo;
+    protected bool inTriggerArea;
     public Dialogue dialogue1;
     public Dialogue dialogue2;
-    [HideInInspector] public bool wasKeyPressed;
     [HideInInspector] public bool pressLock;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T) && !pressLock && inTriggerArea)
-            wasKeyPressed = true;
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (wasKeyPressed)
+        if (Input.GetKeyDown(KeyCode.T) && inTriggerArea && !pressLock)
         {
             DialogueManager.instance.dialogueTrigger = this;
             if (!alreadyTalkedTo)

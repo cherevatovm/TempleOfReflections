@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class NoteTrigger : DialogueTrigger
 {
-    private void OnTriggerStay2D(Collider2D collision)
+    private void Update()
     {
-        if (wasKeyPressed)
+        if (Input.GetKeyDown(KeyCode.T) && inTriggerArea && !pressLock)
         {
             NoteManager.instance.dialogueTrigger = this;
             NoteManager.instance.StartReading(dialogue1);

@@ -19,7 +19,6 @@ public class NoteManager : MonoBehaviour
             Inventory.instance.Close();
         else if (GameUI.instance.exitUI.activeSelf)
             GameUI.instance.exitUI.SetActive(false);
-        dialogueTrigger.wasKeyPressed = false;
         dialogueTrigger.pressLock = true;
         playerMovement.enabled = false;
         titleText.text = note.name;
