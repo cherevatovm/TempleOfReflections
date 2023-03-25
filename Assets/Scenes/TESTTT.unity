@@ -33948,6 +33948,65 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8125, y: 0.8841629}
   m_EdgeRadius: 0
+--- !u!1001 &644526692
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 121105109028774537, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_RootOrder
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 121105109028774537, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.7690511
+      objectReference: {fileID: 0}
+    - target: {fileID: 121105109028774537, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.4682411
+      objectReference: {fileID: 0}
+    - target: {fileID: 121105109028774537, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 121105109028774537, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 121105109028774537, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 121105109028774537, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 121105109028774537, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 121105109028774537, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 121105109028774537, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 121105109028774537, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 121105109028774546, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      propertyPath: m_Name
+      value: allyCombattt
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -1613365070585333300, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+    - {fileID: 121105109028774548, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
 --- !u!1 &647492767
 GameObject:
   m_ObjectHideFlags: 0
@@ -45660,6 +45719,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041730828}
   m_CullTransparentMesh: 1
+--- !u!1 &1054968947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 121105109028774546, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+  m_PrefabInstance: {fileID: 644526692}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1054968948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054968947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db09d3a332c96b546bec3fe09101a884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  unitName: allyAgent
+  meleeAttackStrength: 10
+  mentalAttackStrength: 10
+  armorModifier: 1
+  currentHP: 50
+  maxHP: 50
+  currentMP: 50
+  maxMP: 50
+  itemEffectTurnsCount: 0
+  underItemEffect: 0
+  affectingItem: {fileID: 0}
+  isKnockedDown: 0
+  knockedTurnsCount: 0
+  knockedDownTimeout: 0
+  appliedEffect: 000000
+  underEffectTurnsCount: 0
+  weaknesses: 00010000
+  resistances: 00010000
+  nulls: 00000000
+  elementAffinities:
+  - 0
+  - 0
+  - 0
+  - 0
+  combatHUD: {fileID: 0}
+  allyID: 0
+  isChoosingEnemyForAttack: 0
 --- !u!1 &1068087666
 GameObject:
   m_ObjectHideFlags: 0
@@ -48706,8 +48810,8 @@ MonoBehaviour:
   enemyUnits: []
   allyUnits: []
   allyPrefabsForCombat:
+  - {fileID: 1054968947}
   - {fileID: 2019916086}
-  - {fileID: 2065093293}
   enemyCombatControllers: []
   playerPrefab: {fileID: 2071489065544092236, guid: 588f729097ab24e4a813018e93695f96, type: 3}
   encounteredEnemy: {fileID: 0}
@@ -48741,8 +48845,8 @@ MonoBehaviour:
   - {fileID: 183486245}
   - {fileID: 1882774841}
   allyHUDs:
-  - {fileID: 1583571416}
   - {fileID: 1961691236}
+  - {fileID: 1583571416}
   combatState: 0
   combatUI: {fileID: 331528588331645036}
   mainCamera: {fileID: 519420031}
@@ -48757,7 +48861,6 @@ MonoBehaviour:
   damageTypeID: 0
   isMental: 0
   activeSlot: {fileID: 0}
-  isHitHimself: 0
 --- !u!4 &1117208268
 Transform:
   m_ObjectHideFlags: 0
@@ -101695,10 +101798,10 @@ RectTransform:
   m_Father: {fileID: 1129700615}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 927, y: 870}
-  m_SizeDelta: {x: 430, y: 175}
+  m_AnchoredPosition: {x: -33, y: 870}
+  m_SizeDelta: {x: 2350, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1583571414
 MonoBehaviour:
@@ -107206,10 +107309,10 @@ RectTransform:
   m_Father: {fileID: 1129700615}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 510, y: -550}
-  m_SizeDelta: {x: 430, y: 175}
+  m_AnchoredPosition: {x: -450, y: -550}
+  m_SizeDelta: {x: 2350, y: 175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1961691234
 MonoBehaviour:
@@ -108326,8 +108429,8 @@ MonoBehaviour:
   meleeAttackStrength: 100
   mentalAttackStrength: 100
   armorModifier: 1
-  currentHP: 50
-  maxHP: 50
+  currentHP: 40
+  maxHP: 40
   currentMP: 30
   maxMP: 30
   itemEffectTurnsCount: 0

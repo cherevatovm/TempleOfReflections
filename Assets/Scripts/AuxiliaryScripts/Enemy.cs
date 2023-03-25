@@ -38,7 +38,6 @@ public class Enemy : Unit
             CombatSystem.instance.combatUI.combatDialogue.text =
                 CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].unitName + " начинает атаку";
             StartCoroutine(CombatSystem.instance.AllyAttack(CombatSystem.instance.damageTypeID, CombatSystem.instance.isMental));
-
         }
     }
 }

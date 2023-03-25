@@ -8,17 +8,18 @@ public class Ally : Unit
     public CombatHUD combatHUD;
     public int allyID;
     public bool isChoosingEnemyForAttack;
-    //Animator animator;
 
     private void Start()
     {
         allyID = 0;
-        //animator = GetComponent<Animator>();
+        Transform transform = GetComponent<Transform>();
     }
 
     private void Update()
     {
-        //animator.SetBool("reverse", true);
+        Vector3 scale = transform.localScale;
+        scale.x = -1f;
+        transform.localScale = scale;
     }
 
     private void OnMouseDown()
