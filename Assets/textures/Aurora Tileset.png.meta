@@ -1578,8 +1578,8 @@ TextureImporter:
       name: Aurora Tileset_70
       rect:
         serializedVersion: 2
-        x: 32
-        y: 544
+        x: 896
+        y: 576
         width: 32
         height: 32
       alignment: 0
@@ -1599,8 +1599,8 @@ TextureImporter:
       name: Aurora Tileset_71
       rect:
         serializedVersion: 2
-        x: 64
-        y: 544
+        x: 928
+        y: 576
         width: 32
         height: 32
       alignment: 0
@@ -1620,8 +1620,8 @@ TextureImporter:
       name: Aurora Tileset_72
       rect:
         serializedVersion: 2
-        x: 96
-        y: 544
+        x: 960
+        y: 576
         width: 32
         height: 32
       alignment: 0
@@ -1641,7 +1641,7 @@ TextureImporter:
       name: Aurora Tileset_73
       rect:
         serializedVersion: 2
-        x: 320
+        x: 32
         y: 544
         width: 32
         height: 32
@@ -1662,7 +1662,7 @@ TextureImporter:
       name: Aurora Tileset_74
       rect:
         serializedVersion: 2
-        x: 352
+        x: 64
         y: 544
         width: 32
         height: 32
@@ -1683,7 +1683,7 @@ TextureImporter:
       name: Aurora Tileset_75
       rect:
         serializedVersion: 2
-        x: 384
+        x: 96
         y: 544
         width: 32
         height: 32
@@ -1704,7 +1704,7 @@ TextureImporter:
       name: Aurora Tileset_76
       rect:
         serializedVersion: 2
-        x: 416
+        x: 320
         y: 544
         width: 32
         height: 32
@@ -1725,7 +1725,7 @@ TextureImporter:
       name: Aurora Tileset_77
       rect:
         serializedVersion: 2
-        x: 448
+        x: 352
         y: 544
         width: 32
         height: 32
@@ -1746,7 +1746,7 @@ TextureImporter:
       name: Aurora Tileset_78
       rect:
         serializedVersion: 2
-        x: 480
+        x: 384
         y: 544
         width: 32
         height: 32
@@ -1767,7 +1767,7 @@ TextureImporter:
       name: Aurora Tileset_79
       rect:
         serializedVersion: 2
-        x: 512
+        x: 416
         y: 544
         width: 32
         height: 32
@@ -1788,7 +1788,7 @@ TextureImporter:
       name: Aurora Tileset_80
       rect:
         serializedVersion: 2
-        x: 576
+        x: 448
         y: 544
         width: 32
         height: 32
@@ -1809,7 +1809,7 @@ TextureImporter:
       name: Aurora Tileset_81
       rect:
         serializedVersion: 2
-        x: 608
+        x: 480
         y: 544
         width: 32
         height: 32
@@ -1830,7 +1830,7 @@ TextureImporter:
       name: Aurora Tileset_82
       rect:
         serializedVersion: 2
-        x: 640
+        x: 512
         y: 544
         width: 32
         height: 32
@@ -1851,7 +1851,7 @@ TextureImporter:
       name: Aurora Tileset_83
       rect:
         serializedVersion: 2
-        x: 672
+        x: 576
         y: 544
         width: 32
         height: 32
@@ -1872,7 +1872,7 @@ TextureImporter:
       name: Aurora Tileset_84
       rect:
         serializedVersion: 2
-        x: 704
+        x: 608
         y: 544
         width: 32
         height: 32
@@ -1893,7 +1893,7 @@ TextureImporter:
       name: Aurora Tileset_85
       rect:
         serializedVersion: 2
-        x: 736
+        x: 640
         y: 544
         width: 32
         height: 32
@@ -1914,7 +1914,7 @@ TextureImporter:
       name: Aurora Tileset_86
       rect:
         serializedVersion: 2
-        x: 768
+        x: 672
         y: 544
         width: 32
         height: 32
@@ -1935,7 +1935,7 @@ TextureImporter:
       name: Aurora Tileset_87
       rect:
         serializedVersion: 2
-        x: 800
+        x: 704
         y: 544
         width: 32
         height: 32
@@ -1956,7 +1956,7 @@ TextureImporter:
       name: Aurora Tileset_88
       rect:
         serializedVersion: 2
-        x: 832
+        x: 736
         y: 544
         width: 32
         height: 32
@@ -1977,7 +1977,7 @@ TextureImporter:
       name: Aurora Tileset_89
       rect:
         serializedVersion: 2
-        x: 864
+        x: 768
         y: 544
         width: 32
         height: 32
@@ -1998,8 +1998,8 @@ TextureImporter:
       name: Aurora Tileset_90
       rect:
         serializedVersion: 2
-        x: 32
-        y: 512
+        x: 800
+        y: 544
         width: 32
         height: 32
       alignment: 0
@@ -2019,8 +2019,8 @@ TextureImporter:
       name: Aurora Tileset_91
       rect:
         serializedVersion: 2
-        x: 64
-        y: 512
+        x: 832
+        y: 544
         width: 32
         height: 32
       alignment: 0
@@ -2040,8 +2040,8 @@ TextureImporter:
       name: Aurora Tileset_92
       rect:
         serializedVersion: 2
-        x: 96
-        y: 512
+        x: 864
+        y: 544
         width: 32
         height: 32
       alignment: 0
@@ -2061,8 +2061,8 @@ TextureImporter:
       name: Aurora Tileset_93
       rect:
         serializedVersion: 2
-        x: 320
-        y: 512
+        x: 896
+        y: 544
         width: 32
         height: 32
       alignment: 0
@@ -2082,8 +2082,8 @@ TextureImporter:
       name: Aurora Tileset_94
       rect:
         serializedVersion: 2
-        x: 352
-        y: 512
+        x: 928
+        y: 544
         width: 32
         height: 32
       alignment: 0
@@ -2103,8 +2103,8 @@ TextureImporter:
       name: Aurora Tileset_95
       rect:
         serializedVersion: 2
-        x: 384
-        y: 512
+        x: 960
+        y: 544
         width: 32
         height: 32
       alignment: 0
@@ -2124,7 +2124,7 @@ TextureImporter:
       name: Aurora Tileset_96
       rect:
         serializedVersion: 2
-        x: 416
+        x: 32
         y: 512
         width: 32
         height: 32
@@ -2145,7 +2145,7 @@ TextureImporter:
       name: Aurora Tileset_97
       rect:
         serializedVersion: 2
-        x: 448
+        x: 64
         y: 512
         width: 32
         height: 32
@@ -2166,7 +2166,7 @@ TextureImporter:
       name: Aurora Tileset_98
       rect:
         serializedVersion: 2
-        x: 480
+        x: 96
         y: 512
         width: 32
         height: 32
@@ -2187,7 +2187,7 @@ TextureImporter:
       name: Aurora Tileset_99
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 512
         width: 32
         height: 32
@@ -2208,7 +2208,7 @@ TextureImporter:
       name: Aurora Tileset_100
       rect:
         serializedVersion: 2
-        x: 576
+        x: 352
         y: 512
         width: 32
         height: 32
@@ -2229,7 +2229,7 @@ TextureImporter:
       name: Aurora Tileset_101
       rect:
         serializedVersion: 2
-        x: 640
+        x: 384
         y: 512
         width: 32
         height: 32
@@ -2250,7 +2250,7 @@ TextureImporter:
       name: Aurora Tileset_102
       rect:
         serializedVersion: 2
-        x: 672
+        x: 416
         y: 512
         width: 32
         height: 32
@@ -2271,7 +2271,7 @@ TextureImporter:
       name: Aurora Tileset_103
       rect:
         serializedVersion: 2
-        x: 704
+        x: 448
         y: 512
         width: 32
         height: 32
@@ -2292,8 +2292,8 @@ TextureImporter:
       name: Aurora Tileset_104
       rect:
         serializedVersion: 2
-        x: 0
-        y: 480
+        x: 480
+        y: 512
         width: 32
         height: 32
       alignment: 0
@@ -2313,8 +2313,8 @@ TextureImporter:
       name: Aurora Tileset_105
       rect:
         serializedVersion: 2
-        x: 32
-        y: 480
+        x: 512
+        y: 512
         width: 32
         height: 32
       alignment: 0
@@ -2334,8 +2334,8 @@ TextureImporter:
       name: Aurora Tileset_106
       rect:
         serializedVersion: 2
-        x: 64
-        y: 480
+        x: 576
+        y: 512
         width: 32
         height: 32
       alignment: 0
@@ -2355,8 +2355,8 @@ TextureImporter:
       name: Aurora Tileset_107
       rect:
         serializedVersion: 2
-        x: 96
-        y: 480
+        x: 640
+        y: 512
         width: 32
         height: 32
       alignment: 0
@@ -2376,8 +2376,8 @@ TextureImporter:
       name: Aurora Tileset_108
       rect:
         serializedVersion: 2
-        x: 128
-        y: 480
+        x: 672
+        y: 512
         width: 32
         height: 32
       alignment: 0
@@ -2397,8 +2397,8 @@ TextureImporter:
       name: Aurora Tileset_109
       rect:
         serializedVersion: 2
-        x: 192
-        y: 480
+        x: 704
+        y: 512
         width: 32
         height: 32
       alignment: 0
@@ -2418,7 +2418,7 @@ TextureImporter:
       name: Aurora Tileset_110
       rect:
         serializedVersion: 2
-        x: 224
+        x: 0
         y: 480
         width: 32
         height: 32
@@ -2439,7 +2439,7 @@ TextureImporter:
       name: Aurora Tileset_111
       rect:
         serializedVersion: 2
-        x: 256
+        x: 32
         y: 480
         width: 32
         height: 32
@@ -2460,7 +2460,7 @@ TextureImporter:
       name: Aurora Tileset_112
       rect:
         serializedVersion: 2
-        x: 320
+        x: 64
         y: 480
         width: 32
         height: 32
@@ -2481,7 +2481,7 @@ TextureImporter:
       name: Aurora Tileset_113
       rect:
         serializedVersion: 2
-        x: 352
+        x: 96
         y: 480
         width: 32
         height: 32
@@ -2502,7 +2502,7 @@ TextureImporter:
       name: Aurora Tileset_114
       rect:
         serializedVersion: 2
-        x: 384
+        x: 128
         y: 480
         width: 32
         height: 32
@@ -2523,7 +2523,7 @@ TextureImporter:
       name: Aurora Tileset_115
       rect:
         serializedVersion: 2
-        x: 416
+        x: 192
         y: 480
         width: 32
         height: 32
@@ -2544,7 +2544,7 @@ TextureImporter:
       name: Aurora Tileset_116
       rect:
         serializedVersion: 2
-        x: 448
+        x: 224
         y: 480
         width: 32
         height: 32
@@ -2565,7 +2565,7 @@ TextureImporter:
       name: Aurora Tileset_117
       rect:
         serializedVersion: 2
-        x: 480
+        x: 256
         y: 480
         width: 32
         height: 32
@@ -2586,7 +2586,7 @@ TextureImporter:
       name: Aurora Tileset_118
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 480
         width: 32
         height: 32
@@ -2607,7 +2607,7 @@ TextureImporter:
       name: Aurora Tileset_119
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 480
         width: 32
         height: 32
@@ -2628,7 +2628,7 @@ TextureImporter:
       name: Aurora Tileset_120
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 480
         width: 32
         height: 32
@@ -2649,7 +2649,7 @@ TextureImporter:
       name: Aurora Tileset_121
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 480
         width: 32
         height: 32
@@ -2670,7 +2670,7 @@ TextureImporter:
       name: Aurora Tileset_122
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 480
         width: 32
         height: 32
@@ -2691,7 +2691,7 @@ TextureImporter:
       name: Aurora Tileset_123
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 480
         width: 32
         height: 32
@@ -2712,7 +2712,7 @@ TextureImporter:
       name: Aurora Tileset_124
       rect:
         serializedVersion: 2
-        x: 704
+        x: 512
         y: 480
         width: 32
         height: 32
@@ -2733,7 +2733,7 @@ TextureImporter:
       name: Aurora Tileset_125
       rect:
         serializedVersion: 2
-        x: 736
+        x: 544
         y: 480
         width: 32
         height: 32
@@ -2754,7 +2754,7 @@ TextureImporter:
       name: Aurora Tileset_126
       rect:
         serializedVersion: 2
-        x: 768
+        x: 576
         y: 480
         width: 32
         height: 32
@@ -2775,7 +2775,7 @@ TextureImporter:
       name: Aurora Tileset_127
       rect:
         serializedVersion: 2
-        x: 800
+        x: 608
         y: 480
         width: 32
         height: 32
@@ -2796,7 +2796,7 @@ TextureImporter:
       name: Aurora Tileset_128
       rect:
         serializedVersion: 2
-        x: 832
+        x: 640
         y: 480
         width: 32
         height: 32
@@ -2817,7 +2817,7 @@ TextureImporter:
       name: Aurora Tileset_129
       rect:
         serializedVersion: 2
-        x: 864
+        x: 672
         y: 480
         width: 32
         height: 32
@@ -2838,7 +2838,7 @@ TextureImporter:
       name: Aurora Tileset_130
       rect:
         serializedVersion: 2
-        x: 896
+        x: 704
         y: 480
         width: 32
         height: 32
@@ -2859,7 +2859,7 @@ TextureImporter:
       name: Aurora Tileset_131
       rect:
         serializedVersion: 2
-        x: 928
+        x: 736
         y: 480
         width: 32
         height: 32
@@ -2880,7 +2880,7 @@ TextureImporter:
       name: Aurora Tileset_132
       rect:
         serializedVersion: 2
-        x: 960
+        x: 768
         y: 480
         width: 32
         height: 32
@@ -2901,7 +2901,7 @@ TextureImporter:
       name: Aurora Tileset_133
       rect:
         serializedVersion: 2
-        x: 992
+        x: 800
         y: 480
         width: 32
         height: 32
@@ -2922,7 +2922,7 @@ TextureImporter:
       name: Aurora Tileset_134
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 832
         y: 480
         width: 32
         height: 32
@@ -2943,7 +2943,7 @@ TextureImporter:
       name: Aurora Tileset_135
       rect:
         serializedVersion: 2
-        x: 1056
+        x: 864
         y: 480
         width: 32
         height: 32
@@ -2964,7 +2964,7 @@ TextureImporter:
       name: Aurora Tileset_136
       rect:
         serializedVersion: 2
-        x: 1088
+        x: 896
         y: 480
         width: 32
         height: 32
@@ -2985,8 +2985,8 @@ TextureImporter:
       name: Aurora Tileset_137
       rect:
         serializedVersion: 2
-        x: 0
-        y: 448
+        x: 928
+        y: 480
         width: 32
         height: 32
       alignment: 0
@@ -3006,8 +3006,8 @@ TextureImporter:
       name: Aurora Tileset_138
       rect:
         serializedVersion: 2
-        x: 32
-        y: 448
+        x: 960
+        y: 480
         width: 32
         height: 32
       alignment: 0
@@ -3027,8 +3027,8 @@ TextureImporter:
       name: Aurora Tileset_139
       rect:
         serializedVersion: 2
-        x: 64
-        y: 448
+        x: 992
+        y: 480
         width: 32
         height: 32
       alignment: 0
@@ -3048,8 +3048,8 @@ TextureImporter:
       name: Aurora Tileset_140
       rect:
         serializedVersion: 2
-        x: 96
-        y: 448
+        x: 1024
+        y: 480
         width: 32
         height: 32
       alignment: 0
@@ -3069,8 +3069,8 @@ TextureImporter:
       name: Aurora Tileset_141
       rect:
         serializedVersion: 2
-        x: 128
-        y: 448
+        x: 1056
+        y: 480
         width: 32
         height: 32
       alignment: 0
@@ -3090,8 +3090,8 @@ TextureImporter:
       name: Aurora Tileset_142
       rect:
         serializedVersion: 2
-        x: 160
-        y: 448
+        x: 1088
+        y: 480
         width: 32
         height: 32
       alignment: 0
@@ -3111,7 +3111,7 @@ TextureImporter:
       name: Aurora Tileset_143
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 448
         width: 32
         height: 32
@@ -3132,7 +3132,7 @@ TextureImporter:
       name: Aurora Tileset_144
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 448
         width: 32
         height: 32
@@ -3153,7 +3153,7 @@ TextureImporter:
       name: Aurora Tileset_145
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 448
         width: 32
         height: 32
@@ -3174,7 +3174,7 @@ TextureImporter:
       name: Aurora Tileset_146
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 448
         width: 32
         height: 32
@@ -3195,7 +3195,7 @@ TextureImporter:
       name: Aurora Tileset_147
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 448
         width: 32
         height: 32
@@ -3216,7 +3216,7 @@ TextureImporter:
       name: Aurora Tileset_148
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 448
         width: 32
         height: 32
@@ -3237,7 +3237,7 @@ TextureImporter:
       name: Aurora Tileset_149
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 448
         width: 32
         height: 32
@@ -3258,7 +3258,7 @@ TextureImporter:
       name: Aurora Tileset_150
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 448
         width: 32
         height: 32
@@ -3279,7 +3279,7 @@ TextureImporter:
       name: Aurora Tileset_151
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 448
         width: 32
         height: 32
@@ -3300,7 +3300,7 @@ TextureImporter:
       name: Aurora Tileset_152
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 448
         width: 32
         height: 32
@@ -3321,7 +3321,7 @@ TextureImporter:
       name: Aurora Tileset_153
       rect:
         serializedVersion: 2
-        x: 544
+        x: 320
         y: 448
         width: 32
         height: 32
@@ -3342,7 +3342,7 @@ TextureImporter:
       name: Aurora Tileset_154
       rect:
         serializedVersion: 2
-        x: 576
+        x: 352
         y: 448
         width: 32
         height: 32
@@ -3363,7 +3363,7 @@ TextureImporter:
       name: Aurora Tileset_155
       rect:
         serializedVersion: 2
-        x: 608
+        x: 384
         y: 448
         width: 32
         height: 32
@@ -3384,7 +3384,7 @@ TextureImporter:
       name: Aurora Tileset_156
       rect:
         serializedVersion: 2
-        x: 640
+        x: 416
         y: 448
         width: 32
         height: 32
@@ -3405,7 +3405,7 @@ TextureImporter:
       name: Aurora Tileset_157
       rect:
         serializedVersion: 2
-        x: 672
+        x: 448
         y: 448
         width: 32
         height: 32
@@ -3426,7 +3426,7 @@ TextureImporter:
       name: Aurora Tileset_158
       rect:
         serializedVersion: 2
-        x: 704
+        x: 480
         y: 448
         width: 32
         height: 32
@@ -3447,7 +3447,7 @@ TextureImporter:
       name: Aurora Tileset_159
       rect:
         serializedVersion: 2
-        x: 736
+        x: 544
         y: 448
         width: 32
         height: 32
@@ -3468,7 +3468,7 @@ TextureImporter:
       name: Aurora Tileset_160
       rect:
         serializedVersion: 2
-        x: 768
+        x: 576
         y: 448
         width: 32
         height: 32
@@ -3489,7 +3489,7 @@ TextureImporter:
       name: Aurora Tileset_161
       rect:
         serializedVersion: 2
-        x: 800
+        x: 608
         y: 448
         width: 32
         height: 32
@@ -3510,7 +3510,7 @@ TextureImporter:
       name: Aurora Tileset_162
       rect:
         serializedVersion: 2
-        x: 832
+        x: 640
         y: 448
         width: 32
         height: 32
@@ -3531,7 +3531,7 @@ TextureImporter:
       name: Aurora Tileset_163
       rect:
         serializedVersion: 2
-        x: 864
+        x: 672
         y: 448
         width: 32
         height: 32
@@ -3552,7 +3552,7 @@ TextureImporter:
       name: Aurora Tileset_164
       rect:
         serializedVersion: 2
-        x: 896
+        x: 704
         y: 448
         width: 32
         height: 32
@@ -3573,7 +3573,7 @@ TextureImporter:
       name: Aurora Tileset_165
       rect:
         serializedVersion: 2
-        x: 928
+        x: 736
         y: 448
         width: 32
         height: 32
@@ -3594,7 +3594,7 @@ TextureImporter:
       name: Aurora Tileset_166
       rect:
         serializedVersion: 2
-        x: 960
+        x: 768
         y: 448
         width: 32
         height: 32
@@ -3615,7 +3615,7 @@ TextureImporter:
       name: Aurora Tileset_167
       rect:
         serializedVersion: 2
-        x: 992
+        x: 800
         y: 448
         width: 32
         height: 32
@@ -3636,7 +3636,7 @@ TextureImporter:
       name: Aurora Tileset_168
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 832
         y: 448
         width: 32
         height: 32
@@ -3657,7 +3657,7 @@ TextureImporter:
       name: Aurora Tileset_169
       rect:
         serializedVersion: 2
-        x: 1056
+        x: 864
         y: 448
         width: 32
         height: 32
@@ -3678,7 +3678,7 @@ TextureImporter:
       name: Aurora Tileset_170
       rect:
         serializedVersion: 2
-        x: 1088
+        x: 896
         y: 448
         width: 32
         height: 32
@@ -3699,8 +3699,8 @@ TextureImporter:
       name: Aurora Tileset_171
       rect:
         serializedVersion: 2
-        x: 0
-        y: 416
+        x: 928
+        y: 448
         width: 32
         height: 32
       alignment: 0
@@ -3720,8 +3720,8 @@ TextureImporter:
       name: Aurora Tileset_172
       rect:
         serializedVersion: 2
-        x: 32
-        y: 416
+        x: 960
+        y: 448
         width: 32
         height: 32
       alignment: 0
@@ -3741,8 +3741,8 @@ TextureImporter:
       name: Aurora Tileset_173
       rect:
         serializedVersion: 2
-        x: 64
-        y: 416
+        x: 992
+        y: 448
         width: 32
         height: 32
       alignment: 0
@@ -3762,8 +3762,8 @@ TextureImporter:
       name: Aurora Tileset_174
       rect:
         serializedVersion: 2
-        x: 96
-        y: 416
+        x: 1024
+        y: 448
         width: 32
         height: 32
       alignment: 0
@@ -3783,8 +3783,8 @@ TextureImporter:
       name: Aurora Tileset_175
       rect:
         serializedVersion: 2
-        x: 128
-        y: 416
+        x: 1056
+        y: 448
         width: 32
         height: 32
       alignment: 0
@@ -3804,8 +3804,8 @@ TextureImporter:
       name: Aurora Tileset_176
       rect:
         serializedVersion: 2
-        x: 160
-        y: 416
+        x: 1088
+        y: 448
         width: 32
         height: 32
       alignment: 0
@@ -3825,7 +3825,7 @@ TextureImporter:
       name: Aurora Tileset_177
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 416
         width: 32
         height: 32
@@ -3846,7 +3846,7 @@ TextureImporter:
       name: Aurora Tileset_178
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 416
         width: 32
         height: 32
@@ -3867,7 +3867,7 @@ TextureImporter:
       name: Aurora Tileset_179
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 416
         width: 32
         height: 32
@@ -3888,7 +3888,7 @@ TextureImporter:
       name: Aurora Tileset_180
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 416
         width: 32
         height: 32
@@ -3909,7 +3909,7 @@ TextureImporter:
       name: Aurora Tileset_181
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 416
         width: 32
         height: 32
@@ -3930,7 +3930,7 @@ TextureImporter:
       name: Aurora Tileset_182
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 416
         width: 32
         height: 32
@@ -3951,7 +3951,7 @@ TextureImporter:
       name: Aurora Tileset_183
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 416
         width: 32
         height: 32
@@ -3972,7 +3972,7 @@ TextureImporter:
       name: Aurora Tileset_184
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 416
         width: 32
         height: 32
@@ -3993,7 +3993,7 @@ TextureImporter:
       name: Aurora Tileset_185
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 416
         width: 32
         height: 32
@@ -4014,7 +4014,7 @@ TextureImporter:
       name: Aurora Tileset_186
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 416
         width: 32
         height: 32
@@ -4035,7 +4035,7 @@ TextureImporter:
       name: Aurora Tileset_187
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 416
         width: 32
         height: 32
@@ -4056,7 +4056,7 @@ TextureImporter:
       name: Aurora Tileset_188
       rect:
         serializedVersion: 2
-        x: 576
+        x: 352
         y: 416
         width: 32
         height: 32
@@ -4077,7 +4077,7 @@ TextureImporter:
       name: Aurora Tileset_189
       rect:
         serializedVersion: 2
-        x: 640
+        x: 384
         y: 416
         width: 32
         height: 32
@@ -4098,7 +4098,7 @@ TextureImporter:
       name: Aurora Tileset_190
       rect:
         serializedVersion: 2
-        x: 672
+        x: 416
         y: 416
         width: 32
         height: 32
@@ -4119,7 +4119,7 @@ TextureImporter:
       name: Aurora Tileset_191
       rect:
         serializedVersion: 2
-        x: 704
+        x: 448
         y: 416
         width: 32
         height: 32
@@ -4140,7 +4140,7 @@ TextureImporter:
       name: Aurora Tileset_192
       rect:
         serializedVersion: 2
-        x: 736
+        x: 480
         y: 416
         width: 32
         height: 32
@@ -4161,7 +4161,7 @@ TextureImporter:
       name: Aurora Tileset_193
       rect:
         serializedVersion: 2
-        x: 768
+        x: 512
         y: 416
         width: 32
         height: 32
@@ -4182,7 +4182,7 @@ TextureImporter:
       name: Aurora Tileset_194
       rect:
         serializedVersion: 2
-        x: 864
+        x: 576
         y: 416
         width: 32
         height: 32
@@ -4203,7 +4203,7 @@ TextureImporter:
       name: Aurora Tileset_195
       rect:
         serializedVersion: 2
-        x: 896
+        x: 640
         y: 416
         width: 32
         height: 32
@@ -4224,7 +4224,7 @@ TextureImporter:
       name: Aurora Tileset_196
       rect:
         serializedVersion: 2
-        x: 928
+        x: 672
         y: 416
         width: 32
         height: 32
@@ -4245,7 +4245,7 @@ TextureImporter:
       name: Aurora Tileset_197
       rect:
         serializedVersion: 2
-        x: 960
+        x: 704
         y: 416
         width: 32
         height: 32
@@ -4266,7 +4266,7 @@ TextureImporter:
       name: Aurora Tileset_198
       rect:
         serializedVersion: 2
-        x: 992
+        x: 736
         y: 416
         width: 32
         height: 32
@@ -4287,7 +4287,7 @@ TextureImporter:
       name: Aurora Tileset_199
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 768
         y: 416
         width: 32
         height: 32
@@ -4308,7 +4308,7 @@ TextureImporter:
       name: Aurora Tileset_200
       rect:
         serializedVersion: 2
-        x: 1056
+        x: 864
         y: 416
         width: 32
         height: 32
@@ -4329,8 +4329,8 @@ TextureImporter:
       name: Aurora Tileset_201
       rect:
         serializedVersion: 2
-        x: 0
-        y: 384
+        x: 896
+        y: 416
         width: 32
         height: 32
       alignment: 0
@@ -4350,8 +4350,8 @@ TextureImporter:
       name: Aurora Tileset_202
       rect:
         serializedVersion: 2
-        x: 32
-        y: 384
+        x: 928
+        y: 416
         width: 32
         height: 32
       alignment: 0
@@ -4371,8 +4371,8 @@ TextureImporter:
       name: Aurora Tileset_203
       rect:
         serializedVersion: 2
-        x: 64
-        y: 384
+        x: 960
+        y: 416
         width: 32
         height: 32
       alignment: 0
@@ -4392,8 +4392,8 @@ TextureImporter:
       name: Aurora Tileset_204
       rect:
         serializedVersion: 2
-        x: 96
-        y: 384
+        x: 992
+        y: 416
         width: 32
         height: 32
       alignment: 0
@@ -4413,8 +4413,8 @@ TextureImporter:
       name: Aurora Tileset_205
       rect:
         serializedVersion: 2
-        x: 128
-        y: 384
+        x: 1024
+        y: 416
         width: 32
         height: 32
       alignment: 0
@@ -4434,8 +4434,8 @@ TextureImporter:
       name: Aurora Tileset_206
       rect:
         serializedVersion: 2
-        x: 160
-        y: 384
+        x: 1056
+        y: 416
         width: 32
         height: 32
       alignment: 0
@@ -4455,7 +4455,7 @@ TextureImporter:
       name: Aurora Tileset_207
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 384
         width: 32
         height: 32
@@ -4476,7 +4476,7 @@ TextureImporter:
       name: Aurora Tileset_208
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 384
         width: 32
         height: 32
@@ -4497,7 +4497,7 @@ TextureImporter:
       name: Aurora Tileset_209
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 384
         width: 32
         height: 32
@@ -4518,7 +4518,7 @@ TextureImporter:
       name: Aurora Tileset_210
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 384
         width: 32
         height: 32
@@ -4539,7 +4539,7 @@ TextureImporter:
       name: Aurora Tileset_211
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 384
         width: 32
         height: 32
@@ -4560,7 +4560,7 @@ TextureImporter:
       name: Aurora Tileset_212
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 384
         width: 32
         height: 32
@@ -4581,7 +4581,7 @@ TextureImporter:
       name: Aurora Tileset_213
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 384
         width: 32
         height: 32
@@ -4602,7 +4602,7 @@ TextureImporter:
       name: Aurora Tileset_214
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 384
         width: 32
         height: 32
@@ -4623,7 +4623,7 @@ TextureImporter:
       name: Aurora Tileset_215
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 384
         width: 32
         height: 32
@@ -4644,7 +4644,7 @@ TextureImporter:
       name: Aurora Tileset_216
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 384
         width: 32
         height: 32
@@ -4665,7 +4665,7 @@ TextureImporter:
       name: Aurora Tileset_217
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 384
         width: 32
         height: 32
@@ -4686,7 +4686,7 @@ TextureImporter:
       name: Aurora Tileset_218
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 384
         width: 32
         height: 32
@@ -4707,7 +4707,7 @@ TextureImporter:
       name: Aurora Tileset_219
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 384
         width: 32
         height: 32
@@ -4728,7 +4728,7 @@ TextureImporter:
       name: Aurora Tileset_220
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 384
         width: 32
         height: 32
@@ -4749,7 +4749,7 @@ TextureImporter:
       name: Aurora Tileset_221
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 384
         width: 32
         height: 32
@@ -4770,7 +4770,7 @@ TextureImporter:
       name: Aurora Tileset_222
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 384
         width: 32
         height: 32
@@ -4791,7 +4791,7 @@ TextureImporter:
       name: Aurora Tileset_223
       rect:
         serializedVersion: 2
-        x: 704
+        x: 512
         y: 384
         width: 32
         height: 32
@@ -4812,7 +4812,7 @@ TextureImporter:
       name: Aurora Tileset_224
       rect:
         serializedVersion: 2
-        x: 736
+        x: 544
         y: 384
         width: 32
         height: 32
@@ -4833,7 +4833,7 @@ TextureImporter:
       name: Aurora Tileset_225
       rect:
         serializedVersion: 2
-        x: 768
+        x: 576
         y: 384
         width: 32
         height: 32
@@ -4854,7 +4854,7 @@ TextureImporter:
       name: Aurora Tileset_226
       rect:
         serializedVersion: 2
-        x: 800
+        x: 608
         y: 384
         width: 32
         height: 32
@@ -4875,7 +4875,7 @@ TextureImporter:
       name: Aurora Tileset_227
       rect:
         serializedVersion: 2
-        x: 832
+        x: 640
         y: 384
         width: 32
         height: 32
@@ -4896,7 +4896,7 @@ TextureImporter:
       name: Aurora Tileset_228
       rect:
         serializedVersion: 2
-        x: 864
+        x: 672
         y: 384
         width: 32
         height: 32
@@ -4917,7 +4917,7 @@ TextureImporter:
       name: Aurora Tileset_229
       rect:
         serializedVersion: 2
-        x: 896
+        x: 704
         y: 384
         width: 32
         height: 32
@@ -4938,7 +4938,7 @@ TextureImporter:
       name: Aurora Tileset_230
       rect:
         serializedVersion: 2
-        x: 928
+        x: 736
         y: 384
         width: 32
         height: 32
@@ -4959,7 +4959,7 @@ TextureImporter:
       name: Aurora Tileset_231
       rect:
         serializedVersion: 2
-        x: 960
+        x: 768
         y: 384
         width: 32
         height: 32
@@ -4980,7 +4980,7 @@ TextureImporter:
       name: Aurora Tileset_232
       rect:
         serializedVersion: 2
-        x: 992
+        x: 800
         y: 384
         width: 32
         height: 32
@@ -5001,7 +5001,7 @@ TextureImporter:
       name: Aurora Tileset_233
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 832
         y: 384
         width: 32
         height: 32
@@ -5022,7 +5022,7 @@ TextureImporter:
       name: Aurora Tileset_234
       rect:
         serializedVersion: 2
-        x: 1056
+        x: 864
         y: 384
         width: 32
         height: 32
@@ -5043,8 +5043,8 @@ TextureImporter:
       name: Aurora Tileset_235
       rect:
         serializedVersion: 2
-        x: 0
-        y: 352
+        x: 896
+        y: 384
         width: 32
         height: 32
       alignment: 0
@@ -5064,8 +5064,8 @@ TextureImporter:
       name: Aurora Tileset_236
       rect:
         serializedVersion: 2
-        x: 32
-        y: 352
+        x: 928
+        y: 384
         width: 32
         height: 32
       alignment: 0
@@ -5085,8 +5085,8 @@ TextureImporter:
       name: Aurora Tileset_237
       rect:
         serializedVersion: 2
-        x: 64
-        y: 352
+        x: 960
+        y: 384
         width: 32
         height: 32
       alignment: 0
@@ -5106,8 +5106,8 @@ TextureImporter:
       name: Aurora Tileset_238
       rect:
         serializedVersion: 2
-        x: 96
-        y: 352
+        x: 992
+        y: 384
         width: 32
         height: 32
       alignment: 0
@@ -5127,8 +5127,8 @@ TextureImporter:
       name: Aurora Tileset_239
       rect:
         serializedVersion: 2
-        x: 128
-        y: 352
+        x: 1024
+        y: 384
         width: 32
         height: 32
       alignment: 0
@@ -5148,8 +5148,8 @@ TextureImporter:
       name: Aurora Tileset_240
       rect:
         serializedVersion: 2
-        x: 160
-        y: 352
+        x: 1056
+        y: 384
         width: 32
         height: 32
       alignment: 0
@@ -5169,7 +5169,7 @@ TextureImporter:
       name: Aurora Tileset_241
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 352
         width: 32
         height: 32
@@ -5190,7 +5190,7 @@ TextureImporter:
       name: Aurora Tileset_242
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 352
         width: 32
         height: 32
@@ -5211,7 +5211,7 @@ TextureImporter:
       name: Aurora Tileset_243
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 352
         width: 32
         height: 32
@@ -5232,7 +5232,7 @@ TextureImporter:
       name: Aurora Tileset_244
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 352
         width: 32
         height: 32
@@ -5253,7 +5253,7 @@ TextureImporter:
       name: Aurora Tileset_245
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 352
         width: 32
         height: 32
@@ -5274,7 +5274,7 @@ TextureImporter:
       name: Aurora Tileset_246
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 352
         width: 32
         height: 32
@@ -5295,7 +5295,7 @@ TextureImporter:
       name: Aurora Tileset_247
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 352
         width: 32
         height: 32
@@ -5316,7 +5316,7 @@ TextureImporter:
       name: Aurora Tileset_248
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 352
         width: 32
         height: 32
@@ -5337,7 +5337,7 @@ TextureImporter:
       name: Aurora Tileset_249
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 352
         width: 32
         height: 32
@@ -5358,7 +5358,7 @@ TextureImporter:
       name: Aurora Tileset_250
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 352
         width: 32
         height: 32
@@ -5379,7 +5379,7 @@ TextureImporter:
       name: Aurora Tileset_251
       rect:
         serializedVersion: 2
-        x: 544
+        x: 320
         y: 352
         width: 32
         height: 32
@@ -5400,7 +5400,7 @@ TextureImporter:
       name: Aurora Tileset_252
       rect:
         serializedVersion: 2
-        x: 576
+        x: 352
         y: 352
         width: 32
         height: 32
@@ -5421,7 +5421,7 @@ TextureImporter:
       name: Aurora Tileset_253
       rect:
         serializedVersion: 2
-        x: 608
+        x: 384
         y: 352
         width: 32
         height: 32
@@ -5442,7 +5442,7 @@ TextureImporter:
       name: Aurora Tileset_254
       rect:
         serializedVersion: 2
-        x: 640
+        x: 416
         y: 352
         width: 32
         height: 32
@@ -5463,7 +5463,7 @@ TextureImporter:
       name: Aurora Tileset_255
       rect:
         serializedVersion: 2
-        x: 672
+        x: 448
         y: 352
         width: 32
         height: 32
@@ -5484,7 +5484,7 @@ TextureImporter:
       name: Aurora Tileset_256
       rect:
         serializedVersion: 2
-        x: 704
+        x: 480
         y: 352
         width: 32
         height: 32
@@ -5505,7 +5505,7 @@ TextureImporter:
       name: Aurora Tileset_257
       rect:
         serializedVersion: 2
-        x: 736
+        x: 544
         y: 352
         width: 32
         height: 32
@@ -5526,7 +5526,7 @@ TextureImporter:
       name: Aurora Tileset_258
       rect:
         serializedVersion: 2
-        x: 768
+        x: 576
         y: 352
         width: 32
         height: 32
@@ -5547,7 +5547,7 @@ TextureImporter:
       name: Aurora Tileset_259
       rect:
         serializedVersion: 2
-        x: 800
+        x: 608
         y: 352
         width: 32
         height: 32
@@ -5568,7 +5568,7 @@ TextureImporter:
       name: Aurora Tileset_260
       rect:
         serializedVersion: 2
-        x: 832
+        x: 640
         y: 352
         width: 32
         height: 32
@@ -5589,7 +5589,7 @@ TextureImporter:
       name: Aurora Tileset_261
       rect:
         serializedVersion: 2
-        x: 864
+        x: 672
         y: 352
         width: 32
         height: 32
@@ -5610,7 +5610,7 @@ TextureImporter:
       name: Aurora Tileset_262
       rect:
         serializedVersion: 2
-        x: 896
+        x: 704
         y: 352
         width: 32
         height: 32
@@ -5631,7 +5631,7 @@ TextureImporter:
       name: Aurora Tileset_263
       rect:
         serializedVersion: 2
-        x: 928
+        x: 736
         y: 352
         width: 32
         height: 32
@@ -5652,7 +5652,7 @@ TextureImporter:
       name: Aurora Tileset_264
       rect:
         serializedVersion: 2
-        x: 960
+        x: 768
         y: 352
         width: 32
         height: 32
@@ -5673,7 +5673,7 @@ TextureImporter:
       name: Aurora Tileset_265
       rect:
         serializedVersion: 2
-        x: 992
+        x: 800
         y: 352
         width: 32
         height: 32
@@ -5694,7 +5694,7 @@ TextureImporter:
       name: Aurora Tileset_266
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 832
         y: 352
         width: 32
         height: 32
@@ -5715,7 +5715,7 @@ TextureImporter:
       name: Aurora Tileset_267
       rect:
         serializedVersion: 2
-        x: 1056
+        x: 864
         y: 352
         width: 32
         height: 32
@@ -5736,8 +5736,8 @@ TextureImporter:
       name: Aurora Tileset_268
       rect:
         serializedVersion: 2
-        x: 0
-        y: 320
+        x: 896
+        y: 352
         width: 32
         height: 32
       alignment: 0
@@ -5757,8 +5757,8 @@ TextureImporter:
       name: Aurora Tileset_269
       rect:
         serializedVersion: 2
-        x: 32
-        y: 320
+        x: 928
+        y: 352
         width: 32
         height: 32
       alignment: 0
@@ -5778,8 +5778,8 @@ TextureImporter:
       name: Aurora Tileset_270
       rect:
         serializedVersion: 2
-        x: 64
-        y: 320
+        x: 960
+        y: 352
         width: 32
         height: 32
       alignment: 0
@@ -5799,8 +5799,8 @@ TextureImporter:
       name: Aurora Tileset_271
       rect:
         serializedVersion: 2
-        x: 96
-        y: 320
+        x: 992
+        y: 352
         width: 32
         height: 32
       alignment: 0
@@ -5820,8 +5820,8 @@ TextureImporter:
       name: Aurora Tileset_272
       rect:
         serializedVersion: 2
-        x: 128
-        y: 320
+        x: 1024
+        y: 352
         width: 32
         height: 32
       alignment: 0
@@ -5841,8 +5841,8 @@ TextureImporter:
       name: Aurora Tileset_273
       rect:
         serializedVersion: 2
-        x: 160
-        y: 320
+        x: 1056
+        y: 352
         width: 32
         height: 32
       alignment: 0
@@ -5862,7 +5862,7 @@ TextureImporter:
       name: Aurora Tileset_274
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 320
         width: 32
         height: 32
@@ -5883,7 +5883,7 @@ TextureImporter:
       name: Aurora Tileset_275
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 320
         width: 32
         height: 32
@@ -5904,7 +5904,7 @@ TextureImporter:
       name: Aurora Tileset_276
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 320
         width: 32
         height: 32
@@ -5925,7 +5925,7 @@ TextureImporter:
       name: Aurora Tileset_277
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 320
         width: 32
         height: 32
@@ -5946,7 +5946,7 @@ TextureImporter:
       name: Aurora Tileset_278
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 320
         width: 32
         height: 32
@@ -5967,7 +5967,7 @@ TextureImporter:
       name: Aurora Tileset_279
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 320
         width: 32
         height: 32
@@ -5988,7 +5988,7 @@ TextureImporter:
       name: Aurora Tileset_280
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 320
         width: 32
         height: 32
@@ -6009,7 +6009,7 @@ TextureImporter:
       name: Aurora Tileset_281
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 320
         width: 32
         height: 32
@@ -6030,7 +6030,7 @@ TextureImporter:
       name: Aurora Tileset_282
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 320
         width: 32
         height: 32
@@ -6051,7 +6051,7 @@ TextureImporter:
       name: Aurora Tileset_283
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 320
         width: 32
         height: 32
@@ -6072,7 +6072,7 @@ TextureImporter:
       name: Aurora Tileset_284
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 320
         width: 32
         height: 32
@@ -6093,7 +6093,7 @@ TextureImporter:
       name: Aurora Tileset_285
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 320
         width: 32
         height: 32
@@ -6114,7 +6114,7 @@ TextureImporter:
       name: Aurora Tileset_286
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 320
         width: 32
         height: 32
@@ -6135,7 +6135,7 @@ TextureImporter:
       name: Aurora Tileset_287
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 320
         width: 32
         height: 32
@@ -6156,7 +6156,7 @@ TextureImporter:
       name: Aurora Tileset_288
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 320
         width: 32
         height: 32
@@ -6177,7 +6177,7 @@ TextureImporter:
       name: Aurora Tileset_289
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 320
         width: 32
         height: 32
@@ -6198,7 +6198,7 @@ TextureImporter:
       name: Aurora Tileset_290
       rect:
         serializedVersion: 2
-        x: 704
+        x: 512
         y: 320
         width: 32
         height: 32
@@ -6219,7 +6219,7 @@ TextureImporter:
       name: Aurora Tileset_291
       rect:
         serializedVersion: 2
-        x: 736
+        x: 544
         y: 320
         width: 32
         height: 32
@@ -6240,7 +6240,7 @@ TextureImporter:
       name: Aurora Tileset_292
       rect:
         serializedVersion: 2
-        x: 768
+        x: 576
         y: 320
         width: 32
         height: 32
@@ -6261,7 +6261,7 @@ TextureImporter:
       name: Aurora Tileset_293
       rect:
         serializedVersion: 2
-        x: 864
+        x: 608
         y: 320
         width: 32
         height: 32
@@ -6282,7 +6282,7 @@ TextureImporter:
       name: Aurora Tileset_294
       rect:
         serializedVersion: 2
-        x: 896
+        x: 640
         y: 320
         width: 32
         height: 32
@@ -6303,7 +6303,7 @@ TextureImporter:
       name: Aurora Tileset_295
       rect:
         serializedVersion: 2
-        x: 928
+        x: 672
         y: 320
         width: 32
         height: 32
@@ -6324,7 +6324,7 @@ TextureImporter:
       name: Aurora Tileset_296
       rect:
         serializedVersion: 2
-        x: 960
+        x: 704
         y: 320
         width: 32
         height: 32
@@ -6345,7 +6345,7 @@ TextureImporter:
       name: Aurora Tileset_297
       rect:
         serializedVersion: 2
-        x: 992
+        x: 736
         y: 320
         width: 32
         height: 32
@@ -6366,7 +6366,7 @@ TextureImporter:
       name: Aurora Tileset_298
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 768
         y: 320
         width: 32
         height: 32
@@ -6387,7 +6387,7 @@ TextureImporter:
       name: Aurora Tileset_299
       rect:
         serializedVersion: 2
-        x: 1056
+        x: 864
         y: 320
         width: 32
         height: 32
@@ -6408,8 +6408,8 @@ TextureImporter:
       name: Aurora Tileset_300
       rect:
         serializedVersion: 2
-        x: 0
-        y: 288
+        x: 896
+        y: 320
         width: 32
         height: 32
       alignment: 0
@@ -6429,8 +6429,8 @@ TextureImporter:
       name: Aurora Tileset_301
       rect:
         serializedVersion: 2
-        x: 32
-        y: 288
+        x: 928
+        y: 320
         width: 32
         height: 32
       alignment: 0
@@ -6450,8 +6450,8 @@ TextureImporter:
       name: Aurora Tileset_302
       rect:
         serializedVersion: 2
-        x: 64
-        y: 288
+        x: 960
+        y: 320
         width: 32
         height: 32
       alignment: 0
@@ -6471,8 +6471,8 @@ TextureImporter:
       name: Aurora Tileset_303
       rect:
         serializedVersion: 2
-        x: 96
-        y: 288
+        x: 992
+        y: 320
         width: 32
         height: 32
       alignment: 0
@@ -6492,8 +6492,8 @@ TextureImporter:
       name: Aurora Tileset_304
       rect:
         serializedVersion: 2
-        x: 128
-        y: 288
+        x: 1024
+        y: 320
         width: 32
         height: 32
       alignment: 0
@@ -6513,8 +6513,8 @@ TextureImporter:
       name: Aurora Tileset_305
       rect:
         serializedVersion: 2
-        x: 160
-        y: 288
+        x: 1056
+        y: 320
         width: 32
         height: 32
       alignment: 0
@@ -6534,7 +6534,7 @@ TextureImporter:
       name: Aurora Tileset_306
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 288
         width: 32
         height: 32
@@ -6555,7 +6555,7 @@ TextureImporter:
       name: Aurora Tileset_307
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 288
         width: 32
         height: 32
@@ -6576,7 +6576,7 @@ TextureImporter:
       name: Aurora Tileset_308
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 288
         width: 32
         height: 32
@@ -6597,7 +6597,7 @@ TextureImporter:
       name: Aurora Tileset_309
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 288
         width: 32
         height: 32
@@ -6618,7 +6618,7 @@ TextureImporter:
       name: Aurora Tileset_310
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 288
         width: 32
         height: 32
@@ -6639,7 +6639,7 @@ TextureImporter:
       name: Aurora Tileset_311
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 288
         width: 32
         height: 32
@@ -6660,7 +6660,7 @@ TextureImporter:
       name: Aurora Tileset_312
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 288
         width: 32
         height: 32
@@ -6681,7 +6681,7 @@ TextureImporter:
       name: Aurora Tileset_313
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 288
         width: 32
         height: 32
@@ -6702,7 +6702,7 @@ TextureImporter:
       name: Aurora Tileset_314
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 288
         width: 32
         height: 32
@@ -6723,7 +6723,7 @@ TextureImporter:
       name: Aurora Tileset_315
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 288
         width: 32
         height: 32
@@ -6744,7 +6744,7 @@ TextureImporter:
       name: Aurora Tileset_316
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 288
         width: 32
         height: 32
@@ -6765,7 +6765,7 @@ TextureImporter:
       name: Aurora Tileset_317
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 288
         width: 32
         height: 32
@@ -6786,7 +6786,7 @@ TextureImporter:
       name: Aurora Tileset_318
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 288
         width: 32
         height: 32
@@ -6807,7 +6807,7 @@ TextureImporter:
       name: Aurora Tileset_319
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 288
         width: 32
         height: 32
@@ -6828,7 +6828,7 @@ TextureImporter:
       name: Aurora Tileset_320
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 288
         width: 32
         height: 32
@@ -6849,7 +6849,7 @@ TextureImporter:
       name: Aurora Tileset_321
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 288
         width: 32
         height: 32
@@ -6870,7 +6870,7 @@ TextureImporter:
       name: Aurora Tileset_322
       rect:
         serializedVersion: 2
-        x: 704
+        x: 512
         y: 288
         width: 32
         height: 32
@@ -6891,7 +6891,7 @@ TextureImporter:
       name: Aurora Tileset_323
       rect:
         serializedVersion: 2
-        x: 736
+        x: 544
         y: 288
         width: 32
         height: 32
@@ -6912,7 +6912,7 @@ TextureImporter:
       name: Aurora Tileset_324
       rect:
         serializedVersion: 2
-        x: 768
+        x: 576
         y: 288
         width: 32
         height: 32
@@ -6933,7 +6933,7 @@ TextureImporter:
       name: Aurora Tileset_325
       rect:
         serializedVersion: 2
-        x: 864
+        x: 608
         y: 288
         width: 32
         height: 32
@@ -6954,7 +6954,7 @@ TextureImporter:
       name: Aurora Tileset_326
       rect:
         serializedVersion: 2
-        x: 896
+        x: 640
         y: 288
         width: 32
         height: 32
@@ -6975,7 +6975,7 @@ TextureImporter:
       name: Aurora Tileset_327
       rect:
         serializedVersion: 2
-        x: 928
+        x: 672
         y: 288
         width: 32
         height: 32
@@ -6996,7 +6996,7 @@ TextureImporter:
       name: Aurora Tileset_328
       rect:
         serializedVersion: 2
-        x: 960
+        x: 704
         y: 288
         width: 32
         height: 32
@@ -7017,7 +7017,7 @@ TextureImporter:
       name: Aurora Tileset_329
       rect:
         serializedVersion: 2
-        x: 992
+        x: 736
         y: 288
         width: 32
         height: 32
@@ -7038,7 +7038,7 @@ TextureImporter:
       name: Aurora Tileset_330
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 768
         y: 288
         width: 32
         height: 32
@@ -7059,7 +7059,7 @@ TextureImporter:
       name: Aurora Tileset_331
       rect:
         serializedVersion: 2
-        x: 1056
+        x: 864
         y: 288
         width: 32
         height: 32
@@ -7080,8 +7080,8 @@ TextureImporter:
       name: Aurora Tileset_332
       rect:
         serializedVersion: 2
-        x: 0
-        y: 256
+        x: 896
+        y: 288
         width: 32
         height: 32
       alignment: 0
@@ -7101,8 +7101,8 @@ TextureImporter:
       name: Aurora Tileset_333
       rect:
         serializedVersion: 2
-        x: 32
-        y: 256
+        x: 928
+        y: 288
         width: 32
         height: 32
       alignment: 0
@@ -7122,8 +7122,8 @@ TextureImporter:
       name: Aurora Tileset_334
       rect:
         serializedVersion: 2
-        x: 64
-        y: 256
+        x: 960
+        y: 288
         width: 32
         height: 32
       alignment: 0
@@ -7143,8 +7143,8 @@ TextureImporter:
       name: Aurora Tileset_335
       rect:
         serializedVersion: 2
-        x: 96
-        y: 256
+        x: 992
+        y: 288
         width: 32
         height: 32
       alignment: 0
@@ -7164,8 +7164,8 @@ TextureImporter:
       name: Aurora Tileset_336
       rect:
         serializedVersion: 2
-        x: 128
-        y: 256
+        x: 1024
+        y: 288
         width: 32
         height: 32
       alignment: 0
@@ -7185,8 +7185,8 @@ TextureImporter:
       name: Aurora Tileset_337
       rect:
         serializedVersion: 2
-        x: 160
-        y: 256
+        x: 1056
+        y: 288
         width: 32
         height: 32
       alignment: 0
@@ -7206,7 +7206,7 @@ TextureImporter:
       name: Aurora Tileset_338
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 256
         width: 32
         height: 32
@@ -7227,7 +7227,7 @@ TextureImporter:
       name: Aurora Tileset_339
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 256
         width: 32
         height: 32
@@ -7248,7 +7248,7 @@ TextureImporter:
       name: Aurora Tileset_340
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 256
         width: 32
         height: 32
@@ -7269,7 +7269,7 @@ TextureImporter:
       name: Aurora Tileset_341
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 256
         width: 32
         height: 32
@@ -7290,7 +7290,7 @@ TextureImporter:
       name: Aurora Tileset_342
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 256
         width: 32
         height: 32
@@ -7311,7 +7311,7 @@ TextureImporter:
       name: Aurora Tileset_343
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 256
         width: 32
         height: 32
@@ -7332,7 +7332,7 @@ TextureImporter:
       name: Aurora Tileset_344
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 256
         width: 32
         height: 32
@@ -7353,7 +7353,7 @@ TextureImporter:
       name: Aurora Tileset_345
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 256
         width: 32
         height: 32
@@ -7374,7 +7374,7 @@ TextureImporter:
       name: Aurora Tileset_346
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 256
         width: 32
         height: 32
@@ -7395,7 +7395,7 @@ TextureImporter:
       name: Aurora Tileset_347
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 256
         width: 32
         height: 32
@@ -7416,7 +7416,7 @@ TextureImporter:
       name: Aurora Tileset_348
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 256
         width: 32
         height: 32
@@ -7437,7 +7437,7 @@ TextureImporter:
       name: Aurora Tileset_349
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 256
         width: 32
         height: 32
@@ -7458,7 +7458,7 @@ TextureImporter:
       name: Aurora Tileset_350
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 256
         width: 32
         height: 32
@@ -7479,7 +7479,7 @@ TextureImporter:
       name: Aurora Tileset_351
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 256
         width: 32
         height: 32
@@ -7500,7 +7500,7 @@ TextureImporter:
       name: Aurora Tileset_352
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 256
         width: 32
         height: 32
@@ -7521,7 +7521,7 @@ TextureImporter:
       name: Aurora Tileset_353
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 256
         width: 32
         height: 32
@@ -7542,7 +7542,7 @@ TextureImporter:
       name: Aurora Tileset_354
       rect:
         serializedVersion: 2
-        x: 704
+        x: 512
         y: 256
         width: 32
         height: 32
@@ -7563,7 +7563,7 @@ TextureImporter:
       name: Aurora Tileset_355
       rect:
         serializedVersion: 2
-        x: 736
+        x: 544
         y: 256
         width: 32
         height: 32
@@ -7584,7 +7584,7 @@ TextureImporter:
       name: Aurora Tileset_356
       rect:
         serializedVersion: 2
-        x: 768
+        x: 576
         y: 256
         width: 32
         height: 32
@@ -7605,7 +7605,7 @@ TextureImporter:
       name: Aurora Tileset_357
       rect:
         serializedVersion: 2
-        x: 864
+        x: 608
         y: 256
         width: 32
         height: 32
@@ -7626,7 +7626,7 @@ TextureImporter:
       name: Aurora Tileset_358
       rect:
         serializedVersion: 2
-        x: 896
+        x: 640
         y: 256
         width: 32
         height: 32
@@ -7647,7 +7647,7 @@ TextureImporter:
       name: Aurora Tileset_359
       rect:
         serializedVersion: 2
-        x: 928
+        x: 672
         y: 256
         width: 32
         height: 32
@@ -7668,7 +7668,7 @@ TextureImporter:
       name: Aurora Tileset_360
       rect:
         serializedVersion: 2
-        x: 960
+        x: 704
         y: 256
         width: 32
         height: 32
@@ -7689,7 +7689,7 @@ TextureImporter:
       name: Aurora Tileset_361
       rect:
         serializedVersion: 2
-        x: 992
+        x: 736
         y: 256
         width: 32
         height: 32
@@ -7710,7 +7710,7 @@ TextureImporter:
       name: Aurora Tileset_362
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 768
         y: 256
         width: 32
         height: 32
@@ -7731,7 +7731,7 @@ TextureImporter:
       name: Aurora Tileset_363
       rect:
         serializedVersion: 2
-        x: 1056
+        x: 864
         y: 256
         width: 32
         height: 32
@@ -7752,8 +7752,8 @@ TextureImporter:
       name: Aurora Tileset_364
       rect:
         serializedVersion: 2
-        x: 0
-        y: 224
+        x: 896
+        y: 256
         width: 32
         height: 32
       alignment: 0
@@ -7773,8 +7773,8 @@ TextureImporter:
       name: Aurora Tileset_365
       rect:
         serializedVersion: 2
-        x: 32
-        y: 224
+        x: 928
+        y: 256
         width: 32
         height: 32
       alignment: 0
@@ -7794,8 +7794,8 @@ TextureImporter:
       name: Aurora Tileset_366
       rect:
         serializedVersion: 2
-        x: 64
-        y: 224
+        x: 960
+        y: 256
         width: 32
         height: 32
       alignment: 0
@@ -7815,8 +7815,8 @@ TextureImporter:
       name: Aurora Tileset_367
       rect:
         serializedVersion: 2
-        x: 96
-        y: 224
+        x: 992
+        y: 256
         width: 32
         height: 32
       alignment: 0
@@ -7836,8 +7836,8 @@ TextureImporter:
       name: Aurora Tileset_368
       rect:
         serializedVersion: 2
-        x: 128
-        y: 224
+        x: 1024
+        y: 256
         width: 32
         height: 32
       alignment: 0
@@ -7857,8 +7857,8 @@ TextureImporter:
       name: Aurora Tileset_369
       rect:
         serializedVersion: 2
-        x: 160
-        y: 224
+        x: 1056
+        y: 256
         width: 32
         height: 32
       alignment: 0
@@ -7878,7 +7878,7 @@ TextureImporter:
       name: Aurora Tileset_370
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 224
         width: 32
         height: 32
@@ -7899,7 +7899,7 @@ TextureImporter:
       name: Aurora Tileset_371
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 224
         width: 32
         height: 32
@@ -7920,7 +7920,7 @@ TextureImporter:
       name: Aurora Tileset_372
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 224
         width: 32
         height: 32
@@ -7941,7 +7941,7 @@ TextureImporter:
       name: Aurora Tileset_373
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 224
         width: 32
         height: 32
@@ -7962,7 +7962,7 @@ TextureImporter:
       name: Aurora Tileset_374
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 224
         width: 32
         height: 32
@@ -7983,7 +7983,7 @@ TextureImporter:
       name: Aurora Tileset_375
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 224
         width: 32
         height: 32
@@ -8004,7 +8004,7 @@ TextureImporter:
       name: Aurora Tileset_376
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 224
         width: 32
         height: 32
@@ -8025,7 +8025,7 @@ TextureImporter:
       name: Aurora Tileset_377
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 224
         width: 32
         height: 32
@@ -8046,7 +8046,7 @@ TextureImporter:
       name: Aurora Tileset_378
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 224
         width: 32
         height: 32
@@ -8067,7 +8067,7 @@ TextureImporter:
       name: Aurora Tileset_379
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 224
         width: 32
         height: 32
@@ -8088,7 +8088,7 @@ TextureImporter:
       name: Aurora Tileset_380
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 224
         width: 32
         height: 32
@@ -8109,7 +8109,7 @@ TextureImporter:
       name: Aurora Tileset_381
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 224
         width: 32
         height: 32
@@ -8130,7 +8130,7 @@ TextureImporter:
       name: Aurora Tileset_382
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 224
         width: 32
         height: 32
@@ -8151,7 +8151,7 @@ TextureImporter:
       name: Aurora Tileset_383
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 224
         width: 32
         height: 32
@@ -8172,7 +8172,7 @@ TextureImporter:
       name: Aurora Tileset_384
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 224
         width: 32
         height: 32
@@ -8193,7 +8193,7 @@ TextureImporter:
       name: Aurora Tileset_385
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 224
         width: 32
         height: 32
@@ -8214,7 +8214,7 @@ TextureImporter:
       name: Aurora Tileset_386
       rect:
         serializedVersion: 2
-        x: 704
+        x: 512
         y: 224
         width: 32
         height: 32
@@ -8235,7 +8235,7 @@ TextureImporter:
       name: Aurora Tileset_387
       rect:
         serializedVersion: 2
-        x: 736
+        x: 544
         y: 224
         width: 32
         height: 32
@@ -8256,7 +8256,7 @@ TextureImporter:
       name: Aurora Tileset_388
       rect:
         serializedVersion: 2
-        x: 768
+        x: 576
         y: 224
         width: 32
         height: 32
@@ -8277,7 +8277,7 @@ TextureImporter:
       name: Aurora Tileset_389
       rect:
         serializedVersion: 2
-        x: 864
+        x: 608
         y: 224
         width: 32
         height: 32
@@ -8298,7 +8298,7 @@ TextureImporter:
       name: Aurora Tileset_390
       rect:
         serializedVersion: 2
-        x: 896
+        x: 640
         y: 224
         width: 32
         height: 32
@@ -8319,7 +8319,7 @@ TextureImporter:
       name: Aurora Tileset_391
       rect:
         serializedVersion: 2
-        x: 928
+        x: 672
         y: 224
         width: 32
         height: 32
@@ -8340,7 +8340,7 @@ TextureImporter:
       name: Aurora Tileset_392
       rect:
         serializedVersion: 2
-        x: 960
+        x: 704
         y: 224
         width: 32
         height: 32
@@ -8361,7 +8361,7 @@ TextureImporter:
       name: Aurora Tileset_393
       rect:
         serializedVersion: 2
-        x: 992
+        x: 736
         y: 224
         width: 32
         height: 32
@@ -8382,7 +8382,7 @@ TextureImporter:
       name: Aurora Tileset_394
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 768
         y: 224
         width: 32
         height: 32
@@ -8403,8 +8403,8 @@ TextureImporter:
       name: Aurora Tileset_395
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
+        x: 864
+        y: 224
         width: 32
         height: 32
       alignment: 0
@@ -8424,8 +8424,8 @@ TextureImporter:
       name: Aurora Tileset_396
       rect:
         serializedVersion: 2
-        x: 32
-        y: 192
+        x: 896
+        y: 224
         width: 32
         height: 32
       alignment: 0
@@ -8445,8 +8445,8 @@ TextureImporter:
       name: Aurora Tileset_397
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
+        x: 928
+        y: 224
         width: 32
         height: 32
       alignment: 0
@@ -8466,8 +8466,8 @@ TextureImporter:
       name: Aurora Tileset_398
       rect:
         serializedVersion: 2
-        x: 96
-        y: 192
+        x: 960
+        y: 224
         width: 32
         height: 32
       alignment: 0
@@ -8487,8 +8487,8 @@ TextureImporter:
       name: Aurora Tileset_399
       rect:
         serializedVersion: 2
-        x: 128
-        y: 192
+        x: 992
+        y: 224
         width: 32
         height: 32
       alignment: 0
@@ -8508,8 +8508,8 @@ TextureImporter:
       name: Aurora Tileset_400
       rect:
         serializedVersion: 2
-        x: 160
-        y: 192
+        x: 1024
+        y: 224
         width: 32
         height: 32
       alignment: 0
@@ -8529,7 +8529,7 @@ TextureImporter:
       name: Aurora Tileset_401
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 192
         width: 32
         height: 32
@@ -8550,7 +8550,7 @@ TextureImporter:
       name: Aurora Tileset_402
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 192
         width: 32
         height: 32
@@ -8571,7 +8571,7 @@ TextureImporter:
       name: Aurora Tileset_403
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 192
         width: 32
         height: 32
@@ -8592,7 +8592,7 @@ TextureImporter:
       name: Aurora Tileset_404
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 192
         width: 32
         height: 32
@@ -8613,7 +8613,7 @@ TextureImporter:
       name: Aurora Tileset_405
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 192
         width: 32
         height: 32
@@ -8634,7 +8634,7 @@ TextureImporter:
       name: Aurora Tileset_406
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 192
         width: 32
         height: 32
@@ -8655,7 +8655,7 @@ TextureImporter:
       name: Aurora Tileset_407
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 192
         width: 32
         height: 32
@@ -8676,7 +8676,7 @@ TextureImporter:
       name: Aurora Tileset_408
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 192
         width: 32
         height: 32
@@ -8697,7 +8697,7 @@ TextureImporter:
       name: Aurora Tileset_409
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 192
         width: 32
         height: 32
@@ -8718,7 +8718,7 @@ TextureImporter:
       name: Aurora Tileset_410
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 192
         width: 32
         height: 32
@@ -8739,7 +8739,7 @@ TextureImporter:
       name: Aurora Tileset_411
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 192
         width: 32
         height: 32
@@ -8760,7 +8760,7 @@ TextureImporter:
       name: Aurora Tileset_412
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 192
         width: 32
         height: 32
@@ -8781,7 +8781,7 @@ TextureImporter:
       name: Aurora Tileset_413
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 192
         width: 32
         height: 32
@@ -8802,7 +8802,7 @@ TextureImporter:
       name: Aurora Tileset_414
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 192
         width: 32
         height: 32
@@ -8823,7 +8823,7 @@ TextureImporter:
       name: Aurora Tileset_415
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 192
         width: 32
         height: 32
@@ -8844,7 +8844,7 @@ TextureImporter:
       name: Aurora Tileset_416
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 192
         width: 32
         height: 32
@@ -8865,7 +8865,7 @@ TextureImporter:
       name: Aurora Tileset_417
       rect:
         serializedVersion: 2
-        x: 704
+        x: 512
         y: 192
         width: 32
         height: 32
@@ -8886,7 +8886,7 @@ TextureImporter:
       name: Aurora Tileset_418
       rect:
         serializedVersion: 2
-        x: 736
+        x: 544
         y: 192
         width: 32
         height: 32
@@ -8907,7 +8907,7 @@ TextureImporter:
       name: Aurora Tileset_419
       rect:
         serializedVersion: 2
-        x: 768
+        x: 576
         y: 192
         width: 32
         height: 32
@@ -8928,7 +8928,7 @@ TextureImporter:
       name: Aurora Tileset_420
       rect:
         serializedVersion: 2
-        x: 864
+        x: 608
         y: 192
         width: 32
         height: 32
@@ -8949,7 +8949,7 @@ TextureImporter:
       name: Aurora Tileset_421
       rect:
         serializedVersion: 2
-        x: 896
+        x: 640
         y: 192
         width: 32
         height: 32
@@ -8970,7 +8970,7 @@ TextureImporter:
       name: Aurora Tileset_422
       rect:
         serializedVersion: 2
-        x: 928
+        x: 672
         y: 192
         width: 32
         height: 32
@@ -8991,7 +8991,7 @@ TextureImporter:
       name: Aurora Tileset_423
       rect:
         serializedVersion: 2
-        x: 960
+        x: 704
         y: 192
         width: 32
         height: 32
@@ -9012,7 +9012,7 @@ TextureImporter:
       name: Aurora Tileset_424
       rect:
         serializedVersion: 2
-        x: 992
+        x: 736
         y: 192
         width: 32
         height: 32
@@ -9033,7 +9033,7 @@ TextureImporter:
       name: Aurora Tileset_425
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 768
         y: 192
         width: 32
         height: 32
@@ -9054,8 +9054,8 @@ TextureImporter:
       name: Aurora Tileset_426
       rect:
         serializedVersion: 2
-        x: 0
-        y: 160
+        x: 864
+        y: 192
         width: 32
         height: 32
       alignment: 0
@@ -9075,8 +9075,8 @@ TextureImporter:
       name: Aurora Tileset_427
       rect:
         serializedVersion: 2
-        x: 32
-        y: 160
+        x: 896
+        y: 192
         width: 32
         height: 32
       alignment: 0
@@ -9096,8 +9096,8 @@ TextureImporter:
       name: Aurora Tileset_428
       rect:
         serializedVersion: 2
-        x: 64
-        y: 160
+        x: 928
+        y: 192
         width: 32
         height: 32
       alignment: 0
@@ -9117,8 +9117,8 @@ TextureImporter:
       name: Aurora Tileset_429
       rect:
         serializedVersion: 2
-        x: 96
-        y: 160
+        x: 960
+        y: 192
         width: 32
         height: 32
       alignment: 0
@@ -9138,8 +9138,8 @@ TextureImporter:
       name: Aurora Tileset_430
       rect:
         serializedVersion: 2
-        x: 128
-        y: 160
+        x: 992
+        y: 192
         width: 32
         height: 32
       alignment: 0
@@ -9159,8 +9159,8 @@ TextureImporter:
       name: Aurora Tileset_431
       rect:
         serializedVersion: 2
-        x: 160
-        y: 160
+        x: 1024
+        y: 192
         width: 32
         height: 32
       alignment: 0
@@ -9180,7 +9180,7 @@ TextureImporter:
       name: Aurora Tileset_432
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 160
         width: 32
         height: 32
@@ -9201,7 +9201,7 @@ TextureImporter:
       name: Aurora Tileset_433
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 160
         width: 32
         height: 32
@@ -9222,7 +9222,7 @@ TextureImporter:
       name: Aurora Tileset_434
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 160
         width: 32
         height: 32
@@ -9243,7 +9243,7 @@ TextureImporter:
       name: Aurora Tileset_435
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 160
         width: 32
         height: 32
@@ -9264,7 +9264,7 @@ TextureImporter:
       name: Aurora Tileset_436
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 160
         width: 32
         height: 32
@@ -9285,7 +9285,7 @@ TextureImporter:
       name: Aurora Tileset_437
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 160
         width: 32
         height: 32
@@ -9306,7 +9306,7 @@ TextureImporter:
       name: Aurora Tileset_438
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 160
         width: 32
         height: 32
@@ -9327,7 +9327,7 @@ TextureImporter:
       name: Aurora Tileset_439
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 160
         width: 32
         height: 32
@@ -9348,7 +9348,7 @@ TextureImporter:
       name: Aurora Tileset_440
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 160
         width: 32
         height: 32
@@ -9369,7 +9369,7 @@ TextureImporter:
       name: Aurora Tileset_441
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 160
         width: 32
         height: 32
@@ -9390,7 +9390,7 @@ TextureImporter:
       name: Aurora Tileset_442
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 160
         width: 32
         height: 32
@@ -9411,7 +9411,7 @@ TextureImporter:
       name: Aurora Tileset_443
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 160
         width: 32
         height: 32
@@ -9432,7 +9432,7 @@ TextureImporter:
       name: Aurora Tileset_444
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 160
         width: 32
         height: 32
@@ -9453,7 +9453,7 @@ TextureImporter:
       name: Aurora Tileset_445
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 160
         width: 32
         height: 32
@@ -9474,7 +9474,7 @@ TextureImporter:
       name: Aurora Tileset_446
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 160
         width: 32
         height: 32
@@ -9495,7 +9495,7 @@ TextureImporter:
       name: Aurora Tileset_447
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 160
         width: 32
         height: 32
@@ -9516,7 +9516,7 @@ TextureImporter:
       name: Aurora Tileset_448
       rect:
         serializedVersion: 2
-        x: 704
+        x: 512
         y: 160
         width: 32
         height: 32
@@ -9537,7 +9537,7 @@ TextureImporter:
       name: Aurora Tileset_449
       rect:
         serializedVersion: 2
-        x: 768
+        x: 544
         y: 160
         width: 32
         height: 32
@@ -9558,7 +9558,7 @@ TextureImporter:
       name: Aurora Tileset_450
       rect:
         serializedVersion: 2
-        x: 864
+        x: 576
         y: 160
         width: 32
         height: 32
@@ -9579,7 +9579,7 @@ TextureImporter:
       name: Aurora Tileset_451
       rect:
         serializedVersion: 2
-        x: 896
+        x: 608
         y: 160
         width: 32
         height: 32
@@ -9600,7 +9600,7 @@ TextureImporter:
       name: Aurora Tileset_452
       rect:
         serializedVersion: 2
-        x: 928
+        x: 640
         y: 160
         width: 32
         height: 32
@@ -9621,7 +9621,7 @@ TextureImporter:
       name: Aurora Tileset_453
       rect:
         serializedVersion: 2
-        x: 960
+        x: 672
         y: 160
         width: 32
         height: 32
@@ -9642,7 +9642,7 @@ TextureImporter:
       name: Aurora Tileset_454
       rect:
         serializedVersion: 2
-        x: 992
+        x: 704
         y: 160
         width: 32
         height: 32
@@ -9663,8 +9663,8 @@ TextureImporter:
       name: Aurora Tileset_455
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 768
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -9684,8 +9684,8 @@ TextureImporter:
       name: Aurora Tileset_456
       rect:
         serializedVersion: 2
-        x: 32
-        y: 128
+        x: 864
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -9705,8 +9705,8 @@ TextureImporter:
       name: Aurora Tileset_457
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
+        x: 896
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -9726,8 +9726,8 @@ TextureImporter:
       name: Aurora Tileset_458
       rect:
         serializedVersion: 2
-        x: 96
-        y: 128
+        x: 928
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -9747,8 +9747,8 @@ TextureImporter:
       name: Aurora Tileset_459
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
+        x: 960
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -9768,8 +9768,8 @@ TextureImporter:
       name: Aurora Tileset_460
       rect:
         serializedVersion: 2
-        x: 160
-        y: 128
+        x: 992
+        y: 160
         width: 32
         height: 32
       alignment: 0
@@ -9789,7 +9789,7 @@ TextureImporter:
       name: Aurora Tileset_461
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 128
         width: 32
         height: 32
@@ -9810,7 +9810,7 @@ TextureImporter:
       name: Aurora Tileset_462
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 128
         width: 32
         height: 32
@@ -9831,7 +9831,7 @@ TextureImporter:
       name: Aurora Tileset_463
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 128
         width: 32
         height: 32
@@ -9852,7 +9852,7 @@ TextureImporter:
       name: Aurora Tileset_464
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 128
         width: 32
         height: 32
@@ -9873,7 +9873,7 @@ TextureImporter:
       name: Aurora Tileset_465
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 128
         width: 32
         height: 32
@@ -9894,7 +9894,7 @@ TextureImporter:
       name: Aurora Tileset_466
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 128
         width: 32
         height: 32
@@ -9915,7 +9915,7 @@ TextureImporter:
       name: Aurora Tileset_467
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 128
         width: 32
         height: 32
@@ -9936,7 +9936,7 @@ TextureImporter:
       name: Aurora Tileset_468
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 128
         width: 32
         height: 32
@@ -9957,7 +9957,7 @@ TextureImporter:
       name: Aurora Tileset_469
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 128
         width: 32
         height: 32
@@ -9978,7 +9978,7 @@ TextureImporter:
       name: Aurora Tileset_470
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 128
         width: 32
         height: 32
@@ -9999,7 +9999,7 @@ TextureImporter:
       name: Aurora Tileset_471
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 128
         width: 32
         height: 32
@@ -10020,7 +10020,7 @@ TextureImporter:
       name: Aurora Tileset_472
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 128
         width: 32
         height: 32
@@ -10041,7 +10041,7 @@ TextureImporter:
       name: Aurora Tileset_473
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 128
         width: 32
         height: 32
@@ -10062,7 +10062,7 @@ TextureImporter:
       name: Aurora Tileset_474
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 128
         width: 32
         height: 32
@@ -10083,7 +10083,7 @@ TextureImporter:
       name: Aurora Tileset_475
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 128
         width: 32
         height: 32
@@ -10104,7 +10104,7 @@ TextureImporter:
       name: Aurora Tileset_476
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 128
         width: 32
         height: 32
@@ -10125,7 +10125,7 @@ TextureImporter:
       name: Aurora Tileset_477
       rect:
         serializedVersion: 2
-        x: 704
+        x: 512
         y: 128
         width: 32
         height: 32
@@ -10146,7 +10146,7 @@ TextureImporter:
       name: Aurora Tileset_478
       rect:
         serializedVersion: 2
-        x: 736
+        x: 544
         y: 128
         width: 32
         height: 32
@@ -10167,7 +10167,7 @@ TextureImporter:
       name: Aurora Tileset_479
       rect:
         serializedVersion: 2
-        x: 768
+        x: 576
         y: 128
         width: 32
         height: 32
@@ -10188,7 +10188,7 @@ TextureImporter:
       name: Aurora Tileset_480
       rect:
         serializedVersion: 2
-        x: 864
+        x: 608
         y: 128
         width: 32
         height: 32
@@ -10209,7 +10209,7 @@ TextureImporter:
       name: Aurora Tileset_481
       rect:
         serializedVersion: 2
-        x: 896
+        x: 640
         y: 128
         width: 32
         height: 32
@@ -10230,7 +10230,7 @@ TextureImporter:
       name: Aurora Tileset_482
       rect:
         serializedVersion: 2
-        x: 928
+        x: 672
         y: 128
         width: 32
         height: 32
@@ -10251,7 +10251,7 @@ TextureImporter:
       name: Aurora Tileset_483
       rect:
         serializedVersion: 2
-        x: 960
+        x: 704
         y: 128
         width: 32
         height: 32
@@ -10272,8 +10272,8 @@ TextureImporter:
       name: Aurora Tileset_484
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
+        x: 736
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -10293,8 +10293,8 @@ TextureImporter:
       name: Aurora Tileset_485
       rect:
         serializedVersion: 2
-        x: 32
-        y: 96
+        x: 768
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -10314,8 +10314,8 @@ TextureImporter:
       name: Aurora Tileset_486
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
+        x: 864
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -10335,8 +10335,8 @@ TextureImporter:
       name: Aurora Tileset_487
       rect:
         serializedVersion: 2
-        x: 96
-        y: 96
+        x: 896
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -10356,8 +10356,8 @@ TextureImporter:
       name: Aurora Tileset_488
       rect:
         serializedVersion: 2
-        x: 128
-        y: 96
+        x: 928
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -10377,8 +10377,8 @@ TextureImporter:
       name: Aurora Tileset_489
       rect:
         serializedVersion: 2
-        x: 160
-        y: 96
+        x: 960
+        y: 128
         width: 32
         height: 32
       alignment: 0
@@ -10398,7 +10398,7 @@ TextureImporter:
       name: Aurora Tileset_490
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 96
         width: 32
         height: 32
@@ -10419,7 +10419,7 @@ TextureImporter:
       name: Aurora Tileset_491
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 96
         width: 32
         height: 32
@@ -10440,7 +10440,7 @@ TextureImporter:
       name: Aurora Tileset_492
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 96
         width: 32
         height: 32
@@ -10461,7 +10461,7 @@ TextureImporter:
       name: Aurora Tileset_493
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 96
         width: 32
         height: 32
@@ -10482,7 +10482,7 @@ TextureImporter:
       name: Aurora Tileset_494
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 96
         width: 32
         height: 32
@@ -10503,7 +10503,7 @@ TextureImporter:
       name: Aurora Tileset_495
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 96
         width: 32
         height: 32
@@ -10524,7 +10524,7 @@ TextureImporter:
       name: Aurora Tileset_496
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 96
         width: 32
         height: 32
@@ -10545,7 +10545,7 @@ TextureImporter:
       name: Aurora Tileset_497
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 96
         width: 32
         height: 32
@@ -10566,7 +10566,7 @@ TextureImporter:
       name: Aurora Tileset_498
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 96
         width: 32
         height: 32
@@ -10587,7 +10587,7 @@ TextureImporter:
       name: Aurora Tileset_499
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 96
         width: 32
         height: 32
@@ -10608,7 +10608,7 @@ TextureImporter:
       name: Aurora Tileset_500
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 96
         width: 32
         height: 32
@@ -10629,7 +10629,7 @@ TextureImporter:
       name: Aurora Tileset_501
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 96
         width: 32
         height: 32
@@ -10650,7 +10650,7 @@ TextureImporter:
       name: Aurora Tileset_502
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 96
         width: 32
         height: 32
@@ -10671,7 +10671,7 @@ TextureImporter:
       name: Aurora Tileset_503
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 96
         width: 32
         height: 32
@@ -10692,7 +10692,7 @@ TextureImporter:
       name: Aurora Tileset_504
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 96
         width: 32
         height: 32
@@ -10713,7 +10713,7 @@ TextureImporter:
       name: Aurora Tileset_505
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 96
         width: 32
         height: 32
@@ -10734,7 +10734,7 @@ TextureImporter:
       name: Aurora Tileset_506
       rect:
         serializedVersion: 2
-        x: 864
+        x: 512
         y: 96
         width: 32
         height: 32
@@ -10755,7 +10755,7 @@ TextureImporter:
       name: Aurora Tileset_507
       rect:
         serializedVersion: 2
-        x: 896
+        x: 544
         y: 96
         width: 32
         height: 32
@@ -10776,7 +10776,7 @@ TextureImporter:
       name: Aurora Tileset_508
       rect:
         serializedVersion: 2
-        x: 928
+        x: 576
         y: 96
         width: 32
         height: 32
@@ -10797,7 +10797,7 @@ TextureImporter:
       name: Aurora Tileset_509
       rect:
         serializedVersion: 2
-        x: 960
+        x: 608
         y: 96
         width: 32
         height: 32
@@ -10818,8 +10818,8 @@ TextureImporter:
       name: Aurora Tileset_510
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 640
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -10839,8 +10839,8 @@ TextureImporter:
       name: Aurora Tileset_511
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
+        x: 672
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -10860,8 +10860,8 @@ TextureImporter:
       name: Aurora Tileset_512
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 864
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -10881,8 +10881,8 @@ TextureImporter:
       name: Aurora Tileset_513
       rect:
         serializedVersion: 2
-        x: 96
-        y: 64
+        x: 896
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -10902,8 +10902,8 @@ TextureImporter:
       name: Aurora Tileset_514
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
+        x: 928
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -10923,8 +10923,8 @@ TextureImporter:
       name: Aurora Tileset_515
       rect:
         serializedVersion: 2
-        x: 160
-        y: 64
+        x: 960
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -10944,7 +10944,7 @@ TextureImporter:
       name: Aurora Tileset_516
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 64
         width: 32
         height: 32
@@ -10965,7 +10965,7 @@ TextureImporter:
       name: Aurora Tileset_517
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 64
         width: 32
         height: 32
@@ -10986,7 +10986,7 @@ TextureImporter:
       name: Aurora Tileset_518
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 64
         width: 32
         height: 32
@@ -11007,7 +11007,7 @@ TextureImporter:
       name: Aurora Tileset_519
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 64
         width: 32
         height: 32
@@ -11028,7 +11028,7 @@ TextureImporter:
       name: Aurora Tileset_520
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 64
         width: 32
         height: 32
@@ -11049,7 +11049,7 @@ TextureImporter:
       name: Aurora Tileset_521
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 64
         width: 32
         height: 32
@@ -11070,7 +11070,7 @@ TextureImporter:
       name: Aurora Tileset_522
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 64
         width: 32
         height: 32
@@ -11091,7 +11091,7 @@ TextureImporter:
       name: Aurora Tileset_523
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 64
         width: 32
         height: 32
@@ -11112,7 +11112,7 @@ TextureImporter:
       name: Aurora Tileset_524
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 64
         width: 32
         height: 32
@@ -11133,7 +11133,7 @@ TextureImporter:
       name: Aurora Tileset_525
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 64
         width: 32
         height: 32
@@ -11154,7 +11154,7 @@ TextureImporter:
       name: Aurora Tileset_526
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 64
         width: 32
         height: 32
@@ -11175,7 +11175,7 @@ TextureImporter:
       name: Aurora Tileset_527
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 64
         width: 32
         height: 32
@@ -11196,7 +11196,7 @@ TextureImporter:
       name: Aurora Tileset_528
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 64
         width: 32
         height: 32
@@ -11217,7 +11217,7 @@ TextureImporter:
       name: Aurora Tileset_529
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 64
         width: 32
         height: 32
@@ -11238,7 +11238,7 @@ TextureImporter:
       name: Aurora Tileset_530
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 64
         width: 32
         height: 32
@@ -11259,7 +11259,7 @@ TextureImporter:
       name: Aurora Tileset_531
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 64
         width: 32
         height: 32
@@ -11280,8 +11280,8 @@ TextureImporter:
       name: Aurora Tileset_532
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 512
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -11301,8 +11301,8 @@ TextureImporter:
       name: Aurora Tileset_533
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 544
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -11322,8 +11322,8 @@ TextureImporter:
       name: Aurora Tileset_534
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
+        x: 576
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -11343,8 +11343,8 @@ TextureImporter:
       name: Aurora Tileset_535
       rect:
         serializedVersion: 2
-        x: 96
-        y: 32
+        x: 608
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -11364,8 +11364,8 @@ TextureImporter:
       name: Aurora Tileset_536
       rect:
         serializedVersion: 2
-        x: 128
-        y: 32
+        x: 640
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -11385,8 +11385,8 @@ TextureImporter:
       name: Aurora Tileset_537
       rect:
         serializedVersion: 2
-        x: 160
-        y: 32
+        x: 672
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -11406,7 +11406,7 @@ TextureImporter:
       name: Aurora Tileset_538
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 32
         width: 32
         height: 32
@@ -11427,7 +11427,7 @@ TextureImporter:
       name: Aurora Tileset_539
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 32
         width: 32
         height: 32
@@ -11448,7 +11448,7 @@ TextureImporter:
       name: Aurora Tileset_540
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 32
         width: 32
         height: 32
@@ -11469,7 +11469,7 @@ TextureImporter:
       name: Aurora Tileset_541
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 32
         width: 32
         height: 32
@@ -11490,7 +11490,7 @@ TextureImporter:
       name: Aurora Tileset_542
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 32
         width: 32
         height: 32
@@ -11511,7 +11511,7 @@ TextureImporter:
       name: Aurora Tileset_543
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 32
         width: 32
         height: 32
@@ -11532,7 +11532,7 @@ TextureImporter:
       name: Aurora Tileset_544
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 32
         width: 32
         height: 32
@@ -11553,7 +11553,7 @@ TextureImporter:
       name: Aurora Tileset_545
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 32
         width: 32
         height: 32
@@ -11574,7 +11574,7 @@ TextureImporter:
       name: Aurora Tileset_546
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 32
         width: 32
         height: 32
@@ -11595,7 +11595,7 @@ TextureImporter:
       name: Aurora Tileset_547
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 32
         width: 32
         height: 32
@@ -11616,7 +11616,7 @@ TextureImporter:
       name: Aurora Tileset_548
       rect:
         serializedVersion: 2
-        x: 512
+        x: 320
         y: 32
         width: 32
         height: 32
@@ -11637,7 +11637,7 @@ TextureImporter:
       name: Aurora Tileset_549
       rect:
         serializedVersion: 2
-        x: 544
+        x: 352
         y: 32
         width: 32
         height: 32
@@ -11658,7 +11658,7 @@ TextureImporter:
       name: Aurora Tileset_550
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 32
         width: 32
         height: 32
@@ -11679,7 +11679,7 @@ TextureImporter:
       name: Aurora Tileset_551
       rect:
         serializedVersion: 2
-        x: 608
+        x: 416
         y: 32
         width: 32
         height: 32
@@ -11700,7 +11700,7 @@ TextureImporter:
       name: Aurora Tileset_552
       rect:
         serializedVersion: 2
-        x: 640
+        x: 448
         y: 32
         width: 32
         height: 32
@@ -11721,7 +11721,7 @@ TextureImporter:
       name: Aurora Tileset_553
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 32
         width: 32
         height: 32
@@ -11742,8 +11742,8 @@ TextureImporter:
       name: Aurora Tileset_554
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 512
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -11763,8 +11763,8 @@ TextureImporter:
       name: Aurora Tileset_555
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 544
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -11784,8 +11784,8 @@ TextureImporter:
       name: Aurora Tileset_556
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 576
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -11805,8 +11805,8 @@ TextureImporter:
       name: Aurora Tileset_557
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
+        x: 608
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -11826,8 +11826,8 @@ TextureImporter:
       name: Aurora Tileset_558
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
+        x: 640
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -11847,8 +11847,8 @@ TextureImporter:
       name: Aurora Tileset_559
       rect:
         serializedVersion: 2
-        x: 160
-        y: 0
+        x: 672
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -11868,7 +11868,7 @@ TextureImporter:
       name: Aurora Tileset_560
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 0
         width: 32
         height: 32
@@ -11889,7 +11889,7 @@ TextureImporter:
       name: Aurora Tileset_561
       rect:
         serializedVersion: 2
-        x: 224
+        x: 32
         y: 0
         width: 32
         height: 32
@@ -11910,7 +11910,7 @@ TextureImporter:
       name: Aurora Tileset_562
       rect:
         serializedVersion: 2
-        x: 256
+        x: 64
         y: 0
         width: 32
         height: 32
@@ -11931,7 +11931,7 @@ TextureImporter:
       name: Aurora Tileset_563
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 0
         width: 32
         height: 32
@@ -11952,7 +11952,7 @@ TextureImporter:
       name: Aurora Tileset_564
       rect:
         serializedVersion: 2
-        x: 320
+        x: 128
         y: 0
         width: 32
         height: 32
@@ -11973,7 +11973,7 @@ TextureImporter:
       name: Aurora Tileset_565
       rect:
         serializedVersion: 2
-        x: 352
+        x: 160
         y: 0
         width: 32
         height: 32
@@ -11994,7 +11994,7 @@ TextureImporter:
       name: Aurora Tileset_566
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 0
         width: 32
         height: 32
@@ -12015,7 +12015,7 @@ TextureImporter:
       name: Aurora Tileset_567
       rect:
         serializedVersion: 2
-        x: 416
+        x: 224
         y: 0
         width: 32
         height: 32
@@ -12036,7 +12036,7 @@ TextureImporter:
       name: Aurora Tileset_568
       rect:
         serializedVersion: 2
-        x: 448
+        x: 256
         y: 0
         width: 32
         height: 32
@@ -12057,7 +12057,7 @@ TextureImporter:
       name: Aurora Tileset_569
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 0
         width: 32
         height: 32
@@ -12070,6 +12070,132 @@ TextureImporter:
       bones: []
       spriteID: c64ff1a45defed547b721d1ab4d2ac2d
       internalID: 834053745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aurora Tileset_570
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 652dfe600e94be34ea84a1488a8e0da3
+      internalID: -81620800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aurora Tileset_571
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8003dd125a703ba43b47762e3329456e
+      internalID: 833610145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aurora Tileset_572
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9d50be9ff1ce014ab70c3bca67b2b75
+      internalID: -18308803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aurora Tileset_573
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7424f04ac82aab94c967bf4aec588028
+      internalID: 815695877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aurora Tileset_574
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1752a3e8744859c448a093a82c000888
+      internalID: 1279224316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Aurora Tileset_575
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 965fc796d9936114483ac8072a74456f
+      internalID: -1480980066
       vertices: []
       indices: 
       edges: []
@@ -12110,6 +12236,7 @@ TextureImporter:
       Aurora Tileset_567: -1131432733
       Aurora Tileset_240: 713243756
       Aurora Tileset_299: 923486909
+      Aurora Tileset_573: 815695877
       Aurora Tileset_499: -1164798384
       Aurora Tileset_102: 25333239
       Aurora Tileset_233: -1254204976
@@ -12167,8 +12294,8 @@ TextureImporter:
       Aurora Tileset_561: -1509684435
       Aurora Tileset_369: 563707515
       Aurora Tileset_456: -621019640
-      Aurora Tileset_564: 1106085801
       Aurora Tileset_511: 927626716
+      Aurora Tileset_564: 1106085801
       Aurora Tileset_418: -812037716
       Aurora Tileset_17: 740993040
       Aurora Tileset_25: 1011117903
@@ -12234,6 +12361,7 @@ TextureImporter:
       Aurora Tileset_197: 1292128540
       Aurora Tileset_445: 825004898
       Aurora Tileset_370: 1754893585
+      Aurora Tileset_574: 1279224316
       Aurora Tileset_304: 894928982
       Aurora Tileset_320: -1111302753
       Aurora Tileset_328: 1808372398
@@ -12264,6 +12392,7 @@ TextureImporter:
       Aurora Tileset_281: -1082534476
       Aurora Tileset_363: -908987948
       Aurora Tileset_449: -1523371110
+      Aurora Tileset_571: 833610145
       Aurora Tileset_3: 846107592
       Aurora Tileset_132: -701535164
       Aurora Tileset_548: -2086451170
@@ -12325,6 +12454,7 @@ TextureImporter:
       Aurora Tileset_39: -15065744
       Aurora Tileset_264: 778987004
       Aurora Tileset_87: 879990120
+      Aurora Tileset_572: -18308803
       Aurora Tileset_167: -1716843134
       Aurora Tileset_542: 39907856
       Aurora Tileset_101: -355066341
@@ -12375,14 +12505,14 @@ TextureImporter:
       Aurora Tileset_193: -1822471107
       Aurora Tileset_360: -2033130210
       Aurora Tileset_46: 2006806756
+      Aurora Tileset_67: -2045962740
       Aurora Tileset_402: -3616720
       Aurora Tileset_464: 1722783798
-      Aurora Tileset_67: -2045962740
       Aurora Tileset_431: 859475401
       Aurora Tileset_91: 1996827522
       Aurora Tileset_96: -969595956
-      Aurora Tileset_545: -378969052
       Aurora Tileset_191: -570060109
+      Aurora Tileset_545: -378969052
       Aurora Tileset_166: 826412068
       Aurora Tileset_423: -893716635
       Aurora Tileset_1: 1888044457
@@ -12469,6 +12599,7 @@ TextureImporter:
       Aurora Tileset_94: 1177556341
       Aurora Tileset_253: -1787643143
       Aurora Tileset_265: -2019303339
+      Aurora Tileset_575: -1480980066
       Aurora Tileset_382: -1315539217
       Aurora Tileset_29: -1689831875
       Aurora Tileset_196: -1866493385
@@ -12634,6 +12765,7 @@ TextureImporter:
       Aurora Tileset_377: -891247162
       Aurora Tileset_237: 681434621
       Aurora Tileset_332: 1741628689
+      Aurora Tileset_570: -81620800
       Aurora Tileset_294: 405398235
       Aurora Tileset_181: -676719798
       Aurora Tileset_339: -1725892729
