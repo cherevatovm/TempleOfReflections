@@ -13,7 +13,8 @@ public class ElectraEnemyAI : EnemyAI
         List<string> messageList = new();
         soundID = -1;
         int attackProbability = random.Next(1, 101);
-        int whoProbability = random.Next(1, CombatSystem.instance.allyUnits.Count + 1);
+        CombatSystem.instance.curAllyID = random.Next(0, CombatSystem.instance.allyUnits.Count);
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
         Enemy currentEnemyUnit = CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID];
         if (attackProbability > 60 && currentEnemyUnit.currentMP >= 3)
         {
@@ -30,21 +31,9 @@ public class ElectraEnemyAI : EnemyAI
             }
             else
             {
-                int totalDamage;
-                Unit target;
-                if (whoProbability == CombatSystem.instance.allyUnits.Count)
-                {
-                    target = CombatSystem.instance.playerUnit;
-                    totalDamage = CombatSystem.instance.CalcAffinityDamage(2, true, currentEnemyUnit, target);
-                }
-                else
-                {
-                    target = CombatSystem.instance.allyUnits[whoProbability - 1];
-                    totalDamage = CombatSystem.instance.CalcAffinityDamage(2, true, currentEnemyUnit, target);
-                }
-                target.TakeDamage(totalDamage);
-                if (target == CombatSystem.instance.playerUnit)
-                    CombatSystem.instance.playerIsHurting = true;
+                int totalDamage = CombatSystem.instance.CalcAffinityDamage(2, true, currentEnemyUnit, target);
+                target.TakeDamage(totalDamage);         
+                //Разобраться с анимациями
                 messageList.Add(target.ApplyEffect(1));              
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " электрического урона");
             }           
@@ -61,31 +50,18 @@ public class ElectraEnemyAI : EnemyAI
                 return messageList;
             }
             else
-            {
-                int totalDamage;
-                Unit target;
-                if (whoProbability == CombatSystem.instance.allyUnits.Count)
-                {
-                    target = CombatSystem.instance.playerUnit;
-                    totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, target);
-                }
-                else
-                {
-                    target = CombatSystem.instance.allyUnits[whoProbability - 1];
-                    totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, target);
-                }
-
+            {               
+                int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, target);
                 target.TakeDamage(totalDamage);
-                if (target == CombatSystem.instance.playerUnit)
-                    CombatSystem.instance.playerIsHurting = true;
+                //Разобраться с анимациями
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " физического урона");
             }
         }
         if (currentEnemyUnit.currentHP >= (int)(0.7 * currentEnemyUnit.maxHP))
         {
             soundID = 1;
-            int totalDamage = (int)(0.5 * CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, CombatSystem.instance.playerUnit));
-            CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
+            int totalDamage = (int)(0.5 * CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, target));
+            target.TakeDamage(totalDamage);
             messageList.Add(currentEnemyUnit.unitName + " использует быструю атаку и наносит " + totalDamage + " физического урона");
         }
         return messageList;

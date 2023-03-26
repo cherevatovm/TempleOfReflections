@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4560645954599096049}
   - component: {fileID: 4560645954599096062}
   m_Layer: 0
-  m_Name: NPC
+  m_Name: Amelia
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,8 +30,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4560645954599096063}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.23, y: 2.86, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -163,14 +163,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4560645954599096051}
-  unitName: Player
-  meleeAttackStrength: 0
-  mentalAttackStrength: 0
+  unitName: "\u0410\u043C\u0435\u043B\u0438\u044F"
+  unitID: 0
+  combatHUD: {fileID: 0}
+  meleeAttackStrength: 1000
+  mentalAttackStrength: 10
   armorModifier: 1
-  currentHP: 0
-  maxHP: 0
-  currentMP: 0
-  maxMP: 0
+  currentHP: 50
+  maxHP: 50
+  currentMP: 10
+  maxMP: 10
   itemEffectTurnsCount: 0
   underItemEffect: 0
   affectingItem: {fileID: 0}
@@ -179,10 +181,14 @@ MonoBehaviour:
   knockedDownTimeout: 0
   appliedEffect: 000000
   underEffectTurnsCount: 0
-  weaknesses: 000000
-  resistances: 
-  nulls: 
-  elementAffinities: []
+  weaknesses: 00000000
+  resistances: 00000000
+  nulls: 00000000
+  elementAffinities:
+  - 1
+  - 1
+  - 1
+  - 1
 --- !u!95 &4560645954599096062
 Animator:
   serializedVersion: 4

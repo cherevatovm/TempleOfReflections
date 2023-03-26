@@ -55,12 +55,22 @@ public class ItemInfo : MonoBehaviour
 
     public void OnUseButton()
     {
-        if (slot.slotItem.isAffectingEnemy)
+        if (CombatSystem.instance.isInCombat)
         {
-            CombatSystem.instance.isChoosingEnemyForItem = true;
-            CombatSystem.instance.activeSlot = slot;
-            Inventory.instance.Close();
-            CombatSystem.instance.combatUI.combatDialogue.text = "Выберите цель, на которой хотите использовать предмет";
+            if (slot.slotItem.isAffectingEnemy)
+            {
+                CombatSystem.instance.isChoosingEnemyForItem = true;
+                CombatSystem.instance.activeSlot = slot;
+                Inventory.instance.Close();
+                CombatSystem.instance.combatUI.combatDialogue.text = "Выберите врага, на котором хотите использовать предмет";
+            }
+            else
+            {
+                CombatSystem.instance.isChoosingAllyForItem = true;
+                CombatSystem.instance.activeSlot = slot;
+                Inventory.instance.Close();
+                CombatSystem.instance.combatUI.combatDialogue.text = "Выберите союзника, на котором хотите использовать предмет";
+            }
         }
         else
             slot.UseItemInSlot();

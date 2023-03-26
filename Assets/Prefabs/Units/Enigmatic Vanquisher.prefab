@@ -32,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5021757046155829931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.38, y: 0.12, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -126,6 +126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5021757046155829935}
   unitName: Enigmatic Vanquisher
+  unitID: 0
+  combatHUD: {fileID: 0}
   meleeAttackStrength: 10
   mentalAttackStrength: 10
   armorModifier: 1
@@ -133,6 +135,9 @@ MonoBehaviour:
   maxHP: 65
   currentMP: 15
   maxMP: 15
+  itemEffectTurnsCount: 0
+  underItemEffect: 0
+  affectingItem: {fileID: 0}
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
@@ -147,7 +152,6 @@ MonoBehaviour:
   - 1
   - 1.2
   enemyPrefabsForCombat: []
-  combatHUD: {fileID: 0}
 --- !u!114 &5021757046155829929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +197,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08807befb1e86cd4ba1767a1f2099c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackButtonWasPressed: 0
+  isHurting: 0
+  isDying: 0
 --- !u!58 &5037473587283026341
 CircleCollider2D:
   m_ObjectHideFlags: 0

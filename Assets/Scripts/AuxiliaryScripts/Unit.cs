@@ -10,7 +10,9 @@ public class Unit : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb;
     private System.Random random = new();
 
-    public string unitName;    
+    public string unitName;
+    public int unitID;
+    public CombatHUD combatHUD;
     public int meleeAttackStrength;
     public int mentalAttackStrength;
     public float armorModifier = 1;
