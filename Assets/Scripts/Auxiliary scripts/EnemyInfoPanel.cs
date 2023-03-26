@@ -1,26 +1,15 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyInfoPanel : MonoBehaviour
 {
-    private class EnemyStats
+    private class EnemyRecord
     {
-        public string name;
-        //public string description;
+        public int slainInTotal;
         public bool[] knownAffinities = new bool[4];
-        public bool[] weaknesses;
-        public bool[] resistances;
-        public bool[] nulls;  
-
-        public EnemyStats(Enemy enemy)
-        {
-            name = enemy.unitName;
-            weaknesses = enemy.weaknesses;
-            resistances = enemy.resistances;
-            nulls = enemy.nulls;
-        }
 
         public bool this[int i]
         {
@@ -28,31 +17,74 @@ public class EnemyInfoPanel : MonoBehaviour
             set => knownAffinities[i] = value;
         }
     }
-    [SerializeField] GameObject[] enemyPrefabs;
-    private List<EnemyStats> enemyStats;
+
+    [SerializeField] private CombatHUD enemyHUD;
+    [SerializeField] private TMP_Text descriptionText;
+    [SerializeField] private TMP_Text slainCounter;
+    [SerializeField] private Text coinCounter;
+    [SerializeField] private Image enemyImage;
+    [SerializeField] private TMP_Text[] affinityLabels;
+    private List<EnemyRecord> enemyStats = new();
+    private string prevCombatLine;
     public static EnemyInfoPanel instance;
 
     private void Start()
     {
         instance = this;
-        foreach (var prefab in enemyPrefabs)
-            enemyStats.Add(new EnemyStats(prefab.GetComponent<Enemy>()));
+        for (int i = 0; i < 3; i++)
+            enemyStats.Add(new EnemyRecord());
+        enemyImage.preserveAspect = true;
+        gameObject.SetActive(false);
     }
 
     public void ChangeKnownAffinities(int enemyID, int damageTypeID) => enemyStats[enemyID][damageTypeID] = true;
 
-    public void IncreaseSlainInTotalCount(int id)
-    {
-        throw new NotImplementedException();
-    }
+    public void IncreaseSlainInTotalCount(int enemyID) => enemyStats[enemyID].slainInTotal++;
 
     public void OpenEnemyInfoPanel(Enemy enemy)
     {
-        throw new NotImplementedException();
+        enemyHUD.SetHUD(enemy);
+        if (enemyStats[enemy.enemyID].slainInTotal > 0)
+            coinCounter.text = enemy.coinsDropped.ToString();
+        else
+            coinCounter.text = "???";
+        if (enemyStats[enemy.enemyID].slainInTotal > 2)
+            descriptionText.text = enemy.enemyDescription;
+        else
+            descriptionText.text = "????????????????????????\n????????????????????????\n????????????????????????";
+        slainCounter.text = enemyStats[enemy.enemyID].slainInTotal.ToString();
+        enemyImage.sprite = enemy.gameObject.GetComponent<SpriteRenderer>().sprite;
+        enemyImage.SetNativeSize();
+        if (enemy.enemyID == 0)
+            enemyImage.transform.localScale = new Vector3(0.8f, 0.8f);
+        else
+            enemyImage.transform.localScale = new Vector3(1.2f, 1.2f);
+        for (int i = 0; i < affinityLabels.Length; i++)
+        {
+            if (enemyStats[enemy.enemyID][i])
+            {
+                if (enemy.weaknesses[i])
+                    affinityLabels[i].text = "Слабость";
+                else if (enemy.resistances[i])
+                    affinityLabels[i].text = "Сопротив.";
+                else if (enemy.nulls[i])
+                    affinityLabels[i].text = "Невоспр.";
+                else
+                    affinityLabels[i].text = "Нейтрально";
+            }
+            else
+                affinityLabels[i].text = "???";
+        }
+        prevCombatLine = CombatSystem.instance.combatUI.combatDialogue.text;
+        CombatSystem.instance.combatUI.combatDialogue.text = "Известная на данный момент информация о враге";
+        CombatSystem.instance.combatUI.blackouts[1].SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void CloseEnemyInfoPanel()
     {
-        throw new NotImplementedException();
+        CombatSystem.instance.combatUI.combatDialogue.text = prevCombatLine;
+        CombatSystem.instance.combatUI.blackouts[1].SetActive(false);
+        gameObject.SetActive(false);
     }
 }
