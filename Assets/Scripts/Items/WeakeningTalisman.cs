@@ -23,13 +23,13 @@ public class WeakeningTalisman : ItemWithEffect
         currentEnemyUnit.affectingItem = this;
         currentEnemyUnit.meleeAttackStrength -= (int)(0.25 * currentEnemyUnit.meleeAttackStrength);
         currentEnemyUnit.mentalAttackStrength -= (int)(0.25 * currentEnemyUnit.mentalAttackStrength);
-        message = CombatSystem.instance.playerUnit.unitName + " использует талисман ослабления для " + currentEnemyUnit.unitName;
+        message = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].unitName + " использует талисман ослабления для " + currentEnemyUnit.unitName;
     }
 
     public override void RemoveEffect()
     {
         Enemy currentEnemyUnit = CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID];
-        if (CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID].itemEffectTurnsCount != underEffectTurnsNumber)
+        if (currentEnemyUnit.itemEffectTurnsCount != underEffectTurnsNumber)
             return;
         currentEnemyUnit.underItemEffect = false;
         currentEnemyUnit.itemEffectTurnsCount = 0;

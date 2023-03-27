@@ -10,7 +10,7 @@ public class HpMixture : PickableItem
     {
         if (CombatSystem.instance.isInCombat)
         {
-            Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
+            Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.tempAllyID];
             target.Heal((int)(target.maxHP * (percentOfRestoredHP / 100.0)));
             message = target.unitName + " использует целебную микстуру";
         }

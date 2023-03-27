@@ -127,9 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   unitName: Reflection of Wrath
-  unitID: 0
   combatHUD: {fileID: 0}
-  meleeAttackStrength: 150
+  meleeAttackStrength: 15
   mentalAttackStrength: 17
   armorModifier: 1
   currentHP: 150

@@ -15,7 +15,7 @@ public class MotivationTalisman : ItemWithEffect
         message = string.Empty;
         if (!CombatSystem.instance.isInCombat)
             return;
-        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.tempAllyID];
         if (target.affectingItem is MotivationTalisman)
             return;
         target.underItemEffect = true;

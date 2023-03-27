@@ -18,14 +18,15 @@ public class MentalSkillTalisman : PickableItem
         if (!CombatSystem.instance.isInCombat)
             return;
         Enemy currentEnemyUnit = CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID];
-        int totalDamage = CombatSystem.instance.CalcAffinityDamage(damageTypeID, true, CombatSystem.instance.playerUnit, currentEnemyUnit);
+        Unit attackingUnit = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
+        int totalDamage = CombatSystem.instance.CalcAffinityDamage(damageTypeID, true, attackingUnit, currentEnemyUnit);
         currentEnemyUnit.TakeDamage(totalDamage);
         currentEnemyUnit.ApplyEffect(damageTypeID - 1);
         message = damageTypeID switch
         {
-            1 => CombatSystem.instance.playerUnit.unitName + " наносит " + totalDamage + " псионического урона",
-            2 => CombatSystem.instance.playerUnit.unitName + " наносит " + totalDamage + " электрического урона",
-            3 => CombatSystem.instance.playerUnit.unitName + " наносит " + totalDamage + " огненного урона",
+            1 => attackingUnit.unitName + " наносит " + totalDamage + " псионического урона",
+            2 => attackingUnit.unitName + " наносит " + totalDamage + " электрического урона",
+            3 => attackingUnit.unitName + " наносит " + totalDamage + " огненного урона",
             _ => string.Empty,
         };
     }

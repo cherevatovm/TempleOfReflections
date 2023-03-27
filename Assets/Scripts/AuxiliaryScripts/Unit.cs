@@ -11,7 +11,6 @@ public class Unit : MonoBehaviour
     private System.Random random = new();
 
     public string unitName;
-    public int unitID;
     public CombatHUD combatHUD;
     public int meleeAttackStrength;
     public int mentalAttackStrength;
@@ -35,6 +34,28 @@ public class Unit : MonoBehaviour
     public bool[] resistances;
     public bool[] nulls;
     public float[] elementAffinities;
+
+    private void OnMouseOver()
+    {
+        if (!CombatSystem.instance.isInCombat)
+            return;
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (CombatSystem.instance.isChoosingAllyForSkill)
+            {
+                CombatSystem.instance.tempAllyID = CombatSystem.instance.allyUnits.IndexOf(this);
+                CombatSystem.instance.isChoosingAllyForSkill = false;
+                CombatSystem.instance.combatUI.combatDialogue.text = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].unitName + " применяет целительный навык";
+                StartCoroutine(CombatSystem.instance.AllyRegenaSkill());
+            }
+            else if (CombatSystem.instance.isChoosingAllyForItem)
+            {
+                CombatSystem.instance.tempAllyID = CombatSystem.instance.allyUnits.IndexOf(this);
+                CombatSystem.instance.isChoosingAllyForItem = false;
+                CombatSystem.instance.activeSlot.UseItemInSlot();
+            }
+        }
+    }
 
     public virtual void TakeDamage(int damage) => currentHP -= damage;
 

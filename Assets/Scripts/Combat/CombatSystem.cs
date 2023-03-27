@@ -17,10 +17,10 @@ public class CombatSystem : MonoBehaviour
     public float reflectionProbability1;
     public float reflectionProbability2;
 
-    [HideInInspector] public Player playerUnit;
     [HideInInspector] public int curEnemyID;
     [HideInInspector] public List<Enemy> enemyUnits = new();
     [HideInInspector] public int curAllyID;
+    [HideInInspector] public int tempAllyID;
     [HideInInspector] public List<Unit> allyUnits = new();
     [HideInInspector] public List<EnemyCombatController> enemyCombatControllers = new();
     //[HideInInspector] public List<PlayerCombatController> allyCombatControllers = new();
@@ -46,6 +46,7 @@ public class CombatSystem : MonoBehaviour
     [HideInInspector] public bool isInCombat;
     [HideInInspector] public bool isChoosingEnemyForAttack;
     [HideInInspector] public bool isChoosingEnemyForItem;
+    [HideInInspector] public bool isChoosingAllyForSkill;
     [HideInInspector] public bool isChoosingAllyForItem;
     public static CombatSystem instance;
     private System.Random random = new System.Random();
@@ -56,7 +57,6 @@ public class CombatSystem : MonoBehaviour
     [HideInInspector] public int damageTypeID;
     [HideInInspector] public bool isMental;
     [HideInInspector] public InventorySlot activeSlot;
-    public bool isHitHimself;
 
     private void Start()
     {
@@ -221,8 +221,8 @@ public class CombatSystem : MonoBehaviour
     public IEnumerator AllyUsingItem()
     {
         combatState = CombatState.ENEMY_TURN;
-        allyUnits[curAllyID].combatHUD.ChangeHP(allyUnits[curAllyID].currentHP);
-        allyUnits[curAllyID].combatHUD.ChangeMP(allyUnits[curAllyID].currentMP);
+        allyUnits[tempAllyID].combatHUD.ChangeHP(allyUnits[tempAllyID].currentHP);
+        allyUnits[tempAllyID].combatHUD.ChangeMP(allyUnits[tempAllyID].currentMP);
         enemyUnits[curEnemyID].combatHUD.ChangeHP(enemyUnits[curEnemyID].currentHP);
         enemyUnits[curEnemyID].combatHUD.ChangeMP(enemyUnits[curEnemyID].currentMP);
         activeSlot = null;
@@ -305,7 +305,7 @@ public class CombatSystem : MonoBehaviour
         }
         //playerAttackButtonWasPressed = false;
         allyUnits[curAllyID].combatHUD.ChangeHP(allyUnits[curAllyID].currentHP);
-        enemyHUDs[curEnemyID].ChangeHP(enemyUnits[curEnemyID].currentHP);
+        enemyUnits[curEnemyID].combatHUD.ChangeHP(enemyUnits[curEnemyID].currentHP);
         //playerIsHurting = false;
         enemyCombatControllers[curEnemyID].isHurting = false;
         combatUI.combatDialogue.text = message;
@@ -341,12 +341,10 @@ public class CombatSystem : MonoBehaviour
         }
     }
 
-    private IEnumerator AllyRegenaSkill()
+    public IEnumerator AllyRegenaSkill()
     {
-        throw new System.NotImplementedException();
-        /*
         combatState = CombatState.ENEMY_TURN;
-        playerAttackButtonWasPressed = true;
+        //playerAttackButtonWasPressed = true;
         yield return new WaitForSeconds(1.5f);
         string message;
         if (reflectionProbability2 > 0 && random.NextDouble() < reflectionProbability2)
@@ -356,27 +354,18 @@ public class CombatSystem : MonoBehaviour
         }
         else
         {
-            playerUnit.Heal((int)(playerUnit.maxHP * 0.25));
-            message = playerUnit.unitName + " восстанавливает " + (int)(playerUnit.maxHP * 0.25) + " здоровья";
+            allyUnits[tempAllyID].Heal((int)(allyUnits[tempAllyID].maxHP * 0.25));
+            message = allyUnits[tempAllyID].unitName + " восстанавливает " + (int)(allyUnits[tempAllyID].maxHP * 0.25) + " здоровья";
         }
-        playerUnit.ReduceCurrentMP(mentalSkillsMPCost[0]);
-        playerHUD.ChangeHP(playerUnit.currentHP);
-        playerHUD.ChangeMP(playerUnit.currentMP);
+        allyUnits[curAllyID].ReduceCurrentMP(mentalSkillsMPCost[0]);
+        allyUnits[tempAllyID].combatHUD.ChangeHP(allyUnits[tempAllyID].currentHP);
+        allyUnits[curAllyID].combatHUD.ChangeMP(allyUnits[curAllyID].currentMP);
         enemyUnits[curEnemyID].combatHUD.ChangeHP(enemyUnits[curEnemyID].currentHP);
-        playerAttackButtonWasPressed = false;
+        //playerAttackButtonWasPressed = false;
         combatUI.combatDialogue.text = message;
         yield return new WaitForSeconds(1.5f);
-        if (enemyUnits[curEnemyID].isKnockedDown && enemyUnits[curEnemyID].knockedTurnsCount == 0)
-        {
-            enemyUnits[curEnemyID].knockedTurnsCount++;
-            combatUI.combatDialogue.text = "Враг сбит с ног. " + playerUnit.unitName + " предоставляется еще один ход!";
-            yield return new WaitForSeconds(1.5f);
-            combatState = CombatState.PLAYER_TURN;
-            StartCoroutine(AllyTurn());
-        }
-        else
-            StartCoroutine(AllyTurn());
-        */
+        curAllyID++;
+        StartCoroutine(AllyTurn());
     }
 
     private void RemoveAlly(int allyID)
@@ -584,6 +573,8 @@ public class CombatSystem : MonoBehaviour
         }
         isChoosingEnemyForAttack = false;
         isChoosingEnemyForItem = false;
+        isChoosingAllyForSkill = false;
+        isChoosingAllyForItem = false;
         if (combatUI.areButtonsShown)
             combatUI.combatDialogue.text = "Выберите навык, который хотите применить";
         else
@@ -642,13 +633,12 @@ public class CombatSystem : MonoBehaviour
     }
 
     public void OnRegenaButton()
-    {
-        isChoosingEnemyForAttack = false;
+    {        
         if (allyUnits[curAllyID].currentMP >= mentalSkillsMPCost[0])
         {
-            combatUI.combatDialogue.text = allyUnits[curAllyID].unitName + " использует целительный навык";
             combatUI.HideOrShowMentalSkillButtons();
-            StartCoroutine(AllyRegenaSkill());
+            isChoosingAllyForSkill = true;
+            combatUI.combatDialogue.text = "Выберите цель для использования навыка";            
         }
         else
         {

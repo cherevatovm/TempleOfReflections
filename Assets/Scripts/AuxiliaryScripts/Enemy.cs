@@ -15,20 +15,25 @@ public class Enemy : Unit
         }
     }
 
-    private void OnMouseDown()
+    private void OnMouseOver()
     {
-        if (CombatSystem.instance.isInCombat && CombatSystem.instance.isChoosingEnemyForAttack)
+        if (!CombatSystem.instance.isInCombat)
+            return;
+        if (Input.GetMouseButtonDown(0))
         {
-            CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
-            CombatSystem.instance.isChoosingEnemyForAttack = false;
-            CombatSystem.instance.combatUI.combatDialogue.text = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].unitName + " начинает атаку";
-            StartCoroutine(CombatSystem.instance.AllyAttack(CombatSystem.instance.damageTypeID, CombatSystem.instance.isMental));
-        }
-        else if (CombatSystem.instance.isInCombat && CombatSystem.instance.isChoosingEnemyForItem)
-        {
-            CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
-            CombatSystem.instance.isChoosingEnemyForItem = false;
-            CombatSystem.instance.activeSlot.UseItemInSlot();
+            if (CombatSystem.instance.isChoosingEnemyForAttack)
+            {
+                CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
+                CombatSystem.instance.isChoosingEnemyForAttack = false;
+                CombatSystem.instance.combatUI.combatDialogue.text = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].unitName + " начинает атаку";
+                StartCoroutine(CombatSystem.instance.AllyAttack(CombatSystem.instance.damageTypeID, CombatSystem.instance.isMental));
+            }
+            else if (CombatSystem.instance.isChoosingEnemyForItem)
+            {
+                CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
+                CombatSystem.instance.isChoosingEnemyForItem = false;
+                CombatSystem.instance.activeSlot.UseItemInSlot();
+            }
         }
     }
 }

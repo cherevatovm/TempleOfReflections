@@ -10,7 +10,7 @@ public class MpMixture : PickableItem
     {
         if (CombatSystem.instance.isInCombat)
         {
-            Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
+            Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.tempAllyID];
             target.IncreaseCurrentMP((int)(target.maxMP * (percentOfRestoredMP / 100.0)));
             message = target.unitName + " использует порцию успокоительного";
         }
