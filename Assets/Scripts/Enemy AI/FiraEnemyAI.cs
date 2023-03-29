@@ -32,7 +32,7 @@ public class FiraEnemyAI : EnemyAI
             {
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, currentEnemyUnit, target);
                 target.TakeDamage(totalDamage);
-                //–азобратьс€ с анимаци€ми
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
                 messageList.Add(target.ApplyEffect(2));
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " огненного урона");
             }
@@ -51,7 +51,7 @@ public class FiraEnemyAI : EnemyAI
             {
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, target);
                 target.TakeDamage(totalDamage);
-                //–азобратьс€ с анимаци€ми
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " физического урона");
             }
         }
@@ -82,7 +82,7 @@ public class FiraEnemyAI : EnemyAI
             {
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, currentEnemyUnit, target);
                 target.TakeDamage(totalDamage);
-                //–азобратьс€ с анимаци€ми
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
                 messageList.Add(target.ApplyEffect(2));
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " огненного урона");
             }
@@ -101,7 +101,7 @@ public class FiraEnemyAI : EnemyAI
             {
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, target);
                 target.TakeDamage(totalDamage);
-                //–азобратьс€ с анимаци€ми
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " физического урона");
             }
         }

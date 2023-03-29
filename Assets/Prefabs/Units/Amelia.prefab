@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4560645954599096051}
-  unitName: "\u0410\u043C\u0435\u043B\u0438\u044F"
+  unitName: Amelia
   combatHUD: {fileID: 0}
   meleeAttackStrength: 15
   mentalAttackStrength: 10

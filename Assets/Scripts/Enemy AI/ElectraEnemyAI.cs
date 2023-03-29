@@ -32,8 +32,8 @@ public class ElectraEnemyAI : EnemyAI
             else
             {
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(2, true, currentEnemyUnit, target);
-                target.TakeDamage(totalDamage);         
-                //–азобратьс€ с анимаци€ми
+                target.TakeDamage(totalDamage);
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
                 messageList.Add(target.ApplyEffect(1));              
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " электрического урона");
             }           
@@ -53,7 +53,7 @@ public class ElectraEnemyAI : EnemyAI
             {               
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, target);
                 target.TakeDamage(totalDamage);
-                //–азобратьс€ с анимаци€ми
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " физического урона");
             }
         }

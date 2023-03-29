@@ -114,13 +114,13 @@ public class Unit : MonoBehaviour
         if (effectIndex < 0 || effectIndex >= appliedEffect.Length)
             return string.Empty;
         string message = string.Empty;
-        if (!appliedEffect.Contains(true) && !resistances[effectIndex + 1] && !nulls[effectIndex + 1] && random.NextDouble() < CombatSystem.effectProbability && currentHP > 0)
+        if (!appliedEffect.Contains(true) && !resistances[effectIndex + 1] && !nulls[effectIndex + 1] && random.NextDouble() < CombatSystem.instance.effectProbability && currentHP > 0)
         {
             appliedEffect[effectIndex] = true;
             message = effectIndex switch
             {
                 0 => "На " + unitName + " наложен эффект поглощения MP",
-                1 => unitName + " оказывается окован электричеством, которое не позволяет двигаться",
+                1 => unitName + " оковывает электричество, которое не позволяет ходить",
                 2 => unitName + " в огне!",
                 _ => string.Empty,
             };
@@ -150,7 +150,7 @@ public class Unit : MonoBehaviour
         if (appliedEffect[1] && underEffectTurnsCount < 2)
         {
             underEffectTurnsCount++;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " чересчур шокирован, чтобы двигаться";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " не может ходить из-за шока";
         }
         else if (underEffectTurnsCount == 2)
         {

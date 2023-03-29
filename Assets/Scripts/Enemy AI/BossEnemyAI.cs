@@ -39,7 +39,7 @@ public class BossEnemyAI : EnemyAI
             {
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(1, true, currentEnemyUnit, target);
                 target.TakeDamage(totalDamage);
-                //–азобратьс€ с анимаци€ми
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
                 messageList.Add(target.ApplyEffect(0));
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " псионического урона");
             }
@@ -60,7 +60,7 @@ public class BossEnemyAI : EnemyAI
             {
                 int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, currentEnemyUnit, target);
                 target.TakeDamage(totalDamage);
-                //–азобратьс€ с анимаци€ми
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
                 messageList.Add(target.ApplyEffect(2));
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " огненного урона");
             }
@@ -72,7 +72,7 @@ public class BossEnemyAI : EnemyAI
             SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
             int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, target);
             target.TakeDamage(totalDamage);
-            //–азобратьс€ с анимаци€ми
+            CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
             messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " физического урона и примен€ет вампиризм");
             currentEnemyUnit.Heal((int)(0.2 * totalDamage));
             currentEnemyUnit.combatHUD.ChangeHP(currentEnemyUnit.currentHP);
