@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -241,18 +240,6 @@ public class Inventory : MonoBehaviour
         }
         posOrNeg = posIndex > negIndex;
         return posIndex != -1 || negIndex != -1;
-    }
-
-    public bool IsMentalParInInventory(int mentalSkillID)
-    {
-        foreach (var parInventorySlot in inventorySlotsForParasites)
-        {
-            if (parInventorySlot.slotObject == null)
-                break;
-            if (parInventorySlot.slotObject.GetComponent<Parasite>().availableMentalSkills[mentalSkillID])
-                return true;
-        }
-        return false;
     }
 
     private bool IsFull(int whichSlots)

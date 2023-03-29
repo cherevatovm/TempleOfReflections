@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4560645954599096053}
   - component: {fileID: 4560645954599096050}
   - component: {fileID: 4560645954599096051}
-  - component: {fileID: 4560645954599096048}
   - component: {fileID: 4560645954599096049}
+  - component: {fileID: 56746582445846753}
   - component: {fileID: 4560645954599096062}
   m_Layer: 0
   m_Name: Amelia
@@ -136,20 +136,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &4560645954599096048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4560645954599096063}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13c7afa56f0c51e48b21f0c4e9f2e175, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rigidBody: {fileID: 4560645954599096051}
 --- !u!114 &4560645954599096049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,9 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4560645954599096051}
   unitName: "\u0410\u043C\u0435\u043B\u0438\u044F"
-  unitID: 0
   combatHUD: {fileID: 0}
-  meleeAttackStrength: 1000
+  meleeAttackStrength: 15
   mentalAttackStrength: 10
   armorModifier: 1
   currentHP: 50
@@ -189,6 +174,23 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  availableMentalSkills: 00010001
+--- !u!114 &56746582445846753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4560645954599096063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654dd67b0f6432f43a5a235fc328252d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  attackButtonWasPressed: 0
+  isHurting: 0
+  isDying: 0
 --- !u!95 &4560645954599096062
 Animator:
   serializedVersion: 4

@@ -22,8 +22,8 @@ public class CombatSystem : MonoBehaviour
     [HideInInspector] public int curAllyID;
     [HideInInspector] public int tempAllyID;
     [HideInInspector] public List<Unit> allyUnits = new();
-    [HideInInspector] public List<EnemyCombatController> enemyCombatControllers = new();
-    //[HideInInspector] public List<PlayerCombatController> allyCombatControllers = new();
+    [HideInInspector] public List<CombatController> enemyCombatControllers = new();
+    [HideInInspector] public List<CombatController> allyCombatControllers = new();
     private List<EnemyAI> enemyAIs = new();
     [SerializeField] private GameObject[] allyPrefabsForCombat;
 
@@ -41,7 +41,7 @@ public class CombatSystem : MonoBehaviour
     [SerializeField] Camera mainCamera;
     [SerializeField] Camera combatCamera;
 
-    private float initArmorModifier = 1;
+    private float[] initArmorModifiers = new float[4];
     public int[] mentalSkillsMPCost;
     [HideInInspector] public bool isInCombat;
     [HideInInspector] public bool isChoosingEnemyForAttack;
@@ -70,17 +70,14 @@ public class CombatSystem : MonoBehaviour
         SoundManager.StopLoopedSound();
         SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
         SoundManager.PlaySound(SoundManager.Sound.MentalBattle);
-
         encounteredEnemy.gameObject.GetComponent<Collider2D>().enabled = false;
         encounteredEnemy.gameObject.GetComponent<EnemyMovement>().enabled = false;
-        Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = false;
-        isInCombat = true;
+        Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = false;        
         for (int i = 0; i < allyPrefabsForCombat.Length; i++)
         {
             GameObject allyCombat = Instantiate(allyPrefabsForCombat[i], allyCombatPositions[i]);
-            //allyCombat.transform.Rotate(-allyCombat.transform.rotation.eulerAngles, Space.Self);
             allyUnits.Add(allyCombat.GetComponent<Unit>());
-            //allyCombatControllers.Add(allyCombat.GetComponent<PlayerCombatController>());
+            allyCombatControllers.Add(allyCombat.GetComponent<CombatController>());
             if (i == 0)
                 (allyUnits[0] as Player).CopyStats(Inventory.instance.attachedUnit);
             allyUnits[i].knockedTurnsCount = 0;
@@ -88,6 +85,7 @@ public class CombatSystem : MonoBehaviour
             allyHUDs[i].gameObject.SetActive(true);
             allyHUDs[i].SetHUD(allyUnits[i]);
             allyUnits[i].combatHUD = allyHUDs[i];
+            initArmorModifiers[i] = allyUnits[i].armorModifier;
         }
         curAllyID = 0;
         for (int i = 0; i < encounteredEnemy.enemyPrefabsForCombat.Length; i++)
@@ -95,7 +93,7 @@ public class CombatSystem : MonoBehaviour
             GameObject enemyCombat = Instantiate(encounteredEnemy.enemyPrefabsForCombat[i], enemyCombatPositions[i]);
             enemyUnits.Add(enemyCombat.GetComponent<Enemy>());
             enemyAIs.Add(enemyCombat.GetComponent<EnemyAI>());
-            enemyCombatControllers.Add(enemyCombat.GetComponent<EnemyCombatController>());
+            enemyCombatControllers.Add(enemyCombat.GetComponent<CombatController>());
             enemyUnits[i].knockedTurnsCount = 0;
             enemyUnits[i].knockedDownTimeout = 0;
             enemyHUDs[i].gameObject.SetActive(true);
@@ -105,14 +103,11 @@ public class CombatSystem : MonoBehaviour
         curEnemyID = 0;
         GameUI.instance.gameObject.SetActive(false);
         combatUI.gameObject.SetActive(true);
-        combatUI.UpdateMentalSkillButtons();
-
+        isInCombat = true;
         combatCamera.enabled = true;
         mainCamera.enabled = false;
         combatUI.combatDialogue.text = "Битва началась";
-
         yield return new WaitForSeconds(1.5f);
-
         StartCoroutine(AllyTurn());
     }
 
@@ -139,9 +134,10 @@ public class CombatSystem : MonoBehaviour
                 FinishBattle();
                 yield break;
             }
+            curEnemyID = 0;
         }
-        if (allyUnits[curAllyID].armorModifier != initArmorModifier)
-            allyUnits[curAllyID].armorModifier = initArmorModifier;
+        if (allyUnits[curAllyID].armorModifier != initArmorModifiers[curAllyID])
+            allyUnits[curAllyID].armorModifier = initArmorModifiers[curAllyID];
         if (allyUnits[curAllyID].knockedDownTimeout > 0)
             allyUnits[curAllyID].knockedDownTimeout--;
         if (allyUnits[curAllyID].isKnockedDown)
@@ -209,10 +205,9 @@ public class CombatSystem : MonoBehaviour
     private IEnumerator AllyDefend()
     {
         combatState = CombatState.ENEMY_TURN;
-        initArmorModifier = allyUnits[curAllyID].armorModifier;
         allyUnits[curAllyID].armorModifier *= 0.4f;
         yield return new WaitForSeconds(1.5f);
-        combatUI.combatDialogue.text = allyUnits[curAllyID].unitName + " успешно перешел в защиту";
+        combatUI.combatDialogue.text = allyUnits[curAllyID].unitName + " успешно переходит в защиту";
         yield return new WaitForSeconds(1.5f);
         curAllyID++;
         StartCoroutine(AllyTurn());
@@ -225,6 +220,7 @@ public class CombatSystem : MonoBehaviour
         allyUnits[tempAllyID].combatHUD.ChangeMP(allyUnits[tempAllyID].currentMP);
         enemyUnits[curEnemyID].combatHUD.ChangeHP(enemyUnits[curEnemyID].currentHP);
         enemyUnits[curEnemyID].combatHUD.ChangeMP(enemyUnits[curEnemyID].currentMP);
+        tempAllyID = 0;
         activeSlot = null;
         yield return new WaitForSeconds(1.5f);
         if (!enemyUnits[curEnemyID].IsDead() && enemyUnits[curEnemyID].isKnockedDown && enemyUnits[curEnemyID].knockedTurnsCount == 0)
@@ -244,7 +240,7 @@ public class CombatSystem : MonoBehaviour
     public IEnumerator AllyAttack(int damageTypeID, bool isMental)
     {
         combatState = CombatState.ENEMY_TURN;
-        //playerAttackButtonWasPressed = true;
+        allyCombatControllers[curAllyID].attackButtonWasPressed = true;
         switch (damageTypeID)
         {
             case 0:
@@ -266,7 +262,7 @@ public class CombatSystem : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
             message = ReflectAction(allyUnits[curAllyID], damageTypeID - 1, -CalcAffinityDamage(damageTypeID, isMental, allyUnits[curAllyID], allyUnits[curAllyID]), out effectMessage);
-            //playerIsHurting = true;
+            allyCombatControllers[curAllyID].isHurting = true;
             yield return new WaitForSeconds(1f);
         }
         else
@@ -298,15 +294,15 @@ public class CombatSystem : MonoBehaviour
         }
         if (!string.IsNullOrEmpty(effectMessage))
         {
-            //playerIsHurting = false;
+            allyCombatControllers[curAllyID].isHurting = false;
             enemyCombatControllers[curEnemyID].isHurting = false;
             combatUI.combatDialogue.text = effectMessage;
             yield return new WaitForSeconds(1.5f);
         }
-        //playerAttackButtonWasPressed = false;
+        allyCombatControllers[curAllyID].attackButtonWasPressed = false;
         allyUnits[curAllyID].combatHUD.ChangeHP(allyUnits[curAllyID].currentHP);
         enemyUnits[curEnemyID].combatHUD.ChangeHP(enemyUnits[curEnemyID].currentHP);
-        //playerIsHurting = false;
+        allyCombatControllers[curAllyID].isHurting = false;
         enemyCombatControllers[curEnemyID].isHurting = false;
         combatUI.combatDialogue.text = message;
         yield return new WaitForSeconds(1.5f);
@@ -344,25 +340,26 @@ public class CombatSystem : MonoBehaviour
     public IEnumerator AllyRegenaSkill()
     {
         combatState = CombatState.ENEMY_TURN;
-        //playerAttackButtonWasPressed = true;
+        allyCombatControllers[curAllyID].attackButtonWasPressed = true;
         yield return new WaitForSeconds(1.5f);
         string message;
         if (reflectionProbability2 > 0 && random.NextDouble() < reflectionProbability2)
         {
             curEnemyID = random.Next(0, enemyUnits.Count);
             message = ReflectAction(enemyUnits[curEnemyID], -1, (int)(enemyUnits[curEnemyID].maxHP * 0.25), out _);
+            enemyUnits[curEnemyID].combatHUD.ChangeHP(enemyUnits[curEnemyID].currentHP);
         }
         else
         {
             allyUnits[tempAllyID].Heal((int)(allyUnits[tempAllyID].maxHP * 0.25));
             message = allyUnits[tempAllyID].unitName + " восстанавливает " + (int)(allyUnits[tempAllyID].maxHP * 0.25) + " здоровья";
+            allyUnits[tempAllyID].combatHUD.ChangeHP(allyUnits[tempAllyID].currentHP);
         }
-        allyUnits[curAllyID].ReduceCurrentMP(mentalSkillsMPCost[0]);
-        allyUnits[tempAllyID].combatHUD.ChangeHP(allyUnits[tempAllyID].currentHP);
-        allyUnits[curAllyID].combatHUD.ChangeMP(allyUnits[curAllyID].currentMP);
-        enemyUnits[curEnemyID].combatHUD.ChangeHP(enemyUnits[curEnemyID].currentHP);
-        //playerAttackButtonWasPressed = false;
+        allyUnits[curAllyID].ReduceCurrentMP(mentalSkillsMPCost[0]);    
+        allyUnits[curAllyID].combatHUD.ChangeMP(allyUnits[curAllyID].currentMP);       
+        allyCombatControllers[curAllyID].attackButtonWasPressed = false;
         combatUI.combatDialogue.text = message;
+        tempAllyID = 0;
         yield return new WaitForSeconds(1.5f);
         curAllyID++;
         StartCoroutine(AllyTurn());
@@ -373,7 +370,7 @@ public class CombatSystem : MonoBehaviour
         combatUI.combatDialogue.text = allyUnits[allyID].unitName + " повержен";
         allyUnits[allyID].combatHUD.gameObject.SetActive(false);
         Destroy(allyUnits[allyID].gameObject);
-        //allyCombatControllers.RemoveAt(allyID);
+        allyCombatControllers.RemoveAt(allyID);
         allyUnits.RemoveAt(allyID);
     }
 
@@ -445,7 +442,7 @@ public class CombatSystem : MonoBehaviour
                 {
                     combatUI.combatDialogue.text = messages[j];
                     yield return new WaitForSeconds(1.5f);
-                    //playerIsHurting = false;
+                    allyCombatControllers[curAllyID].isHurting = false;
                     enemyCombatControllers[i].isHurting = false;
                 }
             }
@@ -460,7 +457,7 @@ public class CombatSystem : MonoBehaviour
             }
             else if (enemyUnits[i].isKnockedDown)
             {
-                combatUI.combatDialogue.text = enemyUnits[i].unitName + " сбил себя с ног своей же атакой. Какая неудача!";
+                combatUI.combatDialogue.text = enemyUnits[i].unitName + " сбивает себя с ног своей же атакой. Какая неудача!";
                 yield return new WaitForSeconds(1.5f);
             }
             else if (allyUnits[curAllyID].IsDead())
@@ -515,6 +512,8 @@ public class CombatSystem : MonoBehaviour
             return;
         isChoosingEnemyForAttack = false;
         isChoosingEnemyForItem = false;
+        isChoosingAllyForSkill = false;
+        isChoosingAllyForItem = false;
         if (Inventory.instance.isOpen)
         {
             Inventory.instance.Close();
@@ -539,6 +538,8 @@ public class CombatSystem : MonoBehaviour
             combatUI.HideOrShowMentalSkillButtons();
         isChoosingEnemyForAttack = true;
         isChoosingEnemyForItem = false;
+        isChoosingAllyForSkill = false;
+        isChoosingAllyForItem = false;
         isMental = false;
         damageTypeID = 0;
         combatUI.combatDialogue.text = "Выберите цель для атаки";
@@ -550,6 +551,8 @@ public class CombatSystem : MonoBehaviour
             return;
         isChoosingEnemyForAttack = false;
         isChoosingEnemyForItem = false;
+        isChoosingAllyForSkill = false;
+        isChoosingAllyForItem = false;
         if (Inventory.instance.isOpen)
             Inventory.instance.Close();
         if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)

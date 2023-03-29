@@ -29,11 +29,12 @@ public class Unit : MonoBehaviour
     [HideInInspector] public int knockedDownTimeout;
     [HideInInspector] public bool[] appliedEffect = new bool[3];
     [HideInInspector] public int underEffectTurnsCount = 0;
-
-    public bool[] weaknesses;
-    public bool[] resistances;
-    public bool[] nulls;
-    public float[] elementAffinities;
+   
+    public bool[] weaknesses = new bool[4];
+    public bool[] resistances = new bool[4];
+    public bool[] nulls = new bool[4];
+    public float[] elementAffinities = new float[4];
+    public bool[] availableMentalSkills = new bool[4];
 
     private void OnMouseOver()
     {

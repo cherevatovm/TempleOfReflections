@@ -248,7 +248,6 @@ MonoBehaviour:
   isParasite: 0
   isUsableInCombatOnly: 0
   isAffectingEnemy: 0
-  availableMentalSkills: 000000
   posEffectIndex: 0
   negEffectIndex: 0
 --- !u!58 &31674467
@@ -486,7 +485,6 @@ MonoBehaviour:
   isParasite: 0
   isUsableInCombatOnly: 0
   isAffectingEnemy: 0
-  availableMentalSkills: 000000
   posEffectIndex: 0
   negEffectIndex: 0
 --- !u!58 &54893969
@@ -1501,7 +1499,6 @@ MonoBehaviour:
   isParasite: 0
   isUsableInCombatOnly: 0
   isAffectingEnemy: 0
-  availableMentalSkills: 000000
   posEffectIndex: 0
   negEffectIndex: 0
 --- !u!58 &139368401
@@ -43349,7 +43346,6 @@ MonoBehaviour:
   isParasite: 0
   isUsableInCombatOnly: 0
   isAffectingEnemy: 0
-  availableMentalSkills: 000000
   posEffectIndex: 0
   negEffectIndex: 0
 --- !u!58 &958287786
@@ -47038,6 +47034,7 @@ MonoBehaviour:
   tempAllyID: 0
   allyUnits: []
   enemyCombatControllers: []
+  allyCombatControllers: []
   allyPrefabsForCombat:
   - {fileID: 2071489065544092236, guid: 588f729097ab24e4a813018e93695f96, type: 3}
   - {fileID: 4560645954599096063, guid: d5023a44c69093e4f862304ed8fbaec7, type: 3}
@@ -104100,6 +104097,22 @@ PrefabInstance:
       propertyPath: meleeAttackStrength
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: -1366060368434092182, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
+      propertyPath: availableMentalSkills.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1366060368434092182, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
+      propertyPath: availableMentalSkills.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1366060368434092182, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
+      propertyPath: availableMentalSkills.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1366060368434092182, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
+      propertyPath: availableMentalSkills.Array.data[3]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3716822496166854093, guid: df04a5c3239f2b143a9c435e99f5f296, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -107369,7 +107382,6 @@ MonoBehaviour:
   isParasite: 0
   isUsableInCombatOnly: 0
   isAffectingEnemy: 0
-  availableMentalSkills: 010101
   posEffectIndex: 0
   negEffectIndex: 0
 --- !u!58 &2117057153

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2071489065544092227}
   - component: {fileID: 2071489065544092226}
   - component: {fileID: 1288555795345419962}
-  - component: {fileID: 2071489065544092237}
   - component: {fileID: 2071489065544092228}
+  - component: {fileID: 2071489065544092237}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -150,7 +150,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2071489065544092226}
   unitName: Player
-  unitID: 0
   combatHUD: {fileID: 0}
   meleeAttackStrength: 0
   mentalAttackStrength: 0
@@ -175,12 +174,29 @@ MonoBehaviour:
   - 0
   - 0
   - 0
+  availableMentalSkills: 01010101
   restartDelay: 3
   initMaxHP: 0
   initMaxMP: 0
   initMeleeAttackStrength: 0
   initMentalAttackStrength: 0
   initElementAffinities: []
+--- !u!114 &2071489065544092228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071489065544092236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654dd67b0f6432f43a5a235fc328252d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 1
+  attackButtonWasPressed: 0
+  isHurting: 0
+  isDying: 0
 --- !u!95 &2071489065544092237
 Animator:
   serializedVersion: 4
@@ -201,15 +217,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2071489065544092228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2071489065544092236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 654dd67b0f6432f43a5a235fc328252d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

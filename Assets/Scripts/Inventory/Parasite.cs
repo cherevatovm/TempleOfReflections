@@ -5,7 +5,6 @@ using UnityEngine;
 public class Parasite : PickableItem
 {
     private Player attachedUnit;
-    public bool[] availableMentalSkills = new bool[3];
     public int posEffectIndex;
     public int negEffectIndex;
     
@@ -129,13 +128,13 @@ public class Parasite : PickableItem
                     CombatSystem.instance.reflectionProbability1 += 0.05f;
                 break;
             case 9:
-                availableMentalSkills[0] = true;
+                attachedUnit.availableMentalSkills[1] = true;
                 break;
             case 10:
-                availableMentalSkills[1] = true;
+                attachedUnit.availableMentalSkills[2] = true;
                 break;
             case 11:
-                availableMentalSkills[2] = true;
+                attachedUnit.availableMentalSkills[3] = true;
                 break;
         }
         if (negEffectIndex >= 0 && negEffectIndex <= 3)
@@ -204,6 +203,15 @@ public class Parasite : PickableItem
                     CombatSystem.instance.reflectionProbability1 = -1;
                 else if (Inventory.instance.SameEffectParCount(8, true) <= 3)
                     CombatSystem.instance.reflectionProbability1 -= 0.05f;
+                break;
+            case 9:
+                attachedUnit.availableMentalSkills[1] = false;
+                break;
+            case 10:
+                attachedUnit.availableMentalSkills[2] = false;
+                break;
+            case 11:
+                attachedUnit.availableMentalSkills[3] = false;
                 break;
         }
         if (negEffectIndex >= 0 && negEffectIndex <= 3)
@@ -307,8 +315,8 @@ public class Parasite : PickableItem
         }
     }
 
-    public override void UseItem(out string message)
+    public override void UseItem(out string message) 
     {
-        throw new System.NotImplementedException();
+        message = string.Empty;
     }
 }
