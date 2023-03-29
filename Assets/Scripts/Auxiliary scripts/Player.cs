@@ -49,17 +49,21 @@ public class Player : Unit
 
     public void CopyStats(Player otherUnit)
     {
-        meleeAttackStrength = otherUnit.meleeAttackStrength;
-        mentalAttackStrength = otherUnit.mentalAttackStrength;
-        armorModifier = otherUnit.armorModifier;
         currentHP = otherUnit.currentHP;
-        maxHP = otherUnit.maxHP;
         currentMP = otherUnit.currentMP;
-        maxMP = otherUnit.maxMP;
-        System.Array.Copy(otherUnit.weaknesses, weaknesses, 4);
-        System.Array.Copy(otherUnit.resistances, resistances, 4);
-        System.Array.Copy(otherUnit.nulls, nulls, 4);
-        System.Array.Copy(otherUnit.elementAffinities, elementAffinities, 4);
+        if (!CombatSystem.instance.isInCombat)
+        {
+            maxHP = otherUnit.maxHP;
+            maxMP = otherUnit.maxMP;
+            armorModifier = otherUnit.armorModifier;
+            meleeAttackStrength = otherUnit.meleeAttackStrength;
+            mentalAttackStrength = otherUnit.mentalAttackStrength;            
+            System.Array.Copy(otherUnit.weaknesses, weaknesses, 4);
+            System.Array.Copy(otherUnit.resistances, resistances, 4);
+            System.Array.Copy(otherUnit.nulls, nulls, 4);
+            System.Array.Copy(otherUnit.elementAffinities, elementAffinities, 4);
+            System.Array.Copy(otherUnit.availableMentalSkills, availableMentalSkills, 4);
+        }
     }
 
     public void Death()

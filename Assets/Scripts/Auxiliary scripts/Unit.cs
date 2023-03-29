@@ -10,7 +10,8 @@ public class Unit : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb;
     private System.Random random = new();
 
-    public string unitName;    
+    public string unitName;
+    public CombatHUD combatHUD;
     public int meleeAttackStrength;
     public int mentalAttackStrength;
     public float armorModifier = 1;
@@ -28,11 +29,34 @@ public class Unit : MonoBehaviour
     [HideInInspector] public int knockedDownTimeout;
     [HideInInspector] public bool[] appliedEffect = new bool[3];
     [HideInInspector] public int underEffectTurnsCount = 0;
+   
+    public bool[] weaknesses = new bool[4];
+    public bool[] resistances = new bool[4];
+    public bool[] nulls = new bool[4];
+    public float[] elementAffinities = new float[4];
+    public bool[] availableMentalSkills = new bool[4];
 
-    public bool[] weaknesses;
-    public bool[] resistances;
-    public bool[] nulls;
-    public float[] elementAffinities;
+    private void OnMouseOver()
+    {
+        if (!CombatSystem.instance.isInCombat)
+            return;
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (CombatSystem.instance.isChoosingAllyForSkill)
+            {
+                CombatSystem.instance.tempAllyID = CombatSystem.instance.allyUnits.IndexOf(this);
+                CombatSystem.instance.isChoosingAllyForSkill = false;
+                CombatSystem.instance.combatUI.combatDialogue.text = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].unitName + " применяет целительный навык";
+                StartCoroutine(CombatSystem.instance.AllyRegenaSkill());
+            }
+            else if (CombatSystem.instance.isChoosingAllyForItem)
+            {
+                CombatSystem.instance.tempAllyID = CombatSystem.instance.allyUnits.IndexOf(this);
+                CombatSystem.instance.isChoosingAllyForItem = false;
+                CombatSystem.instance.activeSlot.UseItemInSlot();
+            }
+        }
+    }
 
     public virtual void TakeDamage(int damage) => currentHP -= damage;
 
@@ -90,13 +114,13 @@ public class Unit : MonoBehaviour
         if (effectIndex < 0 || effectIndex >= appliedEffect.Length)
             return string.Empty;
         string message = string.Empty;
-        if (!appliedEffect.Contains(true) && !resistances[effectIndex + 1] && !nulls[effectIndex + 1] && random.NextDouble() < CombatSystem.effectProbability && currentHP > 0)
+        if (!appliedEffect.Contains(true) && !resistances[effectIndex + 1] && !nulls[effectIndex + 1] && random.NextDouble() < CombatSystem.instance.effectProbability && currentHP > 0)
         {
             appliedEffect[effectIndex] = true;
             message = effectIndex switch
             {
                 0 => "На " + unitName + " наложен эффект поглощения MP",
-                1 => unitName + " оказывается окован электричеством, которое не позволяет двигаться",
+                1 => unitName + " оковывает электричество, которое не позволяет ходить",
                 2 => unitName + " в огне!",
                 _ => string.Empty,
             };
@@ -126,7 +150,7 @@ public class Unit : MonoBehaviour
         if (appliedEffect[1] && underEffectTurnsCount < 2)
         {
             underEffectTurnsCount++;
-            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " чересчур шокирован, чтобы двигаться";
+            CombatSystem.instance.combatUI.combatDialogue.text = unitName + " не может ходить из-за шока";
         }
         else if (underEffectTurnsCount == 2)
         {

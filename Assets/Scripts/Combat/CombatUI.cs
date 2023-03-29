@@ -5,9 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CombatUI : MonoBehaviour
-{
+{  
     private List<Button> mentalSkillButtonList = new();
-    private bool[] availableMentalSkillButtons = new bool[4];   
     public TextMeshProUGUI combatDialogue;
     public GameObject[] blackouts;
     public GameObject[] buttonPrefabs;
@@ -22,16 +21,13 @@ public class CombatUI : MonoBehaviour
             if (Inventory.instance.isOpen)
             {
                 Inventory.instance.Close();
-                combatDialogue.text = "�������� ��������";
+                combatDialogue.text = "Выберите действие (" + CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].unitName + " ходит в данный момент)";
             }
         }
     }
 
     public void SetMentalSkillButtons()
     {
-        availableMentalSkillButtons[0] = true;
-        for (int i = 1; i < availableMentalSkillButtons.Length; i++)
-            availableMentalSkillButtons[i] = Inventory.instance.IsMentalParInInventory(i - 1);
         for (int i = 0; i < buttonPrefabs.Length; i++)
         {
             mentalSkillButtonList.Add(Instantiate(buttonPrefabs[i], transform).GetComponent<Button>());
@@ -51,33 +47,28 @@ public class CombatUI : MonoBehaviour
                     break;
             }
         }
-        for (int i = 1; i < availableMentalSkillButtons.Length; i++)
-            if (!availableMentalSkillButtons[i])
+        bool[] skillArr = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].availableMentalSkills;
+        for (int i = 0; i < skillArr.Length; i++)
+            if (!skillArr[i])
                 mentalSkillButtonList[i].gameObject.SetActive(false);
         areButtonsShown = true;
     }
 
     public void HideOrShowMentalSkillButtons()
-    {
-        if (mentalSkillButtonList[0].gameObject.activeSelf)
+    {        
+        if (mentalSkillButtonList.Exists(button => button.gameObject.activeSelf))
         {
             for (int i = 0; i < mentalSkillButtonList.Count; i++)
-                if (availableMentalSkillButtons[i])
-                    mentalSkillButtonList[i].gameObject.SetActive(false);
+                mentalSkillButtonList[i].gameObject.SetActive(false);
             areButtonsShown = false;
         }
         else
         {
-            for (int i = 0; i < mentalSkillButtonList.Count; i++)
-                if (availableMentalSkillButtons[i])
+            bool[] skillArr = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].availableMentalSkills;
+            for (int i = 0; i < skillArr.Length; i++)
+                if (skillArr[i])
                     mentalSkillButtonList[i].gameObject.SetActive(true);
             areButtonsShown = true;
         }
-    }
-
-    public void UpdateMentalSkillButtons()
-    {
-        for (int i = 1; i < availableMentalSkillButtons.Length; i++)
-            availableMentalSkillButtons[i] = Inventory.instance.IsMentalParInInventory(i - 1);
     }
 }

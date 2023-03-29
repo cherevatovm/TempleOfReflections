@@ -130,7 +130,7 @@ public class InventorySlot : MonoBehaviour
         if (CombatSystem.instance.isInCombat)
         {
             Inventory.instance.Close();
-            StartCoroutine(CombatSystem.instance.PlayerUsingItem());
+            StartCoroutine(CombatSystem.instance.AllyUsingItem());
         }
     }
 

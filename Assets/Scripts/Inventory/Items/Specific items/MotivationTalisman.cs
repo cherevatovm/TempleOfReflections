@@ -15,23 +15,40 @@ public class MotivationTalisman : ItemWithEffect
         message = string.Empty;
         if (!CombatSystem.instance.isInCombat)
             return;
-        if (CombatSystem.instance.playerUnit.affectingItem is MotivationTalisman)
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.tempAllyID];
+        if (target.affectingItem is MotivationTalisman)
             return;
-        CombatSystem.instance.playerUnit.underItemEffect = true;
-        CombatSystem.instance.playerUnit.affectingItem = this;
-        CombatSystem.instance.playerUnit.meleeAttackStrength += (int)(0.25 * CombatSystem.instance.playerUnit.initMeleeAttackStrength);
-        CombatSystem.instance.playerUnit.mentalAttackStrength += (int)(0.25 * CombatSystem.instance.playerUnit.initMentalAttackStrength);
-        message = CombatSystem.instance.playerUnit.unitName + " использует талисман мотивации";
+        target.underItemEffect = true;
+        target.affectingItem = this;
+        if (target.Equals(CombatSystem.instance.allyUnits[0]))
+        {
+            target.meleeAttackStrength += (int)(0.25 * (target as Player).initMeleeAttackStrength);
+            target.mentalAttackStrength += (int)(0.25 * (target as Player).initMentalAttackStrength);
+        }
+        else
+        {
+            target.meleeAttackStrength += (int)(0.25 * target.meleeAttackStrength);
+            target.mentalAttackStrength += (int)(0.25 * target.mentalAttackStrength);
+        }
+        message = target.unitName + " использует талисман мотивации";
     }
 
     public override void RemoveEffect()
     {
-        if (CombatSystem.instance.playerUnit.itemEffectTurnsCount != underEffectTurnsNumber)
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
+        if (target.itemEffectTurnsCount != underEffectTurnsNumber)
             return;
-        CombatSystem.instance.playerUnit.underItemEffect = false;
-        CombatSystem.instance.playerUnit.itemEffectTurnsCount = 0;
-        CombatSystem.instance.playerUnit.affectingItem = null;
-        CombatSystem.instance.playerUnit.meleeAttackStrength -= (int)(0.25 * CombatSystem.instance.playerUnit.initMeleeAttackStrength);
-        CombatSystem.instance.playerUnit.mentalAttackStrength -= (int)(0.25 * CombatSystem.instance.playerUnit.initMentalAttackStrength);
+        target.itemEffectTurnsCount = 0;
+        target.affectingItem = null;
+        if (target.Equals(CombatSystem.instance.allyUnits[0]))
+        {
+            target.meleeAttackStrength -= (int)(0.25 * (target as Player).initMeleeAttackStrength);
+            target.mentalAttackStrength -= (int)(0.25 * (target as Player).initMentalAttackStrength);
+        }
+        else
+        {
+            target.meleeAttackStrength -= (int)(0.25 * target.meleeAttackStrength);
+            target.mentalAttackStrength -= (int)(0.25 * target.mentalAttackStrength);
+        }
     }
 }

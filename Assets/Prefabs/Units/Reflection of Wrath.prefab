@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 8164385237867508116}
   - component: {fileID: 3944667755132923821}
   - component: {fileID: 8164385237867508122}
-  - component: {fileID: 8164385237867508123}
-  - component: {fileID: 8164385237867508112}
-  - component: {fileID: 5516479842872426065}
+  - component: {fileID: 5565111151969158893}
   - component: {fileID: 3293713175960615179}
-  - component: {fileID: 4535715392497390895}
+  - component: {fileID: 8164385237867508123}
+  - component: {fileID: 5516479842872426065}
   m_Layer: 0
   m_Name: Reflection of Wrath
   m_TagString: Enemy
@@ -33,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8164385237867508120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.46, y: -0.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -125,8 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa6b409570c1d44f9e2f0051a074ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
+  rb: {fileID: 8164385237867508116}
   unitName: Reflection of Wrath
+  combatHUD: {fileID: 0}
   meleeAttackStrength: 15
   mentalAttackStrength: 17
   armorModifier: 1
@@ -150,10 +150,8 @@ MonoBehaviour:
   - 1
   - 1
   - 1.5
-  enemyID: 2
-  coinsDropped: 100
+  availableMentalSkills: 00000000
   enemyPrefabsForCombat: []
-  combatHUD: {fileID: 0}
 --- !u!114 &8164385237867508122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +164,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f9ee0d061af5844a8a2044baabb1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyID: 2
+--- !u!114 &5565111151969158893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164385237867508120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654dd67b0f6432f43a5a235fc328252d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  attackButtonWasPressed: 0
+  isHurting: 0
+  isDying: 0
+--- !u!114 &3293713175960615179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164385237867508120}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ece36551c6b564c9eba46809c0b4e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints: []
+  moveSpeed: 3
 --- !u!95 &8164385237867508123
 Animator:
   serializedVersion: 4
@@ -186,21 +215,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8164385237867508112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8164385237867508120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08807befb1e86cd4ba1767a1f2099c49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackButtonWasPressed: 0
-  isHurting: 0
-  isDying: 0
 --- !u!58 &5516479842872426065
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -214,34 +228,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.04075832, y: 0.05840944}
   serializedVersion: 2
-  m_Radius: 2
---- !u!114 &3293713175960615179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8164385237867508120}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ece36551c6b564c9eba46809c0b4e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints: []
-  moveSpeed: 3
---- !u!114 &4535715392497390895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8164385237867508120}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ece36551c6b564c9eba46809c0b4e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints: []
-  moveSpeed: 3
+  m_Radius: 0.9629175

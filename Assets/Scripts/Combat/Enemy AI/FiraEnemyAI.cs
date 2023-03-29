@@ -14,6 +14,8 @@ public class FiraEnemyAI : EnemyAI
             return BerserkMode();
         List<string> messageList = new();
         int attackProbability = random.Next(1, 101);
+        CombatSystem.instance.curAllyID = random.Next(0, CombatSystem.instance.allyUnits.Count);
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
         if (attackProbability > 75 && currentEnemyUnit.currentMP >= 3)
         {
             SoundManager.PlaySound(SoundManager.Sound.FiraSkill);
@@ -27,10 +29,10 @@ public class FiraEnemyAI : EnemyAI
             }
             else
             {
-                int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, currentEnemyUnit, CombatSystem.instance.playerUnit);
-                CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
-                CombatSystem.instance.playerIsHurting = true;
-                messageList.Add(CombatSystem.instance.playerUnit.ApplyEffect(2));
+                int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, currentEnemyUnit, target);
+                target.TakeDamage(totalDamage);
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
+                messageList.Add(target.ApplyEffect(2));
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " огненного урона");
             }
             currentEnemyUnit.ReduceCurrentMP(3);
@@ -47,9 +49,9 @@ public class FiraEnemyAI : EnemyAI
             }
             else
             {
-                int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, CombatSystem.instance.playerUnit);
-                CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
-                CombatSystem.instance.playerIsHurting = true;
+                int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, target);
+                target.TakeDamage(totalDamage);
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " физического урона");
             }
         }
@@ -64,6 +66,8 @@ public class FiraEnemyAI : EnemyAI
             currentEnemyUnit.unitName + " в ярости и атакует бездумно"
         };
         int fireOrBase = random.Next(1, 3);
+        CombatSystem.instance.curAllyID = random.Next(0, CombatSystem.instance.allyUnits.Count);
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
         if (fireOrBase != 1 && currentEnemyUnit.currentMP >= 3)
         {
             SoundManager.PlaySound(SoundManager.Sound.FiraSkill);
@@ -77,10 +81,10 @@ public class FiraEnemyAI : EnemyAI
             }
             else
             {
-                int totalDamage = (int)(1.15 * CombatSystem.instance.CalcAffinityDamage(3, true, currentEnemyUnit, CombatSystem.instance.playerUnit));
-                CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
-                CombatSystem.instance.playerIsHurting = true;
-                messageList.Add(CombatSystem.instance.playerUnit.ApplyEffect(2));
+                int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, currentEnemyUnit, target);
+                target.TakeDamage(totalDamage);
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
+                messageList.Add(target.ApplyEffect(2));
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " огненного урона");
             }
             currentEnemyUnit.ReduceCurrentMP(3);
@@ -97,9 +101,9 @@ public class FiraEnemyAI : EnemyAI
             }
             else
             {
-                int totalDamage = (int)(1.15 * CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, CombatSystem.instance.playerUnit));
-                CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
-                CombatSystem.instance.playerIsHurting = true;
+                int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, target);
+                target.TakeDamage(totalDamage);
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " физического урона");
             }
         }

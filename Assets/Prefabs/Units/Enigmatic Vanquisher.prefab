@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 5021757046155829935}
   - component: {fileID: 3279220197283129822}
   - component: {fileID: 5021757046155829929}
-  - component: {fileID: 5021757046155829930}
-  - component: {fileID: 5021757046155829939}
-  - component: {fileID: 5037473587283026341}
+  - component: {fileID: 8232970127767948255}
   - component: {fileID: -1224265462422185048}
+  - component: {fileID: 5021757046155829930}
+  - component: {fileID: 5037473587283026341}
   m_Layer: 0
   m_Name: Enigmatic Vanquisher
   m_TagString: Enemy
@@ -32,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5021757046155829931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.38, y: 0.12, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5021757046155829935}
   unitName: Enigmatic Vanquisher
+  combatHUD: {fileID: 0}
   meleeAttackStrength: 10
   mentalAttackStrength: 10
   armorModifier: 1
@@ -149,10 +150,8 @@ MonoBehaviour:
   - 1
   - 1
   - 1.2
-  enemyID: 1
-  coinsDropped: 15
+  availableMentalSkills: 00000000
   enemyPrefabsForCombat: []
-  combatHUD: {fileID: 0}
 --- !u!114 &5021757046155829929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +164,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4688aad0b3f074284a4a9cf9b0765d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyID: 1
+--- !u!114 &8232970127767948255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021757046155829931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 654dd67b0f6432f43a5a235fc328252d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer: 0
+  attackButtonWasPressed: 0
+  isHurting: 0
+  isDying: 0
+--- !u!114 &-1224265462422185048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5021757046155829931}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ece36551c6b564c9eba46809c0b4e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints: []
+  moveSpeed: 3
 --- !u!95 &5021757046155829930
 Animator:
   serializedVersion: 4
@@ -185,21 +215,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5021757046155829939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5021757046155829931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08807befb1e86cd4ba1767a1f2099c49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackButtonWasPressed: 0
-  isHurting: 0
-  isDying: 0
 --- !u!58 &5037473587283026341
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -213,20 +228,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.18737826, y: -0.003961881}
   serializedVersion: 2
-  m_Radius: 1.25
---- !u!114 &-1224265462422185048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5021757046155829931}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ece36551c6b564c9eba46809c0b4e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints: []
-  moveSpeed: 3
+  m_Radius: 0.95829725

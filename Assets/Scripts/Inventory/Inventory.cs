@@ -382,18 +382,6 @@ public class Inventory : MonoBehaviour
         return posIndex != -1 || negIndex != -1;
     }
 
-    public bool IsMentalParInInventory(int mentalSkillID)
-    {
-        foreach (var parInventorySlot in inventorySlotsForParasites)
-        {
-            if (parInventorySlot.slotObject == null)
-                break;
-            if (parInventorySlot.slotObject.GetComponent<Parasite>().availableMentalSkills[mentalSkillID])
-                return true;
-        }
-        return false;
-    }
-
     public bool IsFull(int whichSlots, PickableItem item = null)
     {
         if (whichSlots == 0)
@@ -452,7 +440,7 @@ public class Inventory : MonoBehaviour
         {
             if (IsFull(3, slot.slotItem))
             {
-                GameUI.instance.gameDialogue.text = "Продажа не удалась, в инвентаре торговца полон";
+                GameUI.instance.gameDialogue.text = "РџСЂРѕРґР°Р¶Р° РЅРµ СѓРґР°Р»Р°СЃСЊ, РёРЅРІРµРЅС‚Р°СЂСЊ С‚РѕСЂРіРѕРІС†Р° РїРѕР»РѕРЅ";
                 ItemInfo.instance.Close();
                 return;
             }
@@ -485,19 +473,19 @@ public class Inventory : MonoBehaviour
                     slot.justBoughtCount--;
                     ChangeCoinAmount(true, -slot.slotItem.itemValue);
                     ChangeCoinAmount(false, slot.slotItem.itemValue);
-                    GameUI.instance.gameDialogue.text = "Вы вернули " + slot.slotItemName;
+                    GameUI.instance.gameDialogue.text = "Р’С‹ РІРµСЂРЅСѓР»Рё " + slot.slotItemName;
                 }
                 else
                 {
                     ChangeCoinAmount(true, -(int)(slot.slotItem.itemValue * 0.75));
                     ChangeCoinAmount(false, (int)(slot.slotItem.itemValue * 0.75));
-                    GameUI.instance.gameDialogue.text = "Вы продали " + slot.slotItemName;
+                    GameUI.instance.gameDialogue.text = "Р’С‹ РїСЂРѕРґР°Р»Рё " + slot.slotItemName;
                 }
             }
             else
             {
                 ItemInfo.instance.Close();
-                GameUI.instance.gameDialogue.text = "У торговца недостаточно денег для того, чтобы вы могли продать этот предмет";
+                GameUI.instance.gameDialogue.text = "РЈ С‚РѕСЂРіРѕРІС†Р° РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґРµРЅРµРі РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ РІС‹ РјРѕРіР»Рё РїСЂРѕРґР°С‚СЊ СЌС‚РѕС‚ РїСЂРµРґРјРµС‚";
                 return;
             }
         }

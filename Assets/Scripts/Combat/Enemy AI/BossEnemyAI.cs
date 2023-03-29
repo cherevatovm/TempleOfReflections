@@ -10,7 +10,7 @@ public class BossEnemyAI : EnemyAI
     {
         List<string> messageList = new();
         soundID = -1;
-        Enemy currentEnemyUnit = CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID];
+        Enemy currentEnemyUnit = CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID];  
         if (currentEnemyUnit.currentHP <= (int)(0.15 * currentEnemyUnit.maxHP) && currentEnemyUnit.currentMP >= 12)
         {
             currentEnemyUnit.Heal((int)(0.1 * currentEnemyUnit.maxHP));
@@ -21,6 +21,8 @@ public class BossEnemyAI : EnemyAI
             return messageList;
         }
         int attackProbability = random.Next(1, 101);
+        CombatSystem.instance.curAllyID = random.Next(0, CombatSystem.instance.allyUnits.Count);
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
         if (attackProbability <= 40 && currentEnemyUnit.currentMP >= 3)
         {
             SoundManager.PlaySound(SoundManager.Sound.PsiSkill);
@@ -34,10 +36,10 @@ public class BossEnemyAI : EnemyAI
             }
             else
             {
-                int totalDamage = CombatSystem.instance.CalcAffinityDamage(1, true, currentEnemyUnit, CombatSystem.instance.playerUnit);
-                CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
-                CombatSystem.instance.playerIsHurting = true;
-                messageList.Add(CombatSystem.instance.playerUnit.ApplyEffect(0));
+                int totalDamage = CombatSystem.instance.CalcAffinityDamage(1, true, currentEnemyUnit, target);
+                target.TakeDamage(totalDamage);
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
+                messageList.Add(target.ApplyEffect(0));
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " псионического урона");
             }
             currentEnemyUnit.ReduceCurrentMP(3);
@@ -56,10 +58,10 @@ public class BossEnemyAI : EnemyAI
             }
             else
             {
-                int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, currentEnemyUnit, CombatSystem.instance.playerUnit);
-                CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
-                CombatSystem.instance.playerIsHurting = true;
-                messageList.Add(CombatSystem.instance.playerUnit.ApplyEffect(2));
+                int totalDamage = CombatSystem.instance.CalcAffinityDamage(3, true, currentEnemyUnit, target);
+                target.TakeDamage(totalDamage);
+                CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
+                messageList.Add(target.ApplyEffect(2));
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " огненного урона");
             }
             currentEnemyUnit.ReduceCurrentMP(3);
@@ -68,8 +70,9 @@ public class BossEnemyAI : EnemyAI
         else
         {
             SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
-            int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, CombatSystem.instance.playerUnit);
-            CombatSystem.instance.playerUnit.TakeDamage(totalDamage);
+            int totalDamage = CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, target);
+            target.TakeDamage(totalDamage);
+            CombatSystem.instance.allyCombatControllers[CombatSystem.instance.curAllyID].isHurting = true;
             messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " физического урона и применяет вампиризм");
             currentEnemyUnit.Heal((int)(0.2 * totalDamage));
             currentEnemyUnit.combatHUD.ChangeHP(currentEnemyUnit.currentHP);
