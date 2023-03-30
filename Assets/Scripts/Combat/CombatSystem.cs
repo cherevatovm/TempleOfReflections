@@ -530,7 +530,7 @@ public class CombatSystem : MonoBehaviour
             Inventory.instance.Open();
             combatUI.combatDialogue.text = "Выберите предмет, который хотите использовать";
         }
-        if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
+        if (combatUI.skillButtonsHaveBeenSet && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
     }
 
@@ -542,7 +542,7 @@ public class CombatSystem : MonoBehaviour
             EnemyInfoPanel.instance.CloseEnemyInfoPanel();
         if (Inventory.instance.isOpen)
             Inventory.instance.Close();
-        if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
+        if (combatUI.skillButtonsHaveBeenSet && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
         isChoosingEnemyForAttack = true;
         isChoosingEnemyForItem = false;
@@ -565,7 +565,7 @@ public class CombatSystem : MonoBehaviour
             EnemyInfoPanel.instance.CloseEnemyInfoPanel();
         if (Inventory.instance.isOpen)
             Inventory.instance.Close();
-        if (combatUI.skillButtonsWereInstantiated && combatUI.areButtonsShown)
+        if (combatUI.skillButtonsHaveBeenSet && combatUI.areButtonsShown)
             combatUI.HideOrShowMentalSkillButtons();
         combatUI.combatDialogue.text = allyUnits[curAllyID].unitName + " решает защищаться";
         StartCoroutine(AllyDefend());
@@ -579,12 +579,12 @@ public class CombatSystem : MonoBehaviour
             EnemyInfoPanel.instance.CloseEnemyInfoPanel();
         if (Inventory.instance.isOpen)
             Inventory.instance.Close();
-        if (combatUI.skillButtonsWereInstantiated)
+        if (combatUI.skillButtonsHaveBeenSet)
             combatUI.HideOrShowMentalSkillButtons();
         else
         {
             combatUI.SetMentalSkillButtons();
-            combatUI.skillButtonsWereInstantiated = true;
+            combatUI.skillButtonsHaveBeenSet = true;
         }
         isChoosingEnemyForAttack = false;
         isChoosingEnemyForItem = false;

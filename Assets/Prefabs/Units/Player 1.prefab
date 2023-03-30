@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 9094710789642194626}
   unitName: Player
+  combatHUD: {fileID: 0}
   meleeAttackStrength: 15
   mentalAttackStrength: 15
   armorModifier: 1
@@ -157,6 +158,9 @@ MonoBehaviour:
   maxHP: 60
   currentMP: 30
   maxMP: 30
+  itemEffectTurnsCount: 0
+  underItemEffect: 0
+  affectingItem: {fileID: 0}
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
@@ -170,6 +174,7 @@ MonoBehaviour:
   - 1.2
   - 1
   - 1
+  availableMentalSkills: 01000000
   restartDelay: 3
   initMaxHP: 0
   initMaxMP: 0

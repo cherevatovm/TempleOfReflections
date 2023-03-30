@@ -5,13 +5,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CombatUI : MonoBehaviour
-{  
-    private List<Button> mentalSkillButtonList = new();
+{
+    private class Pair
+    {
+        public Vector3 position { get; set; }
+        public bool isOccupied { get; set; }
+
+        public Pair(Vector3 position, bool isOccupied)
+        {
+            this.position = position;
+            this.isOccupied = isOccupied;
+        }
+    }
+    private List<Pair> buttonPositions = new();
+    [SerializeField] private Button[] mentalSkillButtonList;
     public TextMeshProUGUI combatDialogue;
     public GameObject[] blackouts;
-    public GameObject[] buttonPrefabs;
     [HideInInspector] public bool areButtonsShown;
-    [HideInInspector] public bool skillButtonsWereInstantiated;
+    [HideInInspector] public bool skillButtonsHaveBeenSet;
 
     private void Update()
     {
@@ -28,46 +39,76 @@ public class CombatUI : MonoBehaviour
 
     public void SetMentalSkillButtons()
     {
-        for (int i = 0; i < buttonPrefabs.Length; i++)
+        for (int i = 0; i < mentalSkillButtonList.Length; i++)
         {
-            mentalSkillButtonList.Add(Instantiate(buttonPrefabs[i], transform).GetComponent<Button>());
-            switch (mentalSkillButtonList[i].name)
+            switch (i)
             {
-                case "Psiona Button(Clone)":
-                    mentalSkillButtonList[i].onClick.AddListener(delegate { GameObject.Find("Combat System").GetComponent<CombatSystem>().OnPsionaButton(); });
+                case 0:
+                    mentalSkillButtonList[i].onClick.AddListener(delegate { CombatSystem.instance.OnPsionaButton(); });
                     break;
-                case "Electra Button(Clone)":
-                    mentalSkillButtonList[i].onClick.AddListener(delegate { GameObject.Find("Combat System").GetComponent<CombatSystem>().OnElectraButton(); });
+                case 1:
+                    mentalSkillButtonList[i].onClick.AddListener(delegate { CombatSystem.instance.OnElectraButton(); });
                     break;
-                case "Fira Button(Clone)":
-                    mentalSkillButtonList[i].onClick.AddListener(delegate { GameObject.Find("Combat System").GetComponent<CombatSystem>().OnFiraButton(); });
+                case 2:
+                    mentalSkillButtonList[i].onClick.AddListener(delegate { CombatSystem.instance.OnFiraButton(); });
                     break;
-                case "Regena Button(Clone)":
-                    mentalSkillButtonList[i].onClick.AddListener(delegate { GameObject.Find("Combat System").GetComponent<CombatSystem>().OnRegenaButton(); });
+                case 3:
+                    mentalSkillButtonList[i].onClick.AddListener(delegate { CombatSystem.instance.OnRegenaButton(); });
                     break;
             }
+            buttonPositions.Add(new Pair(mentalSkillButtonList[i].transform.position, false));
+            if (CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].availableMentalSkills[i])
+            {
+                mentalSkillButtonList[i].gameObject.SetActive(true);
+                buttonPositions[i].isOccupied = true;
+            }
         }
-        bool[] skillArr = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].availableMentalSkills;
-        for (int i = 0; i < skillArr.Length; i++)
-            if (!skillArr[i])
-                mentalSkillButtonList[i].gameObject.SetActive(false);
+        for (int i = 1; i < mentalSkillButtonList.Length; i++)
+        {
+            if (mentalSkillButtonList[i].gameObject.activeSelf && !buttonPositions[i - 1].isOccupied)
+            {
+                int vacantPos = buttonPositions.FindIndex(pos => !pos.isOccupied);
+                mentalSkillButtonList[i].transform.position = buttonPositions[vacantPos].position;
+                buttonPositions[vacantPos].isOccupied = true;
+                buttonPositions[i].isOccupied = false;
+            }
+        }
         areButtonsShown = true;
     }
 
     public void HideOrShowMentalSkillButtons()
-    {        
-        if (mentalSkillButtonList.Exists(button => button.gameObject.activeSelf))
+    {
+        if (System.Array.Exists(mentalSkillButtonList, button => button.gameObject.activeSelf))
         {
-            for (int i = 0; i < mentalSkillButtonList.Count; i++)
+            for (int i = 0; i < mentalSkillButtonList.Length; i++)
+            {
                 mentalSkillButtonList[i].gameObject.SetActive(false);
+                mentalSkillButtonList[i].transform.position = buttonPositions[i].position;
+                buttonPositions[i].isOccupied = false;
+            }
             areButtonsShown = false;
         }
         else
         {
             bool[] skillArr = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].availableMentalSkills;
             for (int i = 0; i < skillArr.Length; i++)
+            {
                 if (skillArr[i])
+                {
                     mentalSkillButtonList[i].gameObject.SetActive(true);
+                    buttonPositions[i].isOccupied = true;
+                }
+            }
+            for (int i = 1; i < mentalSkillButtonList.Length; i++)
+            {
+                if (mentalSkillButtonList[i].gameObject.activeSelf && !buttonPositions[i - 1].isOccupied)
+                {
+                    int vacantPos = buttonPositions.FindIndex(pos => !pos.isOccupied);
+                    mentalSkillButtonList[i].transform.position = buttonPositions[vacantPos].position;
+                    buttonPositions[vacantPos].isOccupied = true;
+                    buttonPositions[i].isOccupied = false;
+                }
+            }
             areButtonsShown = true;
         }
     }

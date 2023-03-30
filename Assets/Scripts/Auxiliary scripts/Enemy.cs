@@ -8,7 +8,6 @@ public class Enemy : Unit
     public int enemyID;
     public int coinsDropped;
     public GameObject[] enemyPrefabsForCombat;
-    [HideInInspector] public CombatHUD combatHUD;
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -31,8 +30,8 @@ public class Enemy : Unit
             {
                 CombatSystem.instance.curEnemyID = CombatSystem.instance.enemyUnits.IndexOf(this);
                 CombatSystem.instance.isChoosingEnemyForAttack = false;
-                CombatSystem.instance.combatUI.combatDialogue.text = CombatSystem.instance.playerUnit.unitName + " начинает атаку";
-                StartCoroutine(CombatSystem.instance.PlayerAttack(CombatSystem.instance.damageTypeID, CombatSystem.instance.isMental));
+                CombatSystem.instance.combatUI.combatDialogue.text = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].unitName + " начинает атаку";
+                StartCoroutine(CombatSystem.instance.AllyAttack(CombatSystem.instance.damageTypeID, CombatSystem.instance.isMental));
             }
             else if (CombatSystem.instance.isChoosingEnemyForItem)
             {
@@ -43,7 +42,7 @@ public class Enemy : Unit
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            if (!Inventory.instance.isOpen && CombatSystem.instance.combatState == CombatState.PLAYER_TURN)
+            if (!Inventory.instance.isOpen && CombatSystem.instance.combatState == CombatState.ALLY_TURN)
                 EnemyInfoPanel.instance.OpenEnemyInfoPanel(this);
         }
     }

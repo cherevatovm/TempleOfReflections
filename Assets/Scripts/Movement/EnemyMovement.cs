@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] Transform[] waypoints;
-    [SerializeField] float moveSpeed = 3f;
+    [SerializeField] private Transform[] waypoints;
+    [SerializeField] private float moveSpeed = 1.5f;
+    [SerializeField] private float pursuitSpeed = 3f;
+    [SerializeField] private float maxPursuitDistance = 7f;
     private int waypointIndex = 0;
 
     private void Start() => transform.position = waypoints[waypointIndex].position;
 
     private void Update()
     {
-        if (Dist(PlayerMovement.instance.transform.position, transform.position) > 7)
+        if (Dist(PlayerMovement.instance.transform.position, transform.position) > maxPursuitDistance)
             MoveAlongThePath();
         else
             FollowPlayer(PlayerMovement.instance.rigidBody);
@@ -32,7 +34,7 @@ public class EnemyMovement : MonoBehaviour
         else
             waypointIndex = 0;
     }
-    private void FollowPlayer(Rigidbody2D rigidBody) => transform.position = Vector2.MoveTowards(transform.position, rigidBody.position, moveSpeed * Time.deltaTime * 2);
+    private void FollowPlayer(Rigidbody2D rigidBody) => transform.position = Vector2.MoveTowards(transform.position, rigidBody.position, pursuitSpeed * Time.deltaTime);
 
     public Transform GetFirstWaypointsTransform() => waypoints[0];
 }

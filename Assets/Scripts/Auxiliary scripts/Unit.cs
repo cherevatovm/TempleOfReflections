@@ -38,7 +38,7 @@ public class Unit : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!CombatSystem.instance.isInCombat)
+        if (!CombatSystem.instance.isInCombat || EnemyInfoPanel.instance.isActiveAndEnabled)
             return;
         if (Input.GetMouseButtonDown(0))
         {

@@ -151,6 +151,9 @@ MonoBehaviour:
   - 1
   - 1.2
   availableMentalSkills: 00000000
+  enemyDescription: 
+  enemyID: 1
+  coinsDropped: 15
   enemyPrefabsForCombat: []
 --- !u!114 &5021757046155829929
 MonoBehaviour:
@@ -164,7 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4688aad0b3f074284a4a9cf9b0765d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyID: 1
 --- !u!114 &8232970127767948255
 MonoBehaviour:
   m_ObjectHideFlags: 0
