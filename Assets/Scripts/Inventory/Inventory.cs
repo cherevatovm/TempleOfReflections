@@ -25,12 +25,13 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;   
     public int keysInPossession;
     public int coinsInPossession;
+    public int ShardsCount;
 
     [HideInInspector] public bool isOpen;
     [HideInInspector] public bool isInTrade;    
     [HideInInspector] public bool isContainerOpen;
     [HideInInspector] public Container container;
-    [HideInInspector] public GameObject tempItem;
+    [HideInInspector] public GameObject tempItem;   
 
     private void Start()
     {
@@ -162,6 +163,14 @@ public class Inventory : MonoBehaviour
             keyCounter.text = keysInPossession.ToString();
             Destroy(obj);
         }
+        else if (item is SolidifiedShard)
+        {
+            if (ShardsCount == 5)
+                return;
+            item.UseItem(out _);
+            Destroy(obj);
+            ShardsCount++;
+        }
         else if (item is Parasite)
         {
             if (IsFull(1))
@@ -177,9 +186,9 @@ public class Inventory : MonoBehaviour
             obj.GetComponent<Parasite>().ApplyParasiteEffect();
             obj.SetActive(false);
             GameUI.instance.SetUI(attachedUnit);
-        }
+        }       
         else
-        {
+        {            
             for (int i = 0; i < inventorySlotsForItems.Count; i++)
             {
                 if (!inventorySlotsForItems[i].isEmpty && item.itemName.Equals(inventorySlotsForItems[i].slotItemName))
@@ -200,6 +209,16 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+    }
+
+    public InventorySlot FindSacrificialDoll()
+    {
+        for (int i = 0; i < inventorySlotsForItems.Count; i++)
+        {
+            if (inventorySlotsForItems[i].slotItem is SacrificialDoll)
+                return inventorySlotsForItems[i];
+        }
+        return null;
     }
 
     public void GroupParasitesInSlots()
