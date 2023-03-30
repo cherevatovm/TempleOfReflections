@@ -5,23 +5,21 @@ using UnityEngine;
 
 public class PurificationTalisman : PickableItem
 {
-    private void Start()
-    {
-        isUsableInCombatOnly = true;
-    }
+    private void Start() => isUsableInCombatOnly = true;
 
     public override void UseItem(out string message)
     {
         message = string.Empty;
         if (!CombatSystem.instance.isInCombat)
             return;
-        if (!CombatSystem.instance.playerUnit.appliedEffect.Contains(true))
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.tempAllyID];
+        if (!target.appliedEffect.Contains(true))
         {
-            message = CombatSystem.instance.playerUnit.unitName + " не имеет активных эффектов";
+            message = target.unitName + " не имеет активных негативных эффектов";
             return;
         }
-        CombatSystem.instance.playerUnit.appliedEffect[System.Array.FindIndex(CombatSystem.instance.playerUnit.appliedEffect, elem => elem.Equals(true))] = false;
-        CombatSystem.instance.playerUnit.underEffectTurnsCount = 0;
-        message = CombatSystem.instance.playerUnit.unitName + " использует талисман очищения";
+        target.appliedEffect[System.Array.FindIndex(target.appliedEffect, elem => elem.Equals(true))] = false;
+        target.underEffectTurnsCount = 0;
+        message = target.unitName + " использует талисман очищения";
     }
 }

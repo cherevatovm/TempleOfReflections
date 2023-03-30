@@ -20,16 +20,13 @@ public class Unit : MonoBehaviour
     public int currentMP;
     public int maxMP;
 
-    public int itemEffectTurnsCount = 0;
-    public bool underItemEffect;
-    public ItemWithEffect affectingItem;
-
     [HideInInspector] public bool isKnockedDown;
     [HideInInspector] public int knockedTurnsCount;
     [HideInInspector] public int knockedDownTimeout;
     [HideInInspector] public bool[] appliedEffect = new bool[3];
     [HideInInspector] public int underEffectTurnsCount = 0;
-   
+    [HideInInspector] public List<ItemWithEffect> affectingItems = new();
+
     public bool[] weaknesses = new bool[4];
     public bool[] resistances = new bool[4];
     public bool[] nulls = new bool[4];

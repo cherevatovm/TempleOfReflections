@@ -92,7 +92,7 @@ public class GameUI : MonoBehaviour
 
     public bool IsSubmenuActive() => noteUI.activeSelf || dialogueUI.activeSelf || itemPanel.activeSelf;
 
-    public void ShowDeathscreen() => transform.GetChild(0).gameObject.SetActive(true);
+    public void ShowDeathscreen() => transform.GetChild(transform.childCount - 1).gameObject.SetActive(true);
 
     public void ExitGame() => Application.Quit();
 }

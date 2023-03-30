@@ -211,16 +211,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public InventorySlot FindSacrificialDoll()
-    {
-        for (int i = 0; i < inventorySlotsForItems.Count; i++)
-        {
-            if (inventorySlotsForItems[i].slotItem is SacrificialDoll)
-                return inventorySlotsForItems[i];
-        }
-        return null;
-    }
-
     public void GroupParasitesInSlots()
     {
         for (int i = 0; i < inventorySlotsForParasites.Count - 1; i++)

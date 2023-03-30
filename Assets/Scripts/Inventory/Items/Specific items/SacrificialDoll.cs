@@ -1,13 +1,15 @@
-﻿using System.Collections;
+﻿using Mono.Cecil;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 
-public class SacrificialDoll : PickableItem
+public class SacrificialDoll : ItemWithEffect
 {
-    public void Start()
+    private void Start() 
     {
         isUsableInCombatOnly = true;
+        underEffectTurnsNumber = -1;
     }
 
     public override void UseItem(out string message)
@@ -15,7 +17,17 @@ public class SacrificialDoll : PickableItem
         message = string.Empty;
         if (!CombatSystem.instance.isInCombat)
             return;
-        CombatSystem.instance.playerUnit.currentHP = (int)(CombatSystem.instance.playerUnit.maxHP * 0.15);
-        message = CombatSystem.instance.playerUnit.unitName + " использует жертвенную куклу";
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.tempAllyID];
+        target.affectingItems.Add(this);
+        message = target.unitName + " устанавливает связь с жертвенной куклой";
+    }
+
+    public override void RemoveEffect()
+    {
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
+        target.currentHP = (int)(target.maxHP * 0.15);
+        target.combatHUD.ChangeHP(target.currentHP);
+        target.affectingItems.Remove(this);
+        CombatSystem.instance.combatUI.combatDialogue.text = target.unitName + " остается в живых благодаря жертвенной кукле";
     }
 }

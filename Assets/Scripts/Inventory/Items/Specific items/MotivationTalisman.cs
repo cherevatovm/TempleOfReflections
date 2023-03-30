@@ -16,10 +16,9 @@ public class MotivationTalisman : ItemWithEffect
         if (!CombatSystem.instance.isInCombat)
             return;
         Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.tempAllyID];
-        if (target.affectingItem is MotivationTalisman)
+        if (target.affectingItems.Exists(item => item is MotivationTalisman))
             return;
-        target.underItemEffect = true;
-        target.affectingItem = this;
+        target.affectingItems.Add(this);
         if (target.Equals(CombatSystem.instance.allyUnits[0]))
         {
             target.meleeAttackStrength += (int)(0.25 * (target as Player).initMeleeAttackStrength);
@@ -36,10 +35,7 @@ public class MotivationTalisman : ItemWithEffect
     public override void RemoveEffect()
     {
         Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
-        if (target.itemEffectTurnsCount != underEffectTurnsNumber)
-            return;
-        target.itemEffectTurnsCount = 0;
-        target.affectingItem = null;
+        target.affectingItems.Remove(this);
         if (target.Equals(CombatSystem.instance.allyUnits[0]))
         {
             target.meleeAttackStrength -= (int)(0.25 * (target as Player).initMeleeAttackStrength);

@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,25 +16,24 @@ public class RecoveryTalisman : ItemWithEffect
         message = string.Empty;
         if (!CombatSystem.instance.isInCombat)
             return;
-        if (CombatSystem.instance.playerUnit.affectingItem is RecoveryTalisman)
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.tempAllyID];
+        if (target.affectingItems.Exists(item => item is RecoveryTalisman))
             return;
-        CombatSystem.instance.playerUnit.underItemEffect = true;
-        CombatSystem.instance.playerUnit.affectingItem = this;
-        message = CombatSystem.instance.playerUnit.unitName + " использует талисман восстановления";
+        target.affectingItems.Add(this);
+        message = $"{target.unitName} ощущает эффект талисмана восстановления";
     }
 
     public override void ApplyEffect()
     {
-        CombatSystem.instance.playerUnit.Heal((int)(CombatSystem.instance.playerUnit.maxHP * 0.05));
-        CombatSystem.instance.playerUnit.IncreaseCurrentMP((int)(CombatSystem.instance.playerUnit.maxMP * 0.05));
+        Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
+        int restoredHP = (int)(target.maxHP * 0.1);
+        int restoredMP = (int)(target.maxMP * 0.1);
+        target.Heal(restoredHP);
+        target.IncreaseCurrentMP(restoredMP);
+        target.combatHUD.ChangeHP(target.currentHP);
+        target.combatHUD.ChangeMP(target.currentMP);
+        CombatSystem.instance.combatUI.combatDialogue.text = $"{target.unitName} восполняет {restoredHP} здоровья и {restoredMP} MP";
     }
 
-    public override void RemoveEffect()
-    {
-        if ((CombatSystem.instance.playerUnit.itemEffectTurnsCount != underEffectTurnsNumber) && (!CombatSystem.instance.playerUnit.isKnockedDown))
-            return;
-        CombatSystem.instance.playerUnit.underItemEffect = false;
-        CombatSystem.instance.playerUnit.itemEffectTurnsCount = 0;
-        CombatSystem.instance.playerUnit.affectingItem = null;
-    }
+    public override void RemoveEffect() => CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].affectingItems.Remove(this);
 }

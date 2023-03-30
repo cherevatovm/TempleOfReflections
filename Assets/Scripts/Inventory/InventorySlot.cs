@@ -136,7 +136,7 @@ public class InventorySlot : MonoBehaviour
 
     public virtual void SlotClicked()
     {
-        if (!isEmpty && slotItem.GetComponent<Key>() == null)
+        if (!isEmpty)
         {
             var vector = new Vector3(transform.position.x + 5, transform.position.y + 2, transform.position.z);
             if (ItemInfo.instance.transform.localScale == Vector3.zero)
