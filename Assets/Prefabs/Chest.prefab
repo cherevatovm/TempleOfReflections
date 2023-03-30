@@ -691,6 +691,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837736877738151
 GameObject:
@@ -1299,6 +1300,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837737158452293
 GameObject:
@@ -1443,6 +1445,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837737158710199
 GameObject:
@@ -1747,6 +1750,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837737279486535
 GameObject:
@@ -1891,6 +1895,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837737297038753
 GameObject:
@@ -1978,8 +1983,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3183837737299536305}
   - component: {fileID: 3183837737299536310}
-  - component: {fileID: 3183837737299536311}
   - component: {fileID: 3183837737299536304}
+  - component: {fileID: -7022670528087237685}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -2044,7 +2049,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 1691758857, guid: 23cefef1a3b700648a0249455e00b0f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2055,22 +2060,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &3183837737299536311
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3183837737299536306}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
 --- !u!114 &3183837737299536304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2087,6 +2076,32 @@ MonoBehaviour:
   parentSlots: {fileID: 3183837737473209845}
   containerSlots: []
   isNeedOfKey: 0
+--- !u!61 &-7022670528087237685
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3183837737299536306}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 0.96875}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.96875}
+  m_EdgeRadius: 0
 --- !u!1 &3183837737329174136
 GameObject:
   m_ObjectHideFlags: 0
@@ -2306,6 +2321,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837737402450729
 GameObject:
@@ -2450,6 +2466,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837737473209846
 GameObject:
@@ -2711,6 +2728,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837737612943617
 GameObject:
@@ -2855,6 +2873,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837737723593294
 GameObject:
@@ -3159,6 +3178,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837737861330315
 GameObject:
@@ -3687,6 +3707,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837738083078630
 GameObject:
@@ -3991,6 +4012,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837738333405067
 GameObject:
@@ -4135,6 +4157,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837738421202302
 GameObject:
@@ -4279,6 +4302,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837738536107732
 GameObject:
@@ -4503,6 +4527,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837738578729925
 GameObject:
@@ -4723,6 +4748,7 @@ MonoBehaviour:
   slotItem: {fileID: 0}
   slotObject: {fileID: 0}
   stackCount: 0
+  justBoughtCount: 0
   isEmpty: 1
 --- !u!1 &3183837738686749815
 GameObject:
