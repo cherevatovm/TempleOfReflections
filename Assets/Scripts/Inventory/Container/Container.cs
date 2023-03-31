@@ -26,10 +26,7 @@ public class Container : MonoBehaviour
             else
             {
                 if (GameUI.instance.exitUI.activeSelf)
-                {
-                    Debug.Log("thats really weird");
                     GameUI.instance.ShowOrHideExitUI();
-                }
                 if (isNeedOfKey)
                 {
                     if (Inventory.instance.keysInPossession > 0)
@@ -52,6 +49,7 @@ public class Container : MonoBehaviour
     {
         if (Inventory.instance.isOpen)
             Inventory.instance.Close();
+        SoundManager.PlaySound(SoundManager.Sound.OpenContainer);
         for (int i = 0; i < containerSlotsInInventory.childCount; i++)
         {
             if (containerSlots[i].isEmpty)

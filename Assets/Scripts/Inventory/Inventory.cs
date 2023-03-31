@@ -21,11 +21,12 @@ public class Inventory : MonoBehaviour
     public Text keyCounter;
     [SerializeField] private Text merchantCointCounter;
     [SerializeField] private Text coinCounter;
+    [SerializeField] private Text shardCounter;
 
     public static Inventory instance;   
     public int keysInPossession;
     public int coinsInPossession;
-    public int ShardsCount;
+    public int shardsInPossession;
 
     [HideInInspector] public bool isOpen;
     [HideInInspector] public bool isInTrade;    
@@ -165,11 +166,12 @@ public class Inventory : MonoBehaviour
         }
         else if (item is SolidifiedShard)
         {
-            if (ShardsCount == 5)
+            if (shardsInPossession == 5)
                 return;
+            shardsInPossession++;
+            shardCounter.text = shardsInPossession.ToString();
             item.UseItem(out _);
-            Destroy(obj);
-            ShardsCount++;
+            Destroy(obj);            
         }
         else if (item is Parasite)
         {
