@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class ItemWithEffect : PickableItem
 {
-    protected int underEffectTurnsNumber;
+    [HideInInspector] public int underEffectTurnsNumber;
+    [HideInInspector] public int underEffectTurnsCounter;
     [HideInInspector] public bool doesHaveContinuousEffect;
 
     public virtual void ApplyEffect()

@@ -12,7 +12,7 @@ public class CombatSystem : MonoBehaviour
     private const float weaknessMult = 1.25f;
     private const float resistMult = 0.5f;
     private const float knockedDownMult = 1.2f;
-    
+
     public float effectProbability = 0.2f;
     public float reflectionProbability1;
     public float reflectionProbability2;
@@ -73,7 +73,7 @@ public class CombatSystem : MonoBehaviour
         Inventory.instance.Close();
         encounteredEnemy.gameObject.GetComponent<Collider2D>().enabled = false;
         encounteredEnemy.gameObject.GetComponent<EnemyMovement>().enabled = false;
-        Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = false;        
+        Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = false;
         for (int i = 0; i < allyPrefabsForCombat.Length; i++)
         {
             GameObject allyCombat = Instantiate(allyPrefabsForCombat[i], allyCombatPositions[i]);
@@ -155,21 +155,23 @@ public class CombatSystem : MonoBehaviour
             allyUnits[curAllyID].combatHUD.ChangeMP(allyUnits[curAllyID].currentMP);
             yield return new WaitForSeconds(1.5f);
         }
-        if (allyUnits[curAllyID].underItemEffect)
+        var items = allyUnits[curAllyID].affectingItems;
+        for (int i = 0; i < items.Count; i++)
         {
-            if (allyUnits[curAllyID].affectingItem.doesHaveContinuousEffect)
+            if (items[i].doesHaveContinuousEffect)
             {
-                allyUnits[curAllyID].affectingItem.ApplyEffect();
+                items[i].ApplyEffect();
                 yield return new WaitForSeconds(1f);
             }
-            allyUnits[curAllyID].affectingItem.RemoveEffect();
-            if (!allyUnits[curAllyID].underItemEffect)
+            if (items[i].underEffectTurnsCounter == items[i].underEffectTurnsNumber)
             {
-                combatUI.combatDialogue.text = "Эффект от предмета, наложенный на " + allyUnits[curAllyID].unitName + ", прошел";
+                items[i].RemoveEffect();
+                combatUI.combatDialogue.text = items[i].itemName + ": эффект от предмета, наложенный на " + allyUnits[curAllyID].unitName + ", прошел";
+                i--;
                 yield return new WaitForSeconds(1f);
             }
             else
-                allyUnits[curAllyID].itemEffectTurnsCount++;
+                items[i].underEffectTurnsCounter++;
         }
         if (allyUnits[curAllyID].appliedEffect[1])
         {
@@ -187,14 +189,25 @@ public class CombatSystem : MonoBehaviour
         }
         else if (allyUnits[curAllyID].IsDead())
         {
-            RemoveAlly(curAllyID);
-            if (allyUnits.Count == 0)
+            ItemWithEffect sacrDoll = allyUnits[curAllyID].affectingItems.Find(item => item is SacrificialDoll);
+            if (sacrDoll != null)
             {
-                combatState = CombatState.LOST;
-                FinishBattle();
+                sacrDoll.RemoveEffect();
+                yield return new WaitForSeconds(1.5f);
+                combatState = CombatState.ALLY_TURN;
+                combatUI.combatDialogue.text = "Выберите действие (" + allyUnits[curAllyID].unitName + " ходит в данный момент)";
             }
             else
-                StartCoroutine(AllyTurn());
+            {
+                RemoveAlly(curAllyID);
+                if (allyUnits.Count == 0)
+                {
+                    combatState = CombatState.LOST;
+                    FinishBattle();
+                }
+                else
+                    StartCoroutine(AllyTurn());
+            }
         }
         else
         {
@@ -310,15 +323,25 @@ public class CombatSystem : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         if (allyUnits[curAllyID].IsDead())
         {
-            RemoveAlly(curAllyID);
-            yield return new WaitForSeconds(1.5f);
-            if (allyUnits.Count == 0)
+            ItemWithEffect sacrDoll = allyUnits[curAllyID].affectingItems.Find(item => item is SacrificialDoll);
+            if (sacrDoll != null)
             {
-                combatState = CombatState.LOST;
-                FinishBattle();
+                sacrDoll.RemoveEffect();
+                yield return new WaitForSeconds(1.5f);
+                StartCoroutine(AllyTurn());
             }
             else
-                StartCoroutine(AllyTurn());
+            {
+                RemoveAlly(curAllyID);
+                yield return new WaitForSeconds(1.5f);
+                if (allyUnits.Count == 0)
+                {
+                    combatState = CombatState.LOST;
+                    FinishBattle();
+                }
+                else
+                    StartCoroutine(AllyTurn());
+            }
         }
         else if (!enemyUnits[curEnemyID].IsDead() && enemyUnits[curEnemyID].isKnockedDown && enemyUnits[curEnemyID].knockedTurnsCount == 0)
         {
@@ -357,8 +380,8 @@ public class CombatSystem : MonoBehaviour
             message = allyUnits[tempAllyID].unitName + " восстанавливает " + (int)(allyUnits[tempAllyID].maxHP * 0.25) + " здоровья";
             allyUnits[tempAllyID].combatHUD.ChangeHP(allyUnits[tempAllyID].currentHP);
         }
-        allyUnits[curAllyID].ReduceCurrentMP(mentalSkillsMPCost[0]);    
-        allyUnits[curAllyID].combatHUD.ChangeMP(allyUnits[curAllyID].currentMP);       
+        allyUnits[curAllyID].ReduceCurrentMP(mentalSkillsMPCost[0]);
+        allyUnits[curAllyID].combatHUD.ChangeMP(allyUnits[curAllyID].currentMP);
         allyCombatControllers[curAllyID].attackButtonWasPressed = false;
         combatUI.combatDialogue.text = message;
         tempAllyID = 0;
@@ -394,21 +417,23 @@ public class CombatSystem : MonoBehaviour
                 enemyUnits[i].combatHUD.ChangeMP(enemyUnits[i].currentMP);
                 yield return new WaitForSeconds(1.5f);
             }
-            if (enemyUnits[i].underItemEffect)
+            var items = enemyUnits[i].affectingItems;
+            for (int j = 0; j < items.Count; j++)
             {
-                if (enemyUnits[i].affectingItem.doesHaveContinuousEffect)
+                if (items[j].doesHaveContinuousEffect)
                 {
-                    enemyUnits[i].affectingItem.ApplyEffect();
+                    items[j].ApplyEffect();
                     yield return new WaitForSeconds(1f);
                 }
-                enemyUnits[i].affectingItem.RemoveEffect();
-                if (!enemyUnits[i].underItemEffect)
+                if (items[j].underEffectTurnsCounter == items[j].underEffectTurnsNumber)
                 {
-                    combatUI.combatDialogue.text = "Эффект от предмета, наложенный на " + enemyUnits[i].unitName + ", прошел";
+                    items[j].RemoveEffect();
+                    combatUI.combatDialogue.text = items[j].itemName + ": эффект от предмета, наложенный на " + enemyUnits[i].unitName + ", прошел";
+                    j--;
                     yield return new WaitForSeconds(1f);
                 }
                 else
-                    enemyUnits[i].itemEffectTurnsCount++;
+                    items[j].underEffectTurnsCounter++;
             }
             if (enemyUnits[i].appliedEffect[1])
                 continue;
@@ -464,13 +489,22 @@ public class CombatSystem : MonoBehaviour
             }
             else if (allyUnits[curAllyID].IsDead())
             {
-                RemoveAlly(curAllyID);
-                yield return new WaitForSeconds(1.5f);
-                if (allyUnits.Count == 0)
+                ItemWithEffect sacrDoll = allyUnits[curAllyID].affectingItems.Find(item => item is SacrificialDoll);
+                if (sacrDoll != null)
                 {
-                    combatState = CombatState.LOST;
-                    FinishBattle();
-                    yield break;
+                    sacrDoll.RemoveEffect();
+                    yield return new WaitForSeconds(1.5f);
+                }
+                else
+                {
+                    RemoveAlly(curAllyID);
+                    yield return new WaitForSeconds(1.5f);
+                    if (allyUnits.Count == 0)
+                    {
+                        combatState = CombatState.LOST;
+                        FinishBattle();
+                        yield break;
+                    }
                 }
             }
             else if (allyUnits[curAllyID].isKnockedDown && allyUnits[curAllyID].knockedTurnsCount == 0)
@@ -648,12 +682,12 @@ public class CombatSystem : MonoBehaviour
     }
 
     public void OnRegenaButton()
-    {        
+    {
         if (allyUnits[curAllyID].currentMP >= mentalSkillsMPCost[0])
         {
             combatUI.HideOrShowMentalSkillButtons();
             isChoosingAllyForSkill = true;
-            combatUI.combatDialogue.text = "Выберите цель для использования навыка";            
+            combatUI.combatDialogue.text = "Выберите цель для использования навыка";
         }
         else
         {
@@ -672,11 +706,6 @@ public class CombatSystem : MonoBehaviour
             SoundManager.StopLoopedSound();
             SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
             SoundManager.PlaySound(SoundManager.Sound.Mystery);
-            if (allyUnits[0].affectingItem != null)
-            {
-                curAllyID = 0;
-                allyUnits[0].affectingItem.RemoveEffect();
-            }
             Inventory.instance.attachedUnit.CopyStats(allyUnits[0] as Player);
             Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = true;
             isInCombat = false;

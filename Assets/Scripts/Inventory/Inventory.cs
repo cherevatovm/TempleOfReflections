@@ -21,16 +21,18 @@ public class Inventory : MonoBehaviour
     public Text keyCounter;
     [SerializeField] private Text merchantCointCounter;
     [SerializeField] private Text coinCounter;
+    [SerializeField] private Text shardCounter;
 
     public static Inventory instance;   
     public int keysInPossession;
     public int coinsInPossession;
+    public int shardsInPossession;
 
     [HideInInspector] public bool isOpen;
     [HideInInspector] public bool isInTrade;    
     [HideInInspector] public bool isContainerOpen;
     [HideInInspector] public Container container;
-    [HideInInspector] public GameObject tempItem;
+    [HideInInspector] public GameObject tempItem;   
 
     private void Start()
     {
@@ -162,6 +164,15 @@ public class Inventory : MonoBehaviour
             keyCounter.text = keysInPossession.ToString();
             Destroy(obj);
         }
+        else if (item is SolidifiedShard)
+        {
+            if (shardsInPossession == 5)
+                return;
+            shardsInPossession++;
+            shardCounter.text = shardsInPossession.ToString();
+            item.UseItem(out _);
+            Destroy(obj);            
+        }
         else if (item is Parasite)
         {
             if (IsFull(1))
@@ -177,9 +188,9 @@ public class Inventory : MonoBehaviour
             obj.GetComponent<Parasite>().ApplyParasiteEffect();
             obj.SetActive(false);
             GameUI.instance.SetUI(attachedUnit);
-        }
+        }       
         else
-        {
+        {            
             for (int i = 0; i < inventorySlotsForItems.Count; i++)
             {
                 if (!inventorySlotsForItems[i].isEmpty && item.itemName.Equals(inventorySlotsForItems[i].slotItemName))

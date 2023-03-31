@@ -17,10 +17,9 @@ public class WeakeningTalisman : ItemWithEffect
         if (!CombatSystem.instance.isInCombat)
             return;
         Enemy currentEnemyUnit = CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID];
-        if (currentEnemyUnit.affectingItem is WeakeningTalisman)
+        if (currentEnemyUnit.affectingItems.Exists(item => item is WeakeningTalisman))
             return;
-        currentEnemyUnit.underItemEffect = true;
-        currentEnemyUnit.affectingItem = this;
+        currentEnemyUnit.affectingItems.Add(this);
         currentEnemyUnit.meleeAttackStrength -= (int)(0.25 * currentEnemyUnit.meleeAttackStrength);
         currentEnemyUnit.mentalAttackStrength -= (int)(0.25 * currentEnemyUnit.mentalAttackStrength);
         message = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID].unitName + " использует талисман ослабления для " + currentEnemyUnit.unitName;
@@ -29,11 +28,7 @@ public class WeakeningTalisman : ItemWithEffect
     public override void RemoveEffect()
     {
         Enemy currentEnemyUnit = CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID];
-        if (currentEnemyUnit.itemEffectTurnsCount != underEffectTurnsNumber)
-            return;
-        currentEnemyUnit.underItemEffect = false;
-        currentEnemyUnit.itemEffectTurnsCount = 0;
-        currentEnemyUnit.affectingItem = null;
+        currentEnemyUnit.affectingItems.Remove(this);
         currentEnemyUnit.meleeAttackStrength += (int)(0.25 * currentEnemyUnit.meleeAttackStrength);
         currentEnemyUnit.mentalAttackStrength += (int)(0.25 * currentEnemyUnit.mentalAttackStrength);
     }
