@@ -26,6 +26,7 @@ public class CombatController : MonoBehaviour
         else if (isHurting)
             animator.SetTrigger("isHurting");
         else if (isDying)
-            animator.SetTrigger("isDead");
+            //animator.SetTrigger("isDead");
+            animator.Play("death");
     }
 }

@@ -186,6 +186,7 @@ public class CombatSystem : MonoBehaviour
         }
         else if (allyUnits[curAllyID].IsDead())
         {
+            allyCombatControllers[curAllyID].isDying = true;
             RemoveAlly(curAllyID);
             if (allyUnits.Count == 0)
             {
@@ -369,7 +370,7 @@ public class CombatSystem : MonoBehaviour
     {
         combatUI.combatDialogue.text = allyUnits[allyID].unitName + " получает фатальный удар!";
         allyUnits[allyID].combatHUD.gameObject.SetActive(false);
-        Destroy(allyUnits[allyID].gameObject);
+        Destroy(allyUnits[allyID].gameObject, 1.5f);
         allyCombatControllers.RemoveAt(allyID);
         allyUnits.RemoveAt(allyID);
     }
@@ -462,6 +463,7 @@ public class CombatSystem : MonoBehaviour
             }
             else if (allyUnits[curAllyID].IsDead())
             {
+                allyCombatControllers[curAllyID].isDying = true;
                 RemoveAlly(curAllyID);
                 yield return new WaitForSeconds(1.5f);
                 if (allyUnits.Count == 0)
