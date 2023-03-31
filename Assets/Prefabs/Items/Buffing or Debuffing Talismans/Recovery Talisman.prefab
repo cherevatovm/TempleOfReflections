@@ -120,7 +120,7 @@ MonoBehaviour:
     \u0445\u043E\u0434 \u0432 \u0442\u0435\u0447\u0435\u043D\u0438\u0435 8 \u0445\u043E\u0434\u043E\u0432
     (\u041F\u0440\u0438\u043C\u0435\u043D\u0438\u043C\u043E \u0442\u043E\u043B\u044C\u043A\u043E
     \u0432 \u0431\u043E\u044E)"
-  itemValue: 25
+  itemValue: 30
   isUsableInCombatOnly: 0
   isAffectingEnemy: 0
   underEffectTurnsNumber: 0
