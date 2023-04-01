@@ -164,9 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 4560645954599096051}
-  unitName: "\u0410\u043C\u0435\u043B\u0438\u044F"
+  unitName: Amelia
   combatHUD: {fileID: 0}
-  meleeAttackStrength: 1000
+  meleeAttackStrength: 15
   mentalAttackStrength: 10
   armorModifier: 1
   currentHP: 50
@@ -181,14 +181,15 @@ MonoBehaviour:
   knockedDownTimeout: 0
   appliedEffect: 000000
   underEffectTurnsCount: 0
-  weaknesses: 00000000
-  resistances: 00000000
+  weaknesses: 00000001
+  resistances: 00000100
   nulls: 00000000
   elementAffinities:
+  - 1.5
   - 1
+  - 1.2
   - 1
-  - 1
-  - 1
+  availableMentalSkills: 00010001
 --- !u!95 &4560645954599096062
 Animator:
   serializedVersion: 4
@@ -221,6 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 654dd67b0f6432f43a5a235fc328252d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 0
   attackButtonWasPressed: 0
   isHurting: 0
   isDying: 0
