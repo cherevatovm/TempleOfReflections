@@ -3935,13 +3935,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentSlotForItems: {fileID: 1996723369210245430}
   parentSlotForParasites: {fileID: 1996723369560137910}
-  parentContainerSlots: {fileID: 0}
-  parentTradingSlots: {fileID: 0}
+  parentContainerSlots: {fileID: 8387624050656914992}
+  parentTradingSlots: {fileID: 6699708040614666275}
   attachedUnit: {fileID: 0}
-  keyCounter: {fileID: 0}
-  merchantCointCounter: {fileID: 0}
-  coinCounter: {fileID: 0}
-  shardCounter: {fileID: 0}
+  keyCounter: {fileID: 4016771117675369386}
+  merchantCointCounter: {fileID: 658754611778138508}
+  coinCounter: {fileID: 3412255343395420783}
+  shardCounter: {fileID: 6218658857053429573}
   keysInPossession: 0
   coinsInPossession: 0
   shardsInPossession: 0

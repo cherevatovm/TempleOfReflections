@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c838f6367b9779246a543669a63fa393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemID: 9
   itemName: "\u0422\u0430\u043B\u0438\u0441\u043C\u0430\u043D \u043E\u0447\u0438\u0449\u0435\u043D\u0438\u044F"
   itemDescription: "\u0421\u043D\u0438\u043C\u0430\u0435\u0442 \u043D\u0430\u043B\u043E\u0436\u0435\u043D\u043D\u044B\u0435
     \u043D\u0435\u0433\u0430\u0442\u0438\u0432\u043D\u044B\u0435 \u044D\u0444\u0444\u0435\u043A\u0442\u044B

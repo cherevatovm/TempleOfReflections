@@ -7,6 +7,7 @@ public abstract class PickableItem : MonoBehaviour
 {
     [Header("Описание предмета")]
     protected bool isCloseToItem;
+    public int itemID;
     public string itemName;
     public string itemDescription;
     public int itemValue;

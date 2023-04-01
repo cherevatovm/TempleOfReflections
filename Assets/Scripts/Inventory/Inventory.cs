@@ -12,7 +12,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] Transform parentContainerSlots;
     [SerializeField] Transform parentTradingSlots;
 
-    private List<InventorySlot> inventorySlotsForItems = new();
+    [HideInInspector] public List<InventorySlot> inventorySlotsForItems = new();
     private List<InventorySlot> inventorySlotsForParasites = new();
     private List<ContainerSlot> inventoryContainerSlots = new();
     private List<ContainerSlot> inventoryTradingSlots = new();
@@ -47,6 +47,11 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < parentTradingSlots.childCount; i++)
             inventoryTradingSlots.Add(parentTradingSlots.GetChild(i).GetComponent<TradingSlot>());
         transform.GetChild(1).gameObject.SetActive(false);
+        if (GameController.instance.isInDifferentScene)
+        {
+            GameController.instance.UnpackWrittenData();
+            GameController.instance.InstantiateAndAddToInventory();
+        }
     }
 
     private void Update()
@@ -185,7 +190,7 @@ public class Inventory : MonoBehaviour
                     break;
                 }
             }
-            obj.GetComponent<Parasite>().ApplyParasiteEffect();
+            (item as Parasite).ApplyParasiteEffect();
             obj.SetActive(false);
             GameUI.instance.SetUI(attachedUnit);
         }       
@@ -419,12 +424,6 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    public void PutParasiteInInventory()
-    {
-        PutInInventory(tempItem);
-        tempItem = null;
-    }
-
     public void PutInContainer(InventorySlot slot)
     {
         if (!isInTrade)
@@ -501,5 +500,11 @@ public class Inventory : MonoBehaviour
             }
         }
         slot.DropOutOfSlot();
+    }
+
+    public void PutParasiteInInventory()
+    {
+        PutInInventory(tempItem);
+        tempItem = null;
     }
 }

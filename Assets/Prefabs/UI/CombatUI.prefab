@@ -4638,7 +4638,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2903425808268503443}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4697260305969304815}
+        m_TargetAssemblyTypeName: EnemyInfoPanel, Assembly-CSharp
+        m_MethodName: CloseEnemyInfoPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3244651518167903790
 GameObject:
   m_ObjectHideFlags: 0
@@ -7726,6 +7738,7 @@ MonoBehaviour:
   - {fileID: 8019120225971327683}
   - {fileID: 5678074231301758450}
   - {fileID: 7929660434746744366}
+  enemyRecords: []
 --- !u!1 &5222593574351720847
 GameObject:
   m_ObjectHideFlags: 0
@@ -10712,7 +10725,7 @@ MonoBehaviour:
   - {fileID: 4180585157424655116}
   - {fileID: 1711146429436492286}
   areButtonsShown: 0
-  skillButtonsWereInstantiated: 0
+  skillButtonsHaveBeenSet: 0
 --- !u!1 &7160847060637989554
 GameObject:
   m_ObjectHideFlags: 0
