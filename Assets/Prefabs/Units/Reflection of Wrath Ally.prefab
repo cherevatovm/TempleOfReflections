@@ -12,12 +12,10 @@ GameObject:
   - component: {fileID: 8164385237867508118}
   - component: {fileID: 8164385237867508116}
   - component: {fileID: 5565111151969158893}
-  - component: {fileID: 3293713175960615179}
   - component: {fileID: 8164385237867508123}
-  - component: {fileID: 5516479842872426065}
   - component: {fileID: -71558179542881456}
   m_Layer: 0
-  m_Name: Ally Reflection of Wrath
+  m_Name: Reflection of Wrath Ally
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8164385237867508120}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -127,20 +125,6 @@ MonoBehaviour:
   attackButtonWasPressed: 0
   isHurting: 0
   isDying: 0
---- !u!114 &3293713175960615179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8164385237867508120}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ece36551c6b564c9eba46809c0b4e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints: []
-  moveSpeed: 3
 --- !u!95 &8164385237867508123
 Animator:
   serializedVersion: 4
@@ -161,22 +145,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!58 &5516479842872426065
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8164385237867508120}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.04075832, y: 0.05840944}
-  serializedVersion: 2
-  m_Radius: 0.9629175
 --- !u!114 &-71558179542881456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,11 +160,11 @@ MonoBehaviour:
   rb: {fileID: 0}
   unitName: Reflection of Wrath
   combatHUD: {fileID: 0}
-  meleeAttackStrength: 10
-  mentalAttackStrength: 10
+  meleeAttackStrength: 15
+  mentalAttackStrength: 17
   armorModifier: 1
-  currentHP: 50
-  maxHP: 50
+  currentHP: 150
+  maxHP: 150
   currentMP: 50
   maxMP: 50
   itemEffectTurnsCount: 0
@@ -208,11 +176,11 @@ MonoBehaviour:
   appliedEffect: 000000
   underEffectTurnsCount: 0
   weaknesses: 00000000
-  resistances: 00000000
+  resistances: 00010000
   nulls: 00000000
   elementAffinities:
-  - 0
-  - 0
-  - 0
-  - 0
-  availableMentalSkills: 00000000
+  - 1.2
+  - 1
+  - 1
+  - 1.5
+  availableMentalSkills: 01000100
