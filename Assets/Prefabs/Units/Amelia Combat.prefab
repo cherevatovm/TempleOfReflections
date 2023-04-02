@@ -166,28 +166,26 @@ MonoBehaviour:
   rb: {fileID: 4560645954599096051}
   unitName: Amelia
   combatHUD: {fileID: 0}
-  meleeAttackStrength: 15
-  mentalAttackStrength: 10
+  meleeAttackStrength: 28
+  mentalAttackStrength: 16
   armorModifier: 1
-  currentHP: 50
-  maxHP: 50
-  currentMP: 10
-  maxMP: 10
-  itemEffectTurnsCount: 0
-  underItemEffect: 0
-  affectingItem: {fileID: 0}
+  currentHP: 90
+  maxHP: 90
+  currentMP: 12
+  maxMP: 12
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
   appliedEffect: 000000
   underEffectTurnsCount: 0
+  affectingItems: []
   weaknesses: 00000001
   resistances: 00000100
   nulls: 00000000
   elementAffinities:
-  - 1.5
   - 1
-  - 1.2
+  - 1
+  - 1
   - 1
   availableMentalSkills: 00010001
 --- !u!95 &4560645954599096062

@@ -127,21 +127,19 @@ MonoBehaviour:
   rb: {fileID: 121105109028774550}
   unitName: Harbinger of Misfortune
   combatHUD: {fileID: 0}
-  meleeAttackStrength: 10
-  mentalAttackStrength: 10
+  meleeAttackStrength: 16
+  mentalAttackStrength: 16
   armorModifier: 1
-  currentHP: 50
-  maxHP: 50
+  currentHP: 60
+  maxHP: 60
   currentMP: 25
   maxMP: 25
-  itemEffectTurnsCount: 0
-  underItemEffect: 0
-  affectingItem: {fileID: 0}
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
   appliedEffect: 000000
   underEffectTurnsCount: 0
+  affectingItems: []
   weaknesses: 00010000
   resistances: 00000100
   nulls: 00000000
@@ -205,6 +203,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   moveSpeed: 1.5
+  pursuitSpeed: 3
+  maxPursuitDistance: 7
 --- !u!95 &121105109028774547
 Animator:
   serializedVersion: 4

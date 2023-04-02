@@ -29,10 +29,10 @@ public class Container : MonoBehaviour
                     GameUI.instance.ShowOrHideExitUI();
                 if (isNeedOfKey)
                 {
-                    if (Inventory.instance.keysInPossession > 0)
+                    if (Inventory.instance.containerKeysInPossession > 0)
                     {
-                        Inventory.instance.keysInPossession--;
-                        Inventory.instance.keyCounter.text = Inventory.instance.keysInPossession.ToString();
+                        Inventory.instance.containerKeysInPossession--;
+                        Inventory.instance.containerKeyCounter.text = Inventory.instance.containerKeysInPossession.ToString();
                         Open();
                         isNeedOfKey = false;
                         GameUI.instance.gameDialogue.text = "Вы использовали ключ, чтобы отпереть замок";
@@ -79,13 +79,20 @@ public class Container : MonoBehaviour
         isOpen = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) => isCloseToContainer = true;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+            isCloseToContainer = true;
+    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        GameUI.instance.gameDialogue.text = string.Empty;
-        isCloseToContainer = false;
-        if (isOpen)
-            Close();
+        if (collision.CompareTag("Player"))
+        {
+            GameUI.instance.gameDialogue.text = string.Empty;
+            isCloseToContainer = false;
+            if (isOpen)
+                Close();
+        }
     }
 }

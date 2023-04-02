@@ -3937,12 +3937,14 @@ MonoBehaviour:
   parentSlotForParasites: {fileID: 1996723369560137910}
   parentContainerSlots: {fileID: 8387624050656914992}
   parentTradingSlots: {fileID: 6699708040614666275}
+  inventorySlotsForItems: []
   attachedUnit: {fileID: 0}
-  keyCounter: {fileID: 4016771117675369386}
+  containerKeyCounter: {fileID: 4016771117675369386}
   merchantCointCounter: {fileID: 658754611778138508}
   coinCounter: {fileID: 3412255343395420783}
   shardCounter: {fileID: 6218658857053429573}
-  keysInPossession: 0
+  containerKeysInPossession: 0
+  doorKeysInPossession: 0
   coinsInPossession: 0
   shardsInPossession: 0
   isOpen: 0

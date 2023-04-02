@@ -18,13 +18,14 @@ public class Inventory : MonoBehaviour
     private List<ContainerSlot> inventoryTradingSlots = new();
 
     public Player attachedUnit;
-    public Text keyCounter;
+    public Text containerKeyCounter;
     [SerializeField] private Text merchantCointCounter;
     [SerializeField] private Text coinCounter;
     [SerializeField] private Text shardCounter;
 
     public static Inventory instance;   
-    public int keysInPossession;
+    public int containerKeysInPossession;
+    public int doorKeysInPossession;
     public int coinsInPossession;
     public int shardsInPossession;
 
@@ -165,8 +166,16 @@ public class Inventory : MonoBehaviour
         PickableItem item = obj.GetComponent<PickableItem>();
         if (item is Key)
         {
-            keysInPossession++;
-            keyCounter.text = keysInPossession.ToString();
+            if ((item as Key).isDoorKey)
+                doorKeysInPossession++;
+            else
+                containerKeysInPossession++;
+            containerKeyCounter.text = containerKeysInPossession.ToString();
+            Destroy(obj);
+        }
+        else if (item is Coin)
+        {
+            ChangeCoinAmount(false, (item as Coin).amount);
             Destroy(obj);
         }
         else if (item is SolidifiedShard)

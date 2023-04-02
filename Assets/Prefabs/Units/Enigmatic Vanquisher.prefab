@@ -127,21 +127,19 @@ MonoBehaviour:
   rb: {fileID: 5021757046155829935}
   unitName: Enigmatic Vanquisher
   combatHUD: {fileID: 0}
-  meleeAttackStrength: 10
-  mentalAttackStrength: 10
+  meleeAttackStrength: 24
+  mentalAttackStrength: 16
   armorModifier: 1
-  currentHP: 65
-  maxHP: 65
+  currentHP: 70
+  maxHP: 70
   currentMP: 15
   maxMP: 15
-  itemEffectTurnsCount: 0
-  underItemEffect: 0
-  affectingItem: {fileID: 0}
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
   appliedEffect: 000000
   underEffectTurnsCount: 0
+  affectingItems: []
   weaknesses: 00000100
   resistances: 00000001
   nulls: 00000000
@@ -197,6 +195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: []
   moveSpeed: 3
+  pursuitSpeed: 3
+  maxPursuitDistance: 7
 --- !u!95 &5021757046155829930
 Animator:
   serializedVersion: 4

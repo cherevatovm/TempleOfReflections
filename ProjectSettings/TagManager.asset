@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Trap
   - Enemy
+  - Slot
+  - Front collider
+  - Back collider
   layers:
   - Default
   - TransparentFX

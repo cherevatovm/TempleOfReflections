@@ -102,9 +102,12 @@ public class Parasite : PickableItem
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        isCloseToItem = false;
-        GameUI.instance.CloseItemPanel();
-        Inventory.instance.tempItem = null;
+        if (collision.CompareTag("Player"))
+        {
+            isCloseToItem = false;
+            GameUI.instance.CloseItemPanel();
+            Inventory.instance.tempItem = null;
+        }
     }
 
     public void ApplyParasiteEffect()

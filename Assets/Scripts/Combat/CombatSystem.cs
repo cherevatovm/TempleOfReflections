@@ -25,7 +25,7 @@ public class CombatSystem : MonoBehaviour
     [HideInInspector] public List<CombatController> enemyCombatControllers = new();
     [HideInInspector] public List<CombatController> allyCombatControllers = new();
     private List<EnemyAI> enemyAIs = new();
-    [SerializeField] private GameObject[] allyPrefabsForCombat;
+    public List<GameObject> allyPrefabsForCombat;
 
     [HideInInspector] public Enemy encounteredEnemy;
 
@@ -74,7 +74,7 @@ public class CombatSystem : MonoBehaviour
         encounteredEnemy.gameObject.GetComponent<Collider2D>().enabled = false;
         encounteredEnemy.gameObject.GetComponent<EnemyMovement>().enabled = false;
         Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = false;
-        for (int i = 0; i < allyPrefabsForCombat.Length; i++)
+        for (int i = 0; i < allyPrefabsForCombat.Count; i++)
         {
             GameObject allyCombat = Instantiate(allyPrefabsForCombat[i], allyCombatPositions[i]);
             allyUnits.Add(allyCombat.GetComponent<Unit>());
@@ -718,7 +718,8 @@ public class CombatSystem : MonoBehaviour
             Destroy(encounteredEnemy.gameObject);
             foreach (Unit ally in allyUnits)
                 Destroy(ally.gameObject);
-            allyUnits.Clear();
+            allyCombatControllers.Clear();
+            allyUnits.Clear();            
         }
         else if (combatState == CombatState.LOST)
         {

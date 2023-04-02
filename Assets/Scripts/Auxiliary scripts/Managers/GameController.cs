@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour
         scriptableObject.currentMP = player.currentMP;
         scriptableObject.maxMP = player.maxMP;
         scriptableObject.coinsInPossession = Inventory.instance.coinsInPossession;
-        scriptableObject.keysInPossession = Inventory.instance.keysInPossession;
+        scriptableObject.keysInPossession = Inventory.instance.containerKeysInPossession;
         scriptableObject.currentEnemyRecords.Clear();
         foreach (var enemyRecord in enemyRecords)
             scriptableObject.currentEnemyRecords.Add(new EnemyInfoPanel.EnemyRecord(enemyRecord.slainInTotal, enemyRecord.knownAffinities));
@@ -48,8 +48,8 @@ public class GameController : MonoBehaviour
         player.currentMP = scriptableObject.currentMP;
         player.maxMP = scriptableObject.maxMP;
         Inventory.instance.ChangeCoinAmount(false, scriptableObject.coinsInPossession);
-        Inventory.instance.keysInPossession = scriptableObject.keysInPossession;
-        Inventory.instance.keyCounter.text = scriptableObject.keysInPossession.ToString();
+        Inventory.instance.containerKeysInPossession = scriptableObject.keysInPossession;
+        Inventory.instance.containerKeyCounter.text = scriptableObject.keysInPossession.ToString();
     }
 
     public void CopyEnemyRecords(ref List<EnemyInfoPanel.EnemyRecord> dest) => dest = scriptableObject.currentEnemyRecords.ToList();

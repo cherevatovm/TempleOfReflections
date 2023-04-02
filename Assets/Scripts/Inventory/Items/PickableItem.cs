@@ -22,7 +22,15 @@ public abstract class PickableItem : MonoBehaviour
 
     public abstract void UseItem(out string message);
 
-    private void OnTriggerEnter2D(Collider2D collision) => isCloseToItem = true;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+            isCloseToItem = true;
+    }
 
-    private void OnTriggerExit2D(Collider2D collision) => isCloseToItem = false;
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+            isCloseToItem = false;
+    }
 }
