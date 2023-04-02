@@ -20,7 +20,8 @@ public static class SoundManager
         FiraSkill,
         SomethingsGoingOn,
         Mystery,
-        MentalBattle
+        MentalBattle,
+        MainMenu
     }
 
     static Dictionary<Sound, float> soundTimerDictionary;

@@ -17,7 +17,10 @@ public abstract class PickableItem : MonoBehaviour
     private void Update()
     {
         if (isCloseToItem && Input.GetKeyDown(KeyCode.F))
+        {
             Inventory.instance.PutInInventory(gameObject);
+            GameUI.instance.gameDialogue.text = string.Empty;
+        }
     }
 
     public abstract void UseItem(out string message);
@@ -25,12 +28,18 @@ public abstract class PickableItem : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
+        {
             isCloseToItem = true;
+            GameUI.instance.gameDialogue.text = "Нажмите F, чтобы подобрать";
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
+        {
             isCloseToItem = false;
+            GameUI.instance.gameDialogue.text = string.Empty;
+        }
     }
 }

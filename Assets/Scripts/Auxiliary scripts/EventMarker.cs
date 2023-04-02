@@ -20,6 +20,9 @@ public class EventMarker : MonoBehaviour
                 case 1:
                     TransitionToNextScene(); 
                     break;
+                case 2:
+                    GameUI.instance.ShowAboutControlsNote();
+                    break;
             }
         }
     }

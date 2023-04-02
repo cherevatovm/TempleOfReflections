@@ -12,7 +12,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T) && inTriggerArea && !pressLock)
+        if (Input.GetKeyDown(KeyCode.F) && inTriggerArea && !pressLock)
         {
             DialogueManager.instance.dialogueTrigger = this;
             if (!alreadyTalkedTo)
@@ -23,7 +23,15 @@ public class DialogueTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) => inTriggerArea = true;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        inTriggerArea = true;
+        GameUI.instance.gameDialogue.text = "Нажмите F, чтобы поговорить";
+    }
 
-    private void OnTriggerExit2D(Collider2D collision) => inTriggerArea = false;
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        inTriggerArea = false;
+        GameUI.instance.gameDialogue.text = string.Empty;
+    }
 }

@@ -128,10 +128,10 @@ MonoBehaviour:
   unitName: Reflection of Wrath
   combatHUD: {fileID: 0}
   meleeAttackStrength: 25
-  mentalAttackStrength: 35
+  mentalAttackStrength: 30
   armorModifier: 1
-  currentHP: 150
-  maxHP: 150
+  currentHP: 125
+  maxHP: 125
   currentMP: 50
   maxMP: 50
   isKnockedDown: 0
@@ -144,10 +144,10 @@ MonoBehaviour:
   resistances: 00010000
   nulls: 00000000
   elementAffinities:
-  - 1.2
   - 1
   - 1
-  - 1.5
+  - 1
+  - 1
   availableMentalSkills: 00000000
   enemyDescription: 
   enemyID: 2

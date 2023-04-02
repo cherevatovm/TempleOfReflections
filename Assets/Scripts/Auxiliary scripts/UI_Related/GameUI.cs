@@ -11,7 +11,8 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Slider hpSlider;
     [SerializeField] private Slider mpSlider; 
     [SerializeField] private GameObject dialogueUI;
-    [SerializeField] private GameObject itemPanel;  
+    [SerializeField] private GameObject itemPanel;
+    [SerializeField] private NoteTrigger aboutControlsNote;
     public GameObject noteUI;
     public GameObject exitUI;
     public GameObject blackout;
@@ -91,6 +92,12 @@ public class GameUI : MonoBehaviour
     public void CloseItemPanel() => itemPanel.SetActive(false);
 
     public bool IsSubmenuActive() => noteUI.activeSelf || dialogueUI.activeSelf || itemPanel.activeSelf;
+
+    public void ShowAboutControlsNote()
+    {
+        NoteManager.instance.dialogueTrigger = aboutControlsNote;
+        NoteManager.instance.StartReading(aboutControlsNote.dialogue1);
+    }
 
     public void ShowDeathscreen() => transform.GetChild(transform.childCount - 1).gameObject.SetActive(true);
 

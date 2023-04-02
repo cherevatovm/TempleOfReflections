@@ -97,6 +97,7 @@ public class Parasite : PickableItem
         {       
             Inventory.instance.tempItem = gameObject;
             GameUI.instance.OpenItemPanel(this);
+            GameUI.instance.gameDialogue.text = string.Empty;
         }
     }
 
@@ -107,6 +108,7 @@ public class Parasite : PickableItem
             isCloseToItem = false;
             GameUI.instance.CloseItemPanel();
             Inventory.instance.tempItem = null;
+            GameUI.instance.gameDialogue.text = string.Empty;
         }
     }
 

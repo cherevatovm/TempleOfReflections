@@ -2,26 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] private DataBetweenScenes scriptableObject;
     [SerializeField] private GameObject[] prefabs;
     private List<(int, int)> currentItems = new();
+    private int sourceSceneIndex;
     [HideInInspector] public bool isInDifferentScene;
     public static GameController instance;
 
     private void Awake()
-    {
+    {   
         if (instance == null)
         {
             instance = this;
+            sourceSceneIndex = SceneManager.GetActiveScene().buildIndex;
             DontDestroyOnLoad(gameObject);
             SoundManager.InitSoundTimerDict();
         }
         else
         {
-            instance.isInDifferentScene = true;
+            instance.isInDifferentScene = SceneManager.GetActiveScene().buildIndex != instance.sourceSceneIndex;
             Destroy(gameObject);                  
         }
     }

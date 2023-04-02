@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,15 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame()
-    {
-        Debug.Log("Start");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+    [SerializeField] private GameObject chooseSceneMenu;
 
-    public void ExitGame()
-    {
-        Debug.Log("Exit");
-        Application.Quit();
-    }
+    public void SetActiveChooseSceneMenu() => chooseSceneMenu.SetActive(!chooseSceneMenu.activeSelf);
+
+    public void LoadFirst() => SceneManager.LoadScene(1);
+
+    public void LoadSecond() => SceneManager.LoadScene(2);
+
+    public void ExitGame() => Application.Quit();
 }

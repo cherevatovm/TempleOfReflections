@@ -7,7 +7,7 @@ public class UnitDestroyEvent : MonoBehaviour
     [SerializeField] private GameObject prefabToSpawn;
     [SerializeField] private GameObject prefabToAddToParty;
     [SerializeField] private Transform spawnPlace;
-    [SerializeField] private GameObject objectToDestroy;
+    [SerializeField] private GameObject[] objectsToDestroy;
     [SerializeField] private Unit[] eventTriggers;
 
     private void Update()
@@ -21,7 +21,8 @@ public class UnitDestroyEvent : MonoBehaviour
             return;
         CombatSystem.instance.allyPrefabsForCombat.Add(prefabToAddToParty);
         Instantiate(prefabToSpawn, spawnPlace);
-        Destroy(objectToDestroy);
+        foreach (GameObject obj in objectsToDestroy)
+            Destroy(obj);
         Destroy(gameObject);
     }
 }

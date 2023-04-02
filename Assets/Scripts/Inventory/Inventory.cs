@@ -33,7 +33,9 @@ public class Inventory : MonoBehaviour
     [HideInInspector] public bool isInTrade;    
     [HideInInspector] public bool isContainerOpen;
     [HideInInspector] public Container container;
-    [HideInInspector] public GameObject tempItem;   
+    [HideInInspector] public GameObject tempItem;
+
+    private bool isOpenFirstTime = true;
 
     private void Start()
     {
@@ -47,7 +49,6 @@ public class Inventory : MonoBehaviour
             inventoryContainerSlots.Add(parentContainerSlots.GetChild(i).GetComponent<ContainerSlot>());
         for (int i = 0; i < parentTradingSlots.childCount; i++)
             inventoryTradingSlots.Add(parentTradingSlots.GetChild(i).GetComponent<TradingSlot>());
-        transform.GetChild(1).gameObject.SetActive(false);
         if (GameController.instance.isInDifferentScene)
         {
             GameController.instance.UnpackWrittenData();
@@ -70,6 +71,12 @@ public class Inventory : MonoBehaviour
 
     public void Open()
     {
+        if (isOpenFirstTime)
+        {
+            transform.GetChild(1).gameObject.SetActive(false);
+            transform.GetChild(2).gameObject.SetActive(false);
+            isOpenFirstTime = false;
+        }
         gameObject.transform.localScale = Vector3.one;
         if (CombatSystem.instance.isInCombat)
             CombatSystem.instance.combatUI.blackouts[0].SetActive(true);
@@ -79,12 +86,15 @@ public class Inventory : MonoBehaviour
         {
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);
-            transform.GetChild(2).gameObject.SetActive(false);
+            //transform.GetChild(2).gameObject.SetActive(false);
         }
         else if (isInTrade)
+        {
             transform.GetChild(0).gameObject.SetActive(false);
-        else
-            transform.GetChild(2).gameObject.SetActive(false);
+            transform.GetChild(2).gameObject.SetActive(true);
+        }
+        //else
+            //transform.GetChild(2).gameObject.SetActive(false);
         isOpen = true;
     }
 
@@ -155,7 +165,7 @@ public class Inventory : MonoBehaviour
             GameUI.instance.blackout.SetActive(false);
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(false);
-        transform.GetChild(2).gameObject.SetActive(true);
+        transform.GetChild(2).gameObject.SetActive(false);
         ItemInfo.instance.Close();
         isOpen = false;
         GameUI.instance.gameDialogue.text = string.Empty;

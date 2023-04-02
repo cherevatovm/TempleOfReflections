@@ -27,9 +27,10 @@ public class DialogueManager : MonoBehaviour
         if (Inventory.instance.isOpen)
             Inventory.instance.Close();
         else if (GameUI.instance.exitUI.activeSelf)
-            GameUI.instance.exitUI.SetActive(false);
+            GameUI.instance.ShowOrHideExitUI();
 		GameUI.instance.CloseItemPanel();
-		dialogueUI.transform.GetChild(0).GetChild(3).gameObject.SetActive(dialogueTrigger is Merchant);
+        GameUI.instance.gameDialogue.text = string.Empty;
+        dialogueUI.transform.GetChild(0).GetChild(3).gameObject.SetActive(dialogueTrigger is Merchant);
         dialogueTrigger.pressLock = true;
         playerMovement.enabled = false;
 		nameText.text = dialogue.name;

@@ -7,9 +7,12 @@ using TMPro;
 
 public class OptionMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject optionsPanel;
     public AudioMixer audioMixer;
 
     //[SerializeField] TMP_Dropdown m_Dropdown;
+
+    public void SetActiveOptionsPanel() => optionsPanel.SetActive(!optionsPanel.activeSelf);
 
     public void SetVolume(float volume)
     {
