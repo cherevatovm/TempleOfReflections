@@ -9,3 +9,5 @@ https://robocelot.itch.io/gumdrop-source-and-sprites
 https://assetstore.unity.com/packages/2d/characters/martial-hero-170422
 https://assetstore.unity.com/packages/2d/characters/hero-knight-167779
 https://assetstore.unity.com/packages/2d/characters/warrior-free-asset-195707
+https://rekkimaru.itch.io/dungeon-rpg-tileset
+https://jojomod.itch.io/dungeon-tileset-v1
