@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5565111151969158893}
   - component: {fileID: 8164385237867508123}
   - component: {fileID: -71558179542881456}
+  - component: {fileID: 5588262413324884218}
   m_Layer: 0
   m_Name: Reflection of Wrath Ally
   m_TagString: Enemy
@@ -160,21 +161,19 @@ MonoBehaviour:
   rb: {fileID: 0}
   unitName: Reflection of Wrath
   combatHUD: {fileID: 0}
-  meleeAttackStrength: 15
-  mentalAttackStrength: 17
+  meleeAttackStrength: 25
+  mentalAttackStrength: 25
   armorModifier: 1
-  currentHP: 150
-  maxHP: 150
+  currentHP: 125
+  maxHP: 125
   currentMP: 50
   maxMP: 50
-  itemEffectTurnsCount: 0
-  underItemEffect: 0
-  affectingItem: {fileID: 0}
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
   appliedEffect: 000000
   underEffectTurnsCount: 0
+  affectingItems: []
   weaknesses: 00000000
   resistances: 00010000
   nulls: 00000000
@@ -184,3 +183,19 @@ MonoBehaviour:
   - 1
   - 1.5
   availableMentalSkills: 01000100
+--- !u!58 &5588262413324884218
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8164385237867508120}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1

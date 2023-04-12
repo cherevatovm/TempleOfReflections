@@ -23,6 +23,8 @@ public class ContainerSlot : InventorySlot
     public override void DropOutOfSlot()
     {
         ContainerItemInfo.instance.Close();
+        if (Inventory.instance.IsFull(0, slotItem))
+            return;
         GameObject obj = Instantiate(slotObject);
         Inventory.instance.PutInInventory(obj, this);
         if (obj != null)

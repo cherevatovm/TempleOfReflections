@@ -393,6 +393,11 @@ public class CombatSystem : MonoBehaviour
 
     private void RemoveAlly(int allyID)
     {
+        if (allyUnits[allyID] is Player)
+        {
+            Inventory.instance.attachedUnit.currentHP = 1;
+            Inventory.instance.attachedUnit.currentMP = allyUnits[allyID].currentMP;
+        }
         combatUI.combatDialogue.text = allyUnits[allyID].unitName + " получает фатальный удар!";
         allyCombatControllers[allyID].isDying = true;
         allyUnits[allyID].combatHUD.gameObject.SetActive(false);
@@ -704,14 +709,17 @@ public class CombatSystem : MonoBehaviour
     {
         StopAllCoroutines();
         if (combatState == CombatState.WON)
-        {
+        {           
             SoundManager.StopLoopedSound();
             SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
             SoundManager.PlaySound(SoundManager.Sound.Mystery);
-            Inventory.instance.attachedUnit.CopyStats(allyUnits[0] as Player);
+            if (allyUnits[0] is Player)
+                Inventory.instance.attachedUnit.CopyStats(allyUnits[0] as Player);
             Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = true;
             isInCombat = false;
             GameUI.instance.gameObject.SetActive(true);
+            GameUI.instance.ChangeHP(Inventory.instance.attachedUnit.currentHP);
+            GameUI.instance.ChangeMP(Inventory.instance.attachedUnit.currentMP);
             mainCamera.enabled = true;
             combatCamera.enabled = false;
             combatUI.gameObject.SetActive(false);
