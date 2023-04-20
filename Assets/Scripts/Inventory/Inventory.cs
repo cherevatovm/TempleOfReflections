@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] Transform parentTradingSlots;
 
     [HideInInspector] public List<InventorySlot> inventorySlotsForItems = new();
-    private List<InventorySlot> inventorySlotsForParasites = new();
+    [HideInInspector] public List<InventorySlot> inventorySlotsForParasites = new();
     private List<ContainerSlot> inventoryContainerSlots = new();
     private List<ContainerSlot> inventoryTradingSlots = new();
 

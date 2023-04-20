@@ -723,7 +723,7 @@ public class CombatSystem : MonoBehaviour
             mainCamera.enabled = true;
             combatCamera.enabled = false;
             combatUI.gameObject.SetActive(false);
-            Destroy(encounteredEnemy.gameObject);
+            encounteredEnemy.gameObject.SetActive(false);
             foreach (Unit ally in allyUnits)
                 Destroy(ally.gameObject);
             allyCombatControllers.Clear();

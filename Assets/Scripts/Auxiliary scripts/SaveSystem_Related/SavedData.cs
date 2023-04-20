@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class SavedData
@@ -11,16 +12,46 @@ public class SavedData
     public int currentMP;
     public int currentObelisk;
 
+    public InventoryData inventoryData;
     public List<ItemData> itemData;
     public List<ContainerData> containerData;
     public List<MerchantData> merchantData;
     public List<int> slainEnemies;
 
-    public SavedData(Player player, int currentObelisk)
+    public SavedData(Player player, int currentObelisk, InventoryData inventoryData, 
+        List<ItemData> itemData, List<ContainerData> containerData, 
+        List<MerchantData> merchantData, List<int> slainEnemies)
     {
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         currentHP = player.currentHP;
         currentMP = player.currentMP;
         this.currentObelisk = currentObelisk;
+        this.inventoryData = inventoryData;
+        this.itemData = itemData;
+        this.containerData = containerData;
+        this.merchantData = merchantData;
+        this.slainEnemies = slainEnemies;
+    }
+}
+
+[System.Serializable]
+public class InventoryData
+{
+    public int containerKeysInPossession;
+    public int doorKeysInPossession;
+    public int coinsInPossession;
+    public int shardsInPossession;
+    public List<(int, int)> items;
+    public List<(int, int)> parasites;
+
+    public InventoryData(int containerKeys, int doorKeys, int coins, int shards, List<(int, int)> items, List<(int, int)> parasites)
+    {
+        containerKeysInPossession = containerKeys;
+        doorKeysInPossession = doorKeys;
+        coinsInPossession = coins;
+        shardsInPossession = shards;
+        this.items = items;
+        this.parasites = parasites;
     }
 }
 

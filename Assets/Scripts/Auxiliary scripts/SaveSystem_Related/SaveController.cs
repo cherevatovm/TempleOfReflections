@@ -7,11 +7,32 @@ public class SaveController : MonoBehaviour
     [SerializeField] private Transform itemParent;
     [SerializeField] private Transform containerParent;
     [SerializeField] private Transform merchantParent;
-
+    [SerializeField] private Transform enemyParent;
     public int currentObelisk;
     public static SaveController instance;
 
     private void Start() => instance = this;
+
+    public InventoryData GetInventoryData()
+    {
+        List<(int, int)> items = new();
+        foreach (InventorySlot slot in Inventory.instance.inventorySlotsForItems)
+        {
+            if (slot.isEmpty)
+                break;
+            items.Add((slot.slotItem.itemID, slot.stackCount));
+        }
+        List<(int, int)> parasites = new();
+        foreach (InventorySlot slot in Inventory.instance.inventorySlotsForParasites)
+        {
+            if (slot.isEmpty)
+                break;
+            Parasite par = slot.slotItem as Parasite;
+            parasites.Add((par.posEffectIndex, par.negEffectIndex));
+        }
+        return new InventoryData(Inventory.instance.containerKeysInPossession, Inventory.instance.doorKeysInPossession, 
+            Inventory.instance.coinsInPossession, Inventory.instance.shardsInPossession, items, parasites);
+    }
 
     public List<ItemData> GetItemDataList()
     {
@@ -59,6 +80,17 @@ public class SaveController : MonoBehaviour
                 merchantsItems.Add((slot.slotItem.itemID, slot.stackCount));
             }
             res.Add(new MerchantData(merchantParent.GetChild(i).GetComponent<Merchant>().coinsInPossession, merchantsItems));
+        }
+        return res;
+    }
+
+    public List<int> GetSlainEnemyList()
+    {
+        List<int> res = new();
+        for (int i = 0; i < enemyParent.childCount; i++)
+        {
+            if (!enemyParent.GetChild(i).gameObject.activeSelf)
+                res.Add(i);
         }
         return res;
     }
