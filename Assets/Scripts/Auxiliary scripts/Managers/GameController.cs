@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     private List<(int, int)> currentItems = new();
     private int sourceSceneIndex;
     [HideInInspector] public bool isInDifferentScene;
+    [HideInInspector] public bool hasBeenLoaded;
     public static GameController instance;
 
     private void Awake()

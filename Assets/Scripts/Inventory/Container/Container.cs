@@ -79,6 +79,8 @@ public class Container : MonoBehaviour
         isOpen = false;
     }
 
+    public bool GetIsNeedOfKey() => isNeedOfKey;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
