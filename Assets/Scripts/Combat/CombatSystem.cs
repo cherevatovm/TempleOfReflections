@@ -24,12 +24,12 @@ public class CombatSystem : MonoBehaviour
     [HideInInspector] public List<Unit> allyUnits = new();
     [HideInInspector] public List<CombatController> enemyCombatControllers = new();
     [HideInInspector] public List<CombatController> allyCombatControllers = new();
-    private List<EnemyAI> enemyAIs = new();
+    [HideInInspector] public List<EnemyAI> enemyAIs = new();
     public List<GameObject> allyPrefabsForCombat;
 
     [HideInInspector] public Enemy encounteredEnemy;
 
-    [SerializeField] List<Transform> enemyCombatPositions;
+    public List<Transform> enemyCombatPositions;
     [SerializeField] List<Transform> allyCombatPositions;
 
     public CombatHUD[] enemyHUDs;
@@ -219,6 +219,7 @@ public class CombatSystem : MonoBehaviour
 
     private IEnumerator AllyDefend()
     {
+        enemyUnits[curEnemyID].countWeaknessesTurns++;
         combatState = CombatState.ENEMY_TURN;
         allyUnits[curAllyID].armorModifier *= 0.4f;
         yield return new WaitForSeconds(1.5f);
@@ -230,6 +231,7 @@ public class CombatSystem : MonoBehaviour
 
     public IEnumerator AllyUsingItem()
     {
+        enemyUnits[curEnemyID].countWeaknessesTurns++;
         combatState = CombatState.ENEMY_TURN;
         allyUnits[tempAllyID].combatHUD.ChangeHP(allyUnits[tempAllyID].currentHP);
         allyUnits[tempAllyID].combatHUD.ChangeMP(allyUnits[tempAllyID].currentMP);
@@ -301,6 +303,8 @@ public class CombatSystem : MonoBehaviour
                 3 => allyUnits[curAllyID].unitName + " наносит " + totalDamage + " огненного урона",
                 _ => string.Empty,
             };
+            if (!enemyUnits[curEnemyID].weaknesses[damageTypeID])
+                enemyUnits[curEnemyID].countWeaknessesTurns++;
             EnemyInfoPanel.instance.ChangeKnownAffinities(enemyUnits[curEnemyID].enemyID, damageTypeID);
         }
         if (isMental)
@@ -365,6 +369,7 @@ public class CombatSystem : MonoBehaviour
 
     public IEnumerator AllyRegenaSkill()
     {
+        enemyUnits[curEnemyID].countWeaknessesTurns++;
         combatState = CombatState.ENEMY_TURN;
         allyCombatControllers[curAllyID].attackButtonWasPressed = true;
         yield return new WaitForSeconds(1.5f);
@@ -467,6 +472,7 @@ public class CombatSystem : MonoBehaviour
                 yield return new WaitForSeconds(1.5f);
             }
             enemyCombatControllers[i].attackButtonWasPressed = true;
+            enemyUnits[i].countCopyTurns++;
             List<string> messages = enemyAIs[i].CombatAI(out int soundID);
             for (int j = 0; j < messages.Count; j++)
             {

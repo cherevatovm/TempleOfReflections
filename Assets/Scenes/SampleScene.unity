@@ -49105,6 +49105,7 @@ MonoBehaviour:
   allyUnits: []
   enemyCombatControllers: []
   allyCombatControllers: []
+  enemyAIs: []
   allyPrefabsForCombat:
   - {fileID: 2071489065544092236, guid: 0a3687ef270fab44984e7364cb8c1de7, type: 3}
   encounteredEnemy: {fileID: 0}
@@ -100252,7 +100253,7 @@ PrefabInstance:
     - target: {fileID: -1613365070585333300, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
       propertyPath: enemyPrefabsForCombat.Array.data[0]
       value: 
-      objectReference: {fileID: 121105109028774546, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+      objectReference: {fileID: 121105109028774546, guid: 46cc3959e9af0a546bb4234215939bc2, type: 3}
     - target: {fileID: -409241921683697879, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -100393,7 +100394,8 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 121105109028774548, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
 --- !u!4 &1401963397 stripped
 Transform:
@@ -100405,7 +100407,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -1613365070585333300, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
   m_PrefabInstance: {fileID: 1401963396}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1574781758}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4aa6b409570c1d44f9e2f0051a074ce7, type: 3}
@@ -103676,6 +103678,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.80744934}
   m_EdgeRadius: 0
+--- !u!1 &1574781758 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 121105109028774546, guid: a0f12ea9b5ab093499b5bcc2a7a10856, type: 3}
+  m_PrefabInstance: {fileID: 1401963396}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1574781766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574781758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e00992ee1b0d7d647b1da5388d4decc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1594413160
 GameObject:
   m_ObjectHideFlags: 0
