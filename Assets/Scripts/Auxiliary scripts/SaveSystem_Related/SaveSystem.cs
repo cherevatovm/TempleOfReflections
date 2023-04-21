@@ -1,24 +1,28 @@
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public static class SaveSystem
 {
     public static void Save(SavedData savedData)
     {
-        string path = Path.Combine(Application.persistentDataPath, "/SavedData/SavedGame.json");
+        string path = Path.Combine(Application.persistentDataPath, "SavedGame.json");
         string json = JsonUtility.ToJson(savedData);
         File.WriteAllText(path, json);
     }
 
-    public static SavedData Load()
+    public static void Load()
     {
-        string path = Path.Combine(Application.persistentDataPath, "/SavedData/SavedGame.json");
+        Debug.Log("you tried");
+        string path = Path.Combine(Application.persistentDataPath, "SavedGame.json");
         SavedData sData = null;
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             sData = JsonUtility.FromJson<SavedData>(json);
+            GameController.instance.hasBeenLoaded = true;
+            SceneManager.LoadScene(sData.currentSceneIndex);
         }
-        return sData;
+        GameController.instance.receivedSaveData = sData;
     }
 }

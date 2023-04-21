@@ -35,16 +35,29 @@ public class SavedData
 }
 
 [System.Serializable]
+public struct SerialTuple<T1, T2>
+{
+    public T1 first;
+    public T2 second;
+
+    public SerialTuple(T1 first, T2 second)
+    {
+        this.first = first;
+        this.second = second;
+    }
+} 
+
+[System.Serializable]
 public class InventoryData
 {
     public int containerKeysInPossession;
     public int doorKeysInPossession;
     public int coinsInPossession;
     public int shardsInPossession;
-    public List<(int, int)> items;
-    public List<(int, int)> parasites;
+    public List<SerialTuple<int, int>> items;
+    public List<SerialTuple<int, int>> parasites;
 
-    public InventoryData(int containerKeys, int doorKeys, int coins, int shards, List<(int, int)> items, List<(int, int)> parasites)
+    public InventoryData(int containerKeys, int doorKeys, int coins, int shards, List<SerialTuple<int, int>> items, List<SerialTuple<int, int>> parasites)
     {
         containerKeysInPossession = containerKeys;
         doorKeysInPossession = doorKeys;
@@ -76,9 +89,9 @@ public class ItemData
 public class ContainerData 
 {
     public bool isNeedOfKey;
-    public List<(int, int)> itemsInContainer;
+    public List<SerialTuple<int, int>> itemsInContainer;
 
-    public ContainerData(bool isNeedOfKey, List<(int, int)> itemsInContainer)
+    public ContainerData(bool isNeedOfKey, List<SerialTuple<int, int>> itemsInContainer)
     {
         this.isNeedOfKey = isNeedOfKey;
         this.itemsInContainer = itemsInContainer;
@@ -89,9 +102,9 @@ public class ContainerData
 public class MerchantData
 {
     public int coinsInPossession;
-    public List<(int, int)> merchantsItems;
+    public List<SerialTuple<int, int>> merchantsItems;
     
-    public MerchantData(int coinsInPossession, List<(int, int)> merchantsItems)
+    public MerchantData(int coinsInPossession, List<SerialTuple<int, int>> merchantsItems)
     {
         this.coinsInPossession = coinsInPossession;
         this.merchantsItems = merchantsItems;

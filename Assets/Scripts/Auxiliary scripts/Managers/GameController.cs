@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private DataBetweenScenes scriptableObject;
-    [SerializeField] private GameObject[] prefabs;
+    [SerializeField] private DataBetweenScenes scriptableObject;   
     private List<(int, int)> currentItems = new();
     private int sourceSceneIndex;
+    public GameObject[] prefabs;
     [HideInInspector] public bool isInDifferentScene;
     [HideInInspector] public bool hasBeenLoaded;
+    [HideInInspector] public SavedData receivedSaveData;
     public static GameController instance;
 
     private void Awake()

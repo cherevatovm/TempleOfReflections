@@ -20,6 +20,11 @@ public class Parasite : PickableItem
             negEffectIndex = random.Next(0, 9);
         percentage = random.Next(10, 21);
         //percentage2 = random.Next(5, 16); //??
+        ChangeDescription(posEffectIndex, negEffectIndex);
+    }
+
+    public void ChangeDescription(int posEffectIndex, int negEffectIndex)
+    {
         switch (posEffectIndex)
         {
             case 0:

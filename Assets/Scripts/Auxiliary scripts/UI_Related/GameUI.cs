@@ -19,7 +19,11 @@ public class GameUI : MonoBehaviour
     public TMP_Text gameDialogue;
     public static GameUI instance;
 
-    private void Awake() => instance = this;
+    private void Awake()
+    { 
+        instance = this;
+        exitUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(delegate { SaveSystem.Load(); });
+    }
 
     private void Update()
     {

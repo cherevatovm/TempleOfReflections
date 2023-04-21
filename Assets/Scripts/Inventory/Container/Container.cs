@@ -31,8 +31,7 @@ public class Container : MonoBehaviour
                 {
                     if (Inventory.instance.containerKeysInPossession > 0)
                     {
-                        Inventory.instance.containerKeysInPossession--;
-                        Inventory.instance.containerKeyCounter.text = Inventory.instance.containerKeysInPossession.ToString();
+                        Inventory.instance.ChangeContKeyAmount(-1);
                         Open();
                         isNeedOfKey = false;
                         GameUI.instance.gameDialogue.text = "Вы использовали ключ, чтобы отпереть замок";

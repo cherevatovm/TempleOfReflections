@@ -26,7 +26,7 @@ public class ContainerSlot : InventorySlot
         if (Inventory.instance.IsFull(0, slotItem))
             return;
         GameObject obj = Instantiate(slotObject);
-        Inventory.instance.PutInInventory(obj, this);
+        Inventory.instance.PutInInventory(obj, 1, this);
         if (obj != null)
             obj.SetActive(false);
         Inventory.instance.ClearSameIndexContainerOrTradingSlot(this);

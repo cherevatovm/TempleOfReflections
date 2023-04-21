@@ -37,7 +37,7 @@ public class Inventory : MonoBehaviour
 
     private bool isOpenFirstTime = true;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
         coinCounter.text = coinsInPossession.ToString();
@@ -49,6 +49,11 @@ public class Inventory : MonoBehaviour
             inventoryContainerSlots.Add(parentContainerSlots.GetChild(i).GetComponent<ContainerSlot>());
         for (int i = 0; i < parentTradingSlots.childCount; i++)
             inventoryTradingSlots.Add(parentTradingSlots.GetChild(i).GetComponent<TradingSlot>());
+
+    }
+
+    private void Start()
+    {
         if (GameController.instance.isInDifferentScene)
         {
             GameController.instance.UnpackWrittenData();
@@ -86,15 +91,12 @@ public class Inventory : MonoBehaviour
         {
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);
-            //transform.GetChild(2).gameObject.SetActive(false);
         }
         else if (isInTrade)
         {
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(2).gameObject.SetActive(true);
         }
-        //else
-            //transform.GetChild(2).gameObject.SetActive(false);
         isOpen = true;
     }
 
@@ -156,6 +158,18 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void ChangeContKeyAmount(int amount)
+    {
+        containerKeysInPossession += amount;
+        containerKeyCounter.text = containerKeysInPossession.ToString();
+    }
+
+    public void ChangeShardAmount(int amount)
+    {
+        shardsInPossession += amount;
+        shardCounter.text = shardsInPossession.ToString();
+    }
+
     public void Close()
     {
         gameObject.transform.localScale = Vector3.zero;
@@ -171,7 +185,7 @@ public class Inventory : MonoBehaviour
         GameUI.instance.gameDialogue.text = string.Empty;
     }
 
-    public void PutInInventory(GameObject obj, InventorySlot sourceSlot = null)
+    public void PutInInventory(GameObject obj, int amount = 1, InventorySlot sourceSlot = null)
     {
         PickableItem item = obj.GetComponent<PickableItem>();
         if (item is Key)
@@ -179,8 +193,7 @@ public class Inventory : MonoBehaviour
             if ((item as Key).isDoorKey)
                 doorKeysInPossession++;
             else
-                containerKeysInPossession++;
-            containerKeyCounter.text = containerKeysInPossession.ToString();
+                ChangeContKeyAmount(1);
             Destroy(obj);
         }
         else if (item is Coin)
@@ -192,8 +205,7 @@ public class Inventory : MonoBehaviour
         {
             if (shardsInPossession == 5)
                 return;
-            shardsInPossession++;
-            shardCounter.text = shardsInPossession.ToString();
+            ChangeShardAmount(1);
             item.UseItem(out _);
             Destroy(obj);            
         }
@@ -221,7 +233,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (isInTrade && sourceSlot.justBoughtCount == 0)
                         inventorySlotsForItems[i].justBoughtCount++;
-                    inventorySlotsForItems[i].stackCount++;                    
+                    inventorySlotsForItems[i].stackCount += amount;                    
                     Destroy(obj);
                     break;
                 }
