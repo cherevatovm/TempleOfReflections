@@ -9,7 +9,7 @@ public class Parasite : PickableItem
     public int negEffectIndex;
 
     private System.Random random = new System.Random();
-    private int percentage;
+    public int percentage;
     //private int percentage2; //сомневаюсь, что нужно
 
     private void Start()

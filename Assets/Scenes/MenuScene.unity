@@ -471,6 +471,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1524351005}
   - component: {fileID: 1524351004}
+  - component: {fileID: 1524351006}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -508,6 +509,7 @@ MonoBehaviour:
   - {fileID: 232995885267413240, guid: 9686be927c8b6d841ad100451fafbb70, type: 3}
   - {fileID: 232995885267413240, guid: df84d6cc20fc9ab4ab89fd5e1995af6e, type: 3}
   - {fileID: 3361252791918925985, guid: b11f37a1c3a366c4b920d6d6249f3be1, type: 3}
+  - {fileID: 2385870577115961765, guid: a9ad1592639782143b5ba91fc7ab833b, type: 3}
   isInDifferentScene: 0
   hasBeenLoaded: 0
   receivedSaveData:
@@ -541,6 +543,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1524351006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524351002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd7a2cc58b11b2439d17949807f9f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  objectToPool: {fileID: 0}
+  amountToPool: 5
 --- !u!1 &1826669148
 GameObject:
   m_ObjectHideFlags: 0

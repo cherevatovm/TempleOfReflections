@@ -20,6 +20,7 @@ public static class SaveSystem
         {
             string json = File.ReadAllText(path);
             sData = JsonUtility.FromJson<SavedData>(json);
+            Debug.Log(sData.currentObelisk);
             GameController.instance.hasBeenLoaded = true;
             SceneManager.LoadScene(sData.currentSceneIndex);
         }

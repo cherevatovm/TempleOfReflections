@@ -12,9 +12,8 @@ public class Player : Unit
     [HideInInspector] public int initMentalAttackStrength;
     [HideInInspector] public float[] initElementAffinities;
 
-    private void Start()
+    private void Awake()
     {
-        GameUI.instance.SetUI(this);
         initMaxHP = maxHP;
         initMaxMP = maxMP;
         initMeleeAttackStrength = meleeAttackStrength;
@@ -22,6 +21,8 @@ public class Player : Unit
         initElementAffinities = new float[4];
         System.Array.Copy(elementAffinities, initElementAffinities, 4);
     }
+
+    private void Start() => GameUI.instance.SetUI(this);       
 
     public override void TakeDamage(int damage)
     {

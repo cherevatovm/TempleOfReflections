@@ -19,15 +19,16 @@ public class InventorySlot : MonoBehaviour
     [HideInInspector] public int justBoughtCount;
     [HideInInspector] public bool isEmpty = true;
 
-    private void Start()
+    private void Awake()
     {
         clickableSlot = gameObject.GetComponent<Button>();
         clickableSlot.onClick.AddListener(SlotClicked);
         previewImage = transform.GetChild(0).GetComponent<Image>();
         stackCountText = transform.GetChild(1).GetComponent<Text>();
-        stackCount = 1;
-        stackCountText.text = "";
+        stackCountText.text = string.Empty;
     }
+
+    private void Start() => stackCount = 1;
 
     private void Update()
     {

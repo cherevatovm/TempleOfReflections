@@ -52,14 +52,14 @@ public class Inventory : MonoBehaviour
 
     }
 
-    private void Start()
+    /*private void Start()
     {
         if (GameController.instance.isInDifferentScene)
         {
             GameController.instance.UnpackWrittenData();
             GameController.instance.InstantiateAndAddToInventory();
         }
-    }
+    }*/
 
     private void Update()
     {

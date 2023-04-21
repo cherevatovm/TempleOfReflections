@@ -8,10 +8,19 @@ public class SaveController : MonoBehaviour
     [SerializeField] private Transform containerParent;
     [SerializeField] private Transform merchantParent;
     [SerializeField] private Transform enemyParent;
+    [SerializeField] private Vector3[] spawnPositions;
     public int currentObelisk;
     public static SaveController instance;
 
-    private void Start() => instance = this;
+    private void Start()
+    {
+        instance = this;
+        if (GameController.instance.hasBeenLoaded)
+        {
+            Inventory.instance.attachedUnit.transform.position = GameController.instance.receivedSaveData.currentObelisk == -1 ? spawnPositions[^1] : spawnPositions[GameController.instance.receivedSaveData.currentObelisk];
+            LoadInventory();           
+        }      
+    }
 
     public InventoryData GetInventoryData()
     {
@@ -28,7 +37,7 @@ public class SaveController : MonoBehaviour
             if (slot.isEmpty)
                 break;
             Parasite par = slot.slotItem as Parasite;
-            parasites.Add(new SerialTuple<int, int>(par.posEffectIndex, par.negEffectIndex));
+            parasites.Add(new SerialTuple<int, int>(par.posEffectIndex, par.negEffectIndex, par.percentage));
         }
         return new InventoryData(Inventory.instance.containerKeysInPossession, Inventory.instance.doorKeysInPossession, 
             Inventory.instance.coinsInPossession, Inventory.instance.shardsInPossession, items, parasites);
@@ -111,12 +120,13 @@ public class SaveController : MonoBehaviour
         Inventory.instance.attachedUnit.armorModifier -= 0.1f * inData.shardsInPossession;
         foreach (var tuple in inData.items)
             Inventory.instance.PutInInventory(Instantiate(GameController.instance.prefabs[tuple.first]), tuple.second);
-        foreach (var tuple in inData.parasites)
+        foreach (var triple in inData.parasites)
         {
             Parasite par = Instantiate(GameController.instance.prefabs[^1]).GetComponent<Parasite>();
-            par.posEffectIndex = tuple.first;
-            par.negEffectIndex = tuple.second;
-            par.ChangeDescription(tuple.first, tuple.second);
+            par.posEffectIndex = triple.first;
+            par.negEffectIndex = triple.second;
+            par.percentage = triple.third;
+            par.ChangeDescription(triple.first, triple.second);
             Inventory.instance.PutInInventory(par.gameObject);
         }
     }

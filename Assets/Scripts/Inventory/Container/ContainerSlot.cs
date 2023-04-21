@@ -7,17 +7,10 @@ public class ContainerSlot : InventorySlot
 {
     private void Start()
     {
-        clickableSlot = gameObject.GetComponent<Button>();
-        clickableSlot.onClick.AddListener(SlotClicked);
-        previewImage = transform.GetChild(0).GetComponent<Image>();
-        stackCountText = transform.GetChild(1).GetComponent<Text>();
         if (slotObject != null)
             PutInSlot(slotObject.GetComponent<PickableItem>(), slotObject);
         else
-        {
             stackCount = 1;
-            stackCountText.text = string.Empty;
-        }
     }
 
     public override void DropOutOfSlot()

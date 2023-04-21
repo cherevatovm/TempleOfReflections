@@ -39,11 +39,20 @@ public struct SerialTuple<T1, T2>
 {
     public T1 first;
     public T2 second;
+    public T2 third;
 
     public SerialTuple(T1 first, T2 second)
     {
         this.first = first;
         this.second = second;
+        third = default;
+    }
+
+    public SerialTuple(T1 first, T2 second, T2 third)
+    {
+        this.first = first;
+        this.second = second;
+        this.third = third;
     }
 } 
 
