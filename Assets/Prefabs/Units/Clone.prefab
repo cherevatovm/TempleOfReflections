@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: -409241921683697879}
   - component: {fileID: 121105109028774547}
   - component: {fileID: 1622391755321119148}
-  - component: {fileID: 3280818136629750325}
+  - component: {fileID: 692774693311976555}
   m_Layer: 0
-  m_Name: ForClones
+  m_Name: Clone
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,14 +31,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121105109028774546}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!212 &121105109028774536
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1321889371, guid: a56b6bfa661660640bda989df2b489d6, type: 3}
+  m_Sprite: {fileID: 595096730, guid: 0339b9d3534ef7b4eb532f02db7d52ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,13 +125,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 121105109028774550}
-  unitName: Harbinger of Misfortune
+  unitName: Clone
   combatHUD: {fileID: 0}
-  meleeAttackStrength: 16
-  mentalAttackStrength: 16
+  meleeAttackStrength: 20
+  mentalAttackStrength: 20
   armorModifier: 1
-  currentHP: 60
-  maxHP: 60
+  currentHP: 80
+  maxHP: 80
   currentMP: 25
   maxMP: 25
   isKnockedDown: 0
@@ -156,9 +156,6 @@ MonoBehaviour:
   - {fileID: 121105109028774546}
   - {fileID: 121105109028774546}
   - {fileID: 121105109028774546}
-  countWeaknessesTurns: 0
-  countCopyTurns: 0
-  alreadyCopied: 
 --- !u!114 &1181750041262012330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +206,7 @@ Animator:
   m_GameObject: {fileID: 121105109028774546}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1b5b8bff90489fa46b40587bbb10d9ea, type: 2}
+  m_Controller: {fileID: 9100000, guid: a0362fcf56273bf4d933696d2e06b158, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -235,7 +232,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &3280818136629750325
+--- !u!114 &692774693311976555
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,3 +244,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55685c00d9037ac41b86f754d9bc0438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  countWeaknessesTurns: 0

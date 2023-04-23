@@ -8,9 +8,9 @@ public class Enemy : Unit
     public int enemyID;
     public int coinsDropped;
     public GameObject[] enemyPrefabsForCombat;
-    public int countWeaknessesTurns;
-    public int countCopyTurns;
-    public List<int> alreadyCopied;
+    //public int countWeaknessesTurns;
+    //public int countCopyTurns;
+    //public List<int> trueSkills;
 
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -158,14 +158,12 @@ MonoBehaviour:
   maxHP: 0
   currentMP: 0
   maxMP: 0
-  itemEffectTurnsCount: 0
-  underItemEffect: 0
-  affectingItem: {fileID: 0}
   isKnockedDown: 0
   knockedTurnsCount: 0
   knockedDownTimeout: 0
   appliedEffect: 000000
   underEffectTurnsCount: 0
+  affectingItems: []
   weaknesses: 00000000
   resistances: 00000000
   nulls: 00000000
@@ -174,7 +172,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  availableMentalSkills: 01010101
+  availableMentalSkills: 01010100
   restartDelay: 3
   initMaxHP: 0
   initMaxMP: 0
