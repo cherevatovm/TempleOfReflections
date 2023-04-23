@@ -6,7 +6,7 @@ public class MentalSkillTalisman : PickableItem
 {
     public int damageTypeID;
 
-    private void Start()
+    private void Awake()
     {
         isUsableInCombatOnly = true;
         isAffectingEnemy = true;

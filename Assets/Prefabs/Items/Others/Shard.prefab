@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a29616ddab5044892384dcc5cee13e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemID: 100
   itemName: "\u041E\u0441\u043A\u043E\u043B\u043E\u043A"
   itemDescription: 
   itemValue: 0
@@ -121,3 +122,4 @@ MonoBehaviour:
   isAffectingEnemy: 0
   posEffectIndex: 0
   negEffectIndex: 0
+  percentage: 0

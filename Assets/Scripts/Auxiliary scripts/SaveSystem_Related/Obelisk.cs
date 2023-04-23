@@ -10,9 +10,12 @@ public class Obelisk : MonoBehaviour
     private void Update()
     {
         if (isClose && Input.GetKeyDown(KeyCode.F))
+        {
             SaveSystem.Save(new SavedData(Inventory.instance.attachedUnit, index,
-                SaveController.instance.GetInventoryData(), SaveController.instance.GetItemDataList(), SaveController.instance.GetContainerDataList(), 
-                SaveController.instance.GetMerchantDataList(), SaveController.instance.GetSlainEnemyList()));
+                SaveController.instance.GetInventoryData(), SaveController.instance.GetItemDataList(), SaveController.instance.GetParasiteDataList(),
+                SaveController.instance.GetContainerDataList(), SaveController.instance.GetMerchantDataList(), SaveController.instance.GetSlainEnemyList()));
+            GameUI.instance.gameDialogue.text = "Игра сохранена";
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

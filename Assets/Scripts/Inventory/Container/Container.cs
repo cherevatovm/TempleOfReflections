@@ -12,7 +12,7 @@ public class Container : MonoBehaviour
     private bool isOpen;
     private bool isCloseToContainer;
 
-    private void Start()
+    private void Awake()
     {
         for (int i = 0; i < parentSlots.childCount; i++)
             containerSlots.Add(parentSlots.GetChild(i).GetComponent<ContainerSlot>());
@@ -53,9 +53,7 @@ public class Container : MonoBehaviour
         {
             if (containerSlots[i].isEmpty)
                 break;
-            containerSlotsInInventory.GetChild(i).GetComponent<ContainerSlot>().PutInSlot(containerSlots[i].slotItem, containerSlots[i].slotObject);
-            if (containerSlots[i].stackCount > 1)
-                containerSlotsInInventory.GetChild(i).GetComponent<ContainerSlot>().stackCount = containerSlots[i].stackCount;
+            containerSlotsInInventory.GetChild(i).GetComponent<ContainerSlot>().PutInSlot(containerSlots[i].slotItem, containerSlots[i].slotObject, containerSlots[i].stackCount);
         }
         Inventory.instance.isContainerOpen = true;
         Inventory.instance.container = this;
@@ -79,6 +77,8 @@ public class Container : MonoBehaviour
     }
 
     public bool GetIsNeedOfKey() => isNeedOfKey;
+
+    public void SetIsNeedOfKey(bool value) => isNeedOfKey = value;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeakeningTalisman : ItemWithEffect
 {
-    private void Start()
+    private void Awake()
     {
         underEffectTurnsNumber = 3;
         isUsableInCombatOnly = true;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RecoveryTalisman : ItemWithEffect
 {
-    private void Start()
+    private void Awake()
     {
         underEffectTurnsNumber = 8;
         isUsableInCombatOnly = true;

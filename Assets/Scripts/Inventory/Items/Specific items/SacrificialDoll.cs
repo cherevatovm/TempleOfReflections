@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SacrificialDoll : ItemWithEffect
 {
-    private void Start() 
+    private void Awake() 
     {
         isUsableInCombatOnly = true;
         underEffectTurnsNumber = -1;

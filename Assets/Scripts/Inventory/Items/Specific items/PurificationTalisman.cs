@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PurificationTalisman : PickableItem
 {
-    private void Start() => isUsableInCombatOnly = true;
+    private void Awake() => isUsableInCombatOnly = true;
 
     public override void UseItem(out string message)
     {

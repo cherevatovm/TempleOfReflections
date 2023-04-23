@@ -7,10 +7,12 @@ public class ContainerSlot : InventorySlot
 {
     private void Start()
     {
-        if (slotObject != null)
-            PutInSlot(slotObject.GetComponent<PickableItem>(), slotObject);
-        else
-            stackCount = 1;
+        if (!(GameController.instance.hasBeenLoaded || slotObject == null))
+        {
+            int initStackCount = stackCount;
+            stackCount = 0;
+            PutInSlot(slotObject.GetComponent<PickableItem>(), slotObject, initStackCount);
+        }
     }
 
     public override void DropOutOfSlot()
@@ -27,7 +29,7 @@ public class ContainerSlot : InventorySlot
         {
             stackCount--;
             if (stackCount == 1)
-                stackCountText.text = "";
+                stackCountText.text = string.Empty;
             else
                 stackCountText.text = stackCount.ToString();
         }
@@ -36,7 +38,7 @@ public class ContainerSlot : InventorySlot
             Destroy(slotObject);
             Clear();
         }
-        Inventory.instance.GroupItemsInContainerOrTradingSlots(Inventory.instance.isInTrade);    
+        Inventory.instance.GroupItemsInContainerOrTradingSlots(Inventory.instance.isInTrade);
     }
 
     public override void SlotClicked()

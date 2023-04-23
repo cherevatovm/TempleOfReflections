@@ -5,11 +5,11 @@ using UnityEngine;
 public class SaveController : MonoBehaviour
 {
     [SerializeField] private Transform itemParent;
+    [SerializeField] private Transform parasiteParent;
     [SerializeField] private Transform containerParent;
     [SerializeField] private Transform merchantParent;
     [SerializeField] private Transform enemyParent;
     [SerializeField] private Vector3[] spawnPositions;
-    public int currentObelisk;
     public static SaveController instance;
 
     private void Start()
@@ -17,8 +17,11 @@ public class SaveController : MonoBehaviour
         instance = this;
         if (GameController.instance.hasBeenLoaded)
         {
-            Inventory.instance.attachedUnit.transform.position = GameController.instance.receivedSaveData.currentObelisk == -1 ? spawnPositions[^1] : spawnPositions[GameController.instance.receivedSaveData.currentObelisk];
-            LoadInventory();           
+            LoadPlayer();               
+            LoadItemsAndParasites();
+            LoadInventory();
+            LoadContainers();
+            LoadEnemies();           
         }      
     }
 
@@ -52,7 +55,25 @@ public class SaveController : MonoBehaviour
         {
             Transform item = itemParent.GetChild(i);
             if (item.gameObject.activeSelf)           
-                res.Add(new ItemData(item.position.x, item.position.y, item.position.z, item.GetComponent<PickableItem>().itemID));
+                res.Add(new ItemData(item.position.x, item.position.y, item.GetComponent<PickableItem>().itemID));
+        }
+        return res;
+    }
+
+    public List<ParasiteData> GetParasiteDataList()
+    {
+        if (parasiteParent.childCount == 0)
+            return null;
+        List<ParasiteData> res = new();
+        for (int i = 0; i < parasiteParent.childCount; i++)
+        {
+            Transform transfom = parasiteParent.GetChild(i);
+            if (transfom.gameObject.activeSelf)
+            {
+                Parasite par = transfom.GetComponent<Parasite>();
+                res.Add(new ParasiteData(transfom.position.x, transfom.position.y, par.itemID,
+                    par.posEffectIndex, par.negEffectIndex, par.percentage));
+            }
         }
         return res;
     }
@@ -104,10 +125,13 @@ public class SaveController : MonoBehaviour
         return res;
     }
 
-    public void DestroyItems()
+    private void LoadPlayer()
     {
-        foreach (Transform item in itemParent)
-            Destroy(item.gameObject);
+        Player player = Inventory.instance.attachedUnit;
+        SavedData sData = GameController.instance.receivedSaveData;
+        player.transform.position = sData.currentObelisk == -1 ? spawnPositions[^1] : spawnPositions[sData.currentObelisk];
+        player.currentHP = sData.currentHP;
+        player.currentMP = sData.currentMP;
     }
 
     private void LoadInventory()
@@ -128,6 +152,41 @@ public class SaveController : MonoBehaviour
             par.percentage = triple.third;
             par.ChangeDescription(triple.first, triple.second);
             Inventory.instance.PutInInventory(par.gameObject);
+        }
+    }
+
+    private void LoadContainers()
+    {
+        var contData = GameController.instance.receivedSaveData.containerData;
+        for (int i = 0; i < containerParent.childCount; i++)
+        {
+            Container container = containerParent.GetChild(i).GetComponent<Container>();
+            container.SetIsNeedOfKey(contData[i].isNeedOfKey);
+            for (int j = 0; j < contData[i].itemsInContainer.Count; j++)
+            {
+                container.containerSlots[j].stackCount = 0;
+                GameObject obj = Instantiate(GameController.instance.prefabs[contData[i].itemsInContainer[j].first], itemParent);
+                container.containerSlots[j].PutInSlot(obj.GetComponent<PickableItem>(), obj, contData[i].itemsInContainer[j].second);
+                obj.SetActive(false);
+            }
+        }
+    }
+
+    private void LoadItemsAndParasites()
+    {
+        foreach (Transform item in itemParent)
+            Destroy(item.gameObject);
+        foreach (Transform par in parasiteParent)
+            Destroy(par.gameObject);
+        foreach (ItemData item in GameController.instance.receivedSaveData.itemData)
+            Instantiate(GameController.instance.prefabs[item.itemID], new Vector3(item.positionX, item.positionY), Quaternion.identity, itemParent);
+        foreach (ParasiteData par in GameController.instance.receivedSaveData.parasiteData)
+        {
+            Parasite parasite = Instantiate(GameController.instance.prefabs[^1], new Vector3(par.positionX, par.positionY), Quaternion.identity, parasiteParent).GetComponent<Parasite>();
+            parasite.posEffectIndex = par.posEffectIndex;
+            parasite.negEffectIndex = par.negEffectIndex;
+            parasite.percentage = par.probability;
+            parasite.ChangeDescription(par.posEffectIndex, par.negEffectIndex);
         }
     }
 

@@ -110,9 +110,7 @@ public class Inventory : MonoBehaviour
             {
                 if (merchant.tradingSlots[i].isEmpty)
                     break;
-                inventoryTradingSlots[i].PutInSlot(merchant.tradingSlots[i].slotItem, merchant.tradingSlots[i].slotObject);
-                if (merchant.tradingSlots[i].stackCount > 1)
-                    inventoryTradingSlots[i].stackCount = merchant.tradingSlots[i].stackCount;
+                inventoryTradingSlots[i].PutInSlot(merchant.tradingSlots[i].slotItem, merchant.tradingSlots[i].slotObject, merchant.tradingSlots[i].stackCount);
             }
             merchantCointCounter.text = merchant.coinsInPossession.ToString();
         }
@@ -233,7 +231,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (isInTrade && sourceSlot.justBoughtCount == 0)
                         inventorySlotsForItems[i].justBoughtCount++;
-                    inventorySlotsForItems[i].stackCount += amount;                    
+                    inventorySlotsForItems[i].PutInSlot(item, obj, amount);                   
                     Destroy(obj);
                     break;
                 }
@@ -241,7 +239,7 @@ public class Inventory : MonoBehaviour
                 {
                     if (isInTrade && sourceSlot.justBoughtCount == 0)
                         inventorySlotsForItems[i].justBoughtCount++;
-                    inventorySlotsForItems[i].PutInSlot(item, obj);
+                    inventorySlotsForItems[i].PutInSlot(item, obj, amount);
                     obj.SetActive(false);
                     break;
                 }
@@ -279,9 +277,7 @@ public class Inventory : MonoBehaviour
                 int k = i + 1;
                 while (k != inventorySlotsForItems.Count && !inventorySlotsForItems[k].isEmpty)
                 {
-                    inventorySlotsForItems[j].PutInSlot(inventorySlotsForItems[k].slotItem, inventorySlotsForItems[k].slotObject);
-                    if (inventorySlotsForItems[k].stackCount > 1)
-                        inventorySlotsForItems[j].stackCount = inventorySlotsForItems[k].stackCount;
+                    inventorySlotsForItems[j].PutInSlot(inventorySlotsForItems[k].slotItem, inventorySlotsForItems[k].slotObject, inventorySlotsForItems[k].stackCount);
                     inventorySlotsForItems[k].Clear();
                     k++;
                     j++;
@@ -313,13 +309,8 @@ public class Inventory : MonoBehaviour
                 int k = i + 1;
                 while (k != inventoryList.Count && !inventoryList[k].isEmpty)
                 {
-                    inventoryList[j].PutInSlot(inventoryList[k].slotItem, inventoryList[k].slotObject);
-                    secondaryList[j].PutInSlot(inventoryList[k].slotItem, inventoryList[k].slotObject);
-                    if (inventoryList[k].stackCount > 1)
-                    {
-                        inventoryList[j].stackCount = inventoryList[k].stackCount;
-                        secondaryList[j].stackCount = inventoryList[k].stackCount;
-                    }
+                    inventoryList[j].PutInSlot(inventoryList[k].slotItem, inventoryList[k].slotObject, inventoryList[k].stackCount);
+                    secondaryList[j].PutInSlot(inventoryList[k].slotItem, inventoryList[k].slotObject, inventoryList[k].stackCount);
                     inventoryList[k].Clear();
                     secondaryList[k].Clear();
                     k++;
@@ -388,12 +379,12 @@ public class Inventory : MonoBehaviour
                 break;
             if (posOrNeg)
             {
-                if (inventorySlotsForParasites[i].slotObject.GetComponent<Parasite>().posEffectIndex == effectIndex)
+                if ((inventorySlotsForParasites[i].slotItem as Parasite).posEffectIndex == effectIndex)
                     count++;
             }
             else
             {
-                if (inventorySlotsForParasites[i].slotObject.GetComponent<Parasite>().negEffectIndex == effectIndex)
+                if ((inventorySlotsForParasites[i].slotItem as Parasite).negEffectIndex == effectIndex)
                     count++;
             }
         }
@@ -417,12 +408,12 @@ public class Inventory : MonoBehaviour
                 break;
             if (i == parIndex)
                 continue;
-            if (inventorySlotsForParasites[i].slotObject.GetComponent<Parasite>().posEffectIndex == effectIndex)
+            if ((inventorySlotsForParasites[i].slotItem as Parasite).posEffectIndex == effectIndex)
             {
                 posIndex = i;
                 continue;
             }
-            if (inventorySlotsForParasites[i].slotObject.GetComponent<Parasite>().negEffectIndex == effectIndex)
+            if ((inventorySlotsForParasites[i].slotItem as Parasite).negEffectIndex == effectIndex)
                 negIndex = i;
         }
         posOrNeg = posIndex > negIndex;
@@ -463,8 +454,8 @@ public class Inventory : MonoBehaviour
             {
                 if (!inventoryContainerSlots[i].isEmpty && slot.slotItemName.Equals(inventoryContainerSlots[i].slotItemName))
                 {
-                    inventoryContainerSlots[i].stackCount++;
-                    container.containerSlots[i].stackCount++;
+                    inventoryContainerSlots[i].PutInSlot(slot.slotItem, slot.slotObject);
+                    container.containerSlots[i].PutInSlot(slot.slotItem, slot.slotObject);
                     break;
                 }
                 else if (inventoryContainerSlots[i].isEmpty)
@@ -494,8 +485,8 @@ public class Inventory : MonoBehaviour
                     {
                         if (slot.justBoughtCount == 0)
                             inventoryTradingSlots[i].justBoughtCount++;
-                        inventoryTradingSlots[i].stackCount++;
-                        merchant.tradingSlots[i].stackCount++;
+                        inventoryTradingSlots[i].PutInSlot(slot.slotItem, slot.slotObject);
+                        merchant.tradingSlots[i].PutInSlot(slot.slotItem, slot.slotObject);
                         break;
                     }
                     else if (inventoryTradingSlots[i].isEmpty)

@@ -7,19 +7,19 @@ using UnityEngine.SceneManagement;
 public class SavedData
 {
     public int currentSceneIndex;
-
     public int currentHP;
     public int currentMP;
     public int currentObelisk;
 
     public InventoryData inventoryData;
     public List<ItemData> itemData;
+    public List<ParasiteData> parasiteData;
     public List<ContainerData> containerData;
     public List<MerchantData> merchantData;
     public List<int> slainEnemies;
 
     public SavedData(Player player, int currentObelisk, InventoryData inventoryData, 
-        List<ItemData> itemData, List<ContainerData> containerData, 
+        List<ItemData> itemData, List<ParasiteData> parasiteData, List<ContainerData> containerData, 
         List<MerchantData> merchantData, List<int> slainEnemies)
     {
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -28,6 +28,7 @@ public class SavedData
         this.currentObelisk = currentObelisk;
         this.inventoryData = inventoryData;
         this.itemData = itemData;
+        this.parasiteData = parasiteData;
         this.containerData = containerData;
         this.merchantData = merchantData;
         this.slainEnemies = slainEnemies;
@@ -82,15 +83,29 @@ public class ItemData
 {
     public float positionX;
     public float positionY;
-    public float positionZ;
     public int itemID;
 
-    public ItemData(float positionX, float positionY, float positionZ, int itemID)
+    public ItemData(float positionX, float positionY, int itemID)
     {
         this.positionX = positionX;
         this.positionY = positionY;
-        this.positionZ = positionZ;
         this.itemID = itemID;
+    }
+}
+
+[System.Serializable]
+public class ParasiteData : ItemData
+{
+    public int posEffectIndex;
+    public int negEffectIndex;
+    public int probability;
+
+    public ParasiteData(float positionX, float positionY, int itemID, int posEffectIndex, int negEffectIndex, int probability): 
+        base(positionX, positionY, itemID)
+    {
+        this.posEffectIndex = posEffectIndex;
+        this.negEffectIndex = negEffectIndex;
+        this.probability = probability;
     }
 }
 

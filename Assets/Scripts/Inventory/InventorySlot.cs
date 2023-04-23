@@ -28,22 +28,20 @@ public class InventorySlot : MonoBehaviour
         stackCountText.text = string.Empty;
     }
 
-    private void Start() => stackCount = 1;
-
-    private void Update()
+    public void PutInSlot(PickableItem item, GameObject obj, int amount = 1)
     {
+        if (stackCount == 0)
+        {
+            isEmpty = false;
+            slotItem = item;
+            previewImage.sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
+            slotItemName = item.itemName;
+            slotItemDescription = item.itemDescription;
+            slotObject = obj;
+        }
+        stackCount += amount;
         if (stackCount > 1)
             stackCountText.text = stackCount.ToString();
-    }
-
-    public void PutInSlot(PickableItem item, GameObject obj)
-    {
-        isEmpty = false;
-        slotItem = item;
-        previewImage.sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
-        slotItemName = item.itemName;
-        slotItemDescription = item.itemDescription;
-        slotObject = obj;
     }
 
     public virtual void DropOutOfSlot()
@@ -60,18 +58,12 @@ public class InventorySlot : MonoBehaviour
             if (!(Inventory.instance.isContainerOpen || Inventory.instance.isInTrade))
             {
                 slotObject.SetActive(true);
-                if (slotItem is Parasite)
-                {
-                    slotObject.GetComponent<Parasite>().DetachParasite();
-                    GameUI.instance.SetUI(Inventory.instance.attachedUnit);
-                }
-                else
-                    Instantiate(slotObject, vector, Quaternion.identity);
+                Instantiate(slotObject, vector, Quaternion.identity);
                 slotObject.SetActive(false);
             }
             stackCount--;
             if (stackCount == 1)
-                stackCountText.text = "";
+                stackCountText.text = string.Empty;
             else
                 stackCountText.text = stackCount.ToString();
         }
@@ -81,9 +73,10 @@ public class InventorySlot : MonoBehaviour
             {
                 slotObject.SetActive(true);
                 slotObject.transform.position = vector;
-                if (slotItem is Parasite)
+                Parasite par = slotItem as Parasite;
+                if (par != null)
                 {
-                    slotObject.GetComponent<Parasite>().DetachParasite();
+                    par.DetachParasite();
                     GameUI.instance.SetUI(Inventory.instance.attachedUnit);
                     Destroy(slotObject);
                 }
@@ -93,7 +86,7 @@ public class InventorySlot : MonoBehaviour
             Clear();
             Inventory.instance.GroupParasitesInSlots();
             Inventory.instance.GroupItemsInSlots();
-        }
+        }         
     }
 
     public void UseItemInSlot()
@@ -118,7 +111,7 @@ public class InventorySlot : MonoBehaviour
         {
             stackCount--;
             if (stackCount == 1)
-                stackCountText.text = "";
+                stackCountText.text = string.Empty;
             else
                 stackCountText.text = stackCount.ToString();
         }
@@ -156,7 +149,7 @@ public class InventorySlot : MonoBehaviour
         previewImage.sprite = null;
         slotObject = null;
         justBoughtCount = 0;
-        stackCount = 1;
+        stackCount = 0;
         stackCountText.text = string.Empty;
         slotItemName = string.Empty;
         slotItemDescription = string.Empty;
