@@ -58,11 +58,12 @@ public class CombatSystem : MonoBehaviour
     [HideInInspector] public bool isMental;
     [HideInInspector] public InventorySlot activeSlot;
 
+    private void Awake() => instance = this;
+
     private void Start()
     {
         combatCamera.enabled = false;
         combatState = CombatState.START;
-        instance = this;
     }
 
     public IEnumerator SetupBattle()

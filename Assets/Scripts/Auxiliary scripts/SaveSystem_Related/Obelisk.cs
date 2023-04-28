@@ -13,7 +13,8 @@ public class Obelisk : MonoBehaviour
         {
             SaveSystem.Save(new SavedData(Inventory.instance.attachedUnit, index,
                 SaveController.instance.GetInventoryData(), SaveController.instance.GetItemDataList(), SaveController.instance.GetParasiteDataList(),
-                SaveController.instance.GetContainerDataList(), SaveController.instance.GetMerchantDataList(), SaveController.instance.GetSlainEnemyList()));
+                SaveController.instance.GetContainerDataList(), SaveController.instance.GetMerchantDataList(), SaveController.instance.GetTalkedToNpcData(),
+                SaveController.instance.GetSpawnedUnitsData(), SaveController.instance.GetSlainEnemyList()));
             GameUI.instance.gameDialogue.text = "Игра сохранена";
         }
     }

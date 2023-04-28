@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class SaveController : MonoBehaviour
@@ -7,9 +9,11 @@ public class SaveController : MonoBehaviour
     [SerializeField] private Transform itemParent;
     [SerializeField] private Transform parasiteParent;
     [SerializeField] private Transform containerParent;
-    [SerializeField] private Transform merchantParent;
+    [SerializeField] private Transform NPC_Parent;
     [SerializeField] private Transform enemyParent;
-    [SerializeField] private Vector3[] spawnPositions;
+    [SerializeField] private Vector3[] playerSpawnPositions;
+    [SerializeField] private UnitSpawnEvent[] unitSpawnEvents;
+
     public static SaveController instance;
 
     private void Start()
@@ -20,9 +24,12 @@ public class SaveController : MonoBehaviour
             LoadPlayer();               
             LoadItemsAndParasites();
             LoadInventory();
-            LoadContainers();
-            LoadEnemies();           
-        }      
+            LoadContainers();            
+            LoadSpawnedUnits();
+            LoadTalkedToNPCs();
+            LoadMerchants();
+            LoadEnemies();              
+        }
     }
 
     public InventoryData GetInventoryData()
@@ -96,20 +103,41 @@ public class SaveController : MonoBehaviour
         return res;
     }
 
+    public List<bool> GetTalkedToNpcData()
+    {
+        List<bool> res = new();
+        foreach (Transform child in NPC_Parent)
+            res.Add(child.GetComponentInChildren<DialogueTrigger>().alreadyTalkedTo);
+        return res;
+    }
+
+    public List<int> GetSpawnedUnitsData()
+    {
+        List<int> res = new();
+        for (int i = 0; i < unitSpawnEvents.Length; i++)
+        {
+            if (unitSpawnEvents[i] == null)
+                res.Add(i);
+        }
+        return res;
+    }
+
     public List<MerchantData> GetMerchantDataList() 
     {
         List<MerchantData> res = new();
-        for (int i = 0; i < merchantParent.childCount; i++)
+        for (int i = 0; i < NPC_Parent.childCount; i++)
         {
+            if (!NPC_Parent.GetChild(i).TryGetComponent<Merchant>(out var merchant))
+                break;
             List<SerialTuple<int, int>> merchantsItems = new();
-            List<ContainerSlot> tradingSlots = merchantParent.GetChild(i).GetComponent<Merchant>().tradingSlots;
+            List<ContainerSlot> tradingSlots = merchant.tradingSlots;
             foreach (ContainerSlot slot in tradingSlots)
             {
                 if (slot.isEmpty)
                     break;
                 merchantsItems.Add(new SerialTuple<int, int>(slot.slotItem.itemID, slot.stackCount));
             }
-            res.Add(new MerchantData(merchantParent.GetChild(i).GetComponent<Merchant>().coinsInPossession, merchantsItems));
+            res.Add(new MerchantData(NPC_Parent.GetChild(i).GetComponent<Merchant>().coinsInPossession, merchantsItems));
         }
         return res;
     }
@@ -125,11 +153,13 @@ public class SaveController : MonoBehaviour
         return res;
     }
 
+
+
     private void LoadPlayer()
     {
         Player player = Inventory.instance.attachedUnit;
         SavedData sData = GameController.instance.receivedSaveData;
-        player.transform.position = sData.currentObelisk == -1 ? spawnPositions[^1] : spawnPositions[sData.currentObelisk];
+        player.transform.position = sData.currentObelisk == -1 ? playerSpawnPositions[^1] : playerSpawnPositions[sData.currentObelisk];
         player.currentHP = sData.currentHP;
         player.currentMP = sData.currentMP;
     }
@@ -139,6 +169,7 @@ public class SaveController : MonoBehaviour
         InventoryData inData = GameController.instance.receivedSaveData.inventoryData;
         Inventory.instance.ChangeContKeyAmount(inData.containerKeysInPossession);
         Inventory.instance.doorKeysInPossession = inData.doorKeysInPossession;
+        Inventory.instance.coinsInPossession = 0;
         Inventory.instance.ChangeCoinAmount(false, inData.coinsInPossession);
         Inventory.instance.ChangeShardAmount(inData.shardsInPossession);
         Inventory.instance.attachedUnit.armorModifier -= 0.1f * inData.shardsInPossession;
@@ -170,6 +201,44 @@ public class SaveController : MonoBehaviour
                 obj.SetActive(false);
             }
         }
+    }
+
+    private void LoadMerchants()
+    {
+        List<MerchantData> mData = GameController.instance.receivedSaveData.merchantData;
+        for (int i = 0; i < NPC_Parent.childCount; i++)
+        {
+            if (!NPC_Parent.GetChild(i).TryGetComponent<Merchant>(out var merchant))
+                break;           
+            merchant.coinsInPossession = mData[i].coinsInPossession;
+            for (int j = 0; j < mData[i].merchantsItems.Count; j++)
+            {
+                merchant.tradingSlots[j].stackCount = 0;
+                GameObject obj = Instantiate(GameController.instance.prefabs[mData[i].merchantsItems[j].first], itemParent);
+                merchant.tradingSlots[j].PutInSlot(obj.GetComponent<PickableItem>(), obj, mData[i].merchantsItems[j].second);
+                obj.SetActive(false);
+            }
+        }
+    }
+
+    private void LoadTalkedToNPCs()
+    {
+        for (int i = 0; i < NPC_Parent.childCount; i++)
+        {
+            Transform npc = NPC_Parent.GetChild(i);
+            DialogueTrigger dt;
+            if (npc.childCount > 1)
+                dt = npc.GetChild(1).GetComponent<DialogueTrigger>();
+            else
+                dt = npc.GetComponentInChildren<DialogueTrigger>();
+            dt.alreadyTalkedTo = GameController.instance.receivedSaveData.alreadyTalkedToNPCs[i];
+        }
+    }
+
+    private void LoadSpawnedUnits()
+    {
+        foreach (int ind in GameController.instance.receivedSaveData.spawnedUnits)
+            unitSpawnEvents[ind].SpawnPrefab();
     }
 
     private void LoadItemsAndParasites()

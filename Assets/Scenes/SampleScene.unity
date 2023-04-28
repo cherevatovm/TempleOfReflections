@@ -32609,7 +32609,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.14, y: 1.38, z: -10}
+  m_LocalPosition: {x: 24.66, y: 32.63, z: -10}
   m_LocalScale: {x: -0.0002088393, y: 0.0000006588477, z: -0.000036646514}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37674,6 +37674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c5793bae336aa4a8a1b22160821345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alreadyTalkedTo: 0
   dialogue1:
     name: "\u041E\u0431 \u043E\u0441\u043A\u043E\u043B\u043A\u0430\u0445"
     sentences:
@@ -45645,11 +45646,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3716822496166854093, guid: 588f729097ab24e4a813018e93695f96, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.14
+      value: 24.66
       objectReference: {fileID: 0}
     - target: {fileID: 3716822496166854093, guid: 588f729097ab24e4a813018e93695f96, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.38
+      value: 32.63
       objectReference: {fileID: 0}
     - target: {fileID: 3716822496166854093, guid: 588f729097ab24e4a813018e93695f96, type: 3}
       propertyPath: m_LocalPosition.z
@@ -104171,6 +104172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c5793bae336aa4a8a1b22160821345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alreadyTalkedTo: 0
   dialogue1:
     name: "\u041E \u0442\u043E\u0440\u0433\u043E\u0432\u043B\u0435"
     sentences:
@@ -105341,6 +105343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c5793bae336aa4a8a1b22160821345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alreadyTalkedTo: 0
   dialogue1:
     name: "\u041E \u0431\u043E\u0435\u0432\u043E\u0439 \u0441\u0438\u0441\u0442\u0435\u043C\u0435"
     sentences:
@@ -105478,6 +105481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ddd33eae28b5148a72170d47ccd942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alreadyTalkedTo: 0
   dialogue1:
     name: "\u0410\u043C\u0435\u043B\u0438\u044F"
     sentences:
@@ -106248,7 +106252,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797885786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.14, y: 1.38, z: -10}
+  m_LocalPosition: {x: 24.66, y: 32.63, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -106742,6 +106746,26 @@ MonoBehaviour:
   - {fileID: 232995885267413240, guid: df84d6cc20fc9ab4ab89fd5e1995af6e, type: 3}
   - {fileID: 3361252791918925985, guid: b11f37a1c3a366c4b920d6d6249f3be1, type: 3}
   isInDifferentScene: 0
+  hasBeenLoaded: 0
+  receivedSaveData:
+    currentSceneIndex: 0
+    currentHP: 0
+    currentMP: 0
+    currentObelisk: 0
+    inventoryData:
+      containerKeysInPossession: 0
+      doorKeysInPossession: 0
+      coinsInPossession: 0
+      shardsInPossession: 0
+      items: []
+      parasites: []
+    itemData: []
+    parasiteData: []
+    containerData: []
+    merchantData: []
+    alreadyTalkedToNPCs: 
+    spawnedUnits: 
+    slainEnemies: 
 --- !u!4 &1822334617
 Transform:
   m_ObjectHideFlags: 0
@@ -111671,6 +111695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c5793bae336aa4a8a1b22160821345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alreadyTalkedTo: 0
   dialogue1:
     name: "\u041E\u0431 \u044D\u0444\u0444\u0435\u043A\u0442\u0430\u0445"
     sentences:

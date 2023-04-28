@@ -9,7 +9,7 @@ public class Merchant : DialogueTrigger
     public Dialogue tradingDialogue;
     public int coinsInPossession;
 
-    private void Start()
+    private void Awake()
     {
         for (int i = 0; i < parentSlots.childCount; i++)
             tradingSlots.Add(parentSlots.GetChild(i).GetComponent<TradingSlot>());

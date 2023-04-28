@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitDestroyEvent : MonoBehaviour
+public class UnitSpawnEvent : MonoBehaviour
 {
     [SerializeField] private GameObject prefabToSpawn;
     [SerializeField] private GameObject prefabToAddToParty;
@@ -12,13 +12,12 @@ public class UnitDestroyEvent : MonoBehaviour
 
     private void Update()
     {
-        SpawnPrefab();
+        if (System.Array.Exists(eventTriggers, elem => !elem.gameObject.activeSelf))
+            SpawnPrefab();
     }
 
-    private void SpawnPrefab()
+    public void SpawnPrefab()
     {
-        if (!System.Array.Exists(eventTriggers, elem => elem == null))
-            return;
         CombatSystem.instance.allyPrefabsForCombat.Add(prefabToAddToParty);
         Instantiate(prefabToSpawn, spawnPlace);
         foreach (GameObject obj in objectsToDestroy)

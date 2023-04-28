@@ -16,11 +16,14 @@ public class SavedData
     public List<ParasiteData> parasiteData;
     public List<ContainerData> containerData;
     public List<MerchantData> merchantData;
+    public List<bool> alreadyTalkedToNPCs;
+    public List<int> spawnedUnits;
     public List<int> slainEnemies;
 
     public SavedData(Player player, int currentObelisk, InventoryData inventoryData, 
         List<ItemData> itemData, List<ParasiteData> parasiteData, List<ContainerData> containerData, 
-        List<MerchantData> merchantData, List<int> slainEnemies)
+        List<MerchantData> merchantData, List<bool> alreadyTalkedToNPCs,
+        List<int> spawnedUnits, List<int> slainEnemies)
     {
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         currentHP = player.currentHP;
@@ -31,6 +34,8 @@ public class SavedData
         this.parasiteData = parasiteData;
         this.containerData = containerData;
         this.merchantData = merchantData;
+        this.alreadyTalkedToNPCs = alreadyTalkedToNPCs;
+        this.spawnedUnits = spawnedUnits;
         this.slainEnemies = slainEnemies;
     }
 }
