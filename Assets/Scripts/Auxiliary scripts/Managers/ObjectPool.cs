@@ -12,23 +12,9 @@ public class ObjectPool : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-            instance = this;
-    }
-
-    private void Start()
-    {
-        if (objectToPool == null)
-        {            
-            objectToPool = new GameObject();
-            objectToPool.AddComponent<AudioSource>();
-        }
-        pooledObjects = new();
-        GameObject tempObj;
-        for (int i = 0; i < amountToPool; i++)
         {
-            tempObj = Instantiate(objectToPool);
-            tempObj.SetActive(false);
-            pooledObjects.Add(tempObj);
+            instance = this;
+            SetSoundPool();
         }
     }
 
@@ -57,10 +43,13 @@ public class ObjectPool : MonoBehaviour
     }
 
     public void SetSoundPool()
-    {
-        pooledObjects.Clear();
-        objectToPool = new GameObject();
-        objectToPool.AddComponent<AudioSource>();
+    {        
+        if (objectToPool == null)
+        {
+            objectToPool = new GameObject();
+            objectToPool.AddComponent<AudioSource>();
+        }
+        pooledObjects = new();
         GameObject tempObj;
         for (int i = 0; i < amountToPool; i++)
         {

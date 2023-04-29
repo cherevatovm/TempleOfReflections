@@ -7,9 +7,12 @@ using UnityEngine.SceneManagement;
 public class SavedData
 {
     public int currentSceneIndex;
+    public int trackCurrentlyPlaying;
+    public List<EnemyInfoPanel.EnemyRecord> enemyRecords;
+    
     public int currentHP;
     public int currentMP;
-    public int currentObelisk;
+    public int currentIdol;
 
     public InventoryData inventoryData;
     public List<ItemData> itemData;
@@ -17,24 +20,32 @@ public class SavedData
     public List<ContainerData> containerData;
     public List<MerchantData> merchantData;
     public List<bool> alreadyTalkedToNPCs;
+    public List<bool> doorData;
+    public List<bool> destEventData;
     public List<int> spawnedUnits;
     public List<int> slainEnemies;
+    
 
-    public SavedData(Player player, int currentObelisk, InventoryData inventoryData, 
+    public SavedData(Player player, int currentIdol, InventoryData inventoryData, 
         List<ItemData> itemData, List<ParasiteData> parasiteData, List<ContainerData> containerData, 
-        List<MerchantData> merchantData, List<bool> alreadyTalkedToNPCs,
-        List<int> spawnedUnits, List<int> slainEnemies)
+        List<MerchantData> merchantData, List<bool> alreadyTalkedToNPCs, List<bool> doorData, 
+        List<bool> destEventData, List<int> spawnedUnits, List<int> slainEnemies)
     {
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (currentSceneIndex == 1 || currentSceneIndex == 2)
+            trackCurrentlyPlaying = 12;
+        enemyRecords = EnemyInfoPanel.instance.enemyRecords;
         currentHP = player.currentHP;
         currentMP = player.currentMP;
-        this.currentObelisk = currentObelisk;
+        this.currentIdol = currentIdol;
         this.inventoryData = inventoryData;
         this.itemData = itemData;
         this.parasiteData = parasiteData;
         this.containerData = containerData;
         this.merchantData = merchantData;
         this.alreadyTalkedToNPCs = alreadyTalkedToNPCs;
+        this.doorData = doorData;
+        this.destEventData = destEventData;
         this.spawnedUnits = spawnedUnits;
         this.slainEnemies = slainEnemies;
     }

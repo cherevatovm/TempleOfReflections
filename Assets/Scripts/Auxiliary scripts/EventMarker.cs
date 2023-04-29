@@ -30,10 +30,7 @@ public class EventMarker : MonoBehaviour
     private void PlaySound()
     {
         if (ObjectPool.instance.objectToPool == null)
-        {
-            Debug.Log("null");
             ObjectPool.instance.SetSoundPool();
-        }
         SoundManager.PlaySound(sound);
         Destroy(gameObject);
     }

@@ -9,6 +9,8 @@ public abstract class Door : MonoBehaviour
     //[SerializeField] protected Sprite openVersion;
     [SerializeField] protected Collider2D nonTriggerCollider;
 
+    public bool GetIsOpen() => isOpen;
+
     public void Open()
     {
         isOpen = true;

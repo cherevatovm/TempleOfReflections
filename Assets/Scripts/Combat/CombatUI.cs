@@ -24,6 +24,8 @@ public class CombatUI : MonoBehaviour
     [HideInInspector] public bool areButtonsShown;
     [HideInInspector] public bool skillButtonsHaveBeenSet;
 
+    private void Start() => gameObject.SetActive(false);
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

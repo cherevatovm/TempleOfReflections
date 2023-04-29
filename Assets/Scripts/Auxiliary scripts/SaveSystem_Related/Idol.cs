@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obelisk : MonoBehaviour
+public class Idol : MonoBehaviour
 {
     private bool isClose;
     [SerializeField] private int index;
@@ -14,6 +14,7 @@ public class Obelisk : MonoBehaviour
             SaveSystem.Save(new SavedData(Inventory.instance.attachedUnit, index,
                 SaveController.instance.GetInventoryData(), SaveController.instance.GetItemDataList(), SaveController.instance.GetParasiteDataList(),
                 SaveController.instance.GetContainerDataList(), SaveController.instance.GetMerchantDataList(), SaveController.instance.GetTalkedToNpcData(),
+                SaveController.instance.GetDoorsData(), SaveController.instance.GetDestEventsData(), 
                 SaveController.instance.GetSpawnedUnitsData(), SaveController.instance.GetSlainEnemyList()));
             GameUI.instance.gameDialogue.text = "Игра сохранена";
         }

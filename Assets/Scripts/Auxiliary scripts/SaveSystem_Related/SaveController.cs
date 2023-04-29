@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Security.Cryptography;
+using System.Linq;
 using UnityEngine;
 
 public class SaveController : MonoBehaviour
@@ -11,8 +9,10 @@ public class SaveController : MonoBehaviour
     [SerializeField] private Transform containerParent;
     [SerializeField] private Transform NPC_Parent;
     [SerializeField] private Transform enemyParent;
+    [SerializeField] private Transform doorParent;
     [SerializeField] private Vector3[] playerSpawnPositions;
     [SerializeField] private UnitSpawnEvent[] unitSpawnEvents;
+    [SerializeField] private GameObject[] destructibleEventMarkers;
 
     public static SaveController instance;
 
@@ -27,8 +27,13 @@ public class SaveController : MonoBehaviour
             LoadContainers();            
             LoadSpawnedUnits();
             LoadTalkedToNPCs();
-            LoadMerchants();
-            LoadEnemies();              
+            LoadDoors();
+            LoadDestEvents();
+            LoadMerchants();           
+            LoadEnemies();
+            EnemyInfoPanel.instance.enemyRecords = GameController.instance.receivedSaveData.enemyRecords.ToList();
+            ObjectPool.instance.SetSoundPool();
+            SoundManager.PlaySound((SoundManager.Sound)GameController.instance.receivedSaveData.trackCurrentlyPlaying);
         }
     }
 
@@ -111,6 +116,22 @@ public class SaveController : MonoBehaviour
         return res;
     }
 
+    public List<bool> GetDoorsData()
+    {
+        List<bool> res = new();
+        foreach (Transform child in doorParent)
+            res.Add(child.GetComponent<Door>().GetIsOpen());
+        return res;
+    }
+
+    public List<bool> GetDestEventsData()
+    {
+        List<bool> res = new();
+        foreach (GameObject marker in destructibleEventMarkers)
+            res.Add(marker == null);
+        return res;
+    }
+
     public List<int> GetSpawnedUnitsData()
     {
         List<int> res = new();
@@ -153,13 +174,11 @@ public class SaveController : MonoBehaviour
         return res;
     }
 
-
-
     private void LoadPlayer()
     {
         Player player = Inventory.instance.attachedUnit;
         SavedData sData = GameController.instance.receivedSaveData;
-        player.transform.position = sData.currentObelisk == -1 ? playerSpawnPositions[^1] : playerSpawnPositions[sData.currentObelisk];
+        player.transform.position = sData.currentIdol == -1 ? playerSpawnPositions[^1] : playerSpawnPositions[sData.currentIdol];
         player.currentHP = sData.currentHP;
         player.currentMP = sData.currentMP;
     }
@@ -232,6 +251,26 @@ public class SaveController : MonoBehaviour
             else
                 dt = npc.GetComponentInChildren<DialogueTrigger>();
             dt.alreadyTalkedTo = GameController.instance.receivedSaveData.alreadyTalkedToNPCs[i];
+        }
+    }
+
+    private void LoadDoors()
+    {
+        List<bool> doorList = GameController.instance.receivedSaveData.doorData;
+        for (int i = 0; i < doorList.Count; i++)
+        {
+            if (doorList[i])
+                doorParent.GetChild(i).GetComponent<Door>().Open();
+        }
+    }
+
+    private void LoadDestEvents()
+    {
+        List<bool> deData = GameController.instance.receivedSaveData.destEventData;
+        for (int i = 0; i < deData.Count; i++)
+        {
+            if (deData[i])
+                Destroy(destructibleEventMarkers[i]);
         }
     }
 

@@ -22,7 +22,7 @@ public class GameUI : MonoBehaviour
     private void Awake()
     { 
         instance = this;
-        //exitUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(delegate { SaveSystem.Load(); });
+        exitUI.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(delegate { SaveSystem.Load(); });
     }
 
     private void Update()

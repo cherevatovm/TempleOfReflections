@@ -36,16 +36,12 @@ public class EnemyInfoPanel : MonoBehaviour
     public List<EnemyRecord> enemyRecords = new();
     public static EnemyInfoPanel instance;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
-        if (GameController.instance.isInDifferentScene)
-            GameController.instance.CopyEnemyRecords(ref enemyRecords);
-        else
-        {
-            for (int i = 0; i < 3; i++)
+        if (!GameController.instance.hasBeenLoaded)
+            for (int i = 0; i < 5; i++)
                 enemyRecords.Add(new EnemyRecord());
-        }
         enemyImage.preserveAspect = true;   
         gameObject.SetActive(false);
     }
