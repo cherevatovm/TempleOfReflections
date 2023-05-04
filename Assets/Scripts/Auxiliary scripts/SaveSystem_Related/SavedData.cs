@@ -11,7 +11,9 @@ public class SavedData
     public List<EnemyInfoPanel.EnemyRecord> enemyRecords;
     
     public int currentHP;
+    public int maxHP;
     public int currentMP;
+    public int maxMP;
     public int currentIdol;
 
     public InventoryData inventoryData;
@@ -26,17 +28,22 @@ public class SavedData
     public List<int> slainEnemies;
     
 
-    public SavedData(Player player, int currentIdol, InventoryData inventoryData, 
-        List<ItemData> itemData, List<ParasiteData> parasiteData, List<ContainerData> containerData, 
-        List<MerchantData> merchantData, List<bool> alreadyTalkedToNPCs, List<bool> doorData, 
-        List<bool> destEventData, List<int> spawnedUnits, List<int> slainEnemies)
+    public SavedData(Player player, InventoryData inventoryData, int currentSceneIndex, int currentIdol = -1,
+        List<ItemData> itemData = null, List<ParasiteData> parasiteData = null, List<ContainerData> containerData = null, 
+        List<MerchantData> merchantData = null, List<bool> alreadyTalkedToNPCs = null, List<bool> doorData = null, 
+        List<bool> destEventData = null, List<int> spawnedUnits = null, List<int> slainEnemies = null)
     {
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        if (currentSceneIndex == 1 || currentSceneIndex == 2)
+        if (currentSceneIndex < 0)
+            this.currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        else
+            this.currentSceneIndex = currentSceneIndex;
+        if (this.currentSceneIndex == 1 || this.currentSceneIndex == 2)
             trackCurrentlyPlaying = 12;
         enemyRecords = EnemyInfoPanel.instance.enemyRecords;
         currentHP = player.currentHP;
+        maxHP = player.maxHP;
         currentMP = player.currentMP;
+        maxMP = player.maxMP;
         this.currentIdol = currentIdol;
         this.inventoryData = inventoryData;
         this.itemData = itemData;

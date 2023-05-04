@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,9 +38,8 @@ public class EventMarker : MonoBehaviour
 
     private void TransitionToNextScene()
     {
-        GameController.instance.WriteData(EnemyInfoPanel.instance.enemyRecords);
-        GameController.instance.SaveCurrentItemsData();
-        ObjectPool.instance.objectToPool = null;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SaveSystem.Save(new SavedData(Inventory.instance.attachedUnit, SaveController.instance.GetInventoryData(true), SceneManager.GetActiveScene().buildIndex + 1));
+        GameController.instance.isSwitchingScenes = true;
+        SaveSystem.Load();
     }
 }

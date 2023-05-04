@@ -106727,7 +106727,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5428c36d189fd56429504a465a283ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableObject: {fileID: 11400000, guid: 2f13d17975cc6d047a4b40928bef3efb, type: 2}
   prefabs:
   - {fileID: 8429003693444029570, guid: 265e189b39d3a3145ba6d144a111e441, type: 3}
   - {fileID: 8429003693444029570, guid: 3b55ee63119699a499d1ed754a2bac37, type: 3}
@@ -106745,13 +106744,15 @@ MonoBehaviour:
   - {fileID: 232995885267413240, guid: 9686be927c8b6d841ad100451fafbb70, type: 3}
   - {fileID: 232995885267413240, guid: df84d6cc20fc9ab4ab89fd5e1995af6e, type: 3}
   - {fileID: 3361252791918925985, guid: b11f37a1c3a366c4b920d6d6249f3be1, type: 3}
-  isInDifferentScene: 0
   hasBeenLoaded: 0
+  isSwitchingScenes: 0
   receivedSaveData:
     currentSceneIndex: 0
+    trackCurrentlyPlaying: 0
+    enemyRecords: []
     currentHP: 0
     currentMP: 0
-    currentObelisk: 0
+    currentIdol: 0
     inventoryData:
       containerKeysInPossession: 0
       doorKeysInPossession: 0
@@ -106764,6 +106765,8 @@ MonoBehaviour:
     containerData: []
     merchantData: []
     alreadyTalkedToNPCs: 
+    doorData: 
+    destEventData: 
     spawnedUnits: 
     slainEnemies: 
 --- !u!4 &1822334617
@@ -114757,11 +114760,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3862920527312186889, guid: 5774f2d9fd35c0c4eba8594ebe1a6195, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3862920527312186889, guid: 5774f2d9fd35c0c4eba8594ebe1a6195, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5756617458622657826, guid: 5774f2d9fd35c0c4eba8594ebe1a6195, type: 3}
       propertyPath: m_AnchorMax.x
@@ -114797,7 +114800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7160847060597896207, guid: 5774f2d9fd35c0c4eba8594ebe1a6195, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7160847060597896210, guid: 5774f2d9fd35c0c4eba8594ebe1a6195, type: 3}
       propertyPath: buttonPrefabs.Array.size
@@ -114985,11 +114988,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8921280130678213054, guid: 5774f2d9fd35c0c4eba8594ebe1a6195, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8921280130678213054, guid: 5774f2d9fd35c0c4eba8594ebe1a6195, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9217514754793465142, guid: 5774f2d9fd35c0c4eba8594ebe1a6195, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

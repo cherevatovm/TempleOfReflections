@@ -68,6 +68,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2090099635599584930, guid: 5d61e216c33ebba4c8af6662543127e0, type: 3}
+      propertyPath: itemID
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2090099635599584930, guid: 5d61e216c33ebba4c8af6662543127e0, type: 3}
+      propertyPath: itemName
+      value: "\u041A\u043B\u044E\u0447 \u043E\u0442 \u0434\u0432\u0435\u0440\u0438"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2090099635599584930, guid: 5d61e216c33ebba4c8af6662543127e0, type: 3}
       propertyPath: isDoorKey
       value: 1
       objectReference: {fileID: 0}

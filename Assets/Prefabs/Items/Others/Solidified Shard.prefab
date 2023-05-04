@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec178518af3c284398c6b3e9111c015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemID: 19
   itemName: "\u0417\u0430\u0442\u0432\u0435\u0440\u0434\u0435\u0432\u0448\u0438\u0439
     \u043E\u0441\u043A\u043E\u043B\u043E\u043A"
   itemDescription: 

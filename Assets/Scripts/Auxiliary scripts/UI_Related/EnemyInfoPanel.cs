@@ -39,9 +39,8 @@ public class EnemyInfoPanel : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        if (!GameController.instance.hasBeenLoaded)
-            for (int i = 0; i < 5; i++)
-                enemyRecords.Add(new EnemyRecord());
+        for (int i = 0; i < 5; i++)
+            enemyRecords.Add(new EnemyRecord());
         enemyImage.preserveAspect = true;   
         gameObject.SetActive(false);
     }

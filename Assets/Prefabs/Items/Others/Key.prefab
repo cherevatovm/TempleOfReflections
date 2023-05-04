@@ -114,8 +114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3abb8f00404a74428d4d2e6c92a4423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: "\u041A\u043B\u044E\u0447"
+  itemID: 18
+  itemName: "\u041A\u043B\u044E\u0447 \u043E\u0442 \u0441\u0443\u043D\u0434\u0443\u043A\u0430"
   itemDescription: 
   itemValue: 0
   isUsableInCombatOnly: 0
   isAffectingEnemy: 0
+  isDoorKey: 0

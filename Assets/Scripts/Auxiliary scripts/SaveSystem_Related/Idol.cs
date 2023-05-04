@@ -11,8 +11,8 @@ public class Idol : MonoBehaviour
     {
         if (isClose && Input.GetKeyDown(KeyCode.F))
         {
-            SaveSystem.Save(new SavedData(Inventory.instance.attachedUnit, index,
-                SaveController.instance.GetInventoryData(), SaveController.instance.GetItemDataList(), SaveController.instance.GetParasiteDataList(),
+            SaveSystem.Save(new SavedData(Inventory.instance.attachedUnit,
+                SaveController.instance.GetInventoryData(false), -1, index, SaveController.instance.GetItemDataList(), SaveController.instance.GetParasiteDataList(),
                 SaveController.instance.GetContainerDataList(), SaveController.instance.GetMerchantDataList(), SaveController.instance.GetTalkedToNpcData(),
                 SaveController.instance.GetDoorsData(), SaveController.instance.GetDestEventsData(), 
                 SaveController.instance.GetSpawnedUnitsData(), SaveController.instance.GetSlainEnemyList()));

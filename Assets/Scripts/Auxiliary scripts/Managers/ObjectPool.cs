@@ -10,12 +10,9 @@ public class ObjectPool : MonoBehaviour
     public int amountToPool;
 
     private void Awake()
-    {
+    {       
         if (instance == null)
-        {
-            instance = this;
-            SetSoundPool();
-        }
+            instance = this;                  
     }
 
     private void MakeNonPlayingSoundObjsInactive()
@@ -43,7 +40,7 @@ public class ObjectPool : MonoBehaviour
     }
 
     public void SetSoundPool()
-    {        
+    {
         if (objectToPool == null)
         {
             objectToPool = new GameObject();

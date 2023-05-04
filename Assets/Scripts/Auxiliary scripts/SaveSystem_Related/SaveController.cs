@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,7 +20,21 @@ public class SaveController : MonoBehaviour
     private void Start()
     {
         instance = this;
-        if (GameController.instance.hasBeenLoaded)
+        ObjectPool.instance.SetSoundPool();
+        if (GameController.instance.isSwitchingScenes)
+        {
+            LoadPlayer();
+            LoadInventory();
+            SaveSystem.Save(new SavedData(Inventory.instance.attachedUnit,
+                instance.GetInventoryData(false), -1, -1, instance.GetItemDataList(), instance.GetParasiteDataList(),
+                instance.GetContainerDataList(), instance.GetMerchantDataList(), instance.GetTalkedToNpcData(),
+                instance.GetDoorsData(), instance.GetDestEventsData(),
+                instance.GetSpawnedUnitsData(), instance.GetSlainEnemyList()));
+            EnemyInfoPanel.instance.enemyRecords = GameController.instance.receivedSaveData.enemyRecords.ToList();
+            SoundManager.PlaySound((SoundManager.Sound)GameController.instance.receivedSaveData.trackCurrentlyPlaying);
+            GameController.instance.isSwitchingScenes = false;
+        }
+        else if (GameController.instance.hasBeenLoaded)
         {
             LoadPlayer();               
             LoadItemsAndParasites();
@@ -31,13 +46,12 @@ public class SaveController : MonoBehaviour
             LoadDestEvents();
             LoadMerchants();           
             LoadEnemies();
-            EnemyInfoPanel.instance.enemyRecords = GameController.instance.receivedSaveData.enemyRecords.ToList();
-            ObjectPool.instance.SetSoundPool();
+            EnemyInfoPanel.instance.enemyRecords = GameController.instance.receivedSaveData.enemyRecords.ToList();            
             SoundManager.PlaySound((SoundManager.Sound)GameController.instance.receivedSaveData.trackCurrentlyPlaying);
         }
     }
 
-    public InventoryData GetInventoryData()
+    public InventoryData GetInventoryData(bool isSwitchingScenes)
     {
         List<SerialTuple<int, int>> items = new();
         foreach (InventorySlot slot in Inventory.instance.inventorySlotsForItems)
@@ -46,16 +60,23 @@ public class SaveController : MonoBehaviour
                 break;
             items.Add(new SerialTuple<int, int>(slot.slotItem.itemID, slot.stackCount));
         }
+        InventoryData invData;
         List<SerialTuple<int, int>> parasites = new();
-        foreach (InventorySlot slot in Inventory.instance.inventorySlotsForParasites)
-        {
-            if (slot.isEmpty)
-                break;
-            Parasite par = slot.slotItem as Parasite;
-            parasites.Add(new SerialTuple<int, int>(par.posEffectIndex, par.negEffectIndex, par.percentage));
-        }
-        return new InventoryData(Inventory.instance.containerKeysInPossession, Inventory.instance.doorKeysInPossession, 
+        if (!isSwitchingScenes)
+        {            
+            foreach (InventorySlot slot in Inventory.instance.inventorySlotsForParasites)
+            {
+                if (slot.isEmpty)
+                    break;
+                Parasite par = slot.slotItem as Parasite;
+                parasites.Add(new SerialTuple<int, int>(par.posEffectIndex, par.negEffectIndex, par.percentage));
+            }
+            invData = new InventoryData(Inventory.instance.containerKeysInPossession, Inventory.instance.doorKeysInPossession,
             Inventory.instance.coinsInPossession, Inventory.instance.shardsInPossession, items, parasites);
+        }
+        else
+            invData = new InventoryData(0, 0, Inventory.instance.coinsInPossession, 0, items, parasites);
+        return invData;
     }
 
     public List<ItemData> GetItemDataList()
@@ -181,6 +202,11 @@ public class SaveController : MonoBehaviour
         player.transform.position = sData.currentIdol == -1 ? playerSpawnPositions[^1] : playerSpawnPositions[sData.currentIdol];
         player.currentHP = sData.currentHP;
         player.currentMP = sData.currentMP;
+        if (GameController.instance.isSwitchingScenes)
+        {
+            player.maxHP = sData.maxHP;
+            player.maxMP = sData.maxMP;
+        }
     }
 
     private void LoadInventory()
