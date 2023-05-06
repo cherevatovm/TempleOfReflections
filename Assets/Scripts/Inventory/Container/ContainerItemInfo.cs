@@ -31,12 +31,18 @@ public class ContainerItemInfo : ItemInfo
         {
             if (containerSlot.justBoughtCount > 0)
             {
+                if (GameController.instance.isInTutorial)
+                    buyOrTakeButton.interactable = true;
                 priceText.text = ((int)(containerSlot.slotItem.itemValue * 0.75)).ToString();
-                priceTag.transform.GetChild(2).GetComponent<Text>().text = "Выкупить за:";
-                buyOrTakeButton.transform.GetChild(0).GetComponent<Text>().text = "Выкупить";
+                priceTag.transform.GetChild(2).GetComponent<Text>().text = "Вернуть за:";
+                buyOrTakeButton.transform.GetChild(0).GetComponent<Text>().text = "Вернуть";
             }
             else
+            {
+                if (GameController.instance.isInTutorial)
+                    buyOrTakeButton.interactable = !GameController.instance.inventoryTutorialSteps[0] || GameController.instance.inventoryTutorialSteps[2];
                 priceText.text = containerSlot.slotItem.itemValue.ToString();
+            }
         }
         else
             priceText.text = ((int)(containerSlot.slotItem.itemValue * 0.75)).ToString();

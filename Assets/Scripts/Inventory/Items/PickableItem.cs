@@ -18,6 +18,8 @@ public abstract class PickableItem : MonoBehaviour
     {
         if (isCloseToItem && Input.GetKeyDown(KeyCode.F))
         {
+            if (GameController.instance.isInTutorial)
+                GameUI.instance.OpenItemPanel(this);
             Inventory.instance.PutInInventory(gameObject);
             GameUI.instance.gameDialogue.text = string.Empty;
         }

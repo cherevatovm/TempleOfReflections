@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,17 +46,7 @@ public class Inventory : MonoBehaviour
             inventoryContainerSlots.Add(parentContainerSlots.GetChild(i).GetComponent<ContainerSlot>());
         for (int i = 0; i < parentTradingSlots.childCount; i++)
             inventoryTradingSlots.Add(parentTradingSlots.GetChild(i).GetComponent<TradingSlot>());
-
     }
-
-    /*private void Start()
-    {
-        if (GameController.instance.isInDifferentScene)
-        {
-            GameController.instance.UnpackWrittenData();
-            GameController.instance.InstantiateAndAddToInventory();
-        }
-    }*/
 
     private void Update()
     {
@@ -97,6 +84,7 @@ public class Inventory : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(2).gameObject.SetActive(true);
         }
+        GameUI.instance.gameDialogue.text = string.Empty;
         isOpen = true;
     }
 
@@ -115,12 +103,16 @@ public class Inventory : MonoBehaviour
             merchantCointCounter.text = merchant.coinsInPossession.ToString();
         }
         isInTrade = true;
+        if (GameController.instance.isInTutorial && !GameController.instance.inventoryTutorialSteps[0])
+            GameUI.instance.inventoryDialogue.text = "Добро пожаловать в меню торговли! Для начала кликните на ячейку интересующего товара и попробуйте его купить";
         Open();
     }
 
     public void CloseTradingMenu()
     {
-        DialogueManager.instance.SetActiveDialogueUI(true);
+        if (System.Array.Exists(GameController.instance.inventoryTutorialSteps, elem => elem == false))
+            return;
+        DialogueManager.instance.SetActiveDialogueUI(true);        
         ContainerItemInfo.instance.Close();
         isInTrade = false;
         Close();
@@ -180,7 +172,7 @@ public class Inventory : MonoBehaviour
         transform.GetChild(2).gameObject.SetActive(false);
         ItemInfo.instance.Close();
         isOpen = false;
-        GameUI.instance.gameDialogue.text = string.Empty;
+        GameUI.instance.inventoryDialogue.text = string.Empty;
     }
 
     public void PutInInventory(GameObject obj, int amount = 1, InventorySlot sourceSlot = null)
@@ -278,6 +270,7 @@ public class Inventory : MonoBehaviour
                 while (k != inventorySlotsForItems.Count && !inventorySlotsForItems[k].isEmpty)
                 {
                     inventorySlotsForItems[j].PutInSlot(inventorySlotsForItems[k].slotItem, inventorySlotsForItems[k].slotObject, inventorySlotsForItems[k].stackCount);
+                    inventorySlotsForItems[j].justBoughtCount = inventorySlotsForItems[k].justBoughtCount;
                     inventorySlotsForItems[k].Clear();
                     k++;
                     j++;
@@ -310,6 +303,7 @@ public class Inventory : MonoBehaviour
                 while (k != inventoryList.Count && !inventoryList[k].isEmpty)
                 {
                     inventoryList[j].PutInSlot(inventoryList[k].slotItem, inventoryList[k].slotObject, inventoryList[k].stackCount);
+                    inventoryList[j].justBoughtCount = inventoryList[k].justBoughtCount;
                     secondaryList[j].PutInSlot(inventoryList[k].slotItem, inventoryList[k].slotObject, inventoryList[k].stackCount);
                     inventoryList[k].Clear();
                     secondaryList[k].Clear();
@@ -505,19 +499,31 @@ public class Inventory : MonoBehaviour
                     slot.justBoughtCount--;
                     ChangeCoinAmount(true, -slot.slotItem.itemValue);
                     ChangeCoinAmount(false, slot.slotItem.itemValue);
-                    GameUI.instance.gameDialogue.text = "Вы вернули " + slot.slotItemName;
+                    if (GameController.instance.isInTutorial && !GameController.instance.inventoryTutorialSteps[2])
+                    {
+                        GameController.instance.inventoryTutorialSteps[2] = true;
+                        GameUI.instance.inventoryDialogue.text = "Вы вернули предмет. Для выхода из меню торговли нажмите Esc";
+                    }
+                    else
+                        GameUI.instance.inventoryDialogue.text = "Вы вернули " + slot.slotItemName;
                 }
                 else
                 {
                     ChangeCoinAmount(true, -(int)(slot.slotItem.itemValue * 0.75));
                     ChangeCoinAmount(false, (int)(slot.slotItem.itemValue * 0.75));
-                    GameUI.instance.gameDialogue.text = "Вы продали " + slot.slotItemName;
+                    if (GameController.instance.isInTutorial && !GameController.instance.inventoryTutorialSteps[1])
+                    {
+                        GameController.instance.inventoryTutorialSteps[1] = true;
+                        GameUI.instance.inventoryDialogue.text = "Вы успешно продали предмет! И напоследок: если вы передумали, вы можете вернуть купленный или проданный предмет по прежней цене до конца текущего диалога с торговцем.\nПопробуйте сделать это";
+                    }
+                    else
+                        GameUI.instance.inventoryDialogue.text = "Вы продали " + slot.slotItemName;
                 }
             }
             else
             {
                 ItemInfo.instance.Close();
-                GameUI.instance.gameDialogue.text = "У торговца недостаточно денег для того, чтобы вы могли продать этот предмет";
+                GameUI.instance.inventoryDialogue.text = "У торговца недостаточно денег для того, чтобы вы могли продать этот предмет";
                 return;
             }
         }
@@ -525,8 +531,10 @@ public class Inventory : MonoBehaviour
     }
 
     public void PutParasiteInInventory()
-    {
+    {   
         PutInInventory(tempItem);
         tempItem = null;
+        if (GameController.instance.isInTutorial)
+            GameUI.instance.ItemPanelTutorialMode(0, 1);
     }
 }

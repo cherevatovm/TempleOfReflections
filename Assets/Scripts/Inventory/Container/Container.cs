@@ -34,10 +34,10 @@ public class Container : MonoBehaviour
                         Inventory.instance.ChangeContKeyAmount(-1);
                         Open();
                         isNeedOfKey = false;
-                        GameUI.instance.gameDialogue.text = "Вы использовали ключ, чтобы отпереть замок";
+                        GameUI.instance.inventoryDialogue.text = "Вы использовали ключ, чтобы отпереть замок";
                     }
                     else
-                        GameUI.instance.gameDialogue.text = "У вас нет ключей, чтобы отпереть замок";
+                        GameUI.instance.inventoryDialogue.text = "У вас нет ключей, чтобы отпереть замок";
                 }
                 else
                     Open();
@@ -57,7 +57,13 @@ public class Container : MonoBehaviour
         }
         Inventory.instance.isContainerOpen = true;
         Inventory.instance.container = this;
-        Inventory.instance.Open();
+        if (GameController.instance.isInTutorial && !GameController.instance.wasContainerTutorialShown)
+        {
+            GameUI.instance.ItemPanelTutorialMode(3, Inventory.instance.containerKeysInPossession);
+            GameUI.instance.OpenItemPanel();
+        }
+        else
+            Inventory.instance.Open();
         isOpen = true;
     }
 
@@ -83,15 +89,20 @@ public class Container : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
+        {
             isCloseToContainer = true;
+            GameUI.instance.gameDialogue.text = "Нажмите F, чтобы открыть сундук";
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            GameUI.instance.gameDialogue.text = string.Empty;
             isCloseToContainer = false;
+            GameUI.instance.gameDialogue.text = string.Empty;
+            if (GameController.instance.isInTutorial)
+                GameUI.instance.CloseItemPanel();
             if (isOpen)
                 Close();
         }
