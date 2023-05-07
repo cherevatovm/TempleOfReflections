@@ -24,12 +24,12 @@ public class CombatSystem : MonoBehaviour
     [HideInInspector] public List<Unit> allyUnits = new();
     [HideInInspector] public List<CombatController> enemyCombatControllers = new();
     [HideInInspector] public List<CombatController> allyCombatControllers = new();
-    private List<EnemyAI> enemyAIs = new();
+    [HideInInspector] public List<EnemyAI> enemyAIs = new();
     public List<GameObject> allyPrefabsForCombat;
 
     [HideInInspector] public Enemy encounteredEnemy;
 
-    [SerializeField] List<Transform> enemyCombatPositions;
+    public List<Transform> enemyCombatPositions;
     [SerializeField] List<Transform> allyCombatPositions;
 
     public CombatHUD[] enemyHUDs;
@@ -68,9 +68,9 @@ public class CombatSystem : MonoBehaviour
 
     public IEnumerator SetupBattle()
     {
-        SoundManager.StopLoopedSound();
-        SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
-        SoundManager.PlaySound(SoundManager.Sound.MentalBattle);
+        //SoundManager.StopLoopedSound();
+        //SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
+        //SoundManager.PlaySound(SoundManager.Sound.MentalBattle);
         Inventory.instance.Close();
         encounteredEnemy.gameObject.GetComponent<Collider2D>().enabled = false;
         encounteredEnemy.gameObject.GetComponent<EnemyMovement>().enabled = false;
@@ -220,6 +220,8 @@ public class CombatSystem : MonoBehaviour
 
     private IEnumerator AllyDefend()
     {
+        if (enemyAIs[curEnemyID] is CloneEnemyAI)
+            (enemyAIs[curEnemyID] as CloneEnemyAI).countWeaknessesTurns++;
         combatState = CombatState.ENEMY_TURN;
         allyUnits[curAllyID].armorModifier *= 0.4f;
         yield return new WaitForSeconds(1.5f);
@@ -231,6 +233,8 @@ public class CombatSystem : MonoBehaviour
 
     public IEnumerator AllyUsingItem()
     {
+        if (enemyAIs[curEnemyID] is CloneEnemyAI)
+            (enemyAIs[curEnemyID] as CloneEnemyAI).countWeaknessesTurns++;
         combatState = CombatState.ENEMY_TURN;
         allyUnits[tempAllyID].combatHUD.ChangeHP(allyUnits[tempAllyID].currentHP);
         allyUnits[tempAllyID].combatHUD.ChangeMP(allyUnits[tempAllyID].currentMP);
@@ -302,6 +306,8 @@ public class CombatSystem : MonoBehaviour
                 3 => allyUnits[curAllyID].unitName + " наносит " + totalDamage + " огненного урона",
                 _ => string.Empty,
             };
+            if (!enemyUnits[curEnemyID].weaknesses[damageTypeID] && enemyAIs[curEnemyID] is CloneEnemyAI)
+                (enemyAIs[curEnemyID] as CloneEnemyAI).countWeaknessesTurns++;
             EnemyInfoPanel.instance.ChangeKnownAffinities(enemyUnits[curEnemyID].enemyID, damageTypeID);
         }
         if (isMental)
@@ -366,6 +372,8 @@ public class CombatSystem : MonoBehaviour
 
     public IEnumerator AllyRegenaSkill()
     {
+        if (enemyAIs[curEnemyID] is CloneEnemyAI)
+            (enemyAIs[curEnemyID] as CloneEnemyAI).countWeaknessesTurns++;
         combatState = CombatState.ENEMY_TURN;
         allyCombatControllers[curAllyID].attackButtonWasPressed = true;
         yield return new WaitForSeconds(1.5f);
@@ -468,6 +476,9 @@ public class CombatSystem : MonoBehaviour
                 yield return new WaitForSeconds(1.5f);
             }
             enemyCombatControllers[i].attackButtonWasPressed = true;
+            //countCopyTurns++;
+            if (enemyAIs[i] is CopyEnemyAI)
+                (enemyAIs[i] as CopyEnemyAI).countCopyTurns++;
             List<string> messages = enemyAIs[i].CombatAI(out int soundID);
             for (int j = 0; j < messages.Count; j++)
             {
