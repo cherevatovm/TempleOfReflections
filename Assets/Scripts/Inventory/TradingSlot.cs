@@ -9,7 +9,7 @@ public class TradingSlot : ContainerSlot
     {
         if (Inventory.instance.IsFull(0, slotItem))
         {
-            GameUI.instance.gameDialogue.text = "Покупка не удалась, в вашем инвентаре не нашлось места для " + slotItem.itemName;
+            GameUI.instance.inventoryDialogue.text = "Покупка не удалась, в вашем инвентаре не нашлось места для " + slotItem.itemName;
             ContainerItemInfo.instance.Close();
             return;
         }
@@ -17,21 +17,33 @@ public class TradingSlot : ContainerSlot
         {
             Inventory.instance.ChangeCoinAmount(true, (int)(slotItem.itemValue * 0.75));
             Inventory.instance.ChangeCoinAmount(false, -(int)(slotItem.itemValue * 0.75));
-            GameUI.instance.gameDialogue.text = "Вы выкупили " + slotItem.itemName;
+            if (GameController.instance.isInTutorial && !GameController.instance.inventoryTutorialSteps[2])
+            {
+                GameController.instance.inventoryTutorialSteps[2] = true;
+                GameUI.instance.inventoryDialogue.text = "Вы вернули предмет. Для выхода из меню торговли нажмите Esc";
+            }
+            else
+                GameUI.instance.inventoryDialogue.text = "Вы выкупили " + slotItem.itemName;
             base.DropOutOfSlot();
-            justBoughtCount--;
+            //justBoughtCount--;
         }
         else if (Inventory.instance.coinsInPossession >= slotItem.itemValue)
         {
             Inventory.instance.ChangeCoinAmount(true, slotItem.itemValue);
             Inventory.instance.ChangeCoinAmount(false, -slotItem.itemValue);
-            GameUI.instance.gameDialogue.text = "Вы приобрели " + slotItem.itemName;
+            if (GameController.instance.isInTutorial && !GameController.instance.inventoryTutorialSteps[0])
+            {
+                GameController.instance.inventoryTutorialSteps[0] = true;
+                GameUI.instance.inventoryDialogue.text = "Отлично! А теперь кликните не ячейку с уже имевшимся у вас предметом и попробуйте продать его. Имейте в виду, что вы продаете предметы по меньшей цене в сравнении с той, по которой они доступны у торговцев";           
+            }
+            else
+                GameUI.instance.inventoryDialogue.text = "Вы приобрели " + slotItem.itemName;
             base.DropOutOfSlot();
         }
         else
         {
             ContainerItemInfo.instance.Close();
-            GameUI.instance.gameDialogue.text = "У вас недостаточно монет, чтобы купить этот предмет";
+            GameUI.instance.inventoryDialogue.text = "У вас недостаточно монет, чтобы купить этот предмет";
         }
     }
 }

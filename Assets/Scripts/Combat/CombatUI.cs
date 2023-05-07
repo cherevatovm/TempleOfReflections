@@ -17,14 +17,32 @@ public class CombatUI : MonoBehaviour
             this.isOccupied = isOccupied;
         }
     }
+    
+    [SerializeField] private GameObject tutorialPanel;
+    [SerializeField] private Text tutorialTitle;
+    [SerializeField] private Text tutorialText;
+    [SerializeField] private Button tutorialButton;
+    [TextArea(3, 10)]
+    [SerializeField] private string[] tutorialLines1;
+    [TextArea(3, 10)]
+    [SerializeField] private string[] tutorialLines2;
+    [TextArea(3, 10)]
+    [SerializeField] private string[] tutorialLines3;
+    private int currentLine;
+
     private List<Pair> buttonPositions = new();
     [SerializeField] private Button[] mentalSkillButtonList;
+    [SerializeField] private Button[] mainButtonList;
     public TextMeshProUGUI combatDialogue;
     public GameObject[] blackouts;
     [HideInInspector] public bool areButtonsShown;
     [HideInInspector] public bool skillButtonsHaveBeenSet;
 
-    private void Start() => gameObject.SetActive(false);
+    private void Start() 
+    {
+        tutorialButton.onClick.AddListener(CloseTutorialPanel);
+        gameObject.SetActive(false);
+    }
 
     private void Update()
     {
@@ -113,5 +131,89 @@ public class CombatUI : MonoBehaviour
             }
             areButtonsShown = true;
         }
+    }
+
+    public void OpenTutorialPanel()
+    {
+        switch (GameController.instance.combatTutorialSteps)
+        {
+            case 0:
+                tutorialTitle.text = "Введение";
+                tutorialText.text = "Боевая система представлена в пошаговом виде. Во время каждого шага каждый юнит может совершить только одно действие. " +
+                    "Начнем с самого элементарного действия - обычной физической атаки, которая не требует траты очков MP. Для ее использования нажмите на кнопку 'Атака' и выберите цель, просто кликнув по врагу левой кнопкой мыши.";
+                MakeButtonsNoninteractableExcept(1);
+                break;
+            case 1:
+                currentLine = 0;
+                tutorialTitle.text = "О разных действиях";
+                tutorialText.text = tutorialLines1[currentLine];
+                MakeButtonsNoninteractableExcept(0);
+                tutorialButton.onClick.RemoveAllListeners();
+                tutorialButton.onClick.AddListener(NextLine);
+                break;
+            case 2:
+                currentLine = 0;
+                tutorialTitle.text = "О типах урона";
+                tutorialText.text = tutorialLines2[currentLine];
+                MakeButtonsNoninteractableExcept();
+                tutorialButton.onClick.RemoveAllListeners();
+                tutorialButton.onClick.AddListener(NextLine);
+                break;
+            case 3:
+                tutorialTitle.text = "О ментальных навыках";
+                tutorialText.text = "Настало время воспользоваться ментальным навыком! Для их использования необходимо тратить очки MP (использование каждого стоит по 3 MP), " +
+                    "но они позволяют применять различные типы урона или даже лечить союзников. По умолчанию игроку доступен навык Псиона, " +
+                    "наносящий псионический урон. Вы можете открыть больше, если найдете осколки, дающие доступ к навыкам. Для использования навыка нажмите на кнопку 'Ментал', выберите нужный навык, а затем цель для его использования.";
+                MakeButtonsNoninteractableExcept(3);
+                break;
+            case 4:
+                currentLine = 0;
+                tutorialTitle.text = "Об эффектах";
+                tutorialText.text = tutorialLines3[currentLine];
+                MakeAllButtonsInteractable();
+                tutorialButton.onClick.RemoveAllListeners();
+                tutorialButton.onClick.AddListener(NextLine);
+                break;
+        }
+        GameController.instance.combatTutorialSteps++;
+        tutorialPanel.SetActive(true);
+        blackouts[1].SetActive(true);
+    }
+
+    private void MakeButtonsNoninteractableExcept(int buttonInd = -1)
+    {
+        foreach (Button b in mainButtonList)
+                b.interactable = false;
+        if (buttonInd != -1)
+            mainButtonList[buttonInd].interactable = true;
+    }
+
+    private void MakeAllButtonsInteractable()
+    {
+        foreach (Button b in mainButtonList)
+            b.interactable = true;
+    }
+
+    private void NextLine()
+    {
+        string[] lines = null;
+        if (GameController.instance.combatTutorialSteps - 1 == 1)
+            lines = tutorialLines1;
+        else if (GameController.instance.combatTutorialSteps - 1 == 2)
+            lines = tutorialLines2;
+        else if (GameController.instance.combatTutorialSteps - 1 == 4)
+            lines = tutorialLines3;
+        tutorialText.text = lines[++currentLine];
+        if (currentLine == lines.Length - 1)
+        {
+            tutorialButton.onClick.RemoveAllListeners();
+            tutorialButton.onClick.AddListener(CloseTutorialPanel);
+        }
+    }
+    
+    public void CloseTutorialPanel()
+    { 
+        tutorialPanel.SetActive(false);
+        blackouts[1].SetActive(false);
     }
 }

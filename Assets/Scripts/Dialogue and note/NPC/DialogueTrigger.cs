@@ -33,5 +33,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         inTriggerArea = false;
         GameUI.instance.gameDialogue.text = string.Empty;
+        if (GameController.instance.isInTutorial)
+            GameUI.instance.CloseItemPanel();
     }
 }

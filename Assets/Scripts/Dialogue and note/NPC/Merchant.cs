@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Merchant : DialogueTrigger
 {
-    [SerializeField] private Transform parentSlots; 
+    [SerializeField] private Transform parentSlots;
     [HideInInspector] public List<ContainerSlot> tradingSlots = new(16);
     public Dialogue tradingDialogue;
     public int coinsInPossession;
@@ -13,5 +13,27 @@ public class Merchant : DialogueTrigger
     {
         for (int i = 0; i < parentSlots.childCount; i++)
             tradingSlots.Add(parentSlots.GetChild(i).GetComponent<TradingSlot>());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && inTriggerArea && !pressLock)
+        {
+            DialogueManager.instance.dialogueTrigger = this;
+            if (GameController.instance.isInTutorial && !GameController.instance.inventoryTutorialSteps[0])
+            {
+                GameUI.instance.ItemPanelTutorialMode(2);
+                GameUI.instance.OpenItemPanel();
+                GameUI.instance.gameDialogue.text = string.Empty;
+            }
+            else
+            {
+                if (!alreadyTalkedTo)
+                    DialogueManager.instance.StartDialogue(dialogue1);
+                else
+                    DialogueManager.instance.StartDialogue(dialogue2);
+                alreadyTalkedTo = true;
+            }
+        }
     }
 }

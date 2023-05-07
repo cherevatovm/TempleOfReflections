@@ -10,9 +10,12 @@ public class ObjectPool : MonoBehaviour
     public int amountToPool;
 
     private void Awake()
-    {       
+    {
         if (instance == null)
-            instance = this;                  
+        {
+            instance = this;
+            SetSoundPool();
+        }
     }
 
     private void MakeNonPlayingSoundObjsInactive()

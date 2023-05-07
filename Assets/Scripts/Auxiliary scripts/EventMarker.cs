@@ -8,6 +8,7 @@ public class EventMarker : MonoBehaviour
 {
     [SerializeField] private int eventID;
     [SerializeField] private SoundManager.Sound sound;
+    [SerializeField] private NoteTrigger note;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -22,7 +23,7 @@ public class EventMarker : MonoBehaviour
                     TransitionToNextScene(); 
                     break;
                 case 2:
-                    GameUI.instance.ShowAboutControlsNote();
+                    ShowNote();
                     break;
             }
         }
@@ -41,5 +42,11 @@ public class EventMarker : MonoBehaviour
         SaveSystem.Save(new SavedData(Inventory.instance.attachedUnit, SaveController.instance.GetInventoryData(true), SceneManager.GetActiveScene().buildIndex + 1));
         GameController.instance.isSwitchingScenes = true;
         SaveSystem.Load();
+    }
+
+    private void ShowNote()
+    {
+        NoteManager.instance.dialogueTrigger = note;
+        NoteManager.instance.StartReading(note.dialogue1);
     }
 }

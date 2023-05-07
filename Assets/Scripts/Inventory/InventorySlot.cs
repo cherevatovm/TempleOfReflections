@@ -16,7 +16,7 @@ public class InventorySlot : MonoBehaviour
     protected Button clickableSlot;
 
     public int stackCount;
-    [HideInInspector] public int justBoughtCount;
+    public int justBoughtCount;
     [HideInInspector] public bool isEmpty = true;
 
     private void Awake()
