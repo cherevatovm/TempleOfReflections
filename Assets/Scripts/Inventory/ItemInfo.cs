@@ -58,14 +58,14 @@ public class ItemInfo : MonoBehaviour
         {
             if (slot.justBoughtCount > 0)
             {
-                if (GameController.instance.isInTutorial)
+                if (GameController.instance.isInTutorial && Inventory.instance.isInTrade)
                     sellOrPutInContainerButton.interactable = GameController.instance.inventoryTutorialSteps[1];
                 priceText.text = slot.slotItem.itemValue.ToString();
                 sellOrPutInContainerButton.transform.GetChild(0).GetComponent<Text>().text = "Вернуть";
             }
             else
             {
-                if (GameController.instance.isInTutorial)
+                if (GameController.instance.isInTutorial && Inventory.instance.isInTrade)
                     sellOrPutInContainerButton.interactable = GameController.instance.inventoryTutorialSteps[0];
                 priceText.text = ((int)(slot.slotItem.itemValue * 0.75)).ToString();             
             }

@@ -9,6 +9,7 @@ public class EventMarker : MonoBehaviour
     [SerializeField] private int eventID;
     [SerializeField] private SoundManager.Sound sound;
     [SerializeField] private NoteTrigger note;
+    [SerializeField] private Enemy enemyToFight;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,6 +25,9 @@ public class EventMarker : MonoBehaviour
                     break;
                 case 2:
                     ShowNote();
+                    break;
+                case 3:
+                    StartBossFight();
                     break;
             }
         }
@@ -48,5 +52,14 @@ public class EventMarker : MonoBehaviour
     {
         NoteManager.instance.dialogueTrigger = note;
         NoteManager.instance.StartReading(note.dialogue1);
+    }
+
+    private void StartBossFight()
+    {
+        if (Inventory.instance.doorKeysInPossession == 2)
+        {
+            CombatSystem.instance.encounteredEnemy = enemyToFight;
+            StartCoroutine(CombatSystem.instance.SetupBattle());
+        }
     }
 }

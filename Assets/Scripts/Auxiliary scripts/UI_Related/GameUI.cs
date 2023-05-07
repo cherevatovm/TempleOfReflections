@@ -123,13 +123,14 @@ public class GameUI : MonoBehaviour
             tutorialVer.GetChild(0).GetComponent<Text>().text = "Об осколках";           
             if (tutorialPartIndex == 0)
             {
-                tutorialVer.GetChild(1).GetComponent<Text>().text = "Туториал об осколках 1";
+                tutorialVer.GetChild(1).GetComponent<Text>().text = "Осколки при поднятии отправляются в специально зарезервированные для них слоты инвентаря. Каждый осколок накладывает одновременно по положительному и отрицательному эффекту, " +
+                    "а также повышает максимальное здоровье на 25%, максимальное MP - на 20%. Одинаковые эффекты на разных осколках складываются. При попытке поднять осколок появляется окно с подтверждением, где вы можете увидеть его эффекты. Если вы не желаете подбирать осколок, просто отойдите от него.";
                 button.onClick.AddListener(SwitchFromTutorialVersion);
             }
             else
             {
                 itemPanel.SetActive(true);
-                tutorialVer.GetChild(1).GetComponent<Text>().text = "Туториал об осколках 2";
+                tutorialVer.GetChild(1).GetComponent<Text>().text = "Имейте в виду, что при отделении осколок отнимет у вас 20% от максимального здоровья, все эффекты, наложенные им, пропадут, сам же осколок исчезнет.";
                 button.onClick.AddListener(CloseItemPanel);
             }
         }
@@ -138,34 +139,38 @@ public class GameUI : MonoBehaviour
             if (tutorialPartIndex == 0)
             {
                 tutorialVer.GetChild(0).GetComponent<Text>().text = "О предметах";
-                tutorialVer.GetChild(1).GetComponent<Text>().text = "Туториал о предметах";
+                tutorialVer.GetChild(1).GetComponent<Text>().text = "В игре вы можете наткнуться на самые разные предметы - от целебных микстур и успокоительных (восстанавливают очки MP) разных объемов до предметов, " +
+                    "которые влияют на характеристики союзников или врагов. Некоторые из предметов можно использовать только в бою. Чтобы ознакомиться с описание подобранного предмета, откройте инвентарь, нажав I, и кликните на ячейку с интересующим предметом.";
             }
             else
             {
                 tutorialVer.GetChild(0).GetComponent<Text>().text = "О ключах";
-                tutorialVer.GetChild(1).GetComponent<Text>().text = "Туториал о ключах";
+                tutorialVer.GetChild(1).GetComponent<Text>().text = "Для открытия большинства сундуков в игре нужны голубые ключи. Ключи для сундуков не уникальны - вы можете открыть любой запертый сундук, если у вас имеется ключ в инвентаре. " +
+                    "После отпирания конкретного сундука другой ключ для его повторного открытия не требуется.";
             }
             button.onClick.AddListener(CloseItemPanel);
         }
         else if (tutorialIndex == 2)
         {
             tutorialVer.GetChild(0).GetComponent<Text>().text = "О торговцах";
-            tutorialVer.GetChild(1).GetComponent<Text>().text = "Туториал о торговцах";
+            tutorialVer.GetChild(1).GetComponent<Text>().text = "С некоторыми NPC помимо обычного диалога возможна торговля. При разговоре с ними в интерфейсе диалога появляется кнопка 'Магазин'. Для покупки используются монеты, " +
+                "которые вы можете подобрать во время прохождения уровня, заработать, побеждая врагов или продавая найденные предметы. Попробуйте совершить свою первую сделку прямо сейчас!";
             button.onClick.AddListener(StartDialogueAfter);
         }
         else if (tutorialIndex == 3)
         {
             tutorialVer.GetChild(0).GetComponent<Text>().text = "О сундуках";
             if (tutorialPartIndex == 0)
-                tutorialVer.GetChild(1).GetComponent<Text>().text = "Туториал о сундуках 1";
+                tutorialVer.GetChild(1).GetComponent<Text>().text = "Этот сундук был заперт, но поскольку у вас завалялся ключ в инвентаре, вы успешно открыли его. " +
+                    " Старайтесь не проходить мимо сундуков - зачастую в них лежат ценные предметы. Кроме того, при необходимости вы можете класть в сундуки на хранении предметы из вашего инвентаря.";
             else
-                tutorialVer.GetChild(1).GetComponent<Text>().text = "Туториал о сундуках 2";
+                tutorialVer.GetChild(1).GetComponent<Text>().text = "Вы успешно отперли сундук. Старайтесь не проходить мимо сундуков - зачастую в них лежат ценные предметы. Кроме того, при необходимости вы можете класть в сундуки на хранении предметы из вашего инвентаря.";
             button.onClick.AddListener(OpenChest);
         }
         else if (tutorialIndex == 4)
         {
             tutorialVer.GetChild(0).GetComponent<Text>().text = "О сохранении";
-            tutorialVer.GetChild(1).GetComponent<Text>().text = "Туториал о сохранении";
+            tutorialVer.GetChild(1).GetComponent<Text>().text = "Вы можете сохранять игру у идолов, расставленных по уровню. Для сохранения доступен только один слот.";
             button.onClick.AddListener(CloseItemPanel);
         }
     }

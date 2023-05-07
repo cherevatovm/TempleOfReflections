@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 202953188257519553}
   - component: {fileID: 1739321564057170995}
   m_Layer: 0
-  m_Name: Copy
+  m_Name: Reflection of Sorrow
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 6675552436712926789}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 7601133036522211499}
-  unitName: Copy
+  unitName: Reflection of Sorrow
   combatHUD: {fileID: 0}
   meleeAttackStrength: 16
   mentalAttackStrength: 16
@@ -150,10 +150,9 @@ MonoBehaviour:
   - 1
   availableMentalSkills: 00000000
   enemyDescription: 
-  enemyID: 0
+  enemyID: 4
   coinsDropped: 10
-  enemyPrefabsForCombat:
-  - {fileID: 6675552436712926789}
+  enemyPrefabsForCombat: []
 --- !u!114 &6470584236497553494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,9 +226,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 2.2536187, y: -0.96351314}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.4423888
 --- !u!114 &1739321564057170995
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -159,6 +159,7 @@ public class Parasite : PickableItem
                 attachedUnit.availableMentalSkills[2] = true;
                 break;
             case 11:
+                Debug.Log("test");
                 attachedUnit.availableMentalSkills[3] = true;
                 break;
         }

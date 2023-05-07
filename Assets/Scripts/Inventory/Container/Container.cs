@@ -37,7 +37,7 @@ public class Container : MonoBehaviour
                         GameUI.instance.inventoryDialogue.text = "Вы использовали ключ, чтобы отпереть замок";
                     }
                     else
-                        GameUI.instance.inventoryDialogue.text = "У вас нет ключей, чтобы отпереть замок";
+                        GameUI.instance.gameDialogue.text = "У вас нет ключей, чтобы отпереть замок";
                 }
                 else
                     Open();

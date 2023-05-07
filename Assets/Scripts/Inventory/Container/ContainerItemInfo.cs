@@ -38,7 +38,7 @@ public class ContainerItemInfo : ItemInfo
             }
             else
             {
-                if (GameController.instance.isInTutorial)
+                if (GameController.instance.isInTutorial && containerSlot is TradingSlot)
                     buyOrTakeButton.interactable = !GameController.instance.inventoryTutorialSteps[0] || GameController.instance.inventoryTutorialSteps[2];
                 priceText.text = containerSlot.slotItem.itemValue.ToString();
             }

@@ -22,6 +22,7 @@ public class Merchant : DialogueTrigger
             DialogueManager.instance.dialogueTrigger = this;
             if (GameController.instance.isInTutorial && !GameController.instance.inventoryTutorialSteps[0])
             {
+                Inventory.instance.PutInInventory(Instantiate(GameController.instance.prefabs[3]));
                 GameUI.instance.ItemPanelTutorialMode(2);
                 GameUI.instance.OpenItemPanel();
                 GameUI.instance.gameDialogue.text = string.Empty;

@@ -12,14 +12,13 @@ public class CloneEnemyAI : EnemyAI
         soundID = -1;
         Enemy currentEnemyUnit = CombatSystem.instance.enemyUnits[CombatSystem.instance.curEnemyID];
         List<string> messageList = new();
-
         if (countWeaknessesTurns == 3 && CombatSystem.instance.enemyUnits.Count < 4)
             return CloneMode();
         else
         {
             CombatSystem.instance.curAllyID = random.Next(0, CombatSystem.instance.allyUnits.Count);
             Unit target = CombatSystem.instance.allyUnits[CombatSystem.instance.curAllyID];
-            SoundManager.PlaySound(SoundManager.Sound.ElectraSkill);
+            SoundManager.PlaySound(SoundManager.Sound.WeaponSwingWithHit);
             if (CombatSystem.instance.reflectionProbability1 > 0 && random.NextDouble() < CombatSystem.instance.reflectionProbability1)
             {
                 messageList.Add(CombatSystem.instance.ReflectAction(currentEnemyUnit, -1, -CombatSystem.instance.CalcAffinityDamage(0, false, currentEnemyUnit, currentEnemyUnit), out _));
@@ -34,12 +33,8 @@ public class CloneEnemyAI : EnemyAI
                 messageList.Add(currentEnemyUnit.unitName + " наносит " + totalDamage + " физического урона");
             }
         }
-        
-
-        
         return messageList;
     }
-
 
     private List<string> CloneMode()
     {
@@ -48,7 +43,6 @@ public class CloneEnemyAI : EnemyAI
         {
             currentEnemyUnit.unitName + " создает своего клона"
         };
-
         countWeaknessesTurns = 0;
         messageList.Add(currentEnemyUnit.unitName + " создает своего клона");
         GameObject enemyCombat = Instantiate(currentEnemyUnit.enemyPrefabsForCombat[CombatSystem.instance.curEnemyID],

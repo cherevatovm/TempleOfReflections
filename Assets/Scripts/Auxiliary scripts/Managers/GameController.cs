@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
         }
         else
             Destroy(gameObject);
-        instance.isInTutorial = true;
+        //instance.isInTutorial = true;
         //instance.isInTutorial = (SceneManager.GetActiveScene().buildIndex == 1);
     }
 }

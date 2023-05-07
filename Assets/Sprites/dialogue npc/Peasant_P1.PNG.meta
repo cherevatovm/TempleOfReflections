@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 25
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -6308,10 +6308,10 @@ TextureImporter:
       Peasant_P1_42: -1145499112
       Peasant_P1_275: -1541178954
       Peasant_P1_60: 1742889056
-      Peasant_P1_99: -142574338
       Peasant_P1_283: -391787692
-      Peasant_P1_247: -124851322
+      Peasant_P1_99: -142574338
       Peasant_P1_281: 1171357382
+      Peasant_P1_247: -124851322
       Peasant_P1_274: -1852785691
       Peasant_P1_235: 925301442
       Peasant_P1_56: 1955444606
@@ -6320,10 +6320,10 @@ TextureImporter:
       Peasant_P1_131: -1536036999
       Peasant_P1_17: -1501242865
       Peasant_P1_106: -210649167
+      Peasant_P1_250: 589373819
       Peasant_P1_223: 876625381
       Peasant_P1_97: 482307718
       Peasant_P1_144: 247003007
-      Peasant_P1_250: 589373819
       Peasant_P1_211: -1651608043
       Peasant_P1_222: -2032486817
       Peasant_P1_242: 96902187
@@ -6448,9 +6448,9 @@ TextureImporter:
       Peasant_P1_239: 757218135
       Peasant_P1_241: 286878980
       Peasant_P1_198: -995444183
+      Peasant_P1_25: -121284392
       Peasant_P1_145: -1119718696
       Peasant_P1_40: -188322273
-      Peasant_P1_25: -121284392
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

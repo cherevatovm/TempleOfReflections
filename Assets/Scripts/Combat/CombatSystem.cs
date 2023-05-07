@@ -72,6 +72,8 @@ public class CombatSystem : MonoBehaviour
         SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
         SoundManager.PlaySound(SoundManager.Sound.MentalBattle);
         Inventory.instance.Close();
+        if (GameController.instance.isInTutorial)
+            Inventory.instance.PutInInventory(Instantiate(GameController.instance.prefabs[11]));
         encounteredEnemy.gameObject.GetComponent<Collider2D>().enabled = false;
         encounteredEnemy.gameObject.GetComponent<EnemyMovement>().enabled = false;
         Inventory.instance.attachedUnit.GetComponent<PlayerMovement>().enabled = false;
@@ -92,7 +94,11 @@ public class CombatSystem : MonoBehaviour
         curAllyID = 0;
         for (int i = 0; i < encounteredEnemy.enemyPrefabsForCombat.Length; i++)
         {
-            GameObject enemyCombat = Instantiate(encounteredEnemy.enemyPrefabsForCombat[i], enemyCombatPositions[i]);
+            GameObject enemyCombat;
+            if (encounteredEnemy.enemyID == 4)
+                enemyCombat = Instantiate(encounteredEnemy.enemyPrefabsForCombat[i], enemyCombatPositions[^1]);
+            else
+                enemyCombat = Instantiate(encounteredEnemy.enemyPrefabsForCombat[i], enemyCombatPositions[i]);
             enemyUnits.Add(enemyCombat.GetComponent<Enemy>());
             enemyAIs.Add(enemyCombat.GetComponent<EnemyAI>());
             enemyCombatControllers.Add(enemyCombat.GetComponent<CombatController>());
