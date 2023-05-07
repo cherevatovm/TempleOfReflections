@@ -34,7 +34,6 @@ public class ContainerItemInfo : ItemInfo
                 if (GameController.instance.isInTutorial)
                     buyOrTakeButton.interactable = true;
                 priceText.text = ((int)(containerSlot.slotItem.itemValue * 0.75)).ToString();
-                priceTag.transform.GetChild(2).GetComponent<Text>().text = "Вернуть за:";
                 buyOrTakeButton.transform.GetChild(0).GetComponent<Text>().text = "Вернуть";
             }
             else
@@ -57,14 +56,8 @@ public class ContainerItemInfo : ItemInfo
     public void ChangeBuyOrTakeButtonText(bool isTrading)
     {
         if (isTrading)
-        {
             buyOrTakeButton.transform.GetChild(0).GetComponent<Text>().text = "Купить";
-            priceTag.transform.GetChild(2).GetComponent<Text>().text = "Цена покупки:";
-        }
         else
-        {
             buyOrTakeButton.transform.GetChild(0).GetComponent<Text>().text = "Взять";
-            priceTag.transform.GetChild(2).GetComponent<Text>().text = "Цена продажи:";
-        }
     }
 }

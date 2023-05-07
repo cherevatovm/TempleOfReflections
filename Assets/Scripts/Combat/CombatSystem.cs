@@ -68,7 +68,7 @@ public class CombatSystem : MonoBehaviour
 
     public IEnumerator SetupBattle()
     {
-        SoundManager.StopLoopedSound();
+        //SoundManager.StopLoopedSound();
         SoundManager.PlaySound(SoundManager.Sound.EnterCombat);
         SoundManager.PlaySound(SoundManager.Sound.MentalBattle);
         Inventory.instance.Close();
@@ -124,6 +124,8 @@ public class CombatSystem : MonoBehaviour
             StartCoroutine(EnemyTurn());
             yield break;
         }
+        if (GameController.instance.isInTutorial && GameController.instance.combatTutorialSteps < 5)
+            combatUI.OpenTutorialPanel();
         if (enemyUnits[curEnemyID].IsDead())
         {
             RemoveEnemy(curEnemyID);
@@ -325,24 +327,34 @@ public class CombatSystem : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         if (allyUnits[curAllyID].IsDead())
         {
-            ItemWithEffect sacrDoll = allyUnits[curAllyID].affectingItems.Find(item => item is SacrificialDoll);
-            if (sacrDoll != null)
+            if (GameController.instance.isInTutorial)
             {
-                sacrDoll.RemoveEffect();
-                yield return new WaitForSeconds(1.5f);
+                allyUnits[curAllyID].currentHP = allyUnits[curAllyID].maxHP;
+                allyUnits[curAllyID].combatHUD.ChangeHP(allyUnits[curAllyID].currentHP);
+                curAllyID++;
                 StartCoroutine(AllyTurn());
             }
             else
             {
-                RemoveAlly(curAllyID);
-                yield return new WaitForSeconds(1.5f);
-                if (allyUnits.Count == 0)
+                ItemWithEffect sacrDoll = allyUnits[curAllyID].affectingItems.Find(item => item is SacrificialDoll);
+                if (sacrDoll != null)
                 {
-                    combatState = CombatState.LOST;
-                    FinishBattle();
+                    sacrDoll.RemoveEffect();
+                    yield return new WaitForSeconds(1.5f);
+                    StartCoroutine(AllyTurn());
                 }
                 else
-                    StartCoroutine(AllyTurn());
+                {
+                    RemoveAlly(curAllyID);
+                    yield return new WaitForSeconds(1.5f);
+                    if (allyUnits.Count == 0)
+                    {
+                        combatState = CombatState.LOST;
+                        FinishBattle();
+                    }
+                    else
+                        StartCoroutine(AllyTurn());
+                }
             }
         }
         else if (!enemyUnits[curEnemyID].IsDead() && enemyUnits[curEnemyID].isKnockedDown && enemyUnits[curEnemyID].knockedTurnsCount == 0)

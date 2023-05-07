@@ -162,6 +162,12 @@ public class GameUI : MonoBehaviour
                 tutorialVer.GetChild(1).GetComponent<Text>().text = "Туториал о сундуках 2";
             button.onClick.AddListener(OpenChest);
         }
+        else if (tutorialIndex == 4)
+        {
+            tutorialVer.GetChild(0).GetComponent<Text>().text = "О сохранении";
+            tutorialVer.GetChild(1).GetComponent<Text>().text = "Туториал о сохранении";
+            button.onClick.AddListener(CloseItemPanel);
+        }
     }
 
     private void SwitchFromTutorialVersion()
@@ -180,6 +186,7 @@ public class GameUI : MonoBehaviour
     private void OpenChest()
     {
         CloseItemPanel();
+        SoundManager.PlaySound(SoundManager.Sound.OpenContainer);
         Inventory.instance.Open();
         GameController.instance.wasContainerTutorialShown = true;
     }

@@ -47,8 +47,7 @@ public class Container : MonoBehaviour
     private void Open()
     {
         if (Inventory.instance.isOpen)
-            Inventory.instance.Close();
-        SoundManager.PlaySound(SoundManager.Sound.OpenContainer);
+            Inventory.instance.Close();        
         for (int i = 0; i < containerSlotsInInventory.childCount; i++)
         {
             if (containerSlots[i].isEmpty)
@@ -63,7 +62,10 @@ public class Container : MonoBehaviour
             GameUI.instance.OpenItemPanel();
         }
         else
+        {
+            SoundManager.PlaySound(SoundManager.Sound.OpenContainer);
             Inventory.instance.Open();
+        }
         isOpen = true;
     }
 

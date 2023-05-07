@@ -110,7 +110,7 @@ public class Inventory : MonoBehaviour
 
     public void CloseTradingMenu()
     {
-        if (System.Array.Exists(GameController.instance.inventoryTutorialSteps, elem => elem == false))
+        if (GameController.instance.isInTutorial && System.Array.Exists(GameController.instance.inventoryTutorialSteps, elem => elem == false))
             return;
         DialogueManager.instance.SetActiveDialogueUI(true);        
         ContainerItemInfo.instance.Close();

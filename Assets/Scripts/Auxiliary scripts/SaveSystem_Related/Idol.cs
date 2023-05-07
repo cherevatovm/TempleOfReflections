@@ -11,6 +11,12 @@ public class Idol : MonoBehaviour
     {
         if (isClose && Input.GetKeyDown(KeyCode.F))
         {
+            if (GameController.instance.isInTutorial && !GameController.instance.wasGameSaved)
+            {               
+                GameUI.instance.ItemPanelTutorialMode(4);
+                GameUI.instance.OpenItemPanel();
+                GameController.instance.wasGameSaved = true;
+            }
             SaveSystem.Save(new SavedData(Inventory.instance.attachedUnit,
                 SaveController.instance.GetInventoryData(false), -1, index, SaveController.instance.GetItemDataList(), SaveController.instance.GetParasiteDataList(),
                 SaveController.instance.GetContainerDataList(), SaveController.instance.GetMerchantDataList(), SaveController.instance.GetTalkedToNpcData(),
@@ -30,5 +36,7 @@ public class Idol : MonoBehaviour
     {
         isClose = false;
         GameUI.instance.gameDialogue.text = string.Empty;
+        if (GameController.instance.isInTutorial)
+            GameUI.instance.CloseItemPanel();
     }
 }

@@ -94,5 +94,7 @@ public class EnemyInfoPanel : MonoBehaviour
         CombatSystem.instance.combatUI.combatDialogue.text = prevCombatLine;
         CombatSystem.instance.combatUI.blackouts[1].SetActive(false);
         gameObject.SetActive(false);
+        if (GameController.instance.isInTutorial && GameController.instance.combatTutorialSteps == 2)
+            CombatSystem.instance.combatUI.OpenTutorialPanel();
     }
 }

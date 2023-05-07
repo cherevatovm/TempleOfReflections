@@ -5,7 +5,9 @@ public class GameController : MonoBehaviour
 {
     public bool isInTutorial;
     public bool[] inventoryTutorialSteps = new bool[3];
+    public int combatTutorialSteps;
     public bool wasContainerTutorialShown;
+    public bool wasGameSaved;
 
     public GameObject[] prefabs;
     [HideInInspector] public bool hasBeenLoaded;

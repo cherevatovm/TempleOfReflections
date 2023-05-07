@@ -12,7 +12,7 @@ public class EnemyLockedDoor : Door
         {
             if (GameUI.instance.exitUI.activeSelf)
                 GameUI.instance.ShowOrHideExitUI();
-            if (!System.Array.Exists(guardingEnemies, elem => elem != null))
+            if (!System.Array.Exists(guardingEnemies, elem => elem.activeSelf))
             {
                 Open();
                 GameUI.instance.gameDialogue.text = "ѕоскольку враги, св€занные с дверью печатью, повержены, вам удалось успешно отпереть дверь";
